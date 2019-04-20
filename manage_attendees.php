@@ -1,18 +1,24 @@
 <?php
-    $user = "student";
-    if($user == "student" || $user == "counselor" || $user == "parent"){
+session_start();
+
+if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
+		header("Location: dashboard.php");
+		exit;
+}
+?>
+
+<?php
+    $user = "admin";
+    if($user == "adnmin"){
         $group_num = 3;
         $bus_num = 10;
         $cabin_num = 15;
-        $name = "Grace Choe";
+        $name = "admin";
         $email = "test@example.com";
         $status = "Registered!";
         $credit = "$50";
         $price = "$299";
-        include 'dashboard/main_dashboard.php';
-    } else if ($user == "admin"){
-        // add any needed data for admin
-        $name = "Admin";
+        $childid = 123456;
         include 'dashboard/admin_dashboard.php';
     }
 ?>
@@ -64,11 +70,11 @@
 			<div class="card-body">
 				<div class="d-flex justify-content-between align-items-center">
 					<a class="card-text"></a>
-					<h3><?php echo $firstname . " " . $lastname ?></h3>
+					<h3><?php echo $first_name . " " . $last_name ?></h3>
                 </div>
                 <div>
-					<a href="editchild.php?childid=<?php echo $name; ?>" role="button" class="btn btn-sm btn-secondary">Edit Camper</a>
-					<button onclick="deleteChildById(<?php echo $name; ?>)" id="deletecamper" class="btn btn-sm btn-danger">Delete Camper</button>
+					<a href="editchild.php?childid=<?php echo $childid; ?>" role="button" class="btn btn-sm btn-secondary">Edit Camper</a>
+					<button onclick="deleteChildById(<?php echo $childid; ?>)" id="deletecamper" class="btn btn-sm btn-danger">Delete Camper</button>
 			    </div>
             </div>  
             <div class="d-flex justify-content-between align-items-center">
