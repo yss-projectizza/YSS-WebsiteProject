@@ -10,30 +10,121 @@
   <head>
     <meta charset="utf-8">
     <title>Youth Spiritual Summit | Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel = "stylesheet" href = "/Users/Cherald/Desktop/ProjectIzza-PIzza-/parentRegistrationStyle.css ">
   </head>
 
-  <body style = "text-align: center">
+  <body style = "text-align: center" >
+    <!--
+    Navigation bar
+    -->
+  <nav class="navbar navbar-expand-sm navbar-light bg-white">
+    <div class="container" style = "background: LightSteelBlue">
+      <a class="navbar-brand" href="http://youthspiritualsummit.weebly.com">
+        <img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav mx-auto">
+          <a class="nav-item nav-link" href="http://youthspiritualsummit.weebly.com"><font color="white">Home</font></a>
+                    <!-- change to YSS Activities -->
+          <a class="nav-item nav-link" href="http://campizza.com/calendar"><font color="white">Activities</font></a>
+                    <!-- change to YSS Fees -->
+          <a class="nav-item nav-link" href="http://campizza.com/camp-fees"><font color="white">Fees</font></a>
+                    <!-- change to YSS Contact -->
+          <a class="nav-item nav-link" href="http://campizza.com/contact"><font color="white">Contact</font></a>
+        </div>
+      </div>
+    </div>
+  </nav>
 
     <h1>Create an Account</h1>
-    <form class="signupForm">
-      <label for = "nameInput">Full Name</label>
-      <input type = "text" id = "nameInput">
-      <label for = "emailInput">Email Address</label>
-      <input type = "text" id="emailInput">
-      <label for = "passwordInput">Password</label>
-      <input type = "password" id = "passwordInput">
-      <label for = "phoneInput">Primary Phone</label>
-      <input type = "text" id = "phoneInput">
-      <label for = "addressInput">Address</label>
-      <input type = "text" id = "addressInput">
-      <label for = "cityInput">City</label>
-      <input type = "text" id = "cityInput">
-      <label for = "zipInput">Zip Code</label>
-      <input type = "text" id = "zipInput">
-
-      <label for = "submitForm">Submit</label>
-      <input type = "submit" id = "submitForm">
+    <form class="signupForm" action = "index.php" method = "post" id = "appForm">
+      <p>
+        <span class = "input-group-text" for = "nameInput">Full Name</span>
+        <input type = "text" class = "form-control" id = "nameInput">
+      </p>
+      <p>
+        <label for = "emailInput">Email Address</label>
+        <input type = "semail" id="emailInput">
+      </p>
+      <p>
+        <label for = "passwordInput">Password</label>
+        <input type = "password" id = "passwordInput">
+      </p>
+      <p>
+        <label for = "phoneInput">Primary Phone</label>
+        <input type = "text" id = "phoneInput">
+      </p>
+      <p>
+        <label for = "addressInput">Address</label>
+        <input type = "text" id = "addressInput">
+      </p>
+      <p>
+        <label for = "cityInput">City</label>
+        <input type = "text" id = "cityInput">
+      </p>
+      <p>
+        <label for = "zipInput">Zip Code</label>
+        <input type = "text" id = "zipInput">
+      </p>
+      <p>
+        <!--
+          <label for = "submitForm">Submit</label>
+          -->
+        <input type = "button" id = "submitForm" value = "submit"
+        formaction = "/index.php" style = "font-weight: bold;">
+      </p>
     </form>
+
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--<script src="counselor_app.js"></script>-->
+    <script>
+        var config = {
+        apiKey: "AIzaSyDyWL6I7h4Vm_n3eJBWLie92wm77E1lQhU",
+        authDomain: "youth-spiritual-summit.firebaseapp.com",
+        databaseURL: "https://youth-spiritual-summit.firebaseio.com",
+        projectId: "youth-spiritual-summit",
+        storageBucket: "youth-spiritual-summit.appspot.com",
+        messagingSenderId: "215019311847" };
+        firebase.initializeApp(config);
+
+        //console.log($('#nameInput').val());
+        $('#signupForm').submit(function(event){
+          event.preventDefault();
+          var formData = {
+            "fullName": $('#nameInput'.val()),
+            "email": $('#emailInput'.val()),
+            "phone": $('#phoneInput'.val())
+          };
+          var newPostRef = firebase.database().ref('/').push(formData);
+        });
+        document.getElementById("appForm").addEventListener("click", function(){
+                                alert("The form was submitted");
+            //var database = firebase.database();
+            alert("went to Firebase");
+            /*
+            var fullName = document.getElementById("nameInput").value;
+            var email = document.getElementById("emailInput").value;
+            var phoneNum = document.getElementById("phoneInput").value;
+            //console.log("testing");
+            //console.log(fullName, email, phoneNum);
+            var newPostRef = firebase.database().ref('/').push({
+            fullName: fullName,
+            email: emailInput,
+            phone: phoneInput
+            });
+            */
+            // Get the unique ID generated by push() by accessing its key
+            var postID = newPostRef.key;
+            });
+
+    </script>
 
   </body>
 </html>
