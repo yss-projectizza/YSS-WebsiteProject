@@ -20,6 +20,47 @@
 
 <body>
 
+<?php
+        // define variables and set to empty values
+        $firstnameErr = $lastnameErr = $dobErr = $uploadErr = "";
+        $firstname = $lastname = $dob = $upload = "";
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (empty($_POST["firstname"])) {
+            $firstnameErr = "First Name is required";
+        } else {
+            $firstname = test_input($_POST["firstname"]);
+        }
+
+        if (empty($_POST["lastname"])) {
+            $lastnameErr = "Last Name is required";
+        } else {
+            $lastname = test_input($_POST["lastname"]);
+        }
+
+        if (empty($_POST["dob"])) {
+            $dobErr = "Date of Birth is required";
+        } else {
+            $dob= test_input($_POST["dob"]);
+        }
+
+        if (empty($_POST["upload"])) {
+            $uploadErr = "Student ID photo is required";
+        } else {
+            $upload = test_input($_POST["upload"]);
+        }
+
+        }
+
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+
+    ?>
+
 	<nav class="navbar navbar-expand-sm navbar-light bg-white">
 		<div class="container" style = "background: LightSteelBlue">
 			<a class="navbar-brand" href="http://youthspiritualsummit.weebly.com">
@@ -39,192 +80,191 @@
 		</div>
 	</nav>
 
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
-    <div class="container" style = "background: white; margin-top: 20px;">
-    <!-- Camp Registration Header -->
-    <h1 align="center" style = "font-size:50px;padding-top: 20px;">Camper Registration</h1>
-	
-	 <!-- NEW STUFF STARTING HERE -->
-	<div class="block_1"><p style="padding-top:20px"</div> <hr />
+    <form method="post" action="validate.php"> 
+        <div class="container" style = "background: white; margin-top: 20px;">
+        <!-- Camp Registration Header -->
+        <h1 align="center" style = "font-size:50px;padding-top: 20px;">Camper Registration</h1>
+        
+        <!-- NEW STUFF STARTING HERE -->
+        <div class="block_1"><p style="padding-top:20px"</div> <hr />
 
-  	<div class="container">
-    <!-- Camper Information -->
-        <label><p style = "font-size:30px;">Camper Information</p></label>
-            
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
+        <div class="container">
+        <!-- Camper Information -->
+            <label><p style = "font-size:30px;">Camper Information</p></label>
+                
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="text" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>             
                 </div>
-                <input type="text" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>
-                <span class="error"> <?php echo $firstnameErr;?></span>               
-            </div>
-          
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                     <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
+            
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
+                    </div>
                     <input type="text" placeholder="Ex: Smith" id="lastname" class="form-control" required>
                 </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Gender:<b style = "color: red;">*</b></span>
+                        <select class="form-control form-control-md" id="gender">
+                                <option>Female</option>
+                                <option>Male</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class='input-group date'>
+                            <span class="input-group-text">Date Of Birth:<b style = "color: red;">*</b></span>
+                            <input type='date' id="dob" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
+                        <select class="form-control form-control-md" id="schoolyear">
+                            <option>Freshman</option>
+                            <option>Sophomore</option>
+                            <option>Junior</option>
+                            <option>Senior</option>
+                            <option>Early College</option>
+                            <option>Home School</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
+                        <select class="form-control form-control-md" id="age">
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Clothing Size:<b style = "color: red;">*</b></span>
+                        <select class="form-control form-control-md" id="size">
+                            <option>Small</option>
+                            <option>Medium</option>
+                            <option>Large</option>
+                            <option>XL</option>
+                            <option>XXL</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <form action="upload.php" method="post" enctype="multipart/form-data">
+                    Picture of Student ID:<b style = "color: red;">*</b>
+                    <input type="file" id="upload"">
+                </form>
+        </div>  
+
+        <div class="block_1"><p style="padding-top:30px"</div> <hr />
+
+        <div class="container">
+        <!-- Personal Information -->
+            <label><p style = "font-size:30px;padding-top: 10px;"">Personal Information</p></label>
+        </div>
+        <div class="container">
+            <label><p style = "font-size:18px;"">How would you rate yourself in the following areas?</p></label>
+                
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Spirituality (closeness to God)<b style = "color: red;">*</b></span>
+                        <select class="form-control form-control-md" id="spiritual">
+                            <option>Very High</option>
+                            <option>High</option>
+                            <option>Neutral</option>
+                            <option>Low</option>
+                            <option>Very Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Religious Knowledge:<b style = "color: red;">*</b></span>
+                        <select class="form-control form-control-md" id="knowledge">
+                            <option>Very High</option>
+                            <option>High</option>
+                            <option>Neutral</option>
+                            <option>Low</option>
+                            <option>Very Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Actively Improving Myself:<b style = "color: red;">*</b></span>
+                        <select class="form-control form-control-md" id="improvement">
+                            <option>Very High</option>
+                            <option>High</option>
+                            <option>Neutral</option>
+                            <option>Low</option>
+                            <option>Very Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Actively Involved In Making My Community Better:<b style = "color: red;">*</b></span>
+                        <select class="form-control form-control-md" id="community">
+                            <option>Very High</option>
+                            <option>High</option>
+                            <option>Neutral</option>
+                            <option>Low</option>
+                            <option>Very Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                
+                <div class="row initial-task-padding">
+                    <div class="col">
+                        <p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>  
+                        <textarea id="hopes" cols="135" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="row initial-task-padding">
+                    <div class="col">
+                        <p>What are some activities that you enjoy?</p>  
+                        <textarea id="activities" cols="135" rows="3"></textarea>
+                    </div>
+                </div>
+            
+                <div class="row initial-task-padding">
+                    <div class="col">
+                        <p>What is one question you would like to have answered during this year's Summit?</b></p>  
+                        <textarea id="question" cols="135" rows="3"></textarea>
+                    </div>
+                </div>
+                
+
+        <div class="block_1"><p style="padding-top:30px"</div> <hr />
+
+        <!-- Submit -->
+            <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
+                <div class="col">
+                    <input type="submit" name="submit" class="btn-xl" align="center" value="Submit" id="finish" >
+                </div>
             </div>
-
-            <div class="input-group mb-3">
-		  		<div class="input-group-prepend">
-                  <span class="input-group-text">Gender:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" id="gender">
-						    <option>Female</option>
-						    <option>Male</option>
-				    </select>
-				</div>
-			</div>
-
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-			        <div class='input-group date'>
-                         <span class="input-group-text">Date Of Birth:<b style = "color: red;">*</b></span>
-			            <input type='date' id="dob" class="form-control" required>
-			        </div>
-				</div>
-			</div>
-
-			<div class="input-group mb-3">
-		  		<div class="input-group-prepend">
-                  <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" id="schoolyear">
-						<option>Freshman</option>
-						<option>Sophomore</option>
-						<option>Junior</option>
-						<option>Senior</option>
-						<option>Early College</option>
-						<option>Home School</option>
-				    </select>
-				</div>
-			</div>
-
-			<div class="input-group mb-3">
-		  		<div class="input-group-prepend">
-                  <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" id="age">
-						<option>14</option>
-						<option>15</option>
-						<option>16</option>
-						<option>17</option>
-						<option>18</option>
-				    </select>
-				</div>
-			</div>
-
-			<div class="input-group mb-3">
-		  		<div class="input-group-prepend">
-                  <span class="input-group-text">Clothing Size:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" id="size">
-						<option>Small</option>
-						<option>Medium</option>
-						<option>Large</option>
-						<option>XL</option>
-						<option>XXL</option>
-				    </select>
-				</div>
-			</div>
-
-
-			<form action="upload.php" method="post" enctype="multipart/form-data">
-    			Picture of Student ID:<b style = "color: red;">*</b>
-                <input type="file" id="upload"">
-			</form>
-	</div>  
-
-	<div class="block_1"><p style="padding-top:30px"</div> <hr />
-
-	<div class="container">
-    <!-- Personal Information -->
-		<label><p style = "font-size:30px;padding-top: 10px;"">Personal Information</p></label>
-	</div>
-	<div class="container">
-		<label><p style = "font-size:18px;"">How would you rate yourself in the following areas?</p></label>
-			
-			<div class="input-group mb-3">
-		  		<div class="input-group-prepend">
-                  <span class="input-group-text">Spirituality (closeness to God)<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" id="spiritual">
-						<option>Very High</option>
-						<option>High</option>
-						<option>Neutral</option>
-						<option>Low</option>
-						<option>Very Low</option>
-				    </select>
-				</div>
-			</div>
-
-			<div class="input-group mb-3">
-		  		<div class="input-group-prepend">
-                  <span class="input-group-text">Religious Knowledge:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" id="knowledge">
-						<option>Very High</option>
-						<option>High</option>
-						<option>Neutral</option>
-						<option>Low</option>
-						<option>Very Low</option>
-				    </select>
-				</div>
-			</div>
-
-			<div class="input-group mb-3">
-		  		<div class="input-group-prepend">
-                  <span class="input-group-text">Actively Improving Myself:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" id="improvement">
-						<option>Very High</option>
-						<option>High</option>
-						<option>Neutral</option>
-						<option>Low</option>
-						<option>Very Low</option>
-				    </select>
-				</div>
-			</div>
-
-			<div class="input-group mb-3">
-		  		<div class="input-group-prepend">
-                  <span class="input-group-text">Actively Involved In Making My Community Better:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" id="community">
-						<option>Very High</option>
-						<option>High</option>
-						<option>Neutral</option>
-						<option>Low</option>
-						<option>Very Low</option>
-				    </select>
-				</div>
-			</div>
-
-			
-			<div class="row initial-task-padding">
-			  	<div class="col">
-					<p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>  
-					<textarea id="hopes" cols="135" rows="3"></textarea>
-				</div>
-			</div>
-
-			<div class="row initial-task-padding">
-			  	<div class="col">
-					<p>What are some activities that you enjoy?</p>  
-					<textarea id="activities" cols="135" rows="3"></textarea>
-				</div>
-			</div>
-		  
-			<div class="row initial-task-padding">
-			  	<div class="col">
-					<p>What is one question you would like to have answered during this year's Summit?</b></p>  
-					<textarea id="question" cols="135" rows="3"></textarea>
-				</div>
-	  		</div>
-			  
-
-	<div class="block_1"><p style="padding-top:30px"</div> <hr />
-
-	<!-- Submit -->
-		<div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
-			<div class="col">
-				<input type="submit" name="submit" class="btn-xl" align="center" value="Submit" id="finish" >
-			</div>
-		</div>
-	</div>
+        </div>
     </form>
    
 
@@ -243,7 +283,6 @@
             firebase.initializeApp(config);
 
             document.getElementById("finish").addEventListener("click", function(){
-                                    alert("The form was submitted.");
                 var database = firebase.database();
                 var fn = document.getElementById("firstname").value;
                 var ln = document.getElementById("lastname").value;
@@ -260,7 +299,6 @@
                 var hopes = document.getElementById("hopes").value;
                 var activities = document.getElementById("activities").value;
                 var question = document.getElementById("question").value;
-                console.log(fn, ln, gender, dob, year, age, spiritual, knowledge, improvement, community, hopes, activities, question);
                 var newPostRef = firebase.database().ref('/').push({
                 first_name: fn,
                 last_name: ln,
@@ -278,6 +316,8 @@
                 activities: activities,
                 question: question
                 });
+                console.log(fn, ln, gender, dob, year, age, spiritual, knowledge, improvement, community, hopes, activities, question);
+                alert("The form was submitted.");
                 // Get the unique ID generated by push() by accessing its key
                 var postID = newPostRef.key;
                 });
