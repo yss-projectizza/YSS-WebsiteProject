@@ -1,5 +1,6 @@
 <?php
-    $user = "student";
+  session_start();
+    $user = "admin";
     if($user == "student" || $user == "counselor" || $user == "parent"){
         $group_num = 3;
         $bus_num = 10;
