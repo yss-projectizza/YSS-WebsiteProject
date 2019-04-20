@@ -16,31 +16,6 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 ?>
 
 
-
-<?php
-require __DIR__.'/vendor/autoload.php';
-
-
-
-// This assumes that you have placed the Firebase credentials in the same directory
-// as this PHP file.
-use Kreait\Firebase\Factory;
-use Kreait\Firebase\ServiceAccount;
-
-
-$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/yss-project-69ba2-firebase-adminsdk-qpgd1-772443326e.json');
-
-
-$firebase = (new Factory)
-    ->withServiceAccount($serviceAccount)
-    ->create();
-$database = $firebase->getDatabase();
-$reference = $database->getReference('/emachta')->getValue();
-print_r($reference["password"]);
-
-
-		?>
-
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 <script>
   // Initialize Firebase
@@ -71,14 +46,14 @@ print_r($reference["password"]);
 	</head>
 
 <body class="text-center">
-	<form style="display:inline-block;width:500;margin-top:50">
+	<form action="authentication.php" style="display:inline-block;width:500;margin-top:50" method="POST">
 
 	  <img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="TEST" style="background-color:#dadada">
 		<h1 class="h3 mb-3 font-weight-normal" style="margin-top:30">Login</h1>
 		<label for="inputEmail" class="sr-only">Email address</label>
-		<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+		<input name="user" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
 		<label for="inputPassword" class="sr-only">Password</label>
-		<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+		<input type="password" name="passwd" id="inputPassword" class="form-control" placeholder="Password" required>
 		<input class="btn btn-lg btn-primary btn-block" type="submit" id="submitbutton"></input>
 		<hr>
 		<a class="btn btn-sm btn-warning btn-block" href="/parentRegistration.html" role="button">Register</a>
@@ -89,6 +64,9 @@ print_r($reference["password"]);
 	<script>
 	document.getElementById("submitbutton").addEventListener("click", function(){
 		var email = document.getElementById("inputEmail");
+		var password = document.getElementById("inputPassword");
+
+		form.submit();
 
 	})
 
