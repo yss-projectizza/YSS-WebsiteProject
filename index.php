@@ -1,3 +1,13 @@
+<?php
+if(  (isset($_SESSION["loggedin"]))){
+		echo "USER IS LOGGED IN";
+}   else {
+		echo "NOT LOGGED IN";
+}
+
+
+?>
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -22,14 +32,13 @@
 			}
 		  }
 		</style>
-		<!-- Custom styles for this template -->
 		<link href="signin.css" rel="stylesheet">
 	</head>
 
 <body class="text-center">
 	<form class="form-signin">
 
-		<!-- <img class="mb-4" src="https://static.wixstatic.com/media/46af7c_6c86140c4f8e479e95cb12c1bddfa5f1~mv2.gif" alt="" width="72" height="72"> -->
+		<img class="mb-4" src="ysslogo.png" alt="" width="72" height="72">
 		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 		<label for="inputEmail" class="sr-only">Email address</label>
 		<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -39,7 +48,7 @@
 		<hr>
 		<a class="btn btn-sm btn-warning btn-block" href="/registerparent" role="button">New? Register here!</a>
 		<a class="btn btn-sm btn-outline-info btn-block" href="/forgot" role="button">Forgot Password</a>
-		<p class="mt-5 mb-3 text-muted">&copy; Youth Spiritual Summit - 2019</p>
+		<p class="mt-5 mb-3 text-muted">&copy; Youth Spiritual Summit 2019</p>
 	</form>
 </body>
 </html>
