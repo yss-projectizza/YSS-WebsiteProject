@@ -15,6 +15,32 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 }
 ?>
 
+
+
+<?php
+require __DIR__.'/vendor/autoload.php';
+
+
+
+// This assumes that you have placed the Firebase credentials in the same directory
+// as this PHP file.
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
+
+
+$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/yss-project-69ba2-firebase-adminsdk-qpgd1-772443326e.json');
+
+
+$firebase = (new Factory)
+    ->withServiceAccount($serviceAccount)
+    ->create();
+$database = $firebase->getDatabase();
+$reference = $database->getReference('/emachta')->getValue();
+print_r($reference["password"]);
+
+
+		?>
+
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 <script>
   // Initialize Firebase
@@ -63,10 +89,11 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 	<script>
 	document.getElementById("submitbutton").addEventListener("click", function(){
 		var email = document.getElementById("inputEmail");
-		alert("done")
+
 	})
 
 	</script>
+
 
 </body>
 </html>
