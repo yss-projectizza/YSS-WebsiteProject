@@ -267,10 +267,7 @@
                     }
                     else if (dob == ''){
                         alert("fill in date of birth");
-					}
-					else if (file == ''){
-						alert("please add student id file");
-					}
+					}			
                     else {
                         var newPostRef = firebase.database().ref('/').push({
                             first_name: fn,
