@@ -76,17 +76,70 @@
 				</div>
 			</div>
 
-
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
-			        <div class="form-group">
-			            <div class='input-group date'>
-                            <span class="input-group-text">Date Of Birth:<b style = "color: red;">*</b></span>
-			                <input type='date' name="dob" class="form-control" required>
-			            </div>
+			        <div class='input-group date'>
+                         <span class="input-group-text">Date Of Birth:<b style = "color: red;">*</b></span>
+			            <input type='date' name="dob" class="form-control" required>
 			        </div>
-			    </div>
+				</div>
 			</div>
+
+			<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+                  <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
+				    <select class="form-control form-control-md" name="schoolyear">
+						<option>Freshman</option>
+						<option>Sophomore</option>
+						<option>Junior</option>
+						<option>Senior</option>
+						<option>Early College</option>
+						<option>Home School</option>
+				    </select>
+				</div>
+			</div>
+
+			<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+                  <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
+				    <select class="form-control form-control-md" name="age">
+						<option>14</option>
+						<option>15</option>
+						<option>16</option>
+						<option>17</option>
+						<option>18</option>
+				    </select>
+				</div>
+			</div>
+
+			<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+                  <span class="input-group-text">Clothing Size:<b style = "color: red;">*</b></span>
+				    <select class="form-control form-control-md" name="clothingsize">
+						<option>Small</option>
+						<option>Medium</option>
+						<option>Large</option>
+						<option>XL</option>
+						<option>XXL</option>
+				    </select>
+				</div>
+			</div>
+
+
+			<form action="upload.php" method="post" enctype="multipart/form-data">
+    			Select image to upload:
+    			<input type="file" name="fileToUpload" id="fileToUpload">
+    		<input type="submit" value="Upload Image" name="submit">
+			</form>
+
+
+
+
+
+
+
+
+
              <!-- NEW STUFF ENDING HERE -->
              
     		<div class="row initial-task-padding">
