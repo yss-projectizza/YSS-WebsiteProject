@@ -1,2 +1,8 @@
 // this file is for hiding elements accordingly to the user type
-console.log("hello this is main dashboard");
+function goToProfile(){
+  document.location.href = "/dashboard/profile.php";
+}
+
+function getLogic(){
+  console.log("hello this is main dashboard");
+}

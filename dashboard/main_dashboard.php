@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
-  <body>
+  <body onload=getLogic();>
   <nav class="navbar navbar-expand-sm navbar-light bg-white">
 		<div class="container" style = "background: LightSteelBlue">
 			<a class="navbar-brand" href="http://youthspiritualsummit.weebly.com">
@@ -28,7 +28,7 @@
       Notes:
       View People = another page to view people in their cabin, group, bus
       Camp Info = another page to view direct camp info
-      Student (underage): Has ToDos, Schedule, View People, Profile, Camp Info
+      Student (underage): Has ToDos (done), Schedule (done), View People (still need), Profile (still need), Camp Info (done)
         - Profile: only has interest, phone #, email, etc. (no address or emergency contact)
       Student (18): Has ToDos, Schedule, View People, Profile, Camp Info
         - Profile: only has interest, phone #, email,  billing address, emergency contact, etc.
@@ -39,16 +39,20 @@
                   also has own profile,
       Counselor: Camp Info, Schedule, Profile, View People
         - Profile: has interest, phone #, email, etc.
+
+      OTHER TODOS:
+      - figure how to toggle between student type, parent, and counselor
+        - ideas
+          - hide certain elements through javascript
+          - figure out how to get user type into php
     -->
     <main class="main">
       <div class="main-header">
         <div class="main-header__heading">
           Hello <?php echo $name; ?>! 
           <div id="profile">
-            <img src="profile_placeholder.jpg"/>
+            <img src="profile_placeholder.jpg" onClick="goToProfile();"/> <!-- need to move this to the right side of the card -->
           </div>
-          <br/>
-          <br/>
           <p id="status">Your Status is: <?php echo $status; ?></p>
         </div>
       </div>
