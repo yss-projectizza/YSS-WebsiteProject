@@ -24,10 +24,43 @@
 		</div>
 	</nav>
     <h1>Welcome to your Dashboard!</h1>
+    <!--
+      Notes:
+      View People = another page to view people in their cabin, group, bus
+      Camp Info = another page to view direct camp info
+      Student (underage): Has ToDos, Schedule, View People, Profile, Camp Info
+        - Profile: only has interest, phone #, email, etc. (no address or emergency contact)
+      Student (18): Has ToDos, Schedule, View People, Profile, Camp Info
+        - Profile: only has interest, phone #, email,  billing address, emergency contact, etc.
+      Parent: Has ToDos, Schedule, Manage Campers, Can see each camper's info
+        - Manage Campers: can add camper, see camper status + name, and give access to camper
+                          for their own account
+        - Profile: can see profile of their campers, can edit that info for each camper,
+                  also has own profile,
+      Counselor: Camp Info, Schedule, Profile, View People
+        - Profile: has interest, phone #, email, etc.
+    -->
     <div>
-      <div id="todos" class="box">
+      <div id="todos" class="hidden box left-align">
+        <h2>Your To Dos:</h2>
+        <p>Register Status: <?php echo $status; ?></p>
+        <input type="checkbox" disabled="disabled" checked="checked"/> Payment has been Recieved.
+      </div>
+      <div class="hidden box left-align">
+        <h2>Camp Information</h2>
+        <p>Group Number: <?php echo $group_num; ?></p>
+        <p>Bus Number: <?php echo $bus_num; ?></p>
+        <p>Cabin Number: <?php echo $cabin_num; ?></p>
+      </div>
+      <div class="hidden box left-align">
         <h2>Your Information</h2>
-        <p>Name <?php echo $name; ?></p>
+        <p>Name: <?php echo $name; ?></p>
+        <p>Email: <?php echo $email; ?></p>
+      </div>
+      <div class="hidden box right-align" id="schedule">
+        <h2>Schedule</h2>
+        <p>Monday</p>
+        <p>ETC</p>
       </div>
     </div>
     <div class="footer top-buffer">
