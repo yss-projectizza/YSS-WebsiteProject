@@ -66,8 +66,8 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     </small> </span>
                     <br>
                     <form action="/action_page.php">
-                        <input type="radio" name="available" value="Yes"> Yes <br>
-                        <input type="radio" name="available" value="No"> No <br>
+                        <input type="radio" name="yss_available" value="Yes"> Yes <br>
+                        <input type="radio" name="yss_available" value="No"> No <br>
                     </form>
                     <br>
                 </div>
@@ -81,8 +81,8 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     </small> </span>
                     <br>
                     <form action="/action_page.php">
-                        <input type="radio" name="available" value="Yes"> Yes <br>
-                        <input type="radio" name="available" value="No"> No <br>
+                        <input type="radio" name="cs_available" value="Yes"> Yes <br>
+                        <input type="radio" name="cs_available" value="No"> No <br>
                     </form>
                     <br>
                 </div>
@@ -94,14 +94,14 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                 <div class="input-group-prepend">
                     <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
                 </div>
-                <input type="text" placeholder="Ex: John" name="firstname" class="form-control" required>
+                <input type="text" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>
             </div>
           
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
                 </div>
-                <input type="text" placeholder="Ex: Smith" name="lastname" class="form-control" required>
+                <input type="text" placeholder="Ex: Smith" name="lastname" id="lastname" class="form-control" required>
             </div>
 
             <div class="input-group mb-3">
@@ -118,7 +118,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
 				<div class="input-group-prepend">
 			        <div class='input-group date'>
                          <span class="input-group-text">Date Of Birth:<b style = "color: red;">*</b></span>
-			            <input type='date' name="dob" class="form-control" required>
+			            <input type='date' name="dob" id="dob" class="form-control" required>
 			        </div>
 				</div>
             </div>
@@ -164,7 +164,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                 <div class="input-group-prepend">
                     <span class="input-group-text">Email Address:<b style = "color: red;">*</b></span>
                 </div>
-                <input type="text" placeholder="Ex: johnsmith@gmail.com" name="email" class="form-control" required>
+                <input type="text" placeholder="Ex: johnsmith@gmail.com" name="email" id="email" class="form-control" required>
             </div>
 
             <div class="row initial-task-padding">
@@ -290,24 +290,85 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
 	<!-- Submit -->
     <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
 			<div class="col">
-				<input type="submit" class="btn-xl" align="center" value="Submit" >
+				<input id="submitform" type="button" class="btn-xl" align="center" value="Submit" >
 			</div>
 		</div>
 	</div>
 	</form>
 
     <!--Javascript here-->
-	<script type="text/javascript">
+	<!--<script type="text/javascript">
 		$(".dropdown-menu a").click(function() {
 		  $(this).parents(".dropdown").find('.btn').html($(this).text());
 		  $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
 		});
-	</script>
+	</script>-->
 	
-	<script type="text/javascript">
+	<!--<script type="text/javascript">
 		$(".dropdown-menu").click(function() {
 			$("#gender").val($(this).data('value'));
-	</script>
+	</script>-->
+
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+    <script>
+        var config = { 
+            apiKey: "AIzaSyDyWL6I7h4Vm_n3eJBWLie92wm77E1lQhU",
+            authDomain: "youth-spiritual-summit.firebaseapp.com",
+            databaseURL: "https://youth-spiritual-summit.firebaseio.com",
+            projectId: "youth-spiritual-summit",
+            storageBucket: "youth-spiritual-summit.appspot.com",
+            messagingSenderId: "215019311847" };
+
+            firebase.initializeApp(config);
+
+            document.getElementById("submitform").addEventListener("click", function(){
+                    var database = firebase.database();
+                    var fn = document.getElementById("firstname").value;
+                    var ln = document.getElementById("lastname").value;
+                    var dob = document.getElementById("dob").value;
+                    var e = document.getElementById("email").value;
+                    e = e.replace(".", ",");
+                        //console.log("testing");
+                        //console.log(fn, ln, dob, e);
+                    if (!fn || !fn || !dob || !e){
+                        alert("fill in all required fields");
+                    } else {
+                        var check_e;
+                        firebase.database().ref('/counselors/' + e + '/').once('value').then(function(snapshot) 
+                            {
+                                console.log("checking if exists");
+                                check_e = (snapshot.val() && snapshot.val().email);
+                                console.log(check_e);
+                            }
+                        );
+
+                        setTimeout(function(){
+                        
+                    if (check_e != e){
+                            var newPostRef = firebase.database().ref('/counselors/' + e + '/').set({
+                            first_name: fn,
+                            last_name: ln,
+                            dob: dob,
+                            email: e
+                            }, 
+                            function(error) {
+                                if (error) {
+                                    alert("didn't go through");
+                                } else {
+                                    //var postID = newPostRef.key;
+                                    window.location.replace("index.php");
+                                    console.log("went to firebase");
+                                }
+                                });
+                            } else {
+                                alert("email already exists")
+                            }
+                        }, 3000);
+                    }
+            });
+    </script>
 	<div class="footer top-buffer">
 		<div class="container">
 			<div class="row align-items-center">
