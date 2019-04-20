@@ -45,19 +45,19 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 	</head>
 
 <body class="text-center">
-	<form>
+	<form style="display:inline-block;width:500;margin-top:50">
 
-	  <img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="TEST">
-		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+	  <img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="TEST" style="background-color:#dadada">
+		<h1 class="h3 mb-3 font-weight-normal" style="margin-top:30">Login</h1>
 		<label for="inputEmail" class="sr-only">Email address</label>
 		<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
 		<label for="inputPassword" class="sr-only">Password</label>
 		<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-		<input class="btn btn-lg btn-primary btn-block" type="submit" id="submitbutton">Sign in</input>
+		<input class="btn btn-lg btn-primary btn-block" type="submit" id="submitbutton"></input>
 		<hr>
-		<a class="btn btn-sm btn-warning btn-block" href="/parentRegistration.html" role="button">New? Register here!</a>
+		<a class="btn btn-sm btn-warning btn-block" href="/parentRegistration.html" role="button">Register</a>
 		<a class="btn btn-sm btn-outline-info btn-block" href="/forgot" role="button">Forgot Password</a>
-		<p class="mt-5 mb-3 text-muted">&copy; Youth Spiritual Summit 2019</p>
+		<p class="mt-5 mb-3 text-muted" style="font-size:14">&copy; Youth Spiritual Summit 2019</p>
 	</form>
 
 	<script>
