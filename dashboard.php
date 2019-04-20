@@ -16,7 +16,7 @@ $user = "student";
     $group_num = 3;
     $bus_num = 10;
     $cabin_num = 15;
-    $name = "Student / Counselor";
+    $name = "Grace Choe";
     $email = "test@example.com";
     $status = "Registered!";
     include 'dashboard/main_dashboard.php';

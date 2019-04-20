@@ -1,6 +1,7 @@
 <html lang="en">
   <head>
     <title>Youth Spiritual Summit</title>
+    <script src="dashboard/main_dashboard.js"></script>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
@@ -23,7 +24,6 @@
 			</div>
 		</div>
 	</nav>
-    <h1>Welcome to your Dashboard!</h1>
     <!--
       Notes:
       View People = another page to view people in their cabin, group, bus
@@ -40,29 +40,38 @@
       Counselor: Camp Info, Schedule, Profile, View People
         - Profile: has interest, phone #, email, etc.
     -->
-    <div>
-      <div id="todos" class="hidden box left-align">
-        <h2>Your To Dos:</h2>
-        <p>Register Status: <?php echo $status; ?></p>
-        <input type="checkbox" disabled="disabled" checked="checked"/> Payment has been Recieved.
+    <main class="main">
+      <div class="main-header">
+        <div class="main-header__heading">
+          Hello <?php echo $name; ?>! 
+          <br/>
+          <br/>
+          <p id="status">Your Status is: <?php echo $status; ?></p>
+        </div>
       </div>
-      <div class="hidden box left-align">
-        <h2>Camp Information</h2>
-        <p>Group Number: <?php echo $group_num; ?></p>
-        <p>Bus Number: <?php echo $bus_num; ?></p>
-        <p>Cabin Number: <?php echo $cabin_num; ?></p>
+      <div class="main-cards">
+        <div class="card">
+          <h2>Schedule</h2>
+          <p>Monday</p>
+          <p>ETC</p>
+        </div>
+        <div class="card">
+          <h2>Your To Dos:</h2>
+          <input type="checkbox" disabled="disabled" checked="checked"/> Payment has been Recieved.
+        </div>
+        <div class="card">
+          <h2>Camp Information</h2>
+          <p>Group Number: <?php echo $group_num; ?></p>
+          <p>Bus Number: <?php echo $bus_num; ?></p>
+          <p>Cabin Number: <?php echo $cabin_num; ?>
+        </div>
+        <div class="card"> 
+          <h2>Your Information</h2>
+          <p>Name: <?php echo $name; ?></p>
+          <p>Email: <?php echo $email; ?></p>
+        </div>
       </div>
-      <div class="hidden box left-align">
-        <h2>Your Information</h2>
-        <p>Name: <?php echo $name; ?></p>
-        <p>Email: <?php echo $email; ?></p>
-      </div>
-      <div class="hidden box right-align" id="schedule">
-        <h2>Schedule</h2>
-        <p>Monday</p>
-        <p>ETC</p>
-      </div>
-    </div>
+    </main>
     <div class="footer top-buffer">
       <div class="container">
         <div class="row align-items-center">
