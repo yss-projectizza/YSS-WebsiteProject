@@ -39,8 +39,49 @@
 		</div>
 	</nav>
 
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-<div class="container" style = "background: white; margin-top: 20px;">
+    <?php
+        // define variables and set to empty values
+        $firstnameErr = $lastnameErr = $dobErr = $uploadErr = "";
+        $firstname = $lastname = $dob = $upload = "";
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (empty($_POST["firstname"])) {
+            $firstnameErr = "First Name is required";
+        } else {
+            $firstname = test_input($_POST["firstname"]);
+        }
+
+        if (empty($_POST["lastname"])) {
+            $lastnameErr = "Last Name is required";
+        } else {
+            $lastname = test_input($_POST["lastname"]);
+        }
+
+        if (empty($_POST["dob"])) {
+            $dobErr = "Date of Birth is required";
+        } else {
+            $dob= test_input($_POST["dob"]);
+        }
+
+        if (empty($_POST["upload"])) {
+            $uploadErr = "Student ID photo is required";
+        } else {
+            $upload = test_input($_POST["upload"]);
+        }
+
+        }
+
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+
+    ?>
+
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
+    <div class="container" style = "background: white; margin-top: 20px;">
     <!-- Camp Registration Header -->
     <h1 align="center" style = "font-size:50px;padding-top: 20px;">Camper Registration</h1>
 	
@@ -55,14 +96,15 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
                 </div>
-                <input type="text" placeholder="Ex: John" id="firstname" class="form-control" required>
+                <input type="text" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>
+                <span class="error"> <?php echo $firstnameErr;?></span>               
             </div>
           
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
+                     <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
+                    <input type="text" placeholder="Ex: Smith" id="lastname" class="form-control" required>
                 </div>
-                <input type="text" placeholder="Ex: Smith" id="lastname" class="form-control" required>
             </div>
 
             <div class="input-group mb-3">
@@ -126,7 +168,7 @@
 
 
 			<form action="upload.php" method="post" enctype="multipart/form-data">
-    			Picture of Student ID:
+    			Picture of Student ID:<b style = "color: red;">*</b>
                 <input type="file" id="upload"">
 			</form>
 	</div>  
@@ -195,21 +237,21 @@
 			
 			<div class="row initial-task-padding">
 			  	<div class="col">
-					<p>What do you hope to get out of attending Youth Spiritual Summit this year?<b style = "color: #DC143C;">*</b></p>  
+					<p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>  
 					<textarea id="hopes" cols="135" rows="3"></textarea>
 				</div>
 			</div>
 
 			<div class="row initial-task-padding">
 			  	<div class="col">
-					<p>What are some activities that you enjoy?<b style = "color: #DC143C;">*</b></p>  
+					<p>What are some activities that you enjoy?</p>  
 					<textarea id="activities" cols="135" rows="3"></textarea>
 				</div>
 			</div>
 		  
 			<div class="row initial-task-padding">
 			  	<div class="col">
-					<p>What is one question you would like to have answered during this year's Summit?<b style = "color: #DC143C;">*</b></p>  
+					<p>What is one question you would like to have answered during this year's Summit?</b></p>  
 					<textarea id="question" cols="135" rows="3"></textarea>
 				</div>
 	  		</div>
@@ -220,44 +262,12 @@
 	<!-- Submit -->
 		<div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
 			<div class="col">
-				<input type="submit" class="btn-xl" align="center" value="Submit" id="finish" >
+				<input type="submit" name="submit" class="btn-xl" align="center" value="Submit" id="finish" >
 			</div>
 		</div>
 	</div>
-	</form>
-
-	<!-- Javascript here
-	<script type="text/javascript">
-		$(".dropdown-menu a").click(function() {
-		  $(this).parents(".dropdown").find('.btn').html($(this).text());
-		  $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-		});
-	</script>
-	
-	<script type="text/javascript">
-		$(".dropdown-menu").click(function() {
-			$("#gender").val($(this).data('value'));
-	</script>
-	<div class="footer top-buffer">
-		<div class="container">
-			<div class="row align-items-center">
-				<div class="col">
-					<a class="footerphone">
-						Call us:<br>
-						949-422-8123
-					</a>
-				</div>
-				<div class="vertline"></div>
-				<div class="col">
-				<p>Camp Izza is a 501 (c)(3) non-profit organization registered in the state of California with federal tax id #26-2174441</p>
-				</div>
-				<div class="vertline"></div>
-				<div class="col">
-				© 2019 Camp Izza
-				</div>
-			</div>
-		</div>
-	</div> -->
+    </form>
+   
 
 	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
@@ -273,9 +283,8 @@
             };
             firebase.initializeApp(config);
 
-            document.getElementById("finish").addEventListener("click", function(evt){
+            document.getElementById("finish").addEventListener("click", function(){
                                     alert("The form was submitted.");
-                evt.preventDefault();
                 var database = firebase.database();
                 var fn = document.getElementById("firstname").value;
                 var ln = document.getElementById("lastname").value;
