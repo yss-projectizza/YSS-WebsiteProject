@@ -44,6 +44,9 @@
       <div class="main-header">
         <div class="main-header__heading">
           Hello <?php echo $name; ?>! 
+          <div id="profile">
+            <img src="profile_placeholder.jpg"/>
+          </div>
           <br/>
           <br/>
           <p id="status">Your Status is: <?php echo $status; ?></p>
@@ -53,6 +56,10 @@
         <div class="card">
           <h2>Schedule</h2>
           <p>Monday</p>
+          <p>Tuesday</p>
+          <p>Wednesday</p>
+          <p>Thursday</p>
+          <p>Friday</p>
           <p>ETC</p>
         </div>
         <div class="card">

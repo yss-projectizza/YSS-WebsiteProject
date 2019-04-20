@@ -23,13 +23,22 @@
 			</div>
 		</div>
 	</nav>
-    <h1>Welcome to your Dashboard!</h1>
-    <div>
-      <div id="todos" class="box">
-        <h2>Your Information</h2>
-        <p>Name <?php echo $name; ?></p>
+  <main class="main">
+    <div class="main-header">
+      <div class="main-header__heading">
+        Hello <?php echo $name; ?>! 
+        <div id="profile">
+          <img src="profile_placeholder.jpg"/>
+        </div>
       </div>
     </div>
+    <div class="main-cards">
+      <div class="card">
+      </div>
+      <div class="card">
+      </div>
+    </div>
+  </main>
     <div class="footer top-buffer">
       <div class="container">
         <div class="row align-items-center">
