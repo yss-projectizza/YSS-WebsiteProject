@@ -4,7 +4,6 @@ $_SESSION["loggedin"] = false;
 
 
 if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
-		echo "USER IS LOGGED IN";
 		//if parent account
 		header("Location: dashboard.php");
 		exit;
@@ -15,7 +14,8 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 
 		//if no account
 }   else {
-		echo "NOT LOGGED IN";
+		header("Location: login.php");
+
 
 }
 ?>
