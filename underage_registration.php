@@ -270,6 +270,7 @@
 					}			
                     else {
                         var newPostRef = firebase.database().ref('/').push({
+							email: "",
                             first_name: fn,
                             last_name: ln,
                             gender: gender,
