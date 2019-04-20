@@ -267,7 +267,7 @@
                     }
                     else if (dob == ''){
                         alert("fill in date of birth");
-                    }
+					}			
                     else {
                         var newPostRef = firebase.database().ref('/').push({
                             first_name: fn,
