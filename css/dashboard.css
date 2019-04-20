@@ -6,15 +6,19 @@ body {
   box-sizing: border-box;
 }
 
+#profile {
+  position: relative;
+  left: 10%;
+  width: 25%;
+  height: auto;
+}
+
 /* Assign grid instructions to our parent grid container, mobile-first (hide the sidenav) */
 .grid-container {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 50px 1fr 50px;
-  grid-template-areas:
-    'header'
-    'main'
-    'footer';
+  grid-template-areas: 'main';
   height: 100vh;
 }
 
