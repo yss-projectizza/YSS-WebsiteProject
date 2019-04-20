@@ -14,7 +14,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 
 		//if no account
 }   else {
-		header("Location: dashboard.php");
+		header("Location: login.php");
 
 
 }

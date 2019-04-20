@@ -42,6 +42,11 @@
         <p>Password: </p>
         <p>ETC</p>
       </div>
+      <div class="hidden box">
+        <h2>Schedule</h2>
+        <p>Monday</p>
+        <p>ETC</p>
+      </div>
     </div>
     <div class="footer top-buffer">
       <div class="container">
