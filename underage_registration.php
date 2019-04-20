@@ -76,17 +76,29 @@
 				</div>
 			</div>
 
-
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
-			        <div class="form-group">
-			            <div class='input-group date'>
-                            <span class="input-group-text">Date Of Birth:<b style = "color: red;">*</b></span>
-			                <input type='date' name="dob" class="form-control" required>
-			            </div>
+			        <div class='input-group date'>
+                         <span class="input-group-text">Date Of Birth:<b style = "color: red;">*</b></span>
+			            <input type='date' name="dob" class="form-control" required>
 			        </div>
-			    </div>
+				</div>
 			</div>
+
+			<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+                  <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
+				    <select class="form-control form-control-md" name="gender">
+						<option>Freshman</option>
+						<option>Sophomore</option>
+						<option>Junior</option>
+						<option>Senior</option>
+						<option>Early College</option>
+						<option>Home School</option>
+				    </select>
+				</div>
+			</div>
+
              <!-- NEW STUFF ENDING HERE -->
              
     		<div class="row initial-task-padding">
