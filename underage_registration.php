@@ -42,17 +42,14 @@
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 <div class="container" style = "background: white; margin-top: 20px;">
     <!-- Camp Registration Header -->
-    <h1 align="center" style = "font-size:40px;padding-top: 20px;">Camper Registration</h1>
+    <h1 align="center" style = "font-size:50px;padding-top: 20px;">Camper Registration</h1>
 	
 	 <!-- NEW STUFF STARTING HERE -->
 	<div class="block_1"><p style="padding-top:20px"</div> <hr />
 
   	<div class="container">
     <!-- Camper Information -->
-        <label><p style = "font-size:26px;">Camper Information</p></label>
-
-        <!-- Camper Name -->   
-        
+        <label><p style = "font-size:30px;">Camper Information</p></label>
             
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -133,266 +130,99 @@
     			<input type="file" name="fileToUpload"">
     			<input type="submit" value="Upload Image" name="submit">
 			</form>
-
-
-
-
 	</div>  
 
 	<div class="block_1"><p style="padding-top:30px"</div> <hr />
 
 	<div class="container">
     <!-- Personal Information -->
-		<label><p style = "font-size:26px;padding-top: 10px;"">Personal Information</p></label>
+		<label><p style = "font-size:30px;padding-top: 10px;"">Personal Information</p></label>
 	</div>
 	<div class="container">
 		<label><p style = "font-size:18px;"">How would you rate yourself in the following areas?</p></label>
-	</div>
-
-	
-
-	<!-- NEW STUFF ENDING HERE -->
-
-
-
-
-
-
-
-             
-    		<div class="row initial-task-padding">
-		  		<div class="col">
-                    First Name:<b style = "color: red;">*</b>
-                    <input type="text" name="firstname" times-label="First Name" class="form-control" required>
-		  		</div>
-	  		</div>
-
-            <div class="row initial-task-padding">
-		  		<div class="col">
-                    Last Name:<b style = "color: red;">*</b>
-                    <input type="text" name="lastname" times-label=" Name" class="form-control" required>
-		  		</div>
-              </div>
-              
-    	<!-- Camper Gender/Camper Birthday -->
-    		<div class="row task-padding">
-    			<div class="col">
-    				<p>Gender:<b style = "color: #DC143C;">*</b></p>
-				</div>
-			</div>
-			<div class="row">
-		  		<div class="col">
-				<select class="form-control form-control-md" name="gender">
-						<option>Female</option>
-						<option>Male</option>
-				</select>
+			
+			<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+                  <span class="input-group-text">Spirituality (closeness to God)<b style = "color: red;">*</b></span>
+				    <select class="form-control form-control-md" name="spirituality">
+						<option>Very High</option>
+						<option>High</option>
+						<option>Neutral</option>
+						<option>Low</option>
+						<option>Very Low</option>
+				    </select>
 				</div>
 			</div>
 
-			<div class="row task-padding">
-				<div class="col">
-						<p>Date of Birth:<b style = "color: #DC143C;">*</b></p>
+			<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+                  <span class="input-group-text">Religious Knowledge:<b style = "color: red;">*</b></span>
+				    <select class="form-control form-control-md" name="spirituality">
+						<option>Very High</option>
+						<option>High</option>
+						<option>Neutral</option>
+						<option>Low</option>
+						<option>Very Low</option>
+				    </select>
 				</div>
 			</div>
-			<div class="row">
-				<div class='col'>
-			        <div class="form-group">
-			            <div class='input-group date'>
-			                <input type='date' name="dob" class="form-control" required>
-			            </div>
-			        </div>
-			    </div>
+
+			<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+                  <span class="input-group-text">Actively Improving Myself:<b style = "color: red;">*</b></span>
+				    <select class="form-control form-control-md" name="spirituality">
+						<option>Very High</option>
+						<option>High</option>
+						<option>Neutral</option>
+						<option>Low</option>
+						<option>Very Low</option>
+				    </select>
+				</div>
 			</div>
-    
-    	<!-- Health Information -->
-    		<div class="row margin-data">
-	  			<div class="col">
-		  				<span class="input-group-text"><p style = "font-family:times; font-size:25px;padding-top: 10px;">Health Information</p></span>
-	  			</div>
-  			</div>
-    		<!-- Doctor Name/Doctor # -->
-	    		<div class="row initial-task-padding">
-			  		<div class="col">
-			  			<p>Primary Physicians Name:<b style = "color: #DC143C;">*</b></p>
-			  		</div>
-		  		</div>
-		  		<div class="row no-task-padding">
-			  		<div class="col">
-						<input type="text" name="doctorname" times-label="Full Name" class="form-control" required>
-					</div>
-				</div>
 
-				<div class="row task-padding">
-					<div class="col">
-						<p>Phone Number: (e.g 1234567890)<b style = "color: #DC143C;">*</b></p>
-					</div>
-		  		</div>
-		  		<div class="row no-task-padding">
-					<div class="col">
-						<input type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" name="doctorphone" times-label="Physician Number" class="form-control" required>
-					</div>
+			<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+                  <span class="input-group-text">Actively Involved In Making My Community Better:<b style = "color: red;">*</b></span>
+				    <select class="form-control form-control-md" name="spirituality">
+						<option>Very High</option>
+						<option>High</option>
+						<option>Neutral</option>
+						<option>Low</option>
+						<option>Very Low</option>
+				    </select>
 				</div>
+			</div>
 
-			<!-- Insurance Information -->
-    		<!-- Insurance Carrier/Policy Holder's Name -->
-    		<div class="row initial-task-padding">
-		  		<div class="col">
-		  			<p>Insurance Carrier:<b style = "color: #DC143C;">*</b></p>
-		  		</div>
-	  		</div>
-	  		<div class="row no-task-padding">
-		  		<div class="col">
-					<input type="text" name="insurance" times-label="Insurance" class="form-control" required>
+			
+			<div class="row initial-task-padding">
+			  	<div class="col">
+					<p>What do you hope to get out of attending Youth Spiritual Summit this year?<b style = "color: #DC143C;">*</b></p>  
+					<textarea name="hopes" cols="135" rows="3"></textarea>
 				</div>
 			</div>
 
 			<div class="row initial-task-padding">
-				<div class="col">
-					<p>Policy Holder's Name:<b style = "color: #DC143C;">*</b></p>
+			  	<div class="col">
+					<p>What are some activities that you enjoy?<b style = "color: #DC143C;">*</b></p>  
+					<textarea name="activities" cols="135" rows="3"></textarea>
+				</div>
+			</div>
+		  
+			<div class="row initial-task-padding">
+			  	<div class="col">
+					<p>What is one question you would like to have answered during this year's Summit?<b style = "color: #DC143C;">*</b></p>  
+					<textarea name="question" cols="135" rows="3"></textarea>
 				</div>
 	  		</div>
-	  		<div class="row no-task-padding">
-				<div class="col">
-					<input type="text" name="policyholder" times-label="PolicyHoldersName" class="form-control" required>
-				</div>
-			</div>
-  
-    	<!-- Health Questions -->
-    		<div class="row margin-data">
-	  			<div class="col">
-		  				<span class="input-group-text"><p style = "font-family:times; font-size:25px;padding-top: 10px;">Health Questions</p></span>
-	  			</div>
-  			</div>
-    		<!-- Chronic conditions or illnesses -->
-	    		<div class="row initial-task-padding">
-			  		<div class="col">
-			  			<p>Does your child have any chronic conditions or illnesses of which we should be aware of?<b style = "color: #DC143C;">*</b></p>
-			  		</div>
-		  		</div>
-		  		<div class="row no-task-padding">
-			  		<div class="col">
-						<input type="text" name="illnesses" times-label="CCI" class="form-control">
-					</div>
-				</div>
+			  
 
-    		<!-- Allergies and/or Dietary Restrictions -->
-	    		<div class="row initial-task-padding">
-			  		<div class="col">
-			  			<p>Does your child have any allergies and/or dietary restrictions of which we should be aware of?<b style = "color: #DC143C;">*</b></p>
-			  		</div>
-		  		</div>
-		  		<div class="row no-task-padding">
-			  		<div class="col">
-						<input type="text" name="allergies" times-label="CCI" class="form-control">
-					</div>
-				</div>
-
-    		<!-- Will your child be taking any medication at camp? -->
-	    		<div class="row initial-task-padding">
-			  		<div class="col">
-			  			<p>Will your child be taking any medication at camp? If yes, please list medications<b style = "color: #DC143C;">*</b></p>
-			  		</div>
-		  		</div>
-		  		<div class="row no-task-padding">
-		  			<div class="col-2">
-					<select class="form-control form-control-lg" name="medication">
-						<option>Yes</option>
-						<option>No</option>
-					</select>
-					</div>
-					<div class="col">
-						<input type="text" name="medicationnames" times-label="CCI" class="form-control">
-					</div>
-				</div>
+	<div class="block_1"><p style="padding-top:30px"</div> <hr />
 
 
-    		<!-- Are there any activities at camp that your child cannot participate in? If yes, which activities -->
-	    		<div class="row initial-task-padding">
-				  		<div class="col">
-				  			<p>Are there any activities at camp that your child cannot participate in? If yes, which activities<b style = "color: #DC143C;">*</b></p>
-				  		</div>
-			  	</div>
-		  		<div class="row no-task-padding">
-		  			<div class="col-2">
-					<select class="form-control form-control-lg" name="activities">
-						<option>Yes</option>
-						<option>No</option>
-					</select>
-					</div>
-					<div class="col">
-						<input type="text" name="activitiesnames" times-label="CCI" class="form-control">
-					</div>
-				</div>
-    		<!-- Has your child undergone any medical treatments?-->
-    			<div class="row initial-task-padding">
-				  		<div class="col">
-				  			<p>Has your child undergone any medical treatments? If yes, which treatments.<b style = "color: #DC143C;">*</b></p>
-				  		</div>
-			  	</div>
-		  		<div class="row no-task-padding">
-		  			<div class="col-2">
-					<select class="form-control form-control-lg" name="medicaltreatments">
-						<option>Yes</option>
-						<option>No</option>
-					</select>
-					</div>
-					<div class="col">
-						<input type="text" name="medicaltreatmentsnames" times-label="CCI" class="form-control">
-					</div>
-				</div>
 
-    		<!-- Has your child recieved all current immunizations? (Needs a yes)-->
-    		    <div class="row initial-task-padding">
-				  		<div class="col">
-				  			<p>Has your child recieved all current immunizations?<b style = "color: #DC143C;">*</b></p>
-				  		</div>
-			  	</div>
-		  		<div class="row no-task-padding">
-		  			<div class="col-2">
-					<select class="form-control form-control-lg" name="immunizations">
-						<option>Yes</option>
-						<option>No</option>
-					</select>
-					</div>
-				</div>
-    		<!-- Tetanus shot Date-->
-    		<div class="row initial-task-padding">
-				  		<div class="col">
-				  			<p>What is the date of last tetanus shot? (approximate date if necessary)<b style = "color: #DC143C;">*</b></p>
-				  		</div>
-			  	</div>
-		  		<div class="row no-task-padding">
-					<div class='col'>
-			            <div class="form-group">
-			                <div class='input-group date'>
-			                    <input type='date' name="tetanusdate" class="form-control" required />
-			                    <!-- <span class="input-group-addon">
-			                        <span class="glyphicon glyphicon-calendar"></span>
-			                    </span> -->
-			                </div>
-			            </div>
-			    	</div>
-				</div>
-    <!-- Comments -->
-   			<div class="row margin-data">
-	  			<div class="col">
-		  				<span class="input-group-text"><p style = "font-family:times; font-size:25px;padding-top: 10px;">Extra Comments</p></span>
-	  			</div>
-  			</div>
-    	<!-- Additional Comments about Camper -->
-    	<div class="row initial-task-padding">
-			  		<div class="col">
-			  			<p>Do you have any additional comments about this camper?</p>
-			  		</div>
-		</div>
-		<div class="row no-task-padding">
-			<div class="col">
-				<textarea class="form-control" name="comments" placeholder="Comments."></textarea>
-			</div>
-		</div>
-	</div>
 	
-	<input type="hidden" id="gender" name="gender" value="">
+
+	<!-- NEW STUFF ENDING HERE -->
 
 
 	<!-- Submit -->
