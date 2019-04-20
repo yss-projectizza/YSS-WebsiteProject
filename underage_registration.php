@@ -55,20 +55,20 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
                 </div>
-                <input type="text" placeholder="Ex: John" name="firstname" class="form-control" required>
+                <input type="text" placeholder="Ex: John" id="firstname" class="form-control" required>
             </div>
           
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
                 </div>
-                <input type="text" placeholder="Ex: Smith" name="lastname" class="form-control" required>
+                <input type="text" placeholder="Ex: Smith" id="lastname" class="form-control" required>
             </div>
 
             <div class="input-group mb-3">
 		  		<div class="input-group-prepend">
                   <span class="input-group-text">Gender:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" name="gender">
+				    <select class="form-control form-control-md" id="gender">
 						    <option>Female</option>
 						    <option>Male</option>
 				    </select>
@@ -79,7 +79,7 @@
 				<div class="input-group-prepend">
 			        <div class='input-group date'>
                          <span class="input-group-text">Date Of Birth:<b style = "color: red;">*</b></span>
-			            <input type='date' name="dob" class="form-control" required>
+			            <input type='date' id="dob" class="form-control" required>
 			        </div>
 				</div>
 			</div>
@@ -87,7 +87,7 @@
 			<div class="input-group mb-3">
 		  		<div class="input-group-prepend">
                   <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" name="schoolyear">
+				    <select class="form-control form-control-md" id="schoolyear">
 						<option>Freshman</option>
 						<option>Sophomore</option>
 						<option>Junior</option>
@@ -101,7 +101,7 @@
 			<div class="input-group mb-3">
 		  		<div class="input-group-prepend">
                   <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" name="age">
+				    <select class="form-control form-control-md" id="age">
 						<option>14</option>
 						<option>15</option>
 						<option>16</option>
@@ -114,7 +114,7 @@
 			<div class="input-group mb-3">
 		  		<div class="input-group-prepend">
                   <span class="input-group-text">Clothing Size:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" name="clothingsize">
+				    <select class="form-control form-control-md" id="size">
 						<option>Small</option>
 						<option>Medium</option>
 						<option>Large</option>
@@ -127,7 +127,7 @@
 
 			<form action="upload.php" method="post" enctype="multipart/form-data">
     			Picture of Student ID:
-    			<input type="file" name="fileToUpload"">
+                <input type="file" id="upload"">
 			</form>
 	</div>  
 
@@ -143,7 +143,7 @@
 			<div class="input-group mb-3">
 		  		<div class="input-group-prepend">
                   <span class="input-group-text">Spirituality (closeness to God)<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" name="spirituality">
+				    <select class="form-control form-control-md" id="spiritual">
 						<option>Very High</option>
 						<option>High</option>
 						<option>Neutral</option>
@@ -156,7 +156,7 @@
 			<div class="input-group mb-3">
 		  		<div class="input-group-prepend">
                   <span class="input-group-text">Religious Knowledge:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" name="spirituality">
+				    <select class="form-control form-control-md" id="knowledge">
 						<option>Very High</option>
 						<option>High</option>
 						<option>Neutral</option>
@@ -169,7 +169,7 @@
 			<div class="input-group mb-3">
 		  		<div class="input-group-prepend">
                   <span class="input-group-text">Actively Improving Myself:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" name="spirituality">
+				    <select class="form-control form-control-md" id="improvement">
 						<option>Very High</option>
 						<option>High</option>
 						<option>Neutral</option>
@@ -182,7 +182,7 @@
 			<div class="input-group mb-3">
 		  		<div class="input-group-prepend">
                   <span class="input-group-text">Actively Involved In Making My Community Better:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" name="spirituality">
+				    <select class="form-control form-control-md" id="community">
 						<option>Very High</option>
 						<option>High</option>
 						<option>Neutral</option>
@@ -196,21 +196,21 @@
 			<div class="row initial-task-padding">
 			  	<div class="col">
 					<p>What do you hope to get out of attending Youth Spiritual Summit this year?<b style = "color: #DC143C;">*</b></p>  
-					<textarea name="hopes" cols="135" rows="3"></textarea>
+					<textarea id="hopes" cols="135" rows="3"></textarea>
 				</div>
 			</div>
 
 			<div class="row initial-task-padding">
 			  	<div class="col">
 					<p>What are some activities that you enjoy?<b style = "color: #DC143C;">*</b></p>  
-					<textarea name="activities" cols="135" rows="3"></textarea>
+					<textarea id="activities" cols="135" rows="3"></textarea>
 				</div>
 			</div>
 		  
 			<div class="row initial-task-padding">
 			  	<div class="col">
 					<p>What is one question you would like to have answered during this year's Summit?<b style = "color: #DC143C;">*</b></p>  
-					<textarea name="question" cols="135" rows="3"></textarea>
+					<textarea id="question" cols="135" rows="3"></textarea>
 				</div>
 	  		</div>
 			  
@@ -220,14 +220,13 @@
 	<!-- Submit -->
 		<div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
 			<div class="col">
-				<input type="submit" class="btn-xl" align="center" value="Submit" >
+				<input type="submit" class="btn-xl" align="center" value="Submit" id="finish" >
 			</div>
 		</div>
 	</div>
 	</form>
 
-
-	<!--Javascript here-->
+	<!-- Javascript here
 	<script type="text/javascript">
 		$(".dropdown-menu a").click(function() {
 		  $(this).parents(".dropdown").find('.btn').html($(this).text());
@@ -258,6 +257,64 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
+
+	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+        <!--<script src="counselor_app.js"></script>-->
+        <script>
+            var config = {
+                apiKey: "AIzaSyDdBVALQJWdMvR5ed0UswgmdWY1me9eL20",
+                authDomain: "inf117.firebaseapp.com",
+                databaseURL: "https://inf117.firebaseio.com",
+                projectId: "inf117",
+                storageBucket: "inf117.appspot.com",
+                messagingSenderId: "839601382632"
+            };
+            firebase.initializeApp(config);
+
+            document.getElementById("finish").addEventListener("click", function(evt){
+                                    alert("The form was submitted.");
+                evt.preventDefault();
+                var database = firebase.database();
+                var fn = document.getElementById("firstname").value;
+                var ln = document.getElementById("lastname").value;
+                var gender = document.getElementById("gender").value;
+                var dob = document.getElementById("dob").value;
+                var year = document.getElementById("schoolyear").value;
+                var age = document.getElementById("age").value;
+                var size = document.getElementById("size").value;
+                var file = document.getElementById("upload").value;
+                var spiritual = document.getElementById("spiritual").value;
+                var knowledge = document.getElementById("knowledge").value;
+                var improvement = document.getElementById("improvement").value;
+                var community = document.getElementById("community").value;
+                var hopes = document.getElementById("hopes").value;
+                var activities = document.getElementById("activities").value;
+                var question = document.getElementById("question").value;
+                console.log(fn, ln, gender, dob, year, age, spiritual, knowledge, improvement, community, hopes, activities, question);
+                var newPostRef = firebase.database().ref('/').push({
+                first_name: fn,
+                last_name: ln,
+                gender: gender,
+                dob: dob,
+                year: year,
+                age: age,
+                size: size,
+                file: file,
+                spiritual: spiritual,
+                knowledge: knowledge,
+                improvement: improvement,
+                community: community,
+                hopes: hopes,
+                activities: activities,
+                question: question
+                });
+                // Get the unique ID generated by push() by accessing its key
+                var postID = newPostRef.key;
+                });
+
+        </script>
+
 </body>
 </html>
