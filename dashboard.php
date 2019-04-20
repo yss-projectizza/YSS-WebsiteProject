@@ -17,13 +17,13 @@ $user = "admin";
     $cabin_num = 15;
     $name = "Student";
     $email = "test@example.com";
-    include 'student_dashboard.php';
+    include 'dashboards/student_dashboard.php';
   } else if ($user == "counselor"){
     $name = "Counselor";
-    include 'counselor_dashboard.php';
+    include 'dashboards/counselor_dashboard.php';
   } else if ($user == "admin"){
     $name = "Admin";
-    include 'admin_dashboard.php';
+    include 'dashboards/admin_dashboard.php';
   }
 
 ?>
