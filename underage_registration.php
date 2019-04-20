@@ -39,47 +39,6 @@
 		</div>
 	</nav>
 
-    <?php
-        // define variables and set to empty values
-        $firstnameErr = $lastnameErr = $dobErr = $uploadErr = "";
-        $firstname = $lastname = $dob = $upload = "";
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (empty($_POST["firstname"])) {
-            $firstnameErr = "First Name is required";
-        } else {
-            $firstname = test_input($_POST["firstname"]);
-        }
-
-        if (empty($_POST["lastname"])) {
-            $lastnameErr = "Last Name is required";
-        } else {
-            $lastname = test_input($_POST["lastname"]);
-        }
-
-        if (empty($_POST["dob"])) {
-            $dobErr = "Date of Birth is required";
-        } else {
-            $dob= test_input($_POST["dob"]);
-        }
-
-        if (empty($_POST["upload"])) {
-            $uploadErr = "Student ID photo is required";
-        } else {
-            $upload = test_input($_POST["upload"]);
-        }
-
-        }
-
-        function test_input($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
-
-    ?>
-
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
     <div class="container" style = "background: white; margin-top: 20px;">
     <!-- Camp Registration Header -->
