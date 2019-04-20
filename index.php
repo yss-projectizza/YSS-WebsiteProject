@@ -1,20 +1,23 @@
 <?php
 
-$_SESSION["loggedin"] = true;
+session_start();
+$_SESSION["loggedin"] = false;
 
-if(  (isset($_SESSION["loggedin"]))){
+
+if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 		echo "USER IS LOGGED IN";
-		//if parent account 
+		//if parent account
 		header("Location: dashboard.php");
 		exit;
 
-		//if student account 
+		//if student account
 
-		//if adult account 
+		//if adult account
 
 		//if no account
 }   else {
 		echo "NOT LOGGED IN";
+
 }
 
 ?>
