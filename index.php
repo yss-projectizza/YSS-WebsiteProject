@@ -1,10 +1,16 @@
 <?php
 if(  (isset($_SESSION["loggedin"]))){
 		echo "USER IS LOGGED IN";
+		//if parent account 
+
+		//if student account 
+
+		//if adult account 
+
+		//if no account
 }   else {
 		echo "NOT LOGGED IN";
 }
-
 
 ?>
 
