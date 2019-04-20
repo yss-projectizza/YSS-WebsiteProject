@@ -1,4 +1,20 @@
 
+<?php
+session_start();
+
+if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
+		//if parent account
+		header("Location: dashboard.php");
+		exit;
+
+		//if student account
+
+		//if adult account
+
+		//if no account
+}
+?>
+
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 <script>
   // Initialize Firebase
