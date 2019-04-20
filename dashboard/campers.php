@@ -1,6 +1,6 @@
 <html lang="en">
   <head>
-    <title>Profile</title>
+    <title>View Campers</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
   <body>
@@ -23,7 +23,7 @@
       </div>
     </nav>
     <div>
-      This is your profile. You can edit this form.
+      You can see your fellow campers here.
     </div>
     <div class="footer top-buffer">
       <div class="container">

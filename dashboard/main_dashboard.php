@@ -28,7 +28,7 @@
       Notes:
       View People = another page to view people in their cabin, group, bus
       Camp Info = another page to view direct camp info
-      Student (underage): Has ToDos (done), Schedule (done), View People (still need), Profile (still need), Camp Info (done)
+      Student (underage): Has ToDos, Schedule, View People, Profile, Camp Info
         - Profile: only has interest, phone #, email, etc. (no address or emergency contact)
       Student (18): Has ToDos, Schedule, View People, Profile, Camp Info
         - Profile: only has interest, phone #, email,  billing address, emergency contact, etc.
@@ -75,6 +75,8 @@
           <p>Group Number: <?php echo $group_num; ?></p>
           <p>Bus Number: <?php echo $bus_num; ?></p>
           <p>Cabin Number: <?php echo $cabin_num; ?>
+          <br/><br/>
+          <a href="/dashboard/campers.php">View Campers</a>
         </div>
         <div class="card"> 
           <h2>Your Information</h2>
