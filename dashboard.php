@@ -1,8 +1,7 @@
 <!-- Main logic for getting dashboard -->
 <?php
 //session_start();
-$user = "counselor";
-// check whether use is a student or a counselor or admin
+$user = "admin";
 /*if(!($_SESSION["loggedin"])){
   //if parent account
   header("Location: login.php");
@@ -11,16 +10,20 @@ $user = "counselor";
 
   // get respective info from the database
   // temp dummy data
+  // check whether use is a student or a counselor or admin
   if($user == "student"){
     $group_num = 3;
     $bus_num = 10;
     $cabin_num = 15;
-    $name = "Hello";
+    $name = "Student";
     $email = "test@example.com";
     include 'student_dashboard.php';
   } else if ($user == "counselor"){
-    $name = "Hello";
+    $name = "Counselor";
     include 'counselor_dashboard.php';
+  } else if ($user == "admin"){
+    $name = "Admin";
+    include 'admin_dashboard.php';
   }
 
 ?>
