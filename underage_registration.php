@@ -112,7 +112,25 @@
 				</div>
 			</div>
 
+			<div class="input-group mb-3">
+		  		<div class="input-group-prepend">
+                  <span class="input-group-text">Clothing Size:<b style = "color: red;">*</b></span>
+				    <select class="form-control form-control-md" name="clothingsize">
+						<option>Small</option>
+						<option>Medium</option>
+						<option>Large</option>
+						<option>XL</option>
+						<option>XXL</option>
+				    </select>
+				</div>
+			</div>
 
+
+			<form action="upload.php" method="post" enctype="multipart/form-data">
+    			Select image to upload:
+    			<input type="file" name="fileToUpload" id="fileToUpload">
+    		<input type="submit" value="Upload Image" name="submit">
+			</form>
 
 
 
