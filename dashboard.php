@@ -2,7 +2,12 @@
 session_start();
 $user = "student";
 // check whether use is a student or a counselor or admin
-if ($user == "student") {
+if(!($_SESSION["loggedin"])){
+  //if parent account
+  header("Location: login.php");
+  exit;
+}
+
   // get respective info from the database
   // temp dummy data
   $group_num = 3;
@@ -10,7 +15,7 @@ if ($user == "student") {
   $cabin_num = 15;
   $name = "Hello";
   $email = "test@example.com";
-}
+
 ?>
 <html lang="en">
   <head>
