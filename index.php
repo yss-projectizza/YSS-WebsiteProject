@@ -1,7 +1,12 @@
 <?php
+
+$_SESSION["loggedin"] = true;
+
 if(  (isset($_SESSION["loggedin"]))){
 		echo "USER IS LOGGED IN";
 		//if parent account 
+		header("Location: dashboard.php");
+		exit;
 
 		//if student account 
 
@@ -58,7 +63,7 @@ if(  (isset($_SESSION["loggedin"]))){
 <body class="text-center">
 	<form class="form-signin">
 
-		<img class="mb-4" src="ysslogo.png" alt="" width="72" height="72">
+	  <img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="TEST">
 		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 		<label for="inputEmail" class="sr-only">Email address</label>
 		<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
