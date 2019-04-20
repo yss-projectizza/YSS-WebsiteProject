@@ -43,14 +43,16 @@
 <div class="container" style = "background: white; margin-top: 20px;">
     <!-- Camp Registration Header -->
     <h1 align="center" style = "font-size:40px;padding-top: 20px;">Camper Registration</h1>
-    
+	
+	 <!-- NEW STUFF STARTING HERE -->
+	<div class="block_1"><p style="padding-top:20px"</div> <hr />
+
   	<div class="container">
     <!-- Camper Information -->
         <label><p style = "font-size:26px;">Camper Information</p></label>
 
         <!-- Camper Name -->   
         
-             <!-- NEW STUFF STARTING HERE -->
             
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -127,20 +129,36 @@
 
 
 			<form action="upload.php" method="post" enctype="multipart/form-data">
-    			Select image to upload:
-    			<input type="file" name="fileToUpload" id="fileToUpload">
-    		<input type="submit" value="Upload Image" name="submit">
+    			Picture of Student ID:
+    			<input type="file" name="fileToUpload"">
+    			<input type="submit" value="Upload Image" name="submit">
 			</form>
 
 
 
 
+	</div>  
+
+	<div class="block_1"><p style="padding-top:30px"</div> <hr />
+
+	<div class="container">
+    <!-- Personal Information -->
+		<label><p style = "font-size:26px;padding-top: 10px;"">Personal Information</p></label>
+	</div>
+	<div class="container">
+		<label><p style = "font-size:18px;"">How would you rate yourself in the following areas?</p></label>
+	</div>
+
+	
+
+	<!-- NEW STUFF ENDING HERE -->
 
 
 
 
 
-             <!-- NEW STUFF ENDING HERE -->
+
+
              
     		<div class="row initial-task-padding">
 		  		<div class="col">
