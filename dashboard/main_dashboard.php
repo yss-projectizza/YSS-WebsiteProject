@@ -1,6 +1,7 @@
 <html lang="en">
   <head>
     <title>Youth Spiritual Summit</title>
+    <script src="dashboard/main_dashboard.js"></script>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
@@ -23,13 +24,54 @@
 			</div>
 		</div>
 	</nav>
-    <h1>Welcome to your Dashboard!</h1>
-    <div>
-      <div id="todos" class="box">
-        <h2>Your Information</h2>
-        <p>Name <?php echo $name; ?></p>
+    <!--
+      Notes:
+      View People = another page to view people in their cabin, group, bus
+      Camp Info = another page to view direct camp info
+      Student (underage): Has ToDos, Schedule, View People, Profile, Camp Info
+        - Profile: only has interest, phone #, email, etc. (no address or emergency contact)
+      Student (18): Has ToDos, Schedule, View People, Profile, Camp Info
+        - Profile: only has interest, phone #, email,  billing address, emergency contact, etc.
+      Parent: Has ToDos, Schedule, Manage Campers, Can see each camper's info
+        - Manage Campers: can add camper, see camper status + name, and give access to camper
+                          for their own account
+        - Profile: can see profile of their campers, can edit that info for each camper,
+                  also has own profile,
+      Counselor: Camp Info, Schedule, Profile, View People
+        - Profile: has interest, phone #, email, etc.
+    -->
+    <main class="main">
+      <div class="main-header">
+        <div class="main-header__heading">
+          Hello <?php echo $name; ?>! 
+          <br/>
+          <br/>
+          <p id="status">Your Status is: <?php echo $status; ?></p>
+        </div>
       </div>
-    </div>
+      <div class="main-cards">
+        <div class="card">
+          <h2>Schedule</h2>
+          <p>Monday</p>
+          <p>ETC</p>
+        </div>
+        <div class="card">
+          <h2>Your To Dos:</h2>
+          <input type="checkbox" disabled="disabled" checked="checked"/> Payment has been Recieved.
+        </div>
+        <div class="card">
+          <h2>Camp Information</h2>
+          <p>Group Number: <?php echo $group_num; ?></p>
+          <p>Bus Number: <?php echo $bus_num; ?></p>
+          <p>Cabin Number: <?php echo $cabin_num; ?>
+        </div>
+        <div class="card"> 
+          <h2>Your Information</h2>
+          <p>Name: <?php echo $name; ?></p>
+          <p>Email: <?php echo $email; ?></p>
+        </div>
+      </div>
+    </main>
     <div class="footer top-buffer">
       <div class="container">
         <div class="row align-items-center">
