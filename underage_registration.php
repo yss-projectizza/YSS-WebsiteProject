@@ -20,47 +20,6 @@
 
 <body>
 
-<?php
-        // define variables and set to empty values
-        $firstnameErr = $lastnameErr = $dobErr = $uploadErr = "";
-        $firstname = $lastname = $dob = $upload = "";
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (empty($_POST["firstname"])) {
-            $firstnameErr = "First Name is required";
-        } else {
-            $firstname = test_input($_POST["firstname"]);
-        }
-
-        if (empty($_POST["lastname"])) {
-            $lastnameErr = "Last Name is required";
-        } else {
-            $lastname = test_input($_POST["lastname"]);
-        }
-
-        if (empty($_POST["dob"])) {
-            $dobErr = "Date of Birth is required";
-        } else {
-            $dob= test_input($_POST["dob"]);
-        }
-
-        if (empty($_POST["upload"])) {
-            $uploadErr = "Student ID photo is required";
-        } else {
-            $upload = test_input($_POST["upload"]);
-        }
-
-        }
-
-        function test_input($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
-
-    ?>
-
 	<nav class="navbar navbar-expand-sm navbar-light bg-white">
 		<div class="container" style = "background: LightSteelBlue">
 			<a class="navbar-brand" href="http://youthspiritualsummit.weebly.com">
@@ -103,13 +62,13 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: Smith" id="lastname" class="form-control" required>
+                    <input type="text" placeholder="Ex: Smith" name="lastname" id="lastname" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Gender:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" id="gender">
+                        <select class="form-control form-control-md" name="gender" id="gender">
                                 <option>Female</option>
                                 <option>Male</option>
                         </select>
@@ -120,7 +79,7 @@
                     <div class="input-group-prepend">
                         <div class='input-group date'>
                             <span class="input-group-text">Date Of Birth:<b style = "color: red;">*</b></span>
-                            <input type='date' id="dob" class="form-control" required>
+                            <input type='date' name="dob" id="dob" class="form-control" required>
                         </div>
                     </div>
                 </div>
@@ -128,7 +87,7 @@
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" id="schoolyear">
+                        <select class="form-control form-control-md" name="schoolyear" id="schoolyear">
                             <option>Freshman</option>
                             <option>Sophomore</option>
                             <option>Junior</option>
@@ -142,7 +101,7 @@
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" id="age">
+                        <select class="form-control form-control-md" name="age" id="age">
                             <option>14</option>
                             <option>15</option>
                             <option>16</option>
@@ -155,7 +114,7 @@
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Clothing Size:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" id="size">
+                        <select class="form-control form-control-md" name="size" id="size">
                             <option>Small</option>
                             <option>Medium</option>
                             <option>Large</option>
@@ -168,7 +127,7 @@
 
                 <form action="upload.php" method="post" enctype="multipart/form-data">
                     Picture of Student ID:<b style = "color: red;">*</b>
-                    <input type="file" id="upload"">
+                    <input type="file" name="upload" id="upload"">
                 </form>
         </div>  
 
@@ -184,7 +143,7 @@
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Spirituality (closeness to God)<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" id="spiritual">
+                        <select class="form-control form-control-md" name="spiritual" id="spiritual">
                             <option>Very High</option>
                             <option>High</option>
                             <option>Neutral</option>
@@ -197,7 +156,7 @@
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Religious Knowledge:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" id="knowledge">
+                        <select class="form-control form-control-md" name="knowledge" id="knowledge">
                             <option>Very High</option>
                             <option>High</option>
                             <option>Neutral</option>
@@ -210,7 +169,7 @@
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Actively Improving Myself:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" id="improvement">
+                        <select class="form-control form-control-md" name="improvement" id="improvement">
                             <option>Very High</option>
                             <option>High</option>
                             <option>Neutral</option>
