@@ -217,13 +217,6 @@
 
 	<div class="block_1"><p style="padding-top:30px"</div> <hr />
 
-
-
-	
-
-	<!-- NEW STUFF ENDING HERE -->
-
-
 	<!-- Submit -->
 		<div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
 			<div class="col">
