@@ -12,8 +12,8 @@ session_start();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!--
-    <link rel = "stylesheet" href = "/Users/Cherald/Desktop/ProjectIzza-PIzza-/parentRegistrationStyle.css ">
-    -->
+    <link rel = "stylesheet" href = "/css/parentRegistrationStyle.css ">
+  -->
   </head>
 
   <body style = "text-align: center" >
@@ -360,10 +360,11 @@ Javascript Segment
             var other = document.getElementById("otherInput").value;
             var insurance = document.getElementById("insuranceInput").value;
             var policy = document.getElementById("policyInput").value;
-
+            /*
             if (fName == ""){
                 alert("fill in first name");
             }
+            */
             else {
               var newPostRef = firebase.database().ref('/').push({
                 user_type: "parent",
