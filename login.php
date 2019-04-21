@@ -63,9 +63,9 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 					<input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign In" id="submitbutton"></input>
 					<hr>
 
-					<button onclick="myFunction()" id="register" class="btn btn-med btn-outline-info btn-block" role="button" style="margin-top:18">Register</button>
+					<button onclick="registerApprove()" id="register" class="btn btn-med btn-outline-info btn-block" role="button" style="margin-top:18">Register</button>
 					<script>
-						function myFunction() {
+						function registerApprove() {
 						var txt;
 						var age = prompt("Please enter your age:", "");
 						if (age == null) {
