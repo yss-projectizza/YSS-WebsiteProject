@@ -27,7 +27,7 @@ if( !$_SESSION["loggedin"]){
     $group_num = $_SESSION["queryData"]["group_num"];
     $bus_num = $_SESSION["queryData"]["bus_num"];
     $cabin_num = $_SESSION["queryData"]["cabin_num"];
-    
+    $credit_due = $_SESSION["queryData"]["credit_due"];
     
     include 'dashboard/main_dashboard.php';
   } else if ($user_type == "admin"){
