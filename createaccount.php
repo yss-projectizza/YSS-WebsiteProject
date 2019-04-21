@@ -99,77 +99,82 @@ session_start();
     </form>
 
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
-        <!--<script src="counselor_app.js"></script>-->
-        <script>
-            var config = {
-                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-                authDomain: "yss-project-69ba2.firebaseapp.com",
-                databaseURL: "https://yss-project-69ba2.firebaseio.com",
-                projectId: "yss-project-69ba2",
-                storageBucket: "yss-project-69ba2.appspot.com",
-                messagingSenderId: "530416464878"
-            };
-            firebase.initializeApp(config);
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+    <!--<script src="counselor_app.js"></script>-->
+    <script>
+        var config = { 
+            apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+            authDomain: "yss-project-69ba2.firebaseapp.com",
+            databaseURL: "https://yss-project-69ba2.firebaseio.com",
+            projectId: "yss-project-69ba2",
+            storageBucket: "yss-project-69ba2.appspot.com",
+            messagingSenderId: "530416464878" 
+        };
+        firebase.initializeApp(config);
 
-            document.getElementById("submitAccount").addEventListener("click", function(){
-                    var database = firebase.database();
-                    var email = document.getElementById("email").value;
-                    var pw1 = document.getElementById("password").value;
-                    var pw2 = document.getElementById("password2").value;
-										var acct = document.getElementById("accountType").value;
-                    //e = e.replace(".", ",");
-                        //console.log("testing");
-                        //console.log(fn, ln, dob, e);
-                    if (!email || !pw1 || !pw2){
-                        alert("Please fill in all fields");
-                    }
-										else if(age < 18) {
-												alert("You do not have permission to make an account.");
-												window.location.replace("/login.php");
-										}
-										else {
-                        var check_e;
-                        var check_u;
-                        firebase.database().ref('/counselors/' + e + '/').once('value').then(function(snapshot)
-                            {
-                                console.log("checking if exists");
-                                check_e = (snapshot.val() && snapshot.val().email);
-                                //check_u = (snapshot.val() && snapshot.val().email);
-                                console.log(check_e);
-                            }
-                        );
+        document.getElementById("submitAccount").addEventListener("click", function(){
+                var database = firebase.database();
+                var email = document.getElementById("email").value;
+                var pw1 = document.getElementById("password").value;
+                var pw2 = document.getElementById("password2").value;
+                email = email.replace(".", ",");
+                    //console.log("testing");
+                    //console.log(fn, ln, dob, e);
+                if (!email || !pw1 || !pw2){
+                    alert("Please fill in all fields");
+                } else if ( pw1 != pw2 ){
+                    alert("Password confirmation failed: re-entered password must match password")
+                } else {
+                    var check_e;
+                    firebase.database().ref('/users/' + email).once('value').then(function(snapshot) 
+                        {
+                            console.log("checking if exists");
+                            check_e = (snapshot.val() && snapshot.val().email);
+                            console.log(check_e);
+                        }
+                    );
 
-                        setTimeout(function(){
+                // setTimeout(function(){
+                    
+                // if (check_e == null){
+                //     // var newPostRef = firebase.database().ref('/users/' + email).set({
+                //     //     email: email,
+                //     //     password: pw1
+                //     // }, 
+                //     function(error) {
+                //         if (error) {
+                //             console.log("Failed to add user");
+                //         } else {
+                //             window.location.replace("counselor_registration.php");
+                //             console.log("Added user to firebase");
+                //         }
+                //     };
+                //     } else {
+                //         alert("An account with the entered email already exists")
+                //     }
+                // }, 2000);
 
-                    if (check_e == null){
-                            var newPostRef = firebase.database().ref('/counselors/' + e + '/').set({
-                            first_name: fn,
-                            last_name: ln,
-                            dob: dob,
-                            email: e
-                            },
-                            function(error) {
-                                if (error) {
-                                    alert("didn't go through");
-                                } else {
-                                    //var postID = newPostRef.key;
-                                    window.location.replace("index.php");
-                                    console.log("went to firebase");
-                                }
-                                });
-                            } else {
-                                alert("email already exists")
-                            }
-                        }, 3000);
-                    }
-            });
-                // Get the unique ID generated by push() by accessing its key
+                    setTimeout(function(){
+                        if (check_e == null){
+                            var data = "email=" + email + "&password=" + pw1;
+                            var url = "http://localhost:8000/counselor_registration.php";
+
+                            var status = navigator.sendBeacon(url, data);
+
+                                // Log the data and result
+                            console.log("sendBeacon: URL = ", url, "; data = ", data, "; status = ", status);
+                        } else {
+
+                        }
+                    });
+                }
+        });
+            // Get the unique ID generated by push() by accessing its key
 
 
 
 
-        </script>
+    </script>
 
 </body>
 </html>
