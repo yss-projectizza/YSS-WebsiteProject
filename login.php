@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 
@@ -49,7 +48,8 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 							<img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png"
 							 width="200" height="80" alt="TEST" style="background-color:#5b77a5">
 					</a>
-					<h1 class="h3 mb-3 font-weight-normal" style="margin-top:24">Login</h1>
+					<hr>
+					<h1 class="h3 mb-3 font-weight-normal" style="margin-top:10">Login</h1>
 					<label for="inputEmail" class="sr-only">Email address</label>
 					<input name="user" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
 					<label for="inputPassword" class="sr-only">Password</label>
@@ -76,8 +76,23 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 						}
 					</script>
 
+					<button onclick="forgotPassword()" id="forgot" class="btn btn-med btn-outline-info btn-block" role="button" style="margin-top:10">Forgot Password?</button>
+					<script>
+						function forgotPassword() {
+						var txt;
+						var email = prompt("Please enter your email:", "12345@gmail.com");
+						if (email == null) {
+							window.alert("email not entered.");
 
-					<a id="forgot" class="btn btn-med btn-outline-info btn-block" href="/forgot" role="button" style="margin-top:12">Forgot Password</a>
+						}
+						else {
+							window.alert("A link to reset your password has been sent to " + email +".")
+						}
+						document.getElementById("demo").innerHTML = txt;
+						}
+					</script>
+
+					<!-- <a id="forgot" class="btn btn-med btn-outline-info btn-block" href="/forgot" role="button" style="margin-top:12">Forgot Password</a> -->
 					<p class="mt-5 mb-3 text-muted" style="font-size:14">&copy; Youth Spiritual Summit 2019</p>
 				</div>
 		</form>
@@ -85,8 +100,8 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 </html>
 
 
-<script>
+<!-- <script>
 	document.getElementById("inputEmail").value = "emachta@uci,edu";
 	document.getElementById("inputPassword").value = "pw";
 
-	</script>
+	</script> -->
