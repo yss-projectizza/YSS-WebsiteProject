@@ -51,22 +51,16 @@
     -->
     
     <main class="main">
-      <!-- <div class="main-header rounded">
-        <div class="main-header__heading">
-          Hello <?php echo $name; ?>! 
-          <div id="profile">
-            <img src="profile_placeholder.jpg" onClick="goToProfile();"/>
-          </div>
-          <p id="status">Your Status is: <?php echo $status; ?></p>
-        </div>
-      </div> -->
       <div class="main-cards">
         <div class="card">
-          Hello <?php echo $name; ?>!
-          <div id="profile">
-            <img src="profile_placeholder.jpg" onClick="goToProfile();"/> <!-- need to move this to the right side of the card -->
+          <div id="intro">
+            <h3>Hello <?php echo $name; ?>!</h3>
+            <p id="status">Your Status is: <?php echo $status; ?></p> 
           </div>
-          <p id="status">Your Status is: <?php echo $status; ?></p> 
+          <div id="profile">
+            <img src="profile_placeholder.jpg" onClick="goToProfile();"/>
+            <p>Edit Your Profile</p>
+          </div>
         </div>
         <div class="card">
           <h2>Schedule</h2>
