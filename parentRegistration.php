@@ -278,6 +278,15 @@ session_start();
                        class="form-control" required>
                   </div>
 
+                  <p align="left" style = "font-size:20px;">
+                    Parent Authentication</p>
+                  <br>
+
+                  <form action="upload.php" method="post" enctype="multipart/form-data">
+                      Picture of Driver's License:<b style = "color: red;">*</b>
+                      <input type="file" name="license" id="licenseUpload" class="form-control" required">
+                  </form>
+
               <!-- Verification -->
               <label><p style = "font-size:30px;">Verification</p></label>
                   <div class="row initial-task-padding">

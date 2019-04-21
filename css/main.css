@@ -1,3 +1,8 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 .rounded {
   border: thin solid black;
   border-radius: 5px;
@@ -30,4 +35,14 @@ input[type=submit]{
 input[type=submit]:hover{
   background-color: #8fd4d9;
   cursor: pointer;
+}
+
+.footer{
+  position: absolute;
+  padding: 1%;
+  width: 100%;
+  overflow: hidden;
+  background-color: grey;
+  color: white;
+  bottom: 0%;
 }
