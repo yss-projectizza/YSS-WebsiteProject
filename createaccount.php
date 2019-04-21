@@ -41,12 +41,12 @@ session_start();
 			</div>
 		</div>
     </nav>
-    
-    <form id=form1 method="post">  
+
+    <form id=form1 method="post">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
         <h1 align="center" style = "font-size:30px;padding-top: 20px;">Create New Account</h1>
-        
+
         <!-- NEW STUFF STARTING HERE -->
         <div class="block_1"><p style="padding-top:20px"</div> <hr />
 
@@ -54,30 +54,30 @@ session_start();
             <div class="input-group-prepend">
                 <span class="input-group-text">Enter email (same one registered with):<b style = "color: red;">*</b></span>
             </div>
-                <input type="text" placeholder="Ex: 12345@gmail.com" name="email" id="email" class="form-control" required>             
+                <input type="text" placeholder="Ex: 12345@gmail.com" name="email" id="email" class="form-control" required>
         </div>
 
         <div class="input-group mb-3">
              <div class="input-group-prepend">
                 <span class="input-group-text">Enter a username:<b style = "color: red;">*</b></span>
             </div>
-                <input type="text" placeholder="Ex: John" name="username" id="username" class="form-control" required>             
+                <input type="text" placeholder="Ex: jsmith" name="username" id="username" class="form-control" required>
         </div>
 
         <div class="input-group mb-3">
              <div class="input-group-prepend">
                 <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
             </div>
-                <input type="text" placeholder="Ex: John" name="password" id="password" class="form-control" required>             
+                <input type="text" name="password" id="password" class="form-control" required>
         </div>
 
         <div class="input-group mb-3">
              <div class="input-group-prepend">
                 <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
             </div>
-                <input type="text" placeholder="Ex: John" name="password2" id="password2" class="form-control" required>             
+                <input type="text" name="password2" id="password2" class="form-control" required>             
         </div>
-        
+
         <div class="block_1"><p style="padding-top:30px"</div> <hr />
         <!-- Submit -->
         <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
