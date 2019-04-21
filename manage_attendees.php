@@ -8,8 +8,8 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 ?>
 
 <?php
-    $user = "admin";
-    if($user == "adnmin"){
+    $user_type = "admin";
+    if($user_type == "admin"){
         $first_name = "First Name";
         $last_name = "Last Name";
         $group_num = 3;
@@ -18,10 +18,10 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
         $name = "admin";
         $email = "test@example.com";
         $status = "Registered!";
-        $credit = "$50";
-        $price = "$299";
+        $credit = "50";
+        $price = "299";
         $childid = 123456;
-        include 'dashboard/admin_dashboard.php';
+        include 'dashboard/manage_attendees.php';
     }
 ?>
 <html lang="en">
@@ -54,7 +54,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
         <h1 align="center" style = "font-size:50px;padding-top: 20px;">Manage Attendees</h1>
         <br>
         <p> This page allows you to add, remove, and edit your attendees information. </p>
-    <div class="block_1"><p style="padding-top:20px"</div> <hr />
+    <div class="block_1"><p style="padding-top:20px"></div> <hr />
 
     <div>
       <div id="todos" class="box">
@@ -64,7 +64,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
             </div>        
         </div>
     </div>
-    
+
 
 <!-- php -->
 <div class="row" style="padding-bottom:50px">
@@ -74,27 +74,23 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 				<div class="d-flex justify-content-between align-items-center">
 					<a class="card-text"></a>
 					<h3><?php echo $first_name . " " . $last_name ?></h3>
-                </div>
-                <div>
 					<a href="editchild.php?childid=<?php echo $childid; ?>" role="button" class="btn btn-sm btn-secondary">Edit Camper</a>
 					<button onclick="deleteChildById(<?php echo $childid; ?>)" id="deletecamper" class="btn btn-sm btn-danger">Delete Camper</button>
 			    </div>
-            </div>  
-            <div class="d-flex justify-content-between align-items-center">
-				<h4 align="left">Amount Paid: $<?php echo $price?></h4>
+
+            <div class="left">
+				<h4>Amount Paid: $<?php echo $price?></h4>
 			</div>
-			<div class="d-flex justify-content-between align-items-center">
-				 <h4 align="left">Credit: $<?php echo $credit?></h4><br>
+			<div class="left">
+				 <h4>Credit: $<?php echo $credit?></h4><br>
 					<form action="updateAdditionalPaid.php" method="post">
                         Update Credit: <input type="number" step="0.01" name="amount">
                         <input type="hidden" name="childid" value="<?php echo $childid ?>">
                         <input type="submit" value="Submit">
-					</form>
+                    </form>  
 			</div>			            
 		</div>
 	</div>
-</div>
-
 <!-- FOOTER -->
     <div class="footer top-buffer">
       <div class="container">
@@ -117,5 +113,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
       </div>
       </div>
     </div>
+    </div>
+
   </body>
 </html>
