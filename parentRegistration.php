@@ -11,7 +11,9 @@ session_start();
     <title>Youth Spiritual Summit | Register</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!--
     <link rel = "stylesheet" href = "/Users/Cherald/Desktop/ProjectIzza-PIzza-/parentRegistrationStyle.css ">
+    -->
   </head>
 
   <body style = "text-align: center" >
@@ -60,7 +62,11 @@ session_start();
           <h1 align="center" style = "font-size:50px;padding-top: 20px;">Register for a Parent Account</h1>
           <br>
 
-          <div class="block_1"><p style="padding-top:20px"</div> <hr />
+          <div class="block_1"><p style="padding-top:20px"</div>
+            <hr  style="
+              border-width: medium;
+              border-color: LightSteelBlue;
+            " />
 
         	<div class="container">
 
@@ -81,16 +87,6 @@ session_start();
                       </div>
                       <input id = "lnameInput" type="text" placeholder="Ex: Smith"
                       name="lastname" class="form-control" required>
-                  </div>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Password:
-                            <b style = "color: red;">*</b>
-                          </span>
-                      </div>
-                      <input id="passwordInput" type="password" name="phone"
-                       class="form-control" required>
                   </div>
 
                   <p align="center" style = "font-size:30px;padding-top: 10px;">
@@ -150,6 +146,136 @@ session_start();
                       </div>
                       <input id="zipcodeInput" type="text" placeholder="Ex: 111222"
                       name="zipcode" class="form-control" required>
+                  </div>
+
+                  <p align="left" style = "font-size:20px;padding-top: 10px;">
+                    Emergency Contact 1 Information</p>
+                  <br>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Relationship: <b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "ec1relInput" type="text"name="ec1relation"
+                       class="form-control" required>
+                  </div>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Name: <b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "ec1name" type="text"name="ec1name"
+                       class="form-control" required>
+                  </div>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Phone Number:
+                            <b style = "color: red;">*</b>
+                          </span>
+                      </div>
+                      <input id="ec1phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
+                      name="ec1phone" class="form-control" required>
+                  </div>
+
+                  <p align="left" style = "font-size:20px;padding-top: 10px;">
+                    Emergency Contact 2 Information</p>
+                  <br>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Relationship: <b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "ec2relInput" type="text"name="ec2relation"
+                       class="form-control" required>
+                  </div>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Name: <b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "ec2name" type="text"name="ec2name"
+                       class="form-control" required>
+                  </div>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Phone Number:
+                            <b style = "color: red;">*</b>
+                          </span>
+                      </div>
+                      <input id="ec2phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
+                      name="ec2phone" class="form-control" required>
+                  </div>
+
+                  <p align="center" style = "font-size:30px;padding-top: 10px;">
+                    Medical Information</p>
+                  <br>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Allergies/Conditions: <b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "ec1name" type="text"name="ec1name"
+                       class="form-control" required>
+                  </div>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Medications: <b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "medInput" type="text"name="medication"
+                       class="form-control" required>
+                  </div>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Activity Restrictions: <b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "actRestrictionInput" type="text"
+                      name="actRestriction" class="form-control" required>
+                  </div>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Dietary Restrictions: <b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "dietRestrictionsInput" type="text"
+                      name="dietRestrictions" class="form-control" required>
+                  </div>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Other: </span>
+                      </div>
+                      <input id = "otherInput" type="text"name="other"
+                       class="form-control">
+                  </div>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Insurance Provider: <b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "insuranceInput" type="text" name="insurance"
+                       class="form-control" required>
+                  </div>
+
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Name of Policy Holder: <b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "policyInput" type="text" name="policy"
+                       class="form-control" required>
                   </div>
 
               <!-- Verification -->

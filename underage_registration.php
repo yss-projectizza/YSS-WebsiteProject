@@ -200,21 +200,21 @@ session_start();
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>  
-                        <textarea id="hopes" cols="135" rows="3"></textarea>
+                        <textarea id="hopes" cols="132" rows="3"></textarea>
                     </div>
                 </div>
 
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What are some activities that you enjoy?</p>  
-                        <textarea id="activities" cols="135" rows="3"></textarea>
+                        <textarea id="activities" cols="132" rows="3"></textarea>
                     </div>
                 </div>
             
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What is one question you would like to have answered during this year's Summit?</b></p>  
-                        <textarea id="question" cols="135" rows="3"></textarea>
+                        <textarea id="question" cols="132" rows="3"></textarea>
                     </div>
                 </div>
                 
