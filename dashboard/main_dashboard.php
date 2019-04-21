@@ -1,3 +1,4 @@
+
 <html lang="en">
   <head>
     <title>Youth Spiritual Summit</title>
@@ -21,7 +22,8 @@
 					<a class="nav-item nav-link" href="http://campizza.com/calendar"><font color="white">Activities</font></a>
 					<a class="nav-item nav-link" href="http://campizza.com/camp-fees"><font color="white">Fees</font></a>
 					<a class="nav-item nav-link" href="http://campizza.com/contact"><font color="white">Contact</font></a>
-				</div>
+					<a class="nav-item nav-link" href="/logout.php"><font color="white">Logout</font></a>
+        </div>
 			</div>
 		</div>
 	</nav>
@@ -49,22 +51,16 @@
     -->
     
     <main class="main">
-      <!-- <div class="main-header rounded">
-        <div class="main-header__heading">
-          Hello <?php echo $name; ?>! 
-          <div id="profile">
-            <img src="profile_placeholder.jpg" onClick="goToProfile();"/>
-          </div>
-          <p id="status">Your Status is: <?php echo $status; ?></p>
-        </div>
-      </div> -->
       <div class="main-cards">
         <div class="card">
-          Hello <?php echo $name; ?>!
-          <div id="profile">
-            <img src="profile_placeholder.jpg" onClick="goToProfile();"/> <!-- need to move this to the right side of the card -->
+          <div id="intro">
+            <h3>Hello <?php echo $name; ?>!</h3>
+            <p id="status">Your Status is: <?php echo $status; ?></p> 
           </div>
-          <p id="status">Your Status is: <?php echo $status; ?></p> 
+          <div id="profile">
+            <img src="profile_placeholder.jpg" onClick="goToProfile();"/>
+            <p>Edit Your Profile</p>
+          </div>
         </div>
         <div class="card">
           <h2>Schedule</h2>
