@@ -8,6 +8,7 @@
   exit;
 }*/
 
+
   // get respective info from the database
   // temp dummy data
   // check whether use is a student or a counselor or admin
