@@ -24,6 +24,14 @@ body {
   border-radius: 50px;
 }
 
+.to_do {
+  font-size: 20px;
+}
+
+.navbar-brand:hover {
+  opacity: 0.70;
+}
+
 /*
 #profile {
   position: absolute;
@@ -43,6 +51,7 @@ body {
 
 #profile img:hover {
   border: 5px solid #5b77a5;
+  opacity: 0.75;
 }
 
 .grid-container {

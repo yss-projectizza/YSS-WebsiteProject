@@ -10,7 +10,8 @@
   <body onload=getLogic();>
   <nav class="navbar navbar-expand-sm navbar-light">
 		<div class="container">
-			<a class="navbar-brand" href="http://youthspiritualsummit.weebly.com">
+			<a title="Go back to main page" class="navbar-brand"
+       href="http://youthspiritualsummit.weebly.com">
 				<img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,7 +25,8 @@
 					<a class="nav-item nav-link" href="http://campizza.com/contact"><font color="white">Contact</font></a>
           <a class="nav-item nav-link" href="/logout.php"><font color="white">Logout</font></a>
           <div id="profile">
-                <img src="profile_placeholder.jpg" onClick="goToProfile();"/>
+                <img title="Edit your profile information"
+                 src="profile_placeholder.jpg" onClick="goToProfile();"/>
                 <p>Hello <?php echo $first_name?></p>
           </div>
         </div>
@@ -54,21 +56,21 @@
           - figure out how to get user type into php
         - hardcode -> have separate dashboards for each user type
     -->
-    
+
     <main class="main">
       <?php if ($user_type == "parent"): ?>
             <div class="col my-auto" style="padding-bottom: 20px;">
             <button type="button" class="rounded" onclick="document.location.href = 'manage_attendees.php';">Manage Youth Participants</button>
-            </div>  
+            </div>
         <?php endif ?>
       <!--div class="main-cards"-->
         <div class="row ">
           <!-- intro moved to top left corner>
-          <div class="col">       
-            <div class="card">      
+          <div class="col">
+            <div class="card">
               <div id="intro">
                 <h3>Hello <?php echo $name; ?>!</h3>
-                <p id="status">Your Status is: <?php echo $status; ?></p> < 
+                <p id="status">Your Status is: <?php echo $status; ?></p> <
               </div>
             </div>
           </div>
@@ -76,11 +78,14 @@
           <div class="col">
             <div class="card">
               <h2>Your To Dos:</h2>
-              <input type="checkbox" disabled="disabled" checked="checked"/> Payment has been Recieved. 
+              <div class="to_do">
+                <input class="check" type="checkbox" disabled="disabled" checked="checked"/>
+                 Payment has been Recieved.
+              </div>
             </div>
           </div>
           <div class="col">
-            <div class="card">            
+            <div class="card">
                 <h2>Payment</h2>
                 <label>You owe: $<?php echo $credit_due;?></label>
 
@@ -118,10 +123,10 @@
               </div>
           </div>
         </div>
-        <div class="row"> 
+        <div class="row">
           <div class="col">
             <?php if ($user_type != "parent"): ?>
-              <div class="card">      
+              <div class="card">
                   <h2>Camp Information</h2>
                   <p>Group Number: <?php echo $group_num; ?></p>
                   <p>Bus Number: <?php echo $bus_num; ?></p>
@@ -130,7 +135,7 @@
                 <button type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">View Youth Participants</button>
               </div>
             <?php endif ?>
-          </div>    
+          </div>
           <div class="col">
             <?php if ($user_type != "parent"): ?>
               <div class="card">
@@ -145,11 +150,11 @@
             <?php endif ?>
           </div>
         </div>
-        <!-- Merging Your Information Card with Status Card 
-        <div class="card rounded"> 
+        <!-- Merging Your Information Card with Status Card
+        <div class="card rounded">
           <h2>Your Information</h2>
           <p>Name: <?php echo $name; ?></p>
-          <p>Email: <?php echo $email; ?></p> 
+          <p>Email: <?php echo $email; ?></p>
         </div>
         -->
       <!--/div-->
@@ -176,5 +181,3 @@
 	  </div>
   </body>
 </html>
-
-
