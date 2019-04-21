@@ -3,6 +3,13 @@
   border-radius: 5px;
 }
 
+.box {
+  position: relative;
+  width: 80%;
+  height: auto;
+  margin: 2%;
+}
+
 a:link {
   text-decoration: none !important;
 }
@@ -13,6 +20,7 @@ button {
 
 button:hover{
   background-color: #8fd4d9;
+  cursor: pointer;
 }
 
 input[type=submit]{
@@ -21,4 +29,5 @@ input[type=submit]{
 
 input[type=submit]:hover{
   background-color: #8fd4d9;
+  cursor: pointer;
 }

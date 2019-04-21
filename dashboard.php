@@ -1,6 +1,6 @@
 <!-- Main logic for getting dashboard -->
 <?php
-  //session_start();
+  session_start();
   $user = "student";
 /*if(!($_SESSION["loggedin"])){
   //if parent account

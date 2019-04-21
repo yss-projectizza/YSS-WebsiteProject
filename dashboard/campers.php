@@ -26,8 +26,8 @@
         </div>
       </div>
     </nav>
-    <div>
-      You can see your fellow campers here.
+    <div class="container rounded box">
+      Here is where you see your fellow campers.
     </div>
     <div class="footer top-buffer">
       <div class="container">

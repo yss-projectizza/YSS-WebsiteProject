@@ -13,7 +13,7 @@ body {
 }
 
 #profile img:hover {
-  border:thin solid black;
+  border: thin solid black;
   border-radius: 5px;
 }
 
