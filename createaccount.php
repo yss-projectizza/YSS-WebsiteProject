@@ -59,13 +59,6 @@ session_start();
 
         <div class="input-group mb-3">
              <div class="input-group-prepend">
-                <span class="input-group-text">Enter your age:<b style = "color: red;">*</b></span>
-            </div>
-                <input type="text" name="age" id="ageInput" class="form-control" required>
-        </div>
-
-        <div class="input-group mb-3">
-             <div class="input-group-prepend">
                 <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
             </div>
                 <input type="password" name="password" id="password" class="form-control" required>
@@ -87,7 +80,6 @@ session_start();
 									padding-left: 15px;
 									padding-right: 20px;
 								">
-									<option value="default">Options</option>
 									<option value="parent">Guardian</option>
 									<option value="counselor">Counselor</option>
 									<option value="overage">Attendee</option>
@@ -123,14 +115,13 @@ session_start();
             document.getElementById("submitAccount").addEventListener("click", function(){
                     var database = firebase.database();
                     var email = document.getElementById("email").value;
-                    var age = document.getElementById("ageInput").value;
                     var pw1 = document.getElementById("password").value;
                     var pw2 = document.getElementById("password2").value;
 										var acct = document.getElementById("accountType").value;
                     //e = e.replace(".", ",");
                         //console.log("testing");
                         //console.log(fn, ln, dob, e);
-                    if (!email || !age || !pw1 || !pw2){
+                    if (!email || !pw1 || !pw2){
                         alert("Please fill in all fields");
                     }
 										else if(age < 18) {
