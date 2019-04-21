@@ -48,16 +48,23 @@
           - figure out how to get user type into php
     -->
     <main class="main">
-      <div class="main-header rounded">
+      <!-- <div class="main-header rounded">
         <div class="main-header__heading">
           Hello <?php echo $name; ?>! 
           <div id="profile">
-            <img src="profile_placeholder.jpg" onClick="goToProfile();"/> <!-- need to move this to the right side of the card -->
+            <img src="profile_placeholder.jpg" onClick="goToProfile();"/>
           </div>
           <p id="status">Your Status is: <?php echo $status; ?></p>
         </div>
-      </div>
+      </div> -->
       <div class="main-cards">
+        <div class="card rounded">
+          Hello <?php echo $name; ?>!
+          <div id="profile">
+            <img src="profile_placeholder.jpg" onClick="goToProfile();"/> <!-- need to move this to the right side of the card -->
+          </div>
+          <p id="status">Your Status is: <?php echo $status; ?></p> 
+        </div>
         <div class="card rounded">
           <h2>Schedule</h2>
           <p>Monday</p>

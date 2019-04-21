@@ -27,6 +27,9 @@
       </div>
     </nav>
     <div class="container rounded box">
+      <button class="tablinks" onclick="">Bus</button>
+      <button class="tablinks" onclick="">Cabin</button>
+      <button class="tablinks" onclick="">Group</button>
       Here is where you see your fellow campers.
     </div>
     <div class="footer top-buffer">
