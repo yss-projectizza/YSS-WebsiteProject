@@ -7,7 +7,7 @@ session_start();
 <html lang="en">
 
 <head>
-	<title>Youth Spiritual Summit</title>
+	<title>Make an Account | Youth Spiritual Summit</title>
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -52,9 +52,9 @@ session_start();
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text">Enter email (same one registered with):<b style = "color: red;">*</b></span>
+                <span class="input-group-text">Enter email:<b style = "color: red;">*</b></span>
             </div>
-                <input type="text" placeholder="Ex: 12345@gmail.com" name="email" id="email" class="form-control" required>
+                <input type="semail" placeholder="Ex: 12345@gmail.com" name="email" id="email" class="form-control" required>
         </div>
 
         <div class="input-group mb-3">
@@ -92,7 +92,7 @@ session_start();
                 <div class="col">
                     <!-- <button id="myBtn">Submit</button> -->
                     <button type="button" value="Submit"
-										 name="subscribe" id="submitAccount" >Create Account
+										 name="subscribe" id="submitAccount" >Next
                 </div>
             </div>
         </div>
@@ -102,13 +102,13 @@ session_start();
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
     <!--<script src="counselor_app.js"></script>-->
     <script>
-        var config = { 
+        var config = {
             apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
             authDomain: "yss-project-69ba2.firebaseapp.com",
             databaseURL: "https://yss-project-69ba2.firebaseio.com",
             projectId: "yss-project-69ba2",
             storageBucket: "yss-project-69ba2.appspot.com",
-            messagingSenderId: "530416464878" 
+            messagingSenderId: "530416464878"
         };
         firebase.initializeApp(config);
 
@@ -126,7 +126,7 @@ session_start();
                     alert("Password confirmation failed: re-entered password must match password")
                 } else {
                     var check_e;
-                    firebase.database().ref('/users/' + email).once('value').then(function(snapshot) 
+                    firebase.database().ref('/users/' + email).once('value').then(function(snapshot)
                         {
                             console.log("checking if exists");
                             check_e = (snapshot.val() && snapshot.val().email);
@@ -135,12 +135,12 @@ session_start();
                     );
 
                 // setTimeout(function(){
-                    
+
                 // if (check_e == null){
                 //     // var newPostRef = firebase.database().ref('/users/' + email).set({
                 //     //     email: email,
                 //     //     password: pw1
-                //     // }, 
+                //     // },
                 //     function(error) {
                 //         if (error) {
                 //             console.log("Failed to add user");
