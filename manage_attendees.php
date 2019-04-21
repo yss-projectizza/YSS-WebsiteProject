@@ -52,16 +52,16 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 	</nav>
   <div class="container" style = "background: white; margin-top: 20px;">
       <!-- Dashboard Title Registration Header -->
-      <h1 align="center" style = "font-size:50px;padding-top: 20px;">Manage Attendees</h1>
+      <h1 align="center" style = "font-size:50px;padding-top: 20px;">Manage Youth Participant</h1>
       <br>
-      <p> This page allows you to add, remove, and edit your attendees information. </p>
+      <p> This page allows you to add, remove, and edit your Youth Participant information. </p>
   <div class="block_1"><p style="padding-top:20px"></div> <hr />
 
   <div>
     <div id="todos" class="box">
       <div class="row">
     <div class="col my-auto" style="padding-bottom: 20px;">
-      <a href="./underage_registration.php" type="button" class="btn btn btn-success" style="border-color: white">+ Click Here to Add Attendee</a>
+      <a href="./underage_registration.php" type="button" class="btn btn btn-success" style="border-color: white">+ Click Here to Add Youth</a>
           </div>        
       </div>
   </div>
@@ -74,8 +74,8 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
             <div class="d-flex justify-content-between align-items-center">
               <a class="card-text"></a>
               <div class="right">
-                <a href="editchild.php?childid=<?php echo $childid; ?>" role="button" class="btn btn-sm btn-secondary">Edit Camper</a>
-                <button onclick="deleteChildById(<?php echo $childid; ?>)" id="deletecamper" class="btn btn-sm btn-danger">Delete Camper</button>
+                <a href="editchild.php?childid=<?php echo $childid; ?>" role="button" class="btn btn-sm btn-secondary">Edit Youth</a>
+                <button onclick="deleteChildById(<?php echo $childid; ?>)" id="deletecamper" class="btn btn-sm btn-danger">Delete Youth</button>
               </div>
             </div>
             <div class="left">
