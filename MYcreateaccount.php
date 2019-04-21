@@ -119,7 +119,7 @@ session_start();
 										var currentDate = new Date().getFullYear();
 										var age = Number(currentDate) - Number(dob.getFullYear());
 										if(age < 18) {
-												alert("You do not have permission to make an account.");
+												alert("You do not have permission to make an account. Your guardian must make one for you.");
 												window.location.replace("/login.php");
 										}
 										else {

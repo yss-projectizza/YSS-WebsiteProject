@@ -7,7 +7,7 @@ session_start();
 <html lang="en">
 
 <head>
-	<title>Youth Spiritual Summit</title>
+	<title>Youth Registration | Youth Spiritual Summit</title>
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -25,7 +25,7 @@ session_start();
 
 <body>
 	<nav class="navbar navbar-expand-sm navbar-light bg-white">
-		<div class="container" style = "background: LightSteelBlue">
+		<div class="container" style = "background: #5b77a5">
 			<a class="navbar-brand" href="http://youthspiritualsummit.weebly.com">
 				<img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="">
 			</a>
@@ -43,32 +43,32 @@ session_start();
 		</div>
 	</nav>
 
-    <form id=form1 method="post">  
+    <form id=form1 method="post">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
-        <h1 align="center" style = "font-size:50px;padding-top: 20px;">18+ Camper Registration</h1>
-        
+        <h1 align="center" style = "font-size:50px;padding-top: 20px;">Youth Registration</h1>
+
         <!-- NEW STUFF STARTING HERE -->
         <div class="block_1"><p style="padding-top:20px"</div> <hr />
 
         <div class="container">
         <!-- Camper Information -->
-            <label><p style = "font-size:30px;">Camper Information</p></label>
+            <label><p style = "font-size:30px;">Youth Information</p></label>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Email:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: 123@gmail.com" name="email" id="email" class="form-control" required>             
+                    <input type="text" placeholder="Ex: 123@gmail.com" name="email" id="email" class="form-control" required>
                 </div>
-                
+
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>             
+                    <input type="text" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>
                 </div>
-            
+
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
@@ -85,7 +85,7 @@ session_start();
                         </select>
                     </div>
                 </div>
-
+								<!--
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <div class='input-group date'>
@@ -94,6 +94,7 @@ session_start();
                         </div>
                     </div>
                 </div>
+							-->
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -107,6 +108,7 @@ session_start();
                     </div>
                 </div>
 
+								<!--
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
@@ -117,6 +119,7 @@ session_start();
                         </select>
                     </div>
                 </div>
+							-->
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -136,7 +139,7 @@ session_start();
                     Picture of Drivers License / Government ID:<b style = "color: red;">*</b>
                     <input type="file" name="upload" id="upload" class="form-control" required">
                 </form>
-        </div>  
+        </div>
 
         <div class="block_1"><p style="padding-top:30px"</div> <hr />
 
@@ -146,7 +149,7 @@ session_start();
         </div>
         <div class="container">
             <label><p style = "font-size:18px;"">How would you rate yourself in the following areas?</p></label>
-                
+
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Spirituality (closeness to God)<b style = "color: red;">*</b></span>
@@ -199,28 +202,28 @@ session_start();
                     </div>
                 </div>
 
-                
+
                 <div class="row initial-task-padding">
                     <div class="col">
-                        <p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>  
+                        <p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>
                         <textarea id="hopes" cols="132" rows="3"></textarea>
                     </div>
                 </div>
 
                 <div class="row initial-task-padding">
                     <div class="col">
-                        <p>What are some activities that you enjoy?</p>  
+                        <p>What are some activities that you enjoy?</p>
                         <textarea id="activities" cols="132" rows="3"></textarea>
                     </div>
                 </div>
-            
+
                 <div class="row initial-task-padding">
                     <div class="col">
-                        <p>What is one question you would like to have answered during this year's Summit?</b></p>  
+                        <p>What is one question you would like to have answered during this year's Summit?</b></p>
                         <textarea id="question" cols="132" rows="3"></textarea>
                     </div>
                 </div>
-                
+
 
         <div class="block_1"><p style="padding-top:30px"</div> <hr />
 
@@ -232,44 +235,44 @@ session_start();
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 1 - Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: John" name="ec_name1" id="ec_name1" class="form-control" required>             
+                    <input type="text" placeholder="Ex: John" name="ec_name1" id="ec_name1" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 1 - Phone:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: 1234567890" name="ec_phone1" id="ec_phone1" class="form-control" required>             
+                    <input type="text" placeholder="Ex: 1234567890" name="ec_phone1" id="ec_phone1" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 1 - Relationship:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: Father" name="ec_relationship1" id="ec_relationship1" class="form-control" required>             
+                    <input type="text" placeholder="Ex: Father" name="ec_relationship1" id="ec_relationship1" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 2 - Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: John" name="ec_name2" id="ec_name2" class="form-control" required>             
+                    <input type="text" placeholder="Ex: John" name="ec_name2" id="ec_name2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 2 - Phone:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: 1234567890" name="ec_phone2" id="ec_phone2" class="form-control" required>             
+                    <input type="text" placeholder="Ex: 1234567890" name="ec_phone2" id="ec_phone2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 2 - Relationship:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: Mother" name="ec_relationship2" id="ec_relationship2" class="form-control" required>             
+                    <input type="text" placeholder="Ex: Mother" name="ec_relationship2" id="ec_relationship2" class="form-control" required>
                 </div>
-        
+
 
         <div class="block_1"><p style="padding-top:30px"</div> <hr />
 
@@ -279,35 +282,35 @@ session_start();
             <label><p style = "font-size:30px;padding-top: 10px;"">Health Information</p></label>
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Allergies You Have. If none, type N/A.<b style = "color: red;">*</b></p>  
+                    <p>Please List Any Allergies You Have. If none, type N/A.<b style = "color: red;">*</b></p>
                     <textarea id="allergies" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Medication You Are Currently On. If none, type N/A<b style = "color: red;">*</b></p>  
+                    <p>Please List Any Medication You Are Currently On. If none, type N/A<b style = "color: red;">*</b></p>
                     <textarea id="meds" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Activity Restrictions.</b></p>  
+                    <p>Please List Any Activity Restrictions.</b></p>
                     <textarea id="activities" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Dietary Restrictions.</b></p>  
+                    <p>Please List Any Dietary Restrictions.</b></p>
                     <textarea id="dietary" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Other Important Information </b></p>  
+                    <p>Other Important Information </b></p>
                     <textarea id="other" cols="132" rows="2"></textarea>
                 </div>
             </div>
@@ -316,17 +319,17 @@ session_start();
                 <div class="input-group-prepend">
                     <span class="input-group-text">Insurance Provider:<b style = "color: red;">*</b></span>
                  </div>
-                <input type="text" placeholder="Ex: PPO" name="insurance" id="insurance" class="form-control" required>             
+                <input type="text" placeholder="Ex: PPO" name="insurance" id="insurance" class="form-control" required>
             </div>
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Policy Holder:<b style = "color: red;">*</b></span>
                  </div>
-                <input type="text" placeholder="Ex: John" name="policy_holder" id="policy_holder" class="form-control" required>             
+                <input type="text" placeholder="Ex: John" name="policy_holder" id="policy_holder" class="form-control" required>
             </div>
         <div class="block_1"><p style="padding-top:30px"</div> <hr />
-                   
+
         <!-- Submit -->
             <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
                 <div class="col">
@@ -336,7 +339,7 @@ session_start();
             </div>
         </div>
     </form>
-   
+
 
 	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
@@ -421,7 +424,7 @@ session_start();
                     else if (meds == ''){
                         alert("please add any medication or type N/A");
                     }
-                    
+
                     else {
                         var newPostRef = firebase.database().ref('/').push({
                             user_type: "student18",
@@ -465,7 +468,7 @@ session_start();
                         }
                         );
                     }
-                                        
+
                 };
 
         </script>
