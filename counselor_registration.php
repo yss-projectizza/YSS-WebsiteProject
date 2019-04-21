@@ -10,7 +10,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Youth Spiritual Summit</title>
+        <title>Counselor Registration | Youth Spiritual Summit</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -38,11 +38,11 @@
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav mx-auto">
 					<a class="nav-item nav-link" href="http://youthspiritualsummit.weebly.com"><font color="white">Home</font></a>
-                    <!-- change to YSS Activities --> 
+                    <!-- change to YSS Activities -->
 					<a class="nav-item nav-link" href="http://campizza.com/calendar"><font color="white">Activities</font></a>
-                    <!-- change to YSS Fees --> 
-					<a class="nav-item nav-link" href="http://campizza.com/camp-fees"><font color="white">Fees</font></a> 
-                    <!-- change to YSS Contact --> 
+                    <!-- change to YSS Fees -->
+					<a class="nav-item nav-link" href="http://campizza.com/camp-fees"><font color="white">Fees</font></a>
+                    <!-- change to YSS Contact -->
 					<a class="nav-item nav-link" href="http://campizza.com/contact"><font color="white">Contact</font></a>
 				</div>
 			</div>
@@ -54,9 +54,9 @@
     <!-- Counselor Registration Header -->
     <h1 align="center" style = "font-size:50px;padding-top: 20px;">Counselor Application</h1>
     <br>
-    <p>YSS 2019 will be taking place Labor Day Weekend, Aug. 30st - Sept. 2nd, 2019 in the San Bernardino Mts. 
+    <p>YSS 2019 will be taking place Labor Day Weekend, Aug. 30st - Sept. 2nd, 2019 in the San Bernardino Mts.
 **To be considered as a counselor you must be 21 years old or older by the first day of the retreat**
-Application closes: April 28th at midnight. 
+Application closes: April 28th at midnight.
 
 All counselors may be interviewed via Skype or in-person meetings.
 If you have any questions, please contact us at youthspiritualsummit@gmail.com <p>
@@ -71,7 +71,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                 <div class="col">
                     Are you available for the entire 2019 YSS (8/30 - 9/2)?<b style = "color: red;">*</b>
                     <br>
-                    <small span class="subtitle">This includes meeting at 3:30pm on Friday 8/30 and staying with the youth until they are picked up at 3pm on Monday 9/2. If not, please indicate otherwise. 
+                    <small span class="subtitle">This includes meeting at 3:30pm on Friday 8/30 and staying with the youth until they are picked up at 3pm on Monday 9/2. If not, please indicate otherwise.
                     </small> </span>
                     <br>
                     <select class="form-control form-control-md" name="yss_avail" id="yss_avail" style="width:30%">
@@ -107,7 +107,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                 </div>
                 <input type="text" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>
             </div>
-          
+
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
@@ -134,7 +134,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
 			        </div>
 				</div>
             </div>
-            
+
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">City of Residence:<b style = "color: red;">*</b></span>
@@ -255,7 +255,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     <br>
                 </div>
             </div>
-            
+
             <div class="row initial-task-padding">
                 <div class="col">
                     Please list the names and contact information of 3 references<b style = "color: red;">*</b>
@@ -311,7 +311,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
 		  $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
 		});
 	</script>-->
-	
+
 	<!--<script type="text/javascript">
 		$(".dropdown-menu").click(function() {
 			$("#gender").val($(this).data('value'));
@@ -363,14 +363,14 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     e = e.replace(".", ",");
                         //console.log("testing");
                         //console.log(fn, ln, dob, e);
-                    if (!yss_avail || !cs_avail || !fn || !ln || !gender || !dob || 
+                    if (!yss_avail || !cs_avail || !fn || !ln || !gender || !dob ||
                         !city || !phone || !experience || !e || !sibling || !counselor_short ||
                         !exp_desc || !group_age || !gain || !fit || !references ||
                         !felony1 || !felony2 || !verification){
                             alert("Please fill out all required fields");
                     } else {
                         var check_e;
-                        // firebase.database().ref('users/' + e).once('value').then(function(snapshot) 
+                        // firebase.database().ref('users/' + e).once('value').then(function(snapshot)
                         //     {
                         //         console.log("checking if exists");
                         //         check_e = (snapshot.val() && snapshot.val().email);
@@ -379,7 +379,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                         // );
 
                         setTimeout(function(){
-                        
+
                     if (check_e == null){
                             var newPostRef = firebase.database().ref('users/' + e).update({
                                 user_type: user_type,
@@ -403,7 +403,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                                 references: references,
                                 felony1: felony1,
                                 verification: verification
-                            }, 
+                            },
                             function(error) {
                                 if (error) {
                                     alert("didn't go through");

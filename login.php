@@ -36,7 +36,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Original Authors: Mark Otto, Jacob Thornton, and Bootstrap contributors -->
-		<title>Youth Spiritual Summit | Summer Day Camp | Irvine, CA</title>
+		<title>Sign in | Youth Spiritual Summit</title>
 		<link rel="stylesheet" href="/css/main.css">
 		<link rel="stylesheet" href="/css/login.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -62,7 +62,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 					<input type="password" name="passwd" id="inputPassword" class="form-control" placeholder="Password" required>
 					<input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign In" id="submitbutton"></input>
 					<hr>
-	
+
 					<button onclick="myFunction()" id="register" class="btn btn-med btn-outline-info btn-block" role="button" style="margin-top:18">Register</button>
 					<script>
 						function myFunction() {
