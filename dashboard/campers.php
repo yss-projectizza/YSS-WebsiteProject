@@ -1,6 +1,10 @@
+<?php
+  session_start();
+?>
 <html lang="en">
   <head>
     <title>View Campers</title>
+    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
   <body>
@@ -22,8 +26,8 @@
         </div>
       </div>
     </nav>
-    <div>
-      You can see your fellow campers here.
+    <div class="container rounded box">
+      Here is where you see your fellow campers.
     </div>
     <div class="footer top-buffer">
       <div class="container">

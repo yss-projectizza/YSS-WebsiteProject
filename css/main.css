@@ -1,0 +1,33 @@
+.rounded {
+  border: thin solid black;
+  border-radius: 5px;
+}
+
+.box {
+  position: relative;
+  width: 80%;
+  height: auto;
+  margin: 2%;
+}
+
+a:link {
+  text-decoration: none !important;
+}
+
+button {
+  background-color: #f5be6c;
+}
+
+button:hover{
+  background-color: #8fd4d9;
+  cursor: pointer;
+}
+
+input[type=submit]{
+  background-color: #f5be6c;
+}
+
+input[type=submit]:hover{
+  background-color: #8fd4d9;
+  cursor: pointer;
+}

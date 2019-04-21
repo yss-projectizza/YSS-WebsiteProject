@@ -1,7 +1,11 @@
+<?php
+  session_start();
+?>
 <html lang="en">
   <head>
     <title>Profile</title>
     <link rel="stylesheet" href="/css/profile.css" />
+    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
   <body>
@@ -55,7 +59,7 @@
       <!-- Submit -->
       <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
         <div class="col">
-          <input type="submit" class="btn-xl" align="center" value="Submit" >
+          <input type="submit" class="btn-xl rounded" align="center" value="Submit" >
         </div>
       </div>
     </div>
