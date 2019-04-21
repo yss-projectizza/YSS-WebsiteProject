@@ -146,16 +146,17 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                 <div class="input-group-prepend">
                     <span class="input-group-text">Phone Number:<b style = "color: red;">*</b></span>
                 </div>
-                <input type="text" placeholder="Ex: (123)-456-7890" name="phone" id="phone" class="form-control" required>
+                <input type="text" placeholder="Ex: (123) 456-7890" name="phone" id="phone" class="form-control" required>
             </div>
 
             <div class="input-group mb-3">
-                <div class="col">
-                    How many years of experience do you have working with youth?<b style = "color: red;">*</b>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">How many years of experience do you have working with youth?<b style = "color: red;">*</b></span>
                     <br>
                     <small span class="subtitle">Please put the number of years experience you have with either youth group work or MSA work
                     </small> </span>
                     <br>
+                    </div>
                     <select class="form-control form-control-md" name="experience" id="experience" style="width:30%">
 					        <option disabled selected value> -- select an option -- </option>
                             <option>0</option>
@@ -170,20 +171,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                             <option>9</option>
                             <option>10+</option>
 				    </select>
-                    <!--<form id="experience" action="/action_page.php">
-                        <input type="radio" name="years of exp" value="1"> 1
-                        <input type="radio" name="years of exp" value="2"> 2 
-                        <input type="radio" name="years of exp" value="1"> 3
-                        <input type="radio" name="years of exp" value="2"> 4 
-                        <input type="radio" name="years of exp" value="1"> 5
-                        <input type="radio" name="years of exp" value="2"> 6
-                        <input type="radio" name="years of exp" value="1"> 7
-                        <input type="radio" name="years of exp" value="2"> 8
-                        <input type="radio" name="years of exp" value="1"> 9
-                        <input type="radio" name="years of exp" value="2"> 10 
-                    </form>-->
                     <br>
-                </div>
 			</div>
 
             <div class="input-group mb-3">
@@ -197,7 +185,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                 <div class="col">
                     Do you have any siblings or relatives that you think will be attending YSS?<b style = "color: red;">*</b>
                     <br>
-                    <select class="form-control form-control-md" name="cs_avail" id="cs_avail" style="width:30%">
+                    <select class="form-control form-control-md" name="sibling" id="sibling" style="width:30%">
                         <option disabled selected value> -- select an option -- </option>
                         <option>Yes</option>
                         <option>No</option>
@@ -211,13 +199,11 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                 <div class="col">
                 Have you ever been a counselor before?<b style = "color: red;">*</b>
                     <br>
-                    <small span class="subtitle"> This includes meeting at 3:30pm on Friday 8/30 and staying with the youth until they are picked up at 3pm on Monday 9/2. If not, please indicate otherwise. 
-                    </small> </span>
-                    <br>
-                    <form action="/action_page.php">
-                        <input type="radio" name="counselor" value="Yes"> Yes <br>
-                        <input type="radio" name="counselor" value="No"> No <br>
-                    </form>
+                    <select class="form-control form-control-md" name="counselor_short" id="counselor_short" style="width:30%">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
                     <br>
                 </div>
             </div>
@@ -225,7 +211,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
             <div class="row initial-task-padding">
                 <div class="col">
                     If you answered yes to the above question, please describe your experience, otherwise write "N/A"<b style = "color: red;">*</b>
-                    <input type="text" name="describe exp" times-label="describe exp" class="form-control" required>
+                    <input type="text" name="exp_desc" id="exp_desc" times-label="describe exp" class="form-control" required>
                     <br>
                 </div>
             </div>
@@ -237,7 +223,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     <small span class="subtitle"> The Youth Spiritual Summit hosts high school students (14-18 year olds), we would like to know if there is a specific age you feel comfortable working with.
                     </small> </span>
                     <br>
-                    <input type="text" name="group age" times-label="group age" class="form-control" required>
+                    <input type="text" name="group age" id="group_age" times-label="group age" class="form-control" required>
                     <br>
                 </div>
             </div>
@@ -249,7 +235,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     <small span class="subtitle"> Please describe in 2-3 sentence why you would like to be a counselor
                     </small> </span>
                     <br>
-                    <input type="text" name="gain" times-label="gain" class="form-control" required>
+                    <input type="text" name="gain" id="gain" times-label="gain" class="form-control" required>
                     <br>
                 </div>
             </div></div>
@@ -257,15 +243,15 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
             <div class="row initial-task-padding">
                 <div class="col">
                     What makes you a good fit for YSS?<b style = "color: red;">*</b>
-                    <input type="text" name="fit" times-label="fit" class="form-control" required>
+                    <input type="text" name="fit" id="fit" times-label="fit" class="form-control" required>
                     <br>
                 </div>
             </div></div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    Is there anything else you'd like us to know about you? (special accommodations, awards, etc)?<b style = "color: red;">*</b>
-                    <input type="text" name="extra" times-label="extra" class="form-control" required>
+                    Is there anything else you'd like us to know about you? (special accommodations, awards, etc)?
+                    <input type="text" value="" name="extra" id="extra" times-label="extra" class="form-control">
                     <br>
                 </div>
             </div>
@@ -273,24 +259,21 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
             <div class="row initial-task-padding">
                 <div class="col">
                     Please list the names and contact information of 3 references<b style = "color: red;">*</b>
-                    <input type="text" name="references" times-label="references" class="form-control" required>
+                    <input type="text" name="references" id="references" times-label="references" class="form-control" required>
                     <br>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    Have you ever been convicted of a felony (if yes, please explain under "other")<b style = "color: red;">*</b>
+                    Have you ever been convicted of a felony (if yes, please explain in the text box below)<b style = "color: red;">*</b>
                     <br>
-                    <small span class="subtitle"> This includes meeting at 3:30pm on Friday 8/30 and staying with the youth until they are picked up at 3pm on Monday 9/2. If not, please indicate otherwise. 
-                    </small> </span>
-                    <br>
-                    <form action="/action_page.php">
-                        <input type="radio" name="felony" value="Yes"> No <br> 
-                        <input type="radio" name="felony" value="No"> Yes <br>
-                        <!-- Make this required if YES -->
-                        <input type="text" name="felony" times-label="Other" class="form-control" required>
-                    </form>
+                    <select class="form-control form-control-md" name="felony1" id="felony1" style="width:30%">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option>No</option>
+                        <option>Yes</option>
+                    </select>
+                    <input type="text" name="felony2" id="felony2" times-label="references" class="form-control">
                     <br>
                 </div>
             </div>
@@ -300,10 +283,11 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
             <div class="row initial-task-padding">
                 <div class="col">
                 I certify that my answers are true and complete to the best of my knowledge. By checking "yes," I certify that if this application leads to my participation, any false or misleading information in my application or interview may result in my release.<b style = "color: red;">*</b>
-                    <form action="/action_page.php">
-                        <input type="radio" name="available" value="Yes"> Yes, I certify <br>
-                        <input type="radio" name="available" value="No"> No, I do not certify <br>
-                    </form>
+                    <select class="form-control form-control-md" name="verification" id="verification" style="width:30%">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
                     <br>
                 </div>
             </div>
@@ -337,18 +321,22 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
     <script>
-        var config = { 
-            apiKey: "AIzaSyDyWL6I7h4Vm_n3eJBWLie92wm77E1lQhU",
-            authDomain: "youth-spiritual-summit.firebaseapp.com",
-            databaseURL: "https://youth-spiritual-summit.firebaseio.com",
-            projectId: "youth-spiritual-summit",
-            storageBucket: "youth-spiritual-summit.appspot.com",
-            messagingSenderId: "215019311847" };
+
+        var config = {
+            apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+            authDomain: "yss-project-69ba2.firebaseapp.com",
+            databaseURL: "https://yss-project-69ba2.firebaseio.com",
+            projectId: "yss-project-69ba2",
+            storageBucket: "yss-project-69ba2.appspot.com",
+            messagingSenderId: "530416464878"
+        };
 
             firebase.initializeApp(config);
 
             document.getElementById("submitform").addEventListener("click", function(){
-                    var database = firebase.database();
+                    var user_type = "counselor";
+                    var yss_avail = document.getElementById("yss_avail").value;
+                    var cs_avail = document.getElementById("cs_avail").value;
                     var fn = document.getElementById("firstname").value;
                     var ln = document.getElementById("lastname").value;
                     var gender = document.getElementById("gender").value;
@@ -357,14 +345,31 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     var phone = document.getElementById("phone").value;
                     var experience = document.getElementById("experience").value;
                     var e = document.getElementById("email").value;
+                    var sibling = document.getElementById("sibling").value;
+                    var counselor_short = document.getElementById("counselor_short").value;
+                    var exp_desc = document.getElementById("exp_desc").value;
+                    var group_age = document.getElementById("group_age").value;
+                    var gain = document.getElementById("gain").value;
+                    var fit = document.getElementById("fit").value;
+                    var extra = document.getElementById("extra").value;
+                    var references = document.getElementById("references").value;
+                    var felony1 = document.getElementById("felony1").value;
+                    var felony2 = document.getElementById("felony2").value;
+                    var verification = document.getElementById("verification").value;
+                    if (felony1 == "No"){
+                        felony2 = "N/A"
+                    }
                     e = e.replace(".", ",");
                         //console.log("testing");
                         //console.log(fn, ln, dob, e);
-                    if (!fn || !fn || !dob || !e){
-                        alert("fill in all required fields");
+                    if (!yss_avail || !cs_avail || !fn || !ln || !gender || !dob || 
+                        !city || !phone || !experience || !e || !sibling || !counselor_short ||
+                        !exp_desc || !group_age || !gain || !fit || !references ||
+                        !felony1 || !felony2 || !verification){
+                            alert("Please fill out all required fields");
                     } else {
                         var check_e;
-                        firebase.database().ref('/counselors/' + e + '/').once('value').then(function(snapshot) 
+                        firebase.database().ref('users/' + e).once('value').then(function(snapshot) 
                             {
                                 console.log("checking if exists");
                                 check_e = (snapshot.val() && snapshot.val().email);
@@ -374,15 +379,29 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
 
                         setTimeout(function(){
                         
-                    if (check_e != e){
-                            var newPostRef = firebase.database().ref('/counselors/' + e + '/').set({
-                            firstname: fn,
-                            lastname: ln,
-                            dob: dob,
-                            city: city,
-                            phone: phone,
-                            experience: experience,
-                            email: e
+                    if (check_e == null){
+                            var newPostRef = firebase.database().ref('users/' + e).set({
+                                user_type: user_type,
+                                yss_avail: yss_avail,
+                                cs_avail: cs_avail,
+                                first_name: fn,
+                                last_name: ln,
+                                gender: gender,
+                                dob: dob,
+                                city: city,
+                                phone: phone,
+                                experience: experience,
+                                email: e,
+                                sibling: sibling,
+                                counselor_short: counselor_short,
+                                exp_desc: exp_desc,
+                                group_age: group_age,
+                                gain: gain,
+                                fit: fit,
+                                extra: extra,
+                                references: references,
+                                felony1: felony1,
+                                verification: verification
                             }, 
                             function(error) {
                                 if (error) {
