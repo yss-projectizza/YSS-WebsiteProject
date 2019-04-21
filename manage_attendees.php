@@ -61,7 +61,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
     <div id="todos" class="box">
       <div class="row">
     <div class="col my-auto" style="padding-bottom: 20px;">
-      <a href="./underage_registration.php" type="button" class="btn btn btn-success" style="border-color: white">+ Click Here to Add Youth</a>
+      <a href="./underage_registration.php" type="button" class="btn btn btn-success" style="border-color: white">+ Add Youth Participant</a>
           </div>        
       </div>
   </div>
@@ -74,8 +74,8 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
             <div class="d-flex justify-content-between align-items-center">
               <a class="card-text"></a>
               <div class="right">
-                <a href="editchild.php?childid=<?php echo $childid; ?>" role="button" class="btn btn-sm btn-secondary">Edit Youth</a>
-                <button onclick="deleteChildById(<?php echo $childid; ?>)" id="deletecamper" class="btn btn-sm btn-danger">Delete Youth</button>
+                <a href="editchild.php?childid=<?php echo $childid; ?>" role="button" class="btn btn-sm btn-secondary">Edit Youth Participant</a>
+                <button onclick="deleteChildById(<?php echo $childid; ?>)" id="deletecamper" class="btn btn-sm btn-danger">Delete Youth Participant</button>
               </div>
             </div>
             <div class="left">
