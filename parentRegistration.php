@@ -21,7 +21,7 @@ session_start();
     Navigation bar
     -->
     <nav class="navbar navbar-expand-sm navbar-light bg-white">
-      <div class="container" style = "background: LightSteelBlue">
+      <div class="container" style = "background: #5b77a5">
         <a class="navbar-brand" href="http://youthspiritualsummit.weebly.com">
           <img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png"
           width="150" height="65" alt="">
@@ -365,6 +365,7 @@ Javascript Segment
             }
             else {
               var newPostRef = firebase.database().ref('/').push({
+                user_type: "Parent",
                 first_name: fName,
                 last_name: lName,
                 email: Email,
