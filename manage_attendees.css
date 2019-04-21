@@ -1,0 +1,10 @@
+.alignleft {
+    float: left;
+    left: 30%;
+    position: absolute;
+}
+.alignright {
+    float: right;
+    right: 30%;
+    position: absolute;
+}
