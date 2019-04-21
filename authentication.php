@@ -21,7 +21,7 @@ $firebase = (new Factory)
     ->withServiceAccount($serviceAccount)
     ->create();
 $database = $firebase->getDatabase();
-$reference = $database->getReference('/')->getValue();
+$reference = $database->getReference('/users')->getValue();
 
 if ($reference[$username]){
     print_r("found username");

@@ -47,6 +47,7 @@
           - hide certain elements through javascript
           - figure out how to get user type into php
     -->
+    
     <main class="main">
       <!-- <div class="main-header rounded">
         <div class="main-header__heading">
