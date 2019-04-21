@@ -67,7 +67,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 
 						}
 						else if (age >= 18){
-							window.location.href = "/createaccount.php";
+							window.location.href = "/MYcreateaccount.php";
 						}
 						else {
 							window.alert("You must be 18 to register for an account.");
