@@ -101,6 +101,18 @@
                 <p>Sunday</p>
                 <p>ETC</p>
               </div>
+
+              <div class="card">
+                <h2>Payment</h2>
+                <p>You owe: $0</p>
+                <script src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk"></script>
+                <div id="paypal-button-container"></div>
+
+                <script>
+                  paypal.Buttons().render('#paypal-button-container');
+                </script>
+
+              </div>
             <?php endif ?>
           </div>
         </div>
