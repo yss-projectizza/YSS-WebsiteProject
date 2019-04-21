@@ -7,11 +7,6 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 		header("Location: dashboard.php");
 		exit;
 
-		//if student account
-
-		//if adult account
-
-		//if no account
 }   else {
 		header("Location: login.php");
 
