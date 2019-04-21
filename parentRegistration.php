@@ -2,6 +2,7 @@
 // Initialize the session
 session_start();
 ?>
+<?php print_r($_POST);?>
 
 <!doctype html>
 <html lang="en">
@@ -102,7 +103,7 @@ session_start();
                       <input id="phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
                       name="phone" class="form-control" required>
                   </div>
-
+                  <!--
                   <div class="input-group mb-3">
                       <div class="input-group-prepend">
                           <span class="input-group-text">Email Address:
@@ -112,7 +113,7 @@ session_start();
                       <input id="emailInput" type="semail" placeholder="Ex: johnsmith@gmail.com"
                        name="email" class="form-control" required>
                   </div>
-
+                -->
                   <p align="center" style = "font-size:30px;padding-top: 10px;">
                     Residence Information</p>
                   <br>
@@ -297,6 +298,8 @@ session_start();
       			</div>
       		</div>
     	</form>
+
+
 
 <!--
 Javascript Segment
