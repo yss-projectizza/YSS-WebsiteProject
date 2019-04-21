@@ -10,6 +10,8 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 <?php
     $user = "admin";
     if($user == "adnmin"){
+        $first_name = "First Name";
+        $last_name = "Last Name";
         $group_num = 3;
         $bus_num = 10;
         $cabin_num = 15;
@@ -58,7 +60,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
       <div id="todos" class="box">
         <div class="row">
 			<div class="col my-auto" style="padding-bottom: 20px;">
-				<a href="./childregistration.php" type="button" class="btn btn btn-success" style="border-color: white">+ Click Here to Add Attendee</a>
+				<a href="./underage_registration.php" type="button" class="btn btn btn-success" style="border-color: white">+ Click Here to Add Attendee</a>
             </div>        
         </div>
     </div>
@@ -78,10 +80,10 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 			    </div>
             </div>  
             <div class="d-flex justify-content-between align-items-center">
-				<h4 style="padding-left: 20px;">Amount Paid: $<?php echo $price?></h4>
+				<h4 align="left">Amount Paid: $<?php echo $price?></h4>
 			</div>
 			<div class="d-flex justify-content-between align-items-center">
-				 <h4 style="padding-left: 20px;">Credit: $<?php echo $credit?></h4><br>
+				 <h4 align="left">Credit: $<?php echo $credit?></h4><br>
 					<form action="updateAdditionalPaid.php" method="post">
                         Update Credit: <input type="number" step="0.01" name="amount">
                         <input type="hidden" name="childid" value="<?php echo $childid ?>">
