@@ -356,7 +356,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     var felony1 = document.getElementById("felony1").value;
                     var felony2 = document.getElementById("felony2").value;
                     var verification = document.getElementById("verification").value;
-                    var email = "<?php echo $email?>"
+                    //var email = "<?php echo $email?>"
                     if (felony1 == "No"){
                         felony2 = "N/A"
                     }

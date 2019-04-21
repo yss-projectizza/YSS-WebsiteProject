@@ -95,6 +95,7 @@ session_start();
         <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
         <!--<script src="counselor_app.js"></script>-->
         <script>
+
             var config = {
                 apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
                 authDomain: "yss-project-69ba2.firebaseapp.com",
@@ -121,22 +122,48 @@ session_start();
 												var age = Number(currentDate) - Number(dob.getFullYear());
 												if(age < 18) {
 														alert("You do not have permission to make an account. Your guardian must make one for you.");
-														window.location.replace("/login.php");
+														//window.location.replace("/login.php");
 												}
+
 												else {
+													var data = new FormData();
+													data.append("email",email);
+													var xhr = new XMLHttpRequest();
+													var url;
+													/*
 													//alert("you are over 18!");
 													if(acct == "counselor") {
-														alert("navigating into counselor registration");
-														window.location.replace("/counselor_registration.php");
+														url = "/counselor_registration.php";
+														//alert("navigating into counselor registration");
+														//window.location.replace("/counselor_registration.php");
 													}
 													else if(acct == "parent") {
-														alert("navigating into guardian registration");
-														window.location.replace("/parentRegistration.php");
+														url = "/parentRegistration.php";
+														//alert("navigating into guardian registration");
+														//window.location.replace("/parentRegistration.php");
 													}
 													else if(acct == "overage"){
-														alert("navigating into youth registration");
-														window.location.replace("/overage_registration.php");
+														url = "/overage_registration.php";
+														//alert("navigating into youth registration");
+														//window.location.replace("/overage_registration.php");
 													}
+													*/
+													var params = "email=email&dob=dob";
+													xhr.open("POST", "/parentRegistration.php", true);
+													/*
+													//Send the proper header information along with the request
+													http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+													http.setRequestHeader("Content-length", params.length);
+													http.setRequestHeader("Connection", "close");
+
+													http.onreadystatechange = function() {//Call a function when the state changes.
+														if(http.readyState == 4 && http.status == 200) {
+															alert(http.responseText);
+														}
+													}
+													*/
+													xhr.send(data);
+													window.location = ("/parentRegistration.php");
 												}
 									}
 											/*
