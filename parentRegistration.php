@@ -2,7 +2,6 @@
 // Initialize the session
 session_start();
 ?>
-<?php print_r($_POST);?>
 
 <!doctype html>
 <html lang="en">
