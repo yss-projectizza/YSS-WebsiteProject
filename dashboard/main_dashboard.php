@@ -82,8 +82,33 @@
           <div class="col">
             <div class="card">            
                 <h2>Payment</h2>
-                <p>You owe: $0</p>
-                <button type="button" class="rounded" onclick="document.location.href = 'financialaid.php';">Apply for Financial Aid</button>
+                <label>You owe: $<?php echo $credit_due;?></label>
+
+                <script src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk"></script>
+                <div id="paypal-button-container"></div>
+                <script>
+                  paypal.Buttons({
+                    createOrder: function(data, actions) {
+                      return actions.order.create({
+                        purchase_units: [{
+                          amount: {
+                            value: <?php echo $credit_due;?>
+                          }
+                        }]
+                      });
+                    },
+                    onApprove: function(data, actions) {
+                      // Capture the funds from the transaction
+                      return actions.order.capture().then(function(details) {
+                        // Show a success message to your buyer
+                        alert('Transaction completed by ' + details.payer.name.given_name);
+                      });
+                    }
+                  }).render('#paypal-button-container');
+                </script>
+                                <button type="button" class="rounded" onclick="document.location.href = 'financialaid.php';">Apply for Financial Aid</button>
+
+              </div>
                 <br>
                 <script src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk"></script>
                 <div id="paypal-button-container"></div>
@@ -116,35 +141,7 @@
                 <p>ETC</p>
               </div>
 
-              <div class="card">
-                <h2>Payment</h2>
-                <label>You owe: $<?php echo $credit_due;?></label>
 
-                <script src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk"></script>
-                <div id="paypal-button-container"></div>
-                <script>
-                  paypal.Buttons({
-                    createOrder: function(data, actions) {
-                      return actions.order.create({
-                        purchase_units: [{
-                          amount: {
-                            value: <?php echo $credit_due;?>
-                          }
-                        }]
-                      });
-                    },
-                    onApprove: function(data, actions) {
-                      // Capture the funds from the transaction
-                      return actions.order.capture().then(function(details) {
-                        // Show a success message to your buyer
-                        alert('Transaction completed by ' + details.payer.name.given_name);
-                      });
-                    }
-                  }).render('#paypal-button-container');
-                </script>
-
-
-              </div>
             <?php endif ?>
           </div>
         </div>
