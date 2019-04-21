@@ -57,7 +57,7 @@
     <main class="main">
       <?php if ($user_type == "parent"): ?>
             <div class="col my-auto" style="padding-bottom: 20px;">
-              <a href="./underage_registration.php" type="button" class="btn btn btn-success" style="border-color: white">+ Add Youth Participant</a>
+            <button type="button" class="rounded" onclick="document.location.href = 'manage_attendees.php';">Manage Youth Participants</button>
             </div>  
         <?php endif ?>
       <!--div class="main-cards"-->
