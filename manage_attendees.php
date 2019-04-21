@@ -73,9 +73,9 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 			<div class="card-body">
 				<div class="d-flex justify-content-between align-items-center">
 					<a class="card-text"></a>
-					<h3><?php echo $first_name . " " . $last_name ?></h3>
-					<a href="editchild.php?childid=<?php echo $childid; ?>" role="button" class="btn btn-sm btn-secondary">Edit Camper</a>
-					<button onclick="deleteChildById(<?php echo $childid; ?>)" id="deletecamper" class="btn btn-sm btn-danger">Delete Camper</button>
+					<h3 class="alignleft"><?php echo $first_name . " " . $last_name ?></h3>
+					<p class="alignright"><a href="editchild.php?childid=<?php echo $childid; ?>" role="button" class="btn btn-sm btn-secondary">Edit Camper</a></p>
+					<p class="alignright"><button onclick="deleteChildById(<?php echo $childid; ?>)" id="deletecamper" class="btn btn-sm btn-danger">Delete Camper</button></p>
 			    </div>
 
             <div class="left">
@@ -90,7 +90,8 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
                     </form>  
 			</div>			            
 		</div>
-	</div>
+    </div>
+    
 <!-- FOOTER -->
     <div class="footer top-buffer">
       <div class="container">
