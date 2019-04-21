@@ -24,7 +24,7 @@ session_start();
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-light bg-white">
-		<div class="container" style = "background: LightSteelBlue">
+		<div class="container" style = "background: #5b77a5">
 			<a class="navbar-brand" href="http://youthspiritualsummit.weebly.com">
 				<img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="">
 			</a>
@@ -59,9 +59,9 @@ session_start();
 
         <div class="input-group mb-3">
              <div class="input-group-prepend">
-                <span class="input-group-text">Enter a username:<b style = "color: red;">*</b></span>
+                <span class="input-group-text">Enter your age:<b style = "color: red;">*</b></span>
             </div>
-                <input type="text" placeholder="Ex: jsmith" name="username" id="username" class="form-control" required>
+                <input type="text" name="age" id="ageInput" class="form-control" required>
         </div>
 
         <div class="input-group mb-3">
@@ -75,15 +75,32 @@ session_start();
              <div class="input-group-prepend">
                 <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
             </div>
-                <input type="password" name="password2" id="password2" class="form-control" required>             
+                <input type="password" name="password2" id="password2" class="form-control" required>
         </div>
+
+				<div class="input-group mb-3">
+						 <div class="input-group-prepend" style="padding-right: 30px;">
+								<span class="input-group-text">Choose Account type:<b
+									style = "color: red;">*</b></span>
+						</div>
+								<select id="accountType" class="input-group-option" style="
+									padding-left: 15px;
+									padding-right: 20px;
+								">
+									<option value="default">Options</option>
+									<option value="parent">Guardian</option>
+									<option value="counselor">Counselor</option>
+									<option value="overage">Attendee</option>
+								</select>
+				</div>
 
         <div class="block_1"><p style="padding-top:30px"</div> <hr />
         <!-- Submit -->
         <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
                 <div class="col">
                     <!-- <button id="myBtn">Submit</button> -->
-                    <button type="button" value="Submit" name="subscribe" id="submitAccount">Create Account
+                    <button type="button" value="Submit"
+										 name="subscribe" id="submitAccount" >Create Account
                 </div>
             </div>
         </div>
@@ -93,31 +110,37 @@ session_start();
         <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
         <!--<script src="counselor_app.js"></script>-->
         <script>
-            var config = { 
+            var config = {
                 apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
                 authDomain: "yss-project-69ba2.firebaseapp.com",
                 databaseURL: "https://yss-project-69ba2.firebaseio.com",
                 projectId: "yss-project-69ba2",
                 storageBucket: "yss-project-69ba2.appspot.com",
-                messagingSenderId: "530416464878" 
+                messagingSenderId: "530416464878"
             };
             firebase.initializeApp(config);
 
             document.getElementById("submitAccount").addEventListener("click", function(){
                     var database = firebase.database();
                     var email = document.getElementById("email").value;
-                    var usr = document.getElementById("username").value;
+                    var age = document.getElementById("ageInput").value;
                     var pw1 = document.getElementById("password").value;
                     var pw2 = document.getElementById("password2").value;
-                    e = e.replace(".", ",");
+										var acct = document.getElementById("accountType").value;
+                    //e = e.replace(".", ",");
                         //console.log("testing");
                         //console.log(fn, ln, dob, e);
-                    if (!email || !usr || !pw1 || !pw2){
+                    if (!email || !age || !pw1 || !pw2){
                         alert("Please fill in all fields");
-                    } else {
+                    }
+										else if(age < 18) {
+												alert("You do not have permission to make an account.");
+												window.location.replace("/login.php");
+										}
+										else {
                         var check_e;
                         var check_u;
-                        firebase.database().ref('/counselors/' + e + '/').once('value').then(function(snapshot) 
+                        firebase.database().ref('/counselors/' + e + '/').once('value').then(function(snapshot)
                             {
                                 console.log("checking if exists");
                                 check_e = (snapshot.val() && snapshot.val().email);
@@ -127,14 +150,14 @@ session_start();
                         );
 
                         setTimeout(function(){
-                        
+
                     if (check_e == null){
                             var newPostRef = firebase.database().ref('/counselors/' + e + '/').set({
                             first_name: fn,
                             last_name: ln,
                             dob: dob,
                             email: e
-                            }, 
+                            },
                             function(error) {
                                 if (error) {
                                     alert("didn't go through");
@@ -151,7 +174,7 @@ session_start();
                     }
             });
                 // Get the unique ID generated by push() by accessing its key
-            
+
 
 
 

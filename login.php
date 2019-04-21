@@ -50,8 +50,10 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 	<body class="text-center">
 		<form action="authentication.php" method="POST">
 				<div class="box rounded">
-					<a id="brandToHome" class="navbar-brand" href="http://youthspiritualsummit.weebly.com">
-						<img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="TEST" style="background-color:#5b77a5">
+					<a title="Go back to Homepage" id="brandToHome" class="navbar-brand"
+					href="http://youthspiritualsummit.weebly.com">
+							<img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png"
+							 width="150" height="65" alt="TEST" style="background-color:#5b77a5">
 					</a>
 					<h1 class="h3 mb-3 font-weight-normal" style="margin-top:30">Login</h1>
 					<label for="inputEmail" class="sr-only">Email address</label>

@@ -1,14 +1,7 @@
-.rounded {
-  border: thin solid black;
+.rounded-box {
+  border: 3px solid black;
   border-radius: 5px;
   overflow: hidden;
-}
-
-.box {
-  position: relative;
-  width: 80%;
-  height: auto;
-  margin: 2%;
 }
 
 input {

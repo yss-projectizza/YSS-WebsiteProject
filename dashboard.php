@@ -1,6 +1,6 @@
 <!-- Main logic for getting dashboard -->
 <?php
-//session_start();
+session_start();
 
 /* if( !$_SESSION["loggedin"]){
 		header("Location: login.php");
@@ -8,12 +8,9 @@
 } */
 
 
-    $data = $_SESSION["queryData"];
-
+  $data = $_SESSION["queryData"];
 
   $user = "student";
-
-
 
   if($user == "student" || $user == "counselor" || $user == "parent"){
     // add any needed data for student or counselor or parent

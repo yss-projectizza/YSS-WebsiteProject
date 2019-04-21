@@ -4,7 +4,9 @@
 <html lang="en">
   <head>
     <title>View Campers</title>
+    <script src="/dashboard/main_users/campers.js"></script>
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/campers.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
   <body>
@@ -28,25 +30,24 @@
     </nav>
 
     <div class="container rounded box">
-      <button class="tablinks" onclick="">Bus</button>
-      <button class="tablinks" onclick="">Cabin</button>
-      <button class="tablinks" onclick="">Group</button>
-      Here is where you see your fellow campers.
-    </div>
+      <button class="tablinks" onclick="toggleInfo(event, 'bus')">Bus</button>
+      <button class="tablinks" onclick="toggleInfo(event, 'cabin')">Cabin</button>
+      <button class="tablinks" onclick="toggleInfo(event, 'group')">Group</button>
 
-    <div id="bus" class="tabcontent">
-      <h3>Bus</h3>
-      <p>This is bus information. </p>
+      <div id="bus" class="tabcontent">
+        <h3>Bus</h3>
+        <p>This is bus information. </p>
+      </div>
+      <div id="cabin" class="tabcontent">
+        <h3>Cabin</h3>
+        <p>This is cabin information. </p>
+      </div>
+      <div id="group" class="tabcontent">
+        <h3>Group</h3>
+        <p>This is group information. </p>
+      </div>
     </div>
-    <div id="cabin" class="tabcontent">
-      <h3>Cabin</h3>
-      <p>This is cabin information. </p>
-    </div>
-    <div id="group" class="tabcontent">
-      <h3>Group</h3>
-      <p>This is group information. </p>
-    </div>
-
+    
     <div class="footer top-buffer">
       <div class="container">
         <div class="row align-items-center">
