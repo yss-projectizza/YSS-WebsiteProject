@@ -357,6 +357,7 @@ Javascript Segment
             var medications = document.getElementById("medInput").value;
             var actrestriction = document.getElementById("actRestrictionInput").value;
             var dietrestriction = document.getElementById("dietRestrictionsInput").value;
+            var other = document.getElementById("otherInput").value;
             var insurance = document.getElementById("insuranceInput").value;
             var policy = document.getElementById("policyInput").value;
 
@@ -365,7 +366,7 @@ Javascript Segment
             }
             else {
               var newPostRef = firebase.database().ref('/').push({
-                user_type: "Parent",
+                user_type: "parent",
                 first_name: fName,
                 last_name: lName,
                 email: Email,
@@ -383,6 +384,7 @@ Javascript Segment
                 meds: medications,
                 activity_restrictions: actrestriction,
                 dietary_restrictions: dietrestriction,
+                other: other,
                 insurance: insurance,
                 policy_holder: policy
                 },
