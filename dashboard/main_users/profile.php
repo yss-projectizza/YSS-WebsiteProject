@@ -63,7 +63,6 @@
           <input type="submit" class="btn-xl rounded" align="center" value="Submit" >
         </div>
       </div>
-      
     </div>
     <div class="footer top-buffer">
       <div class="container">
