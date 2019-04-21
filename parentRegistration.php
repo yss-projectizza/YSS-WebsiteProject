@@ -287,22 +287,6 @@ session_start();
                       <input type="file" name="license" id="licenseUpload" class="form-control" required">
                   </form>
 
-              <!-- Verification -->
-              <label><p style = "font-size:30px;">Verification</p></label>
-                  <div class="row initial-task-padding">
-                      <div class="col">
-                      I certify that my answers are true and complete to the best of my knowledge. By checking "yes," I certify that if this application leads to my participation, any false or misleading information in my application or interview may result in my release.<b style = "color: red;">*</b>
-                          <form action="/action_page.php">
-                              <input type="radio" name="available" value="Yes"> Yes, I certify <br>
-                              <input type="radio" name="available" value="No"> No, I do not certify <br>
-                          </form>
-                          <br>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      	<input type="hidden" id="gender" name="gender" value="">
-
       	<!-- Submit -->
           <div class="row margin-data"
           style = "padding-bottom: 50px;
