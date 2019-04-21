@@ -60,9 +60,9 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
   <div>
     <div id="todos" class="box">
       <div class="row">
-    <div class="col my-auto" style="padding-bottom: 20px;">
-      <a href="./underage_registration.php" type="button" class="btn btn btn-success" style="border-color: white">+ Add Youth Participant</a>
-          </div>        
+        <div class="col my-auto" style="padding-bottom: 20px;">
+          <a href="./underage_registration.php" type="button" class="btn btn btn-success" style="border-color: white">+ Add Youth Participant</a>
+        </div>        
       </div>
   </div>
 

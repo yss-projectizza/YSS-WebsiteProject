@@ -13,6 +13,22 @@ body {
   position: absolute;
   text-align: center;
   right: 0%;
+  top: 5%;
+}
+
+#profile img {
+  width: 25%;
+  height: auto;
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 50px;
+}
+
+/*
+#profile {
+  position: absolute;
+  text-align: center;
+  right: 0%;
   top: 10%;
 }
 
@@ -23,6 +39,7 @@ body {
   border: 3px solid black;
   border-radius: 50px;
 }
+*/
 
 #profile img:hover {
   border: 5px solid #5b77a5;
@@ -59,7 +76,14 @@ body {
   padding: 24px;
 }
 
+.card{
+  background-color: #eceff1;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
 /* Force varying heights to simulate dynamic content */
+/*
 .card:first-child {
   height: 150px;
   background-color: #e1e8f4;
@@ -94,6 +118,7 @@ body {
   border: 2px solid black;
   border-radius: 5px;
 }
+*/
 
 /* Medium screens breakpoint (1050px) */
 @media only screen and (min-width: 65.625em) {
