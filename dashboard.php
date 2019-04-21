@@ -2,10 +2,14 @@
 <?php
 session_start();
 
-
+if( !$_SESSION["loggedin"]){
+		header("Location: login.php");
+		exit;
+}
 
 
     $data = $_SESSION["queryData"];
+
 
   $user = "student";
 

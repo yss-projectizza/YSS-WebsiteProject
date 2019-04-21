@@ -56,7 +56,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 					<input name="user" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
 					<label for="inputPassword" class="sr-only">Password</label>
 					<input type="password" name="passwd" id="inputPassword" class="form-control" placeholder="Password" required>
-					<input class="btn btn-lg btn-primary btn-block" type="submit" id="submitbutton"></input>
+					<input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign In" id="submitbutton"></input>
 					<hr>
 					<a class="btn btn-sm btn-warning btn-block" href="/parentRegistration.php" role="button">Register</a>
 					<a class="btn btn-sm btn-outline-info btn-block" href="/forgot" role="button">Forgot Password</a>
