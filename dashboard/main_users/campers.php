@@ -33,17 +33,17 @@
       <button class="tablinks" onclick="toggleInfo(event, 'bus')">Bus</button>
       <button class="tablinks" onclick="toggleInfo(event, 'cabin')">Cabin</button>
       <button class="tablinks" onclick="toggleInfo(event, 'group')">Group</button>
-
+      <br>
       <div id="bus" class="tabcontent">
-        <h3>Bus</h3>
+        <h3>Bus #<?php echo $_SESSION["queryData"]["bus_num"]; ?> </h3>
         <p>This is bus information. </p>
       </div>
       <div id="cabin" class="tabcontent">
-        <h3>Cabin</h3>
+        <h3>Cabin #<?php echo $_SESSION["queryData"]["cabin_num"]; ?></h3>
         <p>This is cabin information. </p>
       </div>
       <div id="group" class="tabcontent">
-        <h3>Group</h3>
+        <h3>Group #<?php echo $_SESSION["queryData"]["group_num"]; ?></h3>
         <p>This is group information. </p>
       </div>
     </div>
