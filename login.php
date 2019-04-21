@@ -60,8 +60,28 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 					<input type="password" name="passwd" id="inputPassword" class="form-control" placeholder="Password" required>
 					<input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign In" id="submitbutton"></input>
 					<hr>
-					<a id="register" class="btn btn-sm btn-warning btn-block" href="/parentRegistration.php" role="button">Register</a>
-					<a id="forgot" class="btn btn-sm btn-outline-info btn-block" href="/forgot" role="button">Forgot Password</a>
+	
+					<button onclick="myFunction()" id="register" class="btn btn-med btn-outline-info btn-block" role="button" style="margin-top:18">Register</button>
+					<script>
+						function myFunction() {
+						var txt;
+						var age = prompt("Please enter your age:", "");
+						if (age == null) {
+							window.alert("Age not entered.");
+
+						}
+						else if (age >= 18){
+							window.location.href = "/createaccount.php";
+						}
+						else {
+							window.location.href = "You must be 18 to register for an account.";
+						}
+						document.getElementById("demo").innerHTML = txt;
+						}
+					</script>
+
+
+					<a id="forgot" class="btn btn-med btn-outline-info btn-block" href="/forgot" role="button" style="margin-top:12">Forgot Password</a>
 					<p class="mt-5 mb-3 text-muted" style="font-size:14">&copy; Youth Spiritual Summit 2019</p>
 				</div>
 		</form>
