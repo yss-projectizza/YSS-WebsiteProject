@@ -61,16 +61,6 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 		<p class="mt-5 mb-3 text-muted" style="font-size:14">&copy; Youth Spiritual Summit 2019</p>
 	</form>
 
-	<script>
-	document.getElementById("submitbutton").addEventListener("click", function(){
-		var email = document.getElementById("inputEmail");
-		var password = document.getElementById("inputPassword");
-
-		form.submit();
-
-	})
-
-	</script>
 
 
 </body>
