@@ -8,12 +8,9 @@
 } */
 
 
-    $data = $_SESSION["queryData"];
-
+  $data = $_SESSION["queryData"];
 
   $user = "student";
-
-
 
   if($user == "student" || $user == "counselor" || $user == "parent"){
     // add any needed data for student or counselor or parent

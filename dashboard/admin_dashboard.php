@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
   <body>
-  <nav class="navbar navbar-expand-sm navbar-light bg-white">
-		<div class="container" style = "background: LightSteelBlue">
+  <nav class="navbar navbar-expand-sm navbar-light">
+		<div class="container">
 			<a class="navbar-brand" href="http://youthspiritualsummit.weebly.com">
 				<img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="">
 			</a>
@@ -25,15 +25,16 @@
 		</div>
 	</nav>
   <main class="main">
-    <div class="main-header">
-      <div class="main-header__heading">
-        Hello <?php echo $name; ?>! 
+    <div class="main-cards">
+      <div class="card">
+        <div id="intro">
+          <h3>Hello <?php echo $name; ?>!</h3>
+        </div>
         <div id="profile">
-          <img src="profile_placeholder.jpg"/>
+          <img src="/profile_placeholder.jpg" onClick="goToProfile();"/>
+          <p>Edit Your Profile</p>
         </div>
       </div>
-    </div>
-    <div class="main-cards">
       <div class="card">
       </div>
       <div class="card">

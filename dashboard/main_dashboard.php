@@ -48,6 +48,7 @@
         - ideas
           - hide certain elements through javascript
           - figure out how to get user type into php
+        - hardcode -> have separate dashboards for each user type
     -->
     
     <main class="main">
