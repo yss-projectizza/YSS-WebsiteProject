@@ -83,10 +83,11 @@ session_start();
 								<span class="input-group-text">Choose Account type:<b
 									style = "color: red;">*</b></span>
 						</div>
-								<select style="
+								<select id="accountType" class="input-group-option" style="
 									padding-left: 15px;
 									padding-right: 20px;
 								">
+									<option value="default">Options</option>
 									<option value="parent">Guardian</option>
 									<option value="counselor">Counselor</option>
 									<option value="overage">Attendee</option>
@@ -122,15 +123,21 @@ session_start();
             document.getElementById("submitAccount").addEventListener("click", function(){
                     var database = firebase.database();
                     var email = document.getElementById("email").value;
-                    var usr = document.getElementById("username").value;
+                    var age = document.getElementById("ageInput").value;
                     var pw1 = document.getElementById("password").value;
                     var pw2 = document.getElementById("password2").value;
-                    e = e.replace(".", ",");
+										var acct = document.getElementById("accountType").value;
+                    //e = e.replace(".", ",");
                         //console.log("testing");
                         //console.log(fn, ln, dob, e);
-                    if (!email || !usr || !pw1 || !pw2){
+                    if (!email || !age || !pw1 || !pw2){
                         alert("Please fill in all fields");
-                    } else {
+                    }
+										else if(age < 18) {
+												alert("You do not have permission to make an account.");
+												window.location.replace("/login.php");
+										}
+										else {
                         var check_e;
                         var check_u;
                         firebase.database().ref('/counselors/' + e + '/').once('value').then(function(snapshot)
