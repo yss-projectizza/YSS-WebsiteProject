@@ -68,14 +68,14 @@ session_start();
              <div class="input-group-prepend">
                 <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
             </div>
-                <input type="text" name="password" id="password" class="form-control" required>
+                <input type="password" name="password" id="password" class="form-control" required>
         </div>
 
         <div class="input-group mb-3">
              <div class="input-group-prepend">
                 <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
             </div>
-                <input type="text" name="password2" id="password2" class="form-control" required>             
+                <input type="password" name="password2" id="password2" class="form-control" required>             
         </div>
 
         <div class="block_1"><p style="padding-top:30px"</div> <hr />
