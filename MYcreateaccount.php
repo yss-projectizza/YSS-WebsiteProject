@@ -64,20 +64,6 @@ session_start();
                 <input type="date" name="age" id="ageInput" class="form-control" required>
         </div>
 
-        <div class="input-group mb-3">
-             <div class="input-group-prepend">
-                <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
-            </div>
-                <input type="password" name="password" id="password" class="form-control" required>
-        </div>
-
-        <div class="input-group mb-3">
-             <div class="input-group-prepend">
-                <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
-            </div>
-                <input type="password" name="password2" id="password2" class="form-control" required>
-        </div>
-
 				<div class="input-group mb-3">
 						 <div class="input-group-prepend" style="padding-right: 30px;">
 								<span class="input-group-text">Choose Account type:<b
@@ -123,31 +109,32 @@ session_start();
                     var database = firebase.database();
                     var email = document.getElementById("email").value;
                     var dob = new Date(document.getElementById("ageInput").value);
-                    var pw1 = document.getElementById("password").value;
-                    var pw2 = document.getElementById("password2").value;
 										var acct = document.getElementById("accountType").value;
                     email = email.replace(".", ",");
                         console.log("testing");
                         console.log(dob, email);
-                    if (!email || !dob || !pw1 || !pw2){
+                    if (!email || !dob){
                         alert("Please fill in all fields");
                     }
 										var currentDate = new Date().getFullYear();
 										var age = Number(currentDate) - Number(dob.getFullYear());
 										if(age < 18) {
 												alert("You do not have permission to make an account.");
-												//window.location.replace("/login.php");
+												window.location.replace("/login.php");
 										}
 										else {
-											alert("you are over 18!");
+											//alert("you are over 18!");
 											if(acct == "counselor") {
 												alert("navigating into counselor registration");
+												window.location.replace("/counselor_registration.php");
 											}
 											else if(acct == "parent") {
 												alert("navigating into guardian registration");
+												window.location.replace("/parentRegistration.php");
 											}
 											else if(acct == "overage"){
 												alert("navigating into youth registration");
+												window.location.replace("/overage_registration.php");
 											}
 										}
 											/*
