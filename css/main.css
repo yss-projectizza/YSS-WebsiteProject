@@ -3,6 +3,10 @@ html {
   min-height: 100%;
 }
 
+.navbar {
+  background-color: #5b77a5;
+}
+
 .rounded {
   border: thin solid black;
   border-radius: 5px;
@@ -42,7 +46,7 @@ input[type=submit]:hover{
   padding: 1%;
   width: 100%;
   overflow: hidden;
-  background-color: grey;
+  background-color: #474c54;
   color: white;
   bottom: 0%;
 }

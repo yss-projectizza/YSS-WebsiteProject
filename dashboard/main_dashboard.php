@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
   <body onload=getLogic();>
-  <nav class="navbar navbar-expand-sm navbar-light bg-white">
-		<div class="container" style = "background: LightSteelBlue">
+  <nav class="navbar navbar-expand-sm navbar-light">
+		<div class="container">
 			<a class="navbar-brand" href="http://youthspiritualsummit.weebly.com">
 				<img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="">
 			</a>
@@ -58,14 +58,14 @@
         </div>
       </div> -->
       <div class="main-cards">
-        <div class="card rounded">
+        <div class="card">
           Hello <?php echo $name; ?>!
           <div id="profile">
             <img src="profile_placeholder.jpg" onClick="goToProfile();"/> <!-- need to move this to the right side of the card -->
           </div>
           <p id="status">Your Status is: <?php echo $status; ?></p> 
         </div>
-        <div class="card rounded">
+        <div class="card">
           <h2>Schedule</h2>
           <p>Monday</p>
           <p>Tuesday</p>
@@ -74,17 +74,17 @@
           <p>Friday</p>
           <p>ETC</p>
         </div>
-        <div class="card rounded">
+        <div class="card">
           <h2>Your To Dos:</h2>
           <input type="checkbox" disabled="disabled" checked="checked"/>Payment has been Recieved.
         </div>
-        <div class="card rounded">
+        <div class="card">
           <h2>Camp Information</h2>
           <p>Group Number: <?php echo $group_num; ?></p>
           <p>Bus Number: <?php echo $bus_num; ?></p>
           <p>Cabin Number: <?php echo $cabin_num; ?>
           <br/><br/>
-          <button type="button" class="rounded" onclick="document.location.href = '/dashboard/campers.php';">View Campers</button>
+          <button type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">View Campers</button>
         </div>
         <div class="card rounded"> 
           <h2>Your Information</h2>
