@@ -344,7 +344,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     var city = document.getElementById("city").value;
                     var phone = document.getElementById("phone").value;
                     var experience = document.getElementById("experience").value;
-                    var e = document.getElementById("email").value;
+                    //var e = document.getElementById("email").value;
                     var sibling = document.getElementById("sibling").value;
                     var counselor_short = document.getElementById("counselor_short").value;
                     var exp_desc = document.getElementById("exp_desc").value;
@@ -356,6 +356,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     var felony1 = document.getElementById("felony1").value;
                     var felony2 = document.getElementById("felony2").value;
                     var verification = document.getElementById("verification").value;
+                    var email = "<?php echo $email?>"
                     if (felony1 == "No"){
                         felony2 = "N/A"
                     }
@@ -369,18 +370,18 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                             alert("Please fill out all required fields");
                     } else {
                         var check_e;
-                        firebase.database().ref('users/' + e).once('value').then(function(snapshot) 
-                            {
-                                console.log("checking if exists");
-                                check_e = (snapshot.val() && snapshot.val().email);
-                                console.log(check_e);
-                            }
-                        );
+                        // firebase.database().ref('users/' + e).once('value').then(function(snapshot) 
+                        //     {
+                        //         console.log("checking if exists");
+                        //         check_e = (snapshot.val() && snapshot.val().email);
+                        //         console.log(check_e);
+                        //     }
+                        // );
 
                         setTimeout(function(){
                         
                     if (check_e == null){
-                            var newPostRef = firebase.database().ref('users/' + e).set({
+                            var newPostRef = firebase.database().ref('users/' + e).update({
                                 user_type: user_type,
                                 yss_avail: yss_avail,
                                 cs_avail: cs_avail,
@@ -391,7 +392,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                                 city: city,
                                 phone: phone,
                                 experience: experience,
-                                email: e,
+//                                email: e,
                                 sibling: sibling,
                                 counselor_short: counselor_short,
                                 exp_desc: exp_desc,
