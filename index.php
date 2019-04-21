@@ -9,7 +9,5 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 
 }   else {
 		header("Location: login.php");
-
-
 }
 ?>
