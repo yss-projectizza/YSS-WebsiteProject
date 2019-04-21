@@ -83,3 +83,10 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 		</form>
 	</body>
 </html>
+
+
+<script>
+	document.getElementById("inputEmail").value = "emachta@uci,edu";
+	document.getElementById("inputPassword").value = "pw";
+
+	</script>
