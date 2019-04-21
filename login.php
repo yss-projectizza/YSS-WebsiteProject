@@ -37,6 +37,8 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Original Authors: Mark Otto, Jacob Thornton, and Bootstrap contributors -->
 		<title>Youth Spiritual Summit | Summer Day Camp | Irvine, CA</title>
+		<link rel="stylesheet" href="/css/main.css">
+		<link rel="stylesheet" href="/css/login.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredericka+the+Great">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
@@ -47,31 +49,19 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 
 <body class="text-center">
 	<form action="authentication.php" style="display:inline-block;width:500;margin-top:50" method="POST">
-
-	  <img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="TEST" style="background-color:#dadada">
-		<h1 class="h3 mb-3 font-weight-normal" style="margin-top:30">Login</h1>
-		<label for="inputEmail" class="sr-only">Email address</label>
-		<input name="user" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-		<label for="inputPassword" class="sr-only">Password</label>
-		<input type="password" name="passwd" id="inputPassword" class="form-control" placeholder="Password" required>
-		<input class="btn btn-lg btn-primary btn-block" type="submit" id="submitbutton"></input>
-		<hr>
-		<a class="btn btn-sm btn-warning btn-block" href="/parentRegistration.php" role="button">Register</a>
-		<a class="btn btn-sm btn-outline-info btn-block" href="/forgot" role="button">Forgot Password</a>
-		<p class="mt-5 mb-3 text-muted" style="font-size:14">&copy; Youth Spiritual Summit 2019</p>
+			<div class="box rounded">
+				<img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="TEST" style="background-color:#5b77a5">
+				<h1 class="h3 mb-3 font-weight-normal" style="margin-top:30">Login</h1>
+				<label for="inputEmail" class="sr-only">Email address</label>
+				<input name="user" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+				<label for="inputPassword" class="sr-only">Password</label>
+				<input type="password" name="passwd" id="inputPassword" class="form-control" placeholder="Password" required>
+				<input class="btn btn-lg btn-primary btn-block" type="submit" id="submitbutton"></input>
+				<hr>
+				<a class="btn btn-sm btn-warning btn-block" href="/parentRegistration.php" role="button">Register</a>
+				<a class="btn btn-sm btn-outline-info btn-block" href="/forgot" role="button">Forgot Password</a>
+				<p class="mt-5 mb-3 text-muted" style="font-size:14">&copy; Youth Spiritual Summit 2019</p>
+			</div>
 	</form>
-
-	<script>
-	document.getElementById("submitbutton").addEventListener("click", function(){
-		var email = document.getElementById("inputEmail");
-		var password = document.getElementById("inputPassword");
-
-		form.submit();
-
-	})
-
-	</script>
-
-
 </body>
 </html>

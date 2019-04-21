@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm navbar-light bg-white">
-      <div class="container" style = "background: LightSteelBlue">
+    <nav class="navbar navbar-expand-sm navbar-light">
+      <div class="container">
         <a class="navbar-brand" href="http://youthspiritualsummit.weebly.com">
-          <img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="">
+          <img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="" style="background-color:#5b77a5">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -26,9 +26,27 @@
         </div>
       </div>
     </nav>
+
     <div class="container rounded box">
+      <button class="tablinks" onclick="">Bus</button>
+      <button class="tablinks" onclick="">Cabin</button>
+      <button class="tablinks" onclick="">Group</button>
       Here is where you see your fellow campers.
     </div>
+
+    <div id="bus" class="tabcontent">
+      <h3>Bus</h3>
+      <p>This is bus information. </p>
+    </div>
+    <div id="cabin" class="tabcontent">
+      <h3>Cabin</h3>
+      <p>This is cabin information. </p>
+    </div>
+    <div id="group" class="tabcontent">
+      <h3>Group</h3>
+      <p>This is group information. </p>
+    </div>
+
     <div class="footer top-buffer">
       <div class="container">
         <div class="row align-items-center">
@@ -40,7 +58,7 @@
           </div>
           <div class="vertline"></div>
           <div class="col">
-          <p>YSS</p>
+            <p>YSS</p>
           </div>
           <div class="vertline"></div>
           <div class="col">
@@ -48,6 +66,7 @@
           </div>
         </div>
       </div>
-	  </div>
+    </div>
+    
   </body>
 </html>

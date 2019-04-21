@@ -1,4 +1,5 @@
 <?php
+session_start();
 require __DIR__.'/vendor/autoload.php';
 
 $username = $_POST["user"];
@@ -21,14 +22,14 @@ $firebase = (new Factory)
     ->withServiceAccount($serviceAccount)
     ->create();
 $database = $firebase->getDatabase();
-$reference = $database->getReference('/')->getValue();
+$reference = $database->getReference('/users')->getValue();
+
+
 
 if ($reference[$username]){
-    print_r("found username");
-    print_r($reference[$username]);
     if ($reference[$username]["password"] == $password){
-        print_r("password successful");
         $_SESSION["loggedin"] = true;
+        $_SESSION["queryData"] = $reference[$username];
         header("Location:Dashboard.php");
     }
 }
