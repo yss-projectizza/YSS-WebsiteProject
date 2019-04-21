@@ -24,7 +24,11 @@
 					<a class="nav-item nav-link" href="http://campizza.com/calendar"><font color="white">Activities</font></a>
 					<a class="nav-item nav-link" href="http://campizza.com/camp-fees"><font color="white">Fees</font></a>
 					<a class="nav-item nav-link" href="http://campizza.com/contact"><font color="white">Contact</font></a>
-					<a class="nav-item nav-link" href="/logout.php"><font color="white">Logout</font></a>
+          <a class="nav-item nav-link" href="/logout.php"><font color="white">Logout</font></a>
+          <div id="profile">
+                <img src="profile_placeholder.jpg" onClick="goToProfile();"/>
+                <p>Hello <?php echo $first_name?></p>
+          </div>
         </div>
 			</div>
 		</div>
@@ -54,44 +58,63 @@
     -->
     
     <main class="main">
-      <div class="main-cards">
-        <div class="card">
-          <div id="intro">
-            <h3>Hello <?php echo $name; ?>!</h3>
-            <p id="status">Your Status is: <?php echo $status; ?></p> 
+      <?php if ($user_type == "parent"): ?>
+            <div class="col my-auto" style="padding-bottom: 20px;">
+              <a href="./underage_registration.php" type="button" class="btn btn btn-success" style="border-color: white">+ Add Youth Participant</a>
+            </div>  
+        <?php endif ?>
+      <!--div class="main-cards"-->
+        <div class="row ">
+          <!-- intro moved to top left corner>
+          <div class="col">       
+            <div class="card">      
+              <div id="intro">
+                <h3>Hello <?php echo $name; ?>!</h3>
+                <p id="status">Your Status is: <?php echo $status; ?></p> < 
+              </div>
+            </div>
           </div>
-          <div id="profile">
-            <img src="profile_placeholder.jpg" onClick="goToProfile();"/>
-            <p>Edit Your Profile</p>
+          -->
+          <div class="col">
+            <div class="card">
+              <h2>Your To Dos:</h2>
+              <input type="checkbox" disabled="disabled" checked="checked"/> Payment has been Recieved. 
+            </div>
           </div>
         </div>
-        <div class="card">
-          <h2>Schedule</h2>
-          <p>Monday</p>
-          <p>Tuesday</p>
-          <p>Wednesday</p>
-          <p>Thursday</p>
-          <p>Friday</p>
-          <p>ETC</p>
+        <div class="row"> 
+          <div class="col">
+            <?php if ($user_type != "parent"): ?>
+              <div class="card">      
+                  <h2>Camp Information</h2>
+                  <p>Group Number: <?php echo $group_num; ?></p>
+                  <p>Bus Number: <?php echo $bus_num; ?></p>
+                  <p>Cabin Number: <?php echo $cabin_num; ?></p>
+                  <br/>
+                <button type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">View Youth Participants</button>
+              </div>
+            <?php endif ?>
+          </div>    
+          <div class="col">
+            <?php if ($user_type != "parent"): ?>
+              <div class="card">
+                <h2>Schedule</h2>
+                <p>Friday</p>
+                <p>Saturday</p>
+                <p>Sunday</p>
+                <p>ETC</p>
+              </div>
+            <?php endif ?>
+          </div>
         </div>
-        <div class="card">
-          <h2>Your To Dos:</h2>
-          <input type="checkbox" disabled="disabled" checked="checked"/>Payment has been Recieved.
-        </div>
-        <div class="card">
-          <h2>Camp Information</h2>
-          <p>Group Number: <?php echo $group_num; ?></p>
-          <p>Bus Number: <?php echo $bus_num; ?></p>
-          <p>Cabin Number: <?php echo $cabin_num; ?>
-          <br/><br/>
-          <button type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">View Campers</button>
-        </div>
+        <!-- Merging Your Information Card with Status Card 
         <div class="card rounded"> 
           <h2>Your Information</h2>
           <p>Name: <?php echo $name; ?></p>
-          <p>Email: <?php echo $email; ?></p>
+          <p>Email: <?php echo $email; ?></p> 
         </div>
-      </div>
+        -->
+      <!--/div-->
     </main>
     <div class="footer top-buffer">
       <div class="container">
