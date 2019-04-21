@@ -1,3 +1,56 @@
-body {
+/* .text-center {
   background-color: #e1e8f4;
+}
+ */
+
+body {
+  background-image: url("/backgroundImg.jpg");
+  background-size: 140%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 100% 30%;
+}
+form {
+  position: absolute;
+  width: 40%;
+  left: 55%;
+  top: 12%;
+}
+
+img {
+  opacity: 1.0;
+}
+
+.box {
+ background-color: white;
+ opacity: 0.85;
+}
+
+#register {
+  background-color: #8fd4d9;
+}
+
+#register:hover {
+  background-color: white;
+  color: #5b77a5;
+}
+
+#forgot {
+  background-color: #5b77a5;
+  color: white;
+}
+
+#forgot:hover{
+  background-color: white;
+  color: #5b77a5;
+}
+
+#submitbutton {
+  background-color: #f5be6c;
+  color: black;
+}
+
+#submitbutton:hover {
+  color: white;
+  background-color: #5b77a5;
 }

@@ -48,7 +48,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 	</head>
 
 	<body class="text-center">
-		<form action="authentication.php" style="display:inline-block;width:500;margin-top:50" method="POST">
+		<form action="authentication.php" method="POST">
 				<div class="box rounded">
 					<img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="TEST" style="background-color:#5b77a5">
 					<h1 class="h3 mb-3 font-weight-normal" style="margin-top:30">Login</h1>
@@ -58,8 +58,8 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 					<input type="password" name="passwd" id="inputPassword" class="form-control" placeholder="Password" required>
 					<input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign In" id="submitbutton"></input>
 					<hr>
-					<a class="btn btn-sm btn-warning btn-block" href="/parentRegistration.php" role="button">Register</a>
-					<a class="btn btn-sm btn-outline-info btn-block" href="/forgot" role="button">Forgot Password</a>
+					<a id="register" class="btn btn-sm btn-warning btn-block" href="/parentRegistration.php" role="button">Register</a>
+					<a id="forgot" class="btn btn-sm btn-outline-info btn-block" href="/forgot" role="button">Forgot Password</a>
 					<p class="mt-5 mb-3 text-muted" style="font-size:14">&copy; Youth Spiritual Summit 2019</p>
 				</div>
 		</form>

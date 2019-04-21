@@ -1,11 +1,11 @@
 <!-- Main logic for getting dashboard -->
 <?php
-session_start();
+//session_start();
 
-if( !$_SESSION["loggedin"]){
+/* if( !$_SESSION["loggedin"]){
 		header("Location: login.php");
 		exit;
-}
+} */
 
 
     $data = $_SESSION["queryData"];
