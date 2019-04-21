@@ -26,6 +26,10 @@ img {
  opacity: 0.85;
 }
 
+#brandToHome:hover {
+  opacity: 0.85;
+}
+
 #register {
   background-color: #8fd4d9;
 }
