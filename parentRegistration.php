@@ -21,7 +21,7 @@ session_start();
     Navigation bar
     -->
     <nav class="navbar navbar-expand-sm navbar-light bg-white">
-      <div class="container" style = "background: LightSteelBlue">
+      <div class="container" style = "background: #5b77a5">
         <a class="navbar-brand" href="http://youthspiritualsummit.weebly.com">
           <img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png"
           width="150" height="65" alt="">
@@ -166,7 +166,7 @@ session_start();
                           <span class="input-group-text">Name: <b
                             style = "color: red;">*</b></span>
                       </div>
-                      <input id = "ec1name" type="text"name="ec1name"
+                      <input id = "ec1nameInput" type="text"name="ec1name"
                        class="form-control" required>
                   </div>
 
@@ -198,7 +198,7 @@ session_start();
                           <span class="input-group-text">Name: <b
                             style = "color: red;">*</b></span>
                       </div>
-                      <input id = "ec2name" type="text"name="ec2name"
+                      <input id = "ec2nameInput" type="text"name="ec2name"
                        class="form-control" required>
                   </div>
 
@@ -221,7 +221,7 @@ session_start();
                           <span class="input-group-text">Allergies/Conditions: <b
                             style = "color: red;">*</b></span>
                       </div>
-                      <input id = "ec1name" type="text"name="ec1name"
+                      <input id = "allergiesInput" type="text"name="allergies"
                        class="form-control" required>
                   </div>
 
@@ -337,7 +337,6 @@ Javascript Segment
             //name and password
             var fName = document.getElementById("fnameInput").value;
             var lName = document.getElementById("lnameInput").value;
-            var Password = document.getElementById("passwordInput").value;
             //contact info
             var Email = document.getElementById("emailInput").value;
             var phoneNum = document.getElementById("phoneInput").value;
@@ -345,19 +344,49 @@ Javascript Segment
             var Address = document.getElementById("addressInput").value;
             var City = document.getElementById("cityInput").value;
             var Zipcode = document.getElementById("zipcodeInput").value;
+            //Emergency Contact 1
+            var ec1relation = document.getElementById("ec1relInput").value;
+            var ec1name = document.getElementById("ec1nameInput").value;
+            var ec1phone = document.getElementById("ec1phoneInput").value;
+            //Emergency Contact2
+            var ec2relation = document.getElementById("ec2relInput").value;
+            var ec2name = document.getElementById("ec2nameInput").value;
+            var ec2phone = document.getElementById("ec2phoneInput").value;
+            //Medical Information
+            var allergy = document.getElementById("allergiesInput").value;
+            var medications = document.getElementById("medInput").value;
+            var actrestriction = document.getElementById("actRestrictionInput").value;
+            var dietrestriction = document.getElementById("dietRestrictionsInput").value;
+            var other = document.getElementById("otherInput").value;
+            var insurance = document.getElementById("insuranceInput").value;
+            var policy = document.getElementById("policyInput").value;
 
             if (fName == ""){
                 alert("fill in first name");
             }
             else {
               var newPostRef = firebase.database().ref('/').push({
+                user_type: "parent",
                 first_name: fName,
                 last_name: lName,
                 email: Email,
                 phone: phoneNum,
                 address: Address,
                 city: City,
-                zipcode: Zipcode
+                zipcode: Zipcode,
+                ec_name1: ec1name,
+                ec_relationship1: ec1relation,
+                ec_phone1: ec1phone,
+                ec_name2: ec2name,
+                ec_relationship2: ec2relation,
+                ec_phone2: ec2phone,
+                allergies: allergy,
+                meds: medications,
+                activity_restrictions: actrestriction,
+                dietary_restrictions: dietrestriction,
+                other: other,
+                insurance: insurance,
+                policy_holder: policy
                 },
                function(error){
                   if(error) {
