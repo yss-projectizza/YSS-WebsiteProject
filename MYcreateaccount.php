@@ -7,7 +7,7 @@ session_start();
 <html lang="en">
 
 <head>
-	<title>Youth Spiritual Summit</title>
+	<title>Create an Account | Youth Spiritual Summit</title>
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -45,7 +45,7 @@ session_start();
     <form id=form1 method="post">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
-        <h1 align="center" style = "font-size:30px;padding-top: 20px;">Create New Account</h1>
+        <h1 align="center" style = "font-size:30px;padding-top: 20px;">Create a New Account</h1>
 
         <!-- NEW STUFF STARTING HERE -->
         <div class="block_1"><p style="padding-top:20px"</div> <hr />
@@ -85,7 +85,7 @@ session_start();
                 <div class="col">
                     <!-- <button id="myBtn">Submit</button> -->
                     <button type="button" value="Submit"
-										 name="subscribe" id="submitAccount" >Create Account
+										 name="proceed" id="submitAccount" >Next
                 </div>
             </div>
         </div>
@@ -116,27 +116,29 @@ session_start();
                     if (!email || !dob){
                         alert("Please fill in all fields");
                     }
-										var currentDate = new Date().getFullYear();
-										var age = Number(currentDate) - Number(dob.getFullYear());
-										if(age < 18) {
-												alert("You do not have permission to make an account. Your guardian must make one for you.");
-												window.location.replace("/login.php");
-										}
-										else {
-											//alert("you are over 18!");
-											if(acct == "counselor") {
-												alert("navigating into counselor registration");
-												window.location.replace("/counselor_registration.php");
-											}
-											else if(acct == "parent") {
-												alert("navigating into guardian registration");
-												window.location.replace("/parentRegistration.php");
-											}
-											else if(acct == "overage"){
-												alert("navigating into youth registration");
-												window.location.replace("/overage_registration.php");
-											}
-										}
+										else{
+												var currentDate = new Date().getFullYear();
+												var age = Number(currentDate) - Number(dob.getFullYear());
+												if(age < 18) {
+														alert("You do not have permission to make an account. Your guardian must make one for you.");
+														window.location.replace("/login.php");
+												}
+												else {
+													//alert("you are over 18!");
+													if(acct == "counselor") {
+														alert("navigating into counselor registration");
+														window.location.replace("/counselor_registration.php");
+													}
+													else if(acct == "parent") {
+														alert("navigating into guardian registration");
+														window.location.replace("/parentRegistration.php");
+													}
+													else if(acct == "overage"){
+														alert("navigating into youth registration");
+														window.location.replace("/overage_registration.php");
+													}
+												}
+									}
 											/*
                         var check_e;
                         var check_u;

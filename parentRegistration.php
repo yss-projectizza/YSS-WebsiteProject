@@ -349,7 +349,7 @@ Javascript Segment
                 alert("fill in first name");
             }
             */
-            else {
+            //else {
               var newPostRef = firebase.database().ref('/').push({
                 user_type: "parent",
                 first_name: fName,
@@ -384,7 +384,7 @@ Javascript Segment
                   // Data saved successfully!
                   }
               });
-          }
+          //}
         });
     </script>
   </body>
