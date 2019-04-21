@@ -1,24 +1,24 @@
 <!-- Main logic for getting dashboard -->
 <?php
-  session_start();
-  $user = "student";
-/*if(!($_SESSION["loggedin"])){
-  //if parent account
-  header("Location: login.php");
-  exit;
-}*/
+session_start();
 
-  // get respective info from the database
-  // temp dummy data
-  // check whether use is a student or a counselor or admin
+
+
+
+    $data = $_SESSION["queryData"];
+
+  $user = "student";
+
+
+
   if($user == "student" || $user == "counselor" || $user == "parent"){
     // add any needed data for student or counselor or parent
-    $group_num = 3;
-    $bus_num = 10;
-    $cabin_num = 15;
-    $name = "Grace Choe";
-    $email = "test@example.com";
-    $status = "Registered!";
+    $group_num = $data["groupNum"];
+    $bus_num = $data["busNum"];
+    $cabin_num = $data["cabinNum"];
+    $name = $data["firstName"];
+    $email = $data["email"];
+    $status = $data["status"];
     include 'dashboard/main_dashboard.php';
   } else if ($user == "admin"){
     // add any needed data for admin

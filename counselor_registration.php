@@ -1,3 +1,12 @@
+<?php
+// session_start();
+
+// if( !$_SESSION["loggedin"]){
+// 		header("Location: login.php");
+// 		exit;
+// }
+?>
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -65,10 +74,11 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     <small span class="subtitle">This includes meeting at 3:30pm on Friday 8/30 and staying with the youth until they are picked up at 3pm on Monday 9/2. If not, please indicate otherwise. 
                     </small> </span>
                     <br>
-                    <form action="/action_page.php">
-                        <input type="radio" name="yss_available" value="Yes"> Yes <br>
-                        <input type="radio" name="yss_available" value="No"> No <br>
-                    </form>
+                    <select class="form-control form-control-md" name="yss_avail" id="yss_avail" style="width:30%">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
                     <br>
                 </div>
             </div>
@@ -80,10 +90,11 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     <small span class="subtitle">We would like all counselors to attend this full day (8am-6pm) mandatory counselor retreat prior to camp. Exceptions can be made on a case by case basis.
                     </small> </span>
                     <br>
-                    <form action="/action_page.php">
-                        <input type="radio" name="cs_available" value="Yes"> Yes <br>
-                        <input type="radio" name="cs_available" value="No"> No <br>
-                    </form>
+                    <select class="form-control form-control-md" name="cs_avail" id="cs_avail" style="width:30%">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
                     <br>
                 </div>
             </div>
@@ -107,8 +118,9 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
             <div class="input-group mb-3">
 		  		<div class="input-group-prepend">
                   <span class="input-group-text">Gender:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" name="gender">
-						    <option>Female</option>
+				    <select class="form-control form-control-md" name="gender" id="gender">
+						    <option disabled selected value> -- select an option -- </option>
+                            <option>Female</option>
 						    <option>Male</option>
 				    </select>
 				</div>
@@ -127,14 +139,14 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                 <div class="input-group-prepend">
                     <span class="input-group-text">City of Residence:<b style = "color: red;">*</b></span>
                 </div>
-                <input type="text" placeholder="Ex: Irvine" name="city" class="form-control" required>
+                <input type="text" placeholder="Ex: Irvine" name="city" id="city" class="form-control" required>
             </div>
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Phone Number:<b style = "color: red;">*</b></span>
                 </div>
-                <input type="text" placeholder="Ex: (123)-456-7890" name="phone" class="form-control" required>
+                <input type="text" placeholder="Ex: (123)-456-7890" name="phone" id="phone" class="form-control" required>
             </div>
 
             <div class="input-group mb-3">
@@ -144,7 +156,21 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     <small span class="subtitle">Please put the number of years experience you have with either youth group work or MSA work
                     </small> </span>
                     <br>
-                    <form action="/action_page.php">
+                    <select class="form-control form-control-md" name="experience" id="experience" style="width:30%">
+					        <option disabled selected value> -- select an option -- </option>
+                            <option>0</option>
+                            <option>1</option>
+						    <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10+</option>
+				    </select>
+                    <!--<form id="experience" action="/action_page.php">
                         <input type="radio" name="years of exp" value="1"> 1
                         <input type="radio" name="years of exp" value="2"> 2 
                         <input type="radio" name="years of exp" value="1"> 3
@@ -155,7 +181,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                         <input type="radio" name="years of exp" value="2"> 8
                         <input type="radio" name="years of exp" value="1"> 9
                         <input type="radio" name="years of exp" value="2"> 10 
-                    </form>
+                    </form>-->
                     <br>
                 </div>
 			</div>
@@ -171,14 +197,12 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                 <div class="col">
                     Do you have any siblings or relatives that you think will be attending YSS?<b style = "color: red;">*</b>
                     <br>
-                    <small span class="subtitle">This includes meeting at 3:30pm on Friday 8/30 and staying with the youth until they are picked up at 3pm on Monday 9/2. If not, please indicate otherwise. 
-                    </small> </span>
-                    <br>
-                    <form action="/action_page.php">
-                        <input type="radio" name="relatives" value="Yes"> Yes <br>
-                        <input type="radio" name="relatives" value="No"> No <br>
-                        <input type="radio" name="relatives" value="Unsure at this point"> No <br>                        
-                    </form>
+                    <select class="form-control form-control-md" name="cs_avail" id="cs_avail" style="width:30%">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option>Yes</option>
+                        <option>No</option>
+                        <option>Unsure at this point</option>
+                    </select>
                     <br>
                 </div>
             </div>
@@ -327,7 +351,11 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     var database = firebase.database();
                     var fn = document.getElementById("firstname").value;
                     var ln = document.getElementById("lastname").value;
+                    var gender = document.getElementById("gender").value;
                     var dob = document.getElementById("dob").value;
+                    var city = document.getElementById("city").value;
+                    var phone = document.getElementById("phone").value;
+                    var experience = document.getElementById("experience").value;
                     var e = document.getElementById("email").value;
                     e = e.replace(".", ",");
                         //console.log("testing");
@@ -348,9 +376,12 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                         
                     if (check_e != e){
                             var newPostRef = firebase.database().ref('/counselors/' + e + '/').set({
-                            first_name: fn,
-                            last_name: ln,
+                            firstname: fn,
+                            lastname: ln,
                             dob: dob,
+                            city: city,
+                            phone: phone,
+                            experience: experience,
                             email: e
                             }, 
                             function(error) {

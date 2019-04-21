@@ -3,13 +3,14 @@
 ?>
 <html lang="en">
   <head>
-    <title>View Campers</title>
+    <title>Profile</title>
+    <link rel="stylesheet" href="/css/profile.css" />
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm navbar-light bg-white">
-      <div class="container" style = "background: LightSteelBlue">
+    <nav class="navbar navbar-expand-sm navbar-light">
+      <div class="container">
         <a class="navbar-brand" href="http://youthspiritualsummit.weebly.com">
           <img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" width="150" height="65" alt="">
         </a>
@@ -27,7 +28,40 @@
       </div>
     </nav>
     <div class="container rounded box">
-      Here is where you see your fellow campers.
+    <!-- Financial Aid Information -->
+      <label><p style = "font-size:26px;">Profile Information</p></label>
+
+      <div class="row initial-task-padding">
+        <div class="col">
+          Name<b style = "color: red;">*</b>
+          <input type="text" name="name" times-label="name" class="form-control" required>
+          <br>
+        </div>
+      </div>
+
+      <div class="row initial-task-padding">
+        <div class="col">
+          Email<b style = "color: red;">*</b>
+          <br>
+          <input type="text" name="email" times-label="email" class="form-control" required>
+          <br>
+        </div>
+      </div>
+
+
+      <div class="row initial-task-padding">
+        <div class="col">
+            Password<b style = "color: red;">*</b>
+            <input type="text" name="password" times-label="password" class="form-control" required>
+            <br>
+        </div>
+      </div>
+      <!-- Submit -->
+      <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
+        <div class="col">
+          <input type="submit" class="btn-xl rounded" align="center" value="Submit" >
+        </div>
+      </div>
     </div>
     <div class="footer top-buffer">
       <div class="container">

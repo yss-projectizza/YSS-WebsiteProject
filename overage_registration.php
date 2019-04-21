@@ -46,7 +46,7 @@ session_start();
     <form id=form1 method="post">  
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
-        <h1 align="center" style = "font-size:50px;padding-top: 20px;">Camper Registration</h1>
+        <h1 align="center" style = "font-size:50px;padding-top: 20px;">18+ Camper Registration</h1>
         
         <!-- NEW STUFF STARTING HERE -->
         <div class="block_1"><p style="padding-top:20px"</div> <hr />
@@ -54,6 +54,13 @@ session_start();
         <div class="container">
         <!-- Camper Information -->
             <label><p style = "font-size:30px;">Camper Information</p></label>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Email:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="text" placeholder="Ex: 123@gmail.com" name="email" id="email" class="form-control" required>             
+                </div>
                 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -92,8 +99,6 @@ session_start();
                     <div class="input-group-prepend">
                     <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="schoolyear" id="schoolyear">
-                            <option>Freshman</option>
-                            <option>Sophomore</option>
                             <option>Junior</option>
                             <option>Senior</option>
                             <option>Early College</option>
@@ -106,11 +111,9 @@ session_start();
                     <div class="input-group-prepend">
                     <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="age" id="age">
-                            <option>14</option>
-                            <option>15</option>
-                            <option>16</option>
-                            <option>17</option>
                             <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
                         </select>
                     </div>
                 </div>
@@ -130,7 +133,7 @@ session_start();
 
 
                 <form action="upload.php" method="post" enctype="multipart/form-data">
-                    Picture of Student ID:<b style = "color: red;">*</b>
+                    Picture of Drivers License / Government ID:<b style = "color: red;">*</b>
                     <input type="file" name="upload" id="upload" class="form-control" required">
                 </form>
         </div>  
@@ -221,6 +224,109 @@ session_start();
 
         <div class="block_1"><p style="padding-top:30px"</div> <hr />
 
+        <div class="container">
+        <!-- Emergency Contacts -->
+        </div>
+            <label><p style = "font-size:30px;padding-top: 10px;"">Emergency Contacts</p></label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 1 - Name:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="text" placeholder="Ex: John" name="ec_name1" id="ec_name1" class="form-control" required>             
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 1 - Phone:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="text" placeholder="Ex: 1234567890" name="ec_phone1" id="ec_phone1" class="form-control" required>             
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 1 - Relationship:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="text" placeholder="Ex: Father" name="ec_relationship1" id="ec_relationship1" class="form-control" required>             
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 2 - Name:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="text" placeholder="Ex: John" name="ec_name2" id="ec_name2" class="form-control" required>             
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 2 - Phone:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="text" placeholder="Ex: 1234567890" name="ec_phone2" id="ec_phone2" class="form-control" required>             
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 2 - Relationship:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="text" placeholder="Ex: Mother" name="ec_relationship2" id="ec_relationship2" class="form-control" required>             
+                </div>
+        
+
+        <div class="block_1"><p style="padding-top:30px"</div> <hr />
+
+        <div class="container">
+        <!-- Health Information -->
+        </div>
+            <label><p style = "font-size:30px;padding-top: 10px;"">Health Information</p></label>
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Please List Any Allergies You Have. If none, type N/A.<b style = "color: red;">*</b></p>  
+                    <textarea id="allergies" cols="132" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Please List Any Medication You Are Currently On. If none, type N/A<b style = "color: red;">*</b></p>  
+                    <textarea id="meds" cols="132" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Please List Any Activity Restrictions.</b></p>  
+                    <textarea id="activities" cols="132" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Please List Any Dietary Restrictions.</b></p>  
+                    <textarea id="dietary" cols="132" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Other Important Information </b></p>  
+                    <textarea id="other" cols="132" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Insurance Provider:<b style = "color: red;">*</b></span>
+                 </div>
+                <input type="text" placeholder="Ex: PPO" name="insurance" id="insurance" class="form-control" required>             
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Policy Holder:<b style = "color: red;">*</b></span>
+                 </div>
+                <input type="text" placeholder="Ex: John" name="policy_holder" id="policy_holder" class="form-control" required>             
+            </div>
+        <div class="block_1"><p style="padding-top:30px"</div> <hr />
+                   
         <!-- Submit -->
             <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
                 <div class="col">
@@ -249,6 +355,7 @@ session_start();
             document.getElementById("submitContact").addEventListener("click", functSubmit);
                 function functSubmit(event){
                     var database = firebase.database();
+                    var email = document.getElementById("email").value;
                     var fn = document.getElementById("firstname").value;
                     var ln = document.getElementById("lastname").value;
                     var gender = document.getElementById("gender").value;
@@ -264,6 +371,20 @@ session_start();
                     var hopes = document.getElementById("hopes").value;
                     var activities = document.getElementById("activities").value;
                     var question = document.getElementById("question").value;
+                    var ec_name1 = document.getElementById("ec_name1").value;
+                    var ec_phone1 = document.getElementById("ec_phone1").value;
+                    var ec_relationship1 = document.getElementById("ec_relationship1").value;
+                    var ec_name2 = document.getElementById("ec_name2").value;
+                    var ec_phone2 = document.getElementById("ec_phone2").value;
+                    var ec_relationship2 = document.getElementById("ec_relationship2").value;
+                    var allergies = document.getElementById("ec_relationship2").value;
+                    var meds = document.getElementById("meds").value;
+                    var activity = document.getElementById("activities").value;
+                    var dietary = document.getElementById("dietary").value;
+                    var other = document.getElementById("other").value;
+                    var insurance = document.getElementById("insurance").value;
+                    var policy_holder = document.getElementById("policy_holder").value;
+
                     if (fn == ''){
                         alert("fill in first name");
                     }
@@ -272,11 +393,39 @@ session_start();
                     }
                     else if (dob == ''){
                         alert("fill in date of birth");
-					}			
+                    }
+                    else if (file == ''){
+						alert("please add id file");
+                    }
+                    else if (ec_name1 == ''){
+                        alert("please add emergency contact name 1");
+                    }
+                    else if (ec_phone1 == ''){
+                        alert("please add emergency contact phone 1");
+                    }
+                    else if (ec_relationship1 == ''){
+                        alert("please add emergency contact relationship 1");
+                    }
+                    else if (ec_name2 == ''){
+                        alert("please add emergency contact name 2");
+                    }
+                    else if (ec_phone2 == ''){
+                        alert("please add emergency contact phone 2");
+                    }
+                    else if (ec_relationship2 == ''){
+                        alert("please add emergency contact relationship 2");
+                    }
+                    else if (allergies == ''){
+                        alert("please add any alleriges or type N/A");
+                    }
+                    else if (meds == ''){
+                        alert("please add any medication or type N/A");
+                    }
+                    
                     else {
                         var newPostRef = firebase.database().ref('/').push({
-                            user_type: "student",
-							email: "",
+                            user_type: "student18",
+                            email: email,
                             first_name: fn,
                             last_name: ln,
                             gender: gender,
@@ -291,7 +440,20 @@ session_start();
                             community: community,
                             hopes: hopes,
                             activities: activities,
-                            question: question
+                            question: question,
+                            ec_name1: ec_name1,
+                            ec_phone1: ec_phone1,
+                            ec_relationship1: ec_relationship1,
+                            ec_name2: ec_name2,
+                            ec_phone2: ec_phone2,
+                            ec_relationship2: ec_relationship2,
+                            alleriges: allergies,
+                            meds: meds,
+                            activities: activities,
+                            dietary: dietary,
+                            other: other,
+                            insurance: insurance,
+                            policy_holder: policy_holder
                         }, function(error){
                         if (error) {
                             alert("Did not go through")
