@@ -53,6 +53,7 @@ session_start();
 
         <div class="container">
         <!-- Youth Information -->
+        <!-- ONLY PARENT SHOULD FILL THIS OUT. STUDENT CAN NOT CHANGE IT -->
             <label><p style = "font-size:30px;">Youth Information</p></label>
 
                 <div class="input-group mb-3">
@@ -102,6 +103,7 @@ session_start();
                     </div>
                 </div>
 
+                <!-- SHOULD BE AUTOMATICALLY CALCULATED BASED OFF OF DOB -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
@@ -115,6 +117,7 @@ session_start();
                     </div>
                 </div>
 
+                <!-- STUDENT FILL THIS OUT ONCE THERE'S AN ACCOUNT-->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Clothing Size:<b style = "color: red;">*</b></span>
