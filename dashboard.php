@@ -1,7 +1,7 @@
 <!-- Main logic for getting dashboard -->
 <?php
-//session_start();
-$user = "student";
+  session_start();
+  $user = "student";
 /*if(!($_SESSION["loggedin"])){
   //if parent account
   header("Location: login.php");

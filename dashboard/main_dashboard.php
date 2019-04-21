@@ -2,7 +2,8 @@
   <head>
     <title>Youth Spiritual Summit</title>
     <script src="dashboard/main_dashboard.js"></script>
-    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
   <body onload=getLogic();>
@@ -47,7 +48,7 @@
           - figure out how to get user type into php
     -->
     <main class="main">
-      <div class="main-header">
+      <div class="main-header rounded">
         <div class="main-header__heading">
           Hello <?php echo $name; ?>! 
           <div id="profile">
@@ -57,7 +58,7 @@
         </div>
       </div>
       <div class="main-cards">
-        <div class="card">
+        <div class="card rounded">
           <h2>Schedule</h2>
           <p>Monday</p>
           <p>Tuesday</p>
@@ -66,19 +67,19 @@
           <p>Friday</p>
           <p>ETC</p>
         </div>
-        <div class="card">
+        <div class="card rounded">
           <h2>Your To Dos:</h2>
-          <input type="checkbox" disabled="disabled" checked="checked"/> Payment has been Recieved.
+          <input type="checkbox" disabled="disabled" checked="checked"/>Payment has been Recieved.
         </div>
-        <div class="card">
+        <div class="card rounded">
           <h2>Camp Information</h2>
           <p>Group Number: <?php echo $group_num; ?></p>
           <p>Bus Number: <?php echo $bus_num; ?></p>
           <p>Cabin Number: <?php echo $cabin_num; ?>
           <br/><br/>
-          <a href="/dashboard/campers.php">View Campers</a>
+          <button type="button" class="rounded" onclick="document.location.href = '/dashboard/campers.php';">View Campers</button>
         </div>
-        <div class="card"> 
+        <div class="card rounded"> 
           <h2>Your Information</h2>
           <p>Name: <?php echo $name; ?></p>
           <p>Email: <?php echo $email; ?></p>

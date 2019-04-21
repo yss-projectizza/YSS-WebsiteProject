@@ -1,8 +1,7 @@
-<!--
 <?php
-  Testing
+// Initialize the session
+session_start();
 ?>
--->
 
 <!doctype html>
 <html lang="en">
@@ -217,9 +216,8 @@ Javascript Segment
             }
             else {
               var newPostRef = firebase.database().ref('/').push({
-                firstName: fName,
-                lastName: lName,
-                password: Password,
+                first_name: fName,
+                last_name: lName,
                 email: Email,
                 phone: phoneNum,
                 address: Address,
