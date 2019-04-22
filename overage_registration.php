@@ -2,6 +2,15 @@
 // Initialize the session
 session_start();
 ?>
+<script>
+    var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
+    var emailwcharactersreplaced = email.replace(".",",");
+    var pw = "pw";
+    var bus_num = "N/A";
+    var group_num = "N/A";
+    var cabin_num = "N/A";
+
+    </script>
 
 <!doctype html>
 <html lang="en">
@@ -333,6 +342,32 @@ session_start();
         </div>
     </form>
 
+    <!-- <script>
+                            //TEMPORARY DATA TO FILL IN VALUES
+                            document.getElementById("firstname").value = "hi";
+                    document.getElementById("lastname").value = "hi";
+                    document.getElementById("spiritual").value = "hi";
+                    document.getElementById("knowledge").value = "hi";
+                    document.getElementById("improvement").value = "hi";
+                    document.getElementById("community").value = "hi";
+                    document.getElementById("hopes").value = "hi";
+                    document.getElementById("activities").value = "hi";
+                    document.getElementById("question").value = "hi";
+                    document.getElementById("ec_name1").value = "hi";
+                    document.getElementById("ec_phone1").value = "hi";
+                    document.getElementById("ec_relationship1").value = "hi";
+                    document.getElementById("ec_name2").value = "hi";
+                    document.getElementById("ec_phone2").value = "hi";
+                    document.getElementById("ec_relationship2").value = "hi";
+                    document.getElementById("ec_relationship2").value = "hi";
+                    document.getElementById("meds").value = "hi";
+                    document.getElementById("activities").value = "hi";
+                    document.getElementById("dietary").value = "hi";
+                    document.getElementById("other").value = "hi";
+                    document.getElementById("insurance").value = "hi";
+                    document.getElementById("policy_holder").value = "hi";
+        </script> -->
+
 
 	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
@@ -378,6 +413,8 @@ session_start();
                     var insurance = document.getElementById("insurance").value;
                     var policy_holder = document.getElementById("policy_holder").value;
 
+
+
                     if (fn == ''){
                         alert("fill in first name");
                     }
@@ -413,7 +450,12 @@ session_start();
                     }
 
                     else {
-                        var newPostRef = firebase.database().ref('/users').push({
+                        var newPostRef = firebase.database().ref('users/' + emailwcharactersreplaced).set({
+                            email:email,
+                            password:pw,
+                            bus_num:bus_num,
+                            group_num:group_num,
+                            cabin_num:cabin_num,
                             user_type: "student18",
                             first_name: fn,
                             last_name: ln,
@@ -445,9 +487,9 @@ session_start();
                         if (error) {
                             alert("Did not go through")
                         } else {
-                            alert("The form was submitted.");
+                            alert("Your account has been created successfully. Please log in to view your dashboard.");
                             var postID = newPostRef.key;
-                            window.location.replace("form_handler.php")
+                            window.location.replace("logout.php")
                         }
                         }
                         );
