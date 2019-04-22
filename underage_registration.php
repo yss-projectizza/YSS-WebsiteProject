@@ -55,6 +55,12 @@ session_start();
         <!-- Youth Information -->
         <!-- ONLY PARENT SHOULD FILL THIS OUT. STUDENT CAN NOT CHANGE IT -->
             <label><p style = "font-size:30px;">Participant Information</p></label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Email:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="text" placeholder="Ex: 123@gmail.com" name="email" id="email" class="form-control" required>
+                </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -168,6 +174,7 @@ session_start();
             document.getElementById("submitContact").addEventListener("click", functSubmit);
                 function functSubmit(event){
                     var database = firebase.database();
+                    var email = document.getElementById("email").value;
                     var fn = document.getElementById("firstname").value;
                     var ln = document.getElementById("lastname").value;
                     var gender = document.getElementById("gender").value;
@@ -176,7 +183,10 @@ session_start();
                     var age = document.getElementById("age").value;
                     var size = document.getElementById("size").value;
                     var file = document.getElementById("upload").value;
-                    if (fn == ''){
+                    if (email == ''){
+                        alert("fill in email");
+                    }
+                    else if (fn == ''){
                         alert("fill in first name");
                     }
                     else if (ln == ''){
@@ -188,7 +198,7 @@ session_start();
                     else {
                         var newPostRef = firebase.database().ref('/').push({
                             user_type: "student",
-							email: "",
+							email: email,
                             first_name: fn,
                             last_name: ln,
                             gender: gender,
