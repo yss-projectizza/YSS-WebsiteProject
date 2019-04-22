@@ -10,7 +10,7 @@ function toggleInfo(evt, infoType) {
       messagingSenderId: "530416464878"
   };
 
-  firebase.initializeApp(config);
+  //firebase.initializeApp(config);
 
   // var all_names = firebase.database().ref("/users/bus_num/").equalTo(bus_num);
   // console.log(all_names);
