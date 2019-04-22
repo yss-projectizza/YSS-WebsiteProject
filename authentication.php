@@ -2,7 +2,9 @@
 session_start();
 require __DIR__.'/vendor/autoload.php';
 
-$username = $_POST["user"];
+$underscoreUsername = $_POST["user"];
+$username = str_replace(".",",",$underscoreUsername);
+
 $password = $_POST["passwd"];
 
 if ($username == "" || $password == ""){
@@ -33,6 +35,4 @@ if ($reference[$username]){
         header("Location:Dashboard.php");
     }
 }
-
-
 		?>
