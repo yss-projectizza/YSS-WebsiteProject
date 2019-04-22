@@ -165,28 +165,25 @@ session_start();
                     var hopes = document.getElementById("hopes").value;
                     var activities = document.getElementById("activities").value;
                     var question = document.getElementById("question").value;
-                    else {
-                        var newPostRef = firebase.database().ref('/').push({
-                            spiritual: spiritual,
-                            knowledge: knowledge,
-                            improvement: improvement,
-                            community: community,
-                            hopes: hopes,
-                            activities: activities,
-                            question: question
-                        }, function(error){
-                        if (error) {
-                            alert("Did not go through")
-                        } else {
-                            alert("The form was submitted.");
-                            var postID = newPostRef.key;
-                            window.location.replace("dashboard.php")
-                        }
-                        }
-                        );
+                    var newPostRef = firebase.database().ref('/').push({
+                        spiritual: spiritual,
+                        knowledge: knowledge,
+                        improvement: improvement,
+                        community: community,
+                        hopes: hopes,
+                        activities: activities,
+                        question: question
+                    }, function(error){
+                    if (error) {
+                        alert("Did not go through")
+                    } else {
+                        alert("The form was submitted.");
+                        var postID = newPostRef.key;
+                        window.location.replace("login.php")
                     }
-
-                };
+                    }
+                    );
+                }
 
         </script>
 
