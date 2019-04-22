@@ -174,13 +174,6 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     <br>
 			</div>
 
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Email Address:<b style = "color: red;">*</b></span>
-                </div>
-                <input type="text" placeholder="Ex: johnsmith@gmail.com" name="email" id="email" class="form-control" required>
-            </div>
-
             <div class="row initial-task-padding">
                 <div class="col">
                     Do you have any siblings or relatives that you think will be attending YSS?<b style = "color: red;">*</b>
@@ -318,23 +311,21 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
 	</script>-->
 
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
-    <script>
+        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+        <script>
 
-        var config = {
-            apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-            authDomain: "yss-project-69ba2.firebaseapp.com",
-            databaseURL: "https://yss-project-69ba2.firebaseio.com",
-            projectId: "yss-project-69ba2",
-            storageBucket: "yss-project-69ba2.appspot.com",
-            messagingSenderId: "530416464878"
-        };
-
+            var config = {
+                apiKey: "AIzaSyDdBVALQJWdMvR5ed0UswgmdWY1me9eL20",
+                authDomain: "inf117.firebaseapp.com",
+                databaseURL: "https://inf117.firebaseio.com",
+                projectId: "inf117",
+                storageBucket: "inf117.appspot.com",
+                messagingSenderId: "839601382632"
+            };
             firebase.initializeApp(config);
 
             document.getElementById("submitform").addEventListener("click", function(){
-                    var user_type = "counselor";
                     var yss_avail = document.getElementById("yss_avail").value;
                     var cs_avail = document.getElementById("cs_avail").value;
                     var fn = document.getElementById("firstname").value;
@@ -344,7 +335,6 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     var city = document.getElementById("city").value;
                     var phone = document.getElementById("phone").value;
                     var experience = document.getElementById("experience").value;
-                    //var e = document.getElementById("email").value;
                     var sibling = document.getElementById("sibling").value;
                     var counselor_short = document.getElementById("counselor_short").value;
                     var exp_desc = document.getElementById("exp_desc").value;
@@ -356,33 +346,21 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     var felony1 = document.getElementById("felony1").value;
                     var felony2 = document.getElementById("felony2").value;
                     var verification = document.getElementById("verification").value;
-                    //var email = "<?php echo $email?>"
                     if (felony1 == "No"){
                         felony2 = "N/A"
                     }
-                    e = e.replace(".", ",");
                         //console.log("testing");
                         //console.log(fn, ln, dob, e);
                     if (!yss_avail || !cs_avail || !fn || !ln || !gender || !dob ||
-                        !city || !phone || !experience || !e || !sibling || !counselor_short ||
+                        !city || !phone || !experience || !sibling || !counselor_short ||
                         !exp_desc || !group_age || !gain || !fit || !references ||
                         !felony1 || !felony2 || !verification){
                             alert("Please fill out all required fields");
-                    } else {
-                        var check_e;
-                        // firebase.database().ref('users/' + e).once('value').then(function(snapshot)
-                        //     {
-                        //         console.log("checking if exists");
-                        //         check_e = (snapshot.val() && snapshot.val().email);
-                        //         console.log(check_e);
-                        //     }
-                        // );
+                    }
 
-                        setTimeout(function(){
-
-                    if (check_e == null){
-                            var newPostRef = firebase.database().ref('users/' + e).update({
-                                user_type: user_type,
+                    else {
+                            var newPostRef = firebase.database().ref('/users').push({
+                                user_type: "counselor",
                                 yss_avail: yss_avail,
                                 cs_avail: cs_avail,
                                 first_name: fn,
@@ -392,7 +370,6 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                                 city: city,
                                 phone: phone,
                                 experience: experience,
-//                                email: e,
                                 sibling: sibling,
                                 counselor_short: counselor_short,
                                 exp_desc: exp_desc,
@@ -408,16 +385,12 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                                 if (error) {
                                     alert("didn't go through");
                                 } else {
-                                    //var postID = newPostRef.key;
+                                    var postID = newPostRef.key;
                                     window.location.replace("index.php");
                                     console.log("went to firebase");
                                 }
                                 });
-                            } else {
-                                alert("email already exists")
-                            }
-                        }, 3000);
-                    }
+                        }
             });
     </script>
 	<div class="footer top-buffer">

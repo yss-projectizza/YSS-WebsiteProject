@@ -46,21 +46,14 @@ session_start();
     <form id=form1 method="post">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
-        <h1 align="center" style = "font-size:50px;padding-top: 20px;">Youth Registration</h1>
+        <h1 align="center" style = "font-size:40px;padding-top: 20px;">Youth Participant Registration</h1>
 
         <!-- NEW STUFF STARTING HERE -->
         <div class="block_1"><p style="padding-top:20px"</div> <hr />
 
         <div class="container">
         <!-- Camper Information -->
-            <label><p style = "font-size:30px;">Youth Information</p></label>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Email:<b style = "color: red;">*</b></span>
-                    </div>
-                    <input type="text" placeholder="Ex: 123@gmail.com" name="email" id="email" class="form-control" required>
-                </div>
+            <label><p style = "font-size:30px;">Participant Information (18+)</p></label>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -345,26 +338,23 @@ session_start();
         <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
         <!--<script src="counselor_app.js"></script>-->
         <script>
-            var config = {
-                apiKey: "AIzaSyDdBVALQJWdMvR5ed0UswgmdWY1me9eL20",
-                authDomain: "inf117.firebaseapp.com",
-                databaseURL: "https://inf117.firebaseio.com",
-                projectId: "inf117",
-                storageBucket: "inf117.appspot.com",
-                messagingSenderId: "839601382632"
-            };
+                    var config = {
+                        apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                        authDomain: "yss-project-69ba2.firebaseapp.com",
+                        databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                        projectId: "yss-project-69ba2",
+                        storageBucket: "yss-project-69ba2.appspot.com",
+                        messagingSenderId: "530416464878"
+                    };
             firebase.initializeApp(config);
 
             document.getElementById("submitContact").addEventListener("click", functSubmit);
                 function functSubmit(event){
                     var database = firebase.database();
-                    var email = document.getElementById("email").value;
                     var fn = document.getElementById("firstname").value;
                     var ln = document.getElementById("lastname").value;
                     var gender = document.getElementById("gender").value;
-                    var dob = document.getElementById("dob").value;
                     var year = document.getElementById("schoolyear").value;
-                    var age = document.getElementById("age").value;
                     var size = document.getElementById("size").value;
                     var file = document.getElementById("upload").value;
                     var spiritual = document.getElementById("spiritual").value;
@@ -393,9 +383,6 @@ session_start();
                     }
                     else if (ln == ''){
                         alert("fill in last name");
-                    }
-                    else if (dob == ''){
-                        alert("fill in date of birth");
                     }
                     else if (file == ''){
 						alert("please add id file");
@@ -426,15 +413,12 @@ session_start();
                     }
 
                     else {
-                        var newPostRef = firebase.database().ref('/').push({
+                        var newPostRef = firebase.database().ref('/users').push({
                             user_type: "student18",
-                            email: email,
                             first_name: fn,
                             last_name: ln,
                             gender: gender,
-                            dob: dob,
                             year: year,
-                            age: age,
                             size: size,
                             file: file,
                             spiritual: spiritual,

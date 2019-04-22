@@ -46,7 +46,7 @@ session_start();
     <form id=form1 method="post">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
-        <h1 align="center" style = "font-size:30px;padding-top: 20px;">Youth Participant Registration</h1>
+        <h1 align="center" style = "font-size:40px;padding-top: 20px;">Youth Participant Registration</h1>
 
         <!-- NEW STUFF STARTING HERE -->
         <div class="block_1"><p style="padding-top:20px"</div> <hr />
@@ -186,9 +186,8 @@ session_start();
                         alert("fill in date of birth");
 					}
                     else {
-                        var newPostRef = firebase.database().ref('/').push({
+                        var newPostRef = firebase.database().ref('/users').push({
                             user_type: "student",
-							email: "",
                             first_name: fn,
                             last_name: ln,
                             gender: gender,
