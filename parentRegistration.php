@@ -351,7 +351,7 @@ Javascript Segment
             }
             */
             //else {
-              var newPostRef = firebase.database().ref('/parents').push({
+              var newPostRef = firebase.database().ref('/parent').push({
                 first_name: fName,
                 last_name: lName,
                 phone: phoneNum,

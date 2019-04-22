@@ -359,7 +359,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     }
 
                     else {
-                            var newPostRef = firebase.database().ref('/counselors').push({
+                            var newPostRef = firebase.database().ref('/counselor').push({
                                 yss_avail: yss_avail,
                                 cs_avail: cs_avail,
                                 first_name: fn,
