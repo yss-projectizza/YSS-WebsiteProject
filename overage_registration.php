@@ -9,6 +9,7 @@ session_start();
     var bus_num = "N/A";
     var group_num = "N/A";
     var cabin_num = "N/A";
+    var credit_due = "299";
 
     </script>
 
@@ -416,6 +417,7 @@ session_start();
                     var other = document.getElementById("other").value;
                     var insurance = document.getElementById("insurance").value;
                     var policy_holder = document.getElementById("policy_holder").value;
+                    var password = document.getElementById("policy_holder").value;
 
 
 
@@ -456,7 +458,7 @@ session_start();
                     else {
                         var newPostRef = firebase.database().ref('users/' + emailwcharactersreplaced).set({
                             email:email,
-                            password:pw,
+                            password:password,
                             bus_num:bus_num,
                             group_num:group_num,
                             cabin_num:cabin_num,
@@ -486,7 +488,8 @@ session_start();
                             dietary: dietary,
                             other: other,
                             insurance: insurance,
-                            policy_holder: policy_holder
+                            policy_holder: policy_holder,
+                            credit_due:credit_due
                         }, function(error){
                         if (error) {
                             alert("Did not go through")
