@@ -78,31 +78,17 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 					<script>
 						function forgotPassword() {
 						var email = prompt("Please enter your email:", "abcde@gmail.com");
-						// email = email.replace(".", ',');
 						console.log(email);
 						var ref = firebase.database().ref();
 						ref.child("users").orderByChild("email").equalTo(email).once("value", snapshot => {
 							if (snapshot.exists()){
 								window.alert("A link to reset your password has been sent to " + email +".")
-							// TODO: Handle that users do exist
 							}
 							else {
-								alert('The email: (' + email + ') does not exist in the system.');
+								alert('The email: (' + email + ') does not exist in the system. Please create an account.');
 							}
 						});
 					}	
-					
-						// var usersRef = firebase.database().ref('yss-project-69ba2');
-						// usersRef.child(email).once('value', function(snapshot) {
-						// 	var exists = (snapshot.val() !== null);
-						// 	if (exists) {
-						// 	window.alert("A link to reset your password has been sent to " + email +".")
-						// 	} else {
-						// 	alert('The email: (' + email + ') does not exist in the system.');
-						// 	}
-						// });				
-		
-
 					</script>
 
 					<!-- <a id="forgot" class="btn btn-med btn-outline-info btn-block" href="/forgot" role="button" style="margin-top:12">Forgot Password</a> -->
