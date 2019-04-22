@@ -53,7 +53,7 @@ session_start();
 
         <div class="container">
         <!-- Camper Information -->
-            <label><p style = "font-size:30px;">Participant Information</p></label>
+            <label><p style = "font-size:30px;">Participant Information (18+)</p></label>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
