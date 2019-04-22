@@ -4,6 +4,8 @@
 <html lang="en">
   <head>
     <title>View Campers</title>
+      <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
+       <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
     <script src="/dashboard/main_users/campers.js"></script>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/campers.css">
@@ -68,9 +70,6 @@
         </div>
       </div>
     </div>
-    
-      <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
 
   </body>
 </html>
