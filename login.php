@@ -57,7 +57,10 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 					<input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign In" id="submitbutton"></input>
 					<hr>
 
-					<button onclick="registerApprove()" id="register" class="btn btn-med btn-outline-info btn-block" role="button" style="margin-top:18">Register</button>
+					<button onclick="location.href = '/MYcreateaccount.php'" id="register"
+					 class="btn btn-med btn-outline-info btn-block" role="button"
+					 style="margin-top:18">Register</button>
+					 <!--
 					<script>
 						function registerApprove() {
 						var age = prompt("Please enter your age:", "");
@@ -73,7 +76,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 						}
 						}
 					</script>
-
+				-->
 					<button onclick="forgotPassword()" id="forgot" class="btn btn-med btn-outline-info btn-block" role="button" style="margin-top:10">Forgot Password?</button>
 					<script>
 						function forgotPassword() {
@@ -88,7 +91,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 								alert('The email: (' + email + ') does not exist in the system. Please create an account.');
 							}
 						});
-					}	
+					}
 					</script>
 
 					<!-- <a id="forgot" class="btn btn-med btn-outline-info btn-block" href="/forgot" role="button" style="margin-top:12">Forgot Password</a> -->
