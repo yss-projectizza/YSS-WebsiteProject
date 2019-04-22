@@ -74,8 +74,8 @@ session_start();
 									padding-right: 20px;
 								">
 									<option value="parentRegistration.php">Guardian</option>
-									<option value="counselorRegistration.php">Counselor</option>
-									<option value="overageRegistration.php">Youth</option>
+									<option value="counselor_registration.php">Counselor</option>
+									<option value="overage_registration.php">Youth</option>
 								</select>
 				</div>
 
@@ -117,15 +117,15 @@ session_start();
                         console.log(dob, email);
                     if (!email || !dob){
                         alert("Please fill in all fields");
-                        window.location.href = "/MYcreateaccount.php";
+                        //window.location.href = "/MYcreateaccount.php";
 
                     }
-					
+
                     var currentDate = new Date().getFullYear();
                     var age = Number(currentDate) - Number(dob.getFullYear());
                     if(age < 18) {
                             alert("You do not have permission to make an account. Your guardian must make one for you.");
-                            window.location.href = "/MYcreateaccount.php";
+                            //window.location.href = "/MYcreateaccount.php";
             }});
 
 

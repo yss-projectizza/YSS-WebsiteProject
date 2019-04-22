@@ -87,7 +87,7 @@
           <div class="col">
             <div class="card">
                 <h2>Payment</h2>
-                <label>You owe: $<?php echo $credit_due;?></label>
+                <label>You owe: <?php echo "<label style='font-size:22;color:red;'>$$credit_due</label>";?></label>
 
                 <script src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk"></script>
                 <div id="paypal-button-container"></div>

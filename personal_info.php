@@ -46,104 +46,10 @@ session_start();
     <form id=form1 method="post">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
-        <h1 align="center" style = "font-size:50px;padding-top: 20px;">Youth Registration</h1>
+        <h1 align="center" style = "font-size:30px;padding-top: 20px;">Personal Information Form</h1>
 
         <!-- NEW STUFF STARTING HERE -->
         <div class="block_1"><p style="padding-top:20px"</div> <hr />
-
-        <div class="container">
-        <!-- Youth Information -->
-        <!-- ONLY PARENT SHOULD FILL THIS OUT. STUDENT CAN NOT CHANGE IT -->
-            <label><p style = "font-size:30px;">Youth Information</p></label>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
-                    </div>
-                    <input type="text" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
-                    </div>
-                    <input type="text" placeholder="Ex: Smith" name="lastname" id="lastname" class="form-control" required>
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Gender:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="gender" id="gender">
-                                <option>Female</option>
-                                <option>Male</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <div class='input-group date'>
-                            <span class="input-group-text">Date Of Birth:<b style = "color: red;">*</b></span>
-                            <input type='date' name="dob" id="dob" class="form-control" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="schoolyear" id="schoolyear">
-                            <option>Freshman</option>
-                            <option>Sophomore</option>
-                            <option>Junior</option>
-                            <option>Senior</option>
-                            <option>Early College</option>
-                            <option>Home School</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- SHOULD BE AUTOMATICALLY CALCULATED BASED OFF OF DOB -->
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="age" id="age">
-                            <option>14</option>
-                            <option>15</option>
-                            <option>16</option>
-                            <option>17</option>
-                            <option>18</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- STUDENT FILL THIS OUT ONCE THERE'S AN ACCOUNT-->
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Sweatshirt Size:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="size" id="size">
-                            <option>Small</option>
-                            <option>Medium</option>
-                            <option>Large</option>
-                            <option>XL</option>
-                            <option>XXL</option>
-                        </select>
-                    </div>
-                </div>
-
-
-                <form action="upload.php" method="post" enctype="multipart/form-data">
-                    Picture of Student ID:<b style = "color: red;">*</b>
-                    <input type="file" name="upload" id="upload" class="form-control" required">
-                </form>
-        </div>
-
-        <div class="block_1"><p style="padding-top:30px"</div> <hr />
-
-        <div class="container">
-        <!-- Personal Information -->
-            <label><p style = "font-size:30px;padding-top: 10px;"">Personal Information</p></label>
-        </div>
         <div class="container">
             <label><p style = "font-size:18px;"">How would you rate yourself in the following areas?</p></label>
 
@@ -252,14 +158,6 @@ session_start();
             document.getElementById("submitContact").addEventListener("click", functSubmit);
                 function functSubmit(event){
                     var database = firebase.database();
-                    var fn = document.getElementById("firstname").value;
-                    var ln = document.getElementById("lastname").value;
-                    var gender = document.getElementById("gender").value;
-                    var dob = document.getElementById("dob").value;
-                    var year = document.getElementById("schoolyear").value;
-                    var age = document.getElementById("age").value;
-                    var size = document.getElementById("size").value;
-                    var file = document.getElementById("upload").value;
                     var spiritual = document.getElementById("spiritual").value;
                     var knowledge = document.getElementById("knowledge").value;
                     var improvement = document.getElementById("improvement").value;
@@ -267,47 +165,25 @@ session_start();
                     var hopes = document.getElementById("hopes").value;
                     var activities = document.getElementById("activities").value;
                     var question = document.getElementById("question").value;
-                    if (fn == ''){
-                        alert("fill in first name");
+                    var newPostRef = firebase.database().ref('/').push({
+                        spiritual: spiritual,
+                        knowledge: knowledge,
+                        improvement: improvement,
+                        community: community,
+                        hopes: hopes,
+                        activities: activities,
+                        question: question
+                    }, function(error){
+                    if (error) {
+                        alert("Did not go through")
+                    } else {
+                        alert("The form was submitted.");
+                        var postID = newPostRef.key;
+                        window.location.replace("login.php")
                     }
-                    else if (ln == ''){
-                        alert("fill in last name");
                     }
-                    else if (dob == ''){
-                        alert("fill in date of birth");
-					}
-                    else {
-                        var newPostRef = firebase.database().ref('/').push({
-                            user_type: "student",
-							email: "",
-                            first_name: fn,
-                            last_name: ln,
-                            gender: gender,
-                            dob: dob,
-                            year: year,
-                            age: age,
-                            size: size,
-                            file: file,
-                            spiritual: spiritual,
-                            knowledge: knowledge,
-                            improvement: improvement,
-                            community: community,
-                            hopes: hopes,
-                            activities: activities,
-                            question: question
-                        }, function(error){
-                        if (error) {
-                            alert("Did not go through")
-                        } else {
-                            alert("The form was submitted.");
-                            var postID = newPostRef.key;
-                            window.location.replace("form_handler.php")
-                        }
-                        }
-                        );
-                    }
-
-                };
+                    );
+                }
 
         </script>
 

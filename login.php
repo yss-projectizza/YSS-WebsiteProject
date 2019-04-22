@@ -60,7 +60,6 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 					<button onclick="registerApprove()" id="register" class="btn btn-med btn-outline-info btn-block" role="button" style="margin-top:18">Register</button>
 					<script>
 						function registerApprove() {
-						var txt;
 						var age = prompt("Please enter your age:", "");
 						if (age == null) {
 							window.alert("Age not entered.");
@@ -72,24 +71,24 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 						else {
 							window.alert("You must be 18 to register for an account.");
 						}
-						document.getElementById("demo").innerHTML = txt;
 						}
 					</script>
 
 					<button onclick="forgotPassword()" id="forgot" class="btn btn-med btn-outline-info btn-block" role="button" style="margin-top:10">Forgot Password?</button>
 					<script>
 						function forgotPassword() {
-						var txt;
-						var email = prompt("Please enter your email:", "12345@gmail.com");
-						if (email == null) {
-							window.alert("email not entered.");
-
-						}
-						else {
-							window.alert("A link to reset your password has been sent to " + email +".")
-						}
-						document.getElementById("demo").innerHTML = txt;
-						}
+						var email = prompt("Please enter your email:", "abcde@gmail.com");
+						console.log(email);
+						var ref = firebase.database().ref();
+						ref.child("users").orderByChild("email").equalTo(email).once("value", snapshot => {
+							if (snapshot.exists()){
+								window.alert("A link to reset your password has been sent to " + email +".")
+							}
+							else {
+								alert('The email: (' + email + ') does not exist in the system. Please create an account.');
+							}
+						});
+					}	
 					</script>
 
 					<!-- <a id="forgot" class="btn btn-med btn-outline-info btn-block" href="/forgot" role="button" style="margin-top:12">Forgot Password</a> -->
