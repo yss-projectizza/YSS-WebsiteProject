@@ -3,6 +3,17 @@
 session_start();
 ?>
 
+<script>
+    var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
+    var emailwcharactersreplaced = email.replace(".",",");
+    var pw = "pw";
+    var bus_num = "N/A";
+    var group_num = "N/A";
+    var cabin_num = "N/A";
+    var credit_due = "299";
+
+    </script>
+
 <!doctype html>
 <html lang="en">
 
@@ -313,12 +324,12 @@ Javascript Segment
 
     <script>
         var config = {
-          apiKey: "AIzaSyDdBVALQJWdMvR5ed0UswgmdWY1me9eL20",
-          authDomain: "inf117.firebaseapp.com",
-          databaseURL: "https://inf117.firebaseio.com",
-          projectId: "inf117",
-          storageBucket: "inf117.appspot.com",
-          messagingSenderId: "839601382632"
+            apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+            authDomain: "yss-project-69ba2.firebaseapp.com",
+            databaseURL: "https://yss-project-69ba2.firebaseio.com",
+            projectId: "yss-project-69ba2",
+            storageBucket: "yss-project-69ba2.appspot.com",
+            messagingSenderId: "530416464878"
         };
         firebase.initializeApp(config);
 
@@ -355,7 +366,7 @@ Javascript Segment
             }
             */
             //else {
-              var newPostRef = firebase.database().ref('/users').push({
+              var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
                 user_type: "parent",
                 first_name: fName,
                 last_name: lName,
