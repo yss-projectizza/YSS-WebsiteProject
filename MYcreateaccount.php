@@ -113,11 +113,14 @@ session_start();
                     var dob = new Date(document.getElementById("ageInput").value);
 					var acct = document.getElementById("accountType").value;
                     email = email.replace(".", ",");
-                        console.log("testing");
-                        console.log(dob, email);
+                    return firebase.database().ref('/users/' + email).once('value')
+
+
+                    
+                    console.log("testing");
+                    console.log(dob, email);
                     if (!email || !dob){
                         alert("Please fill in all fields");
-                        //window.location.href = "/MYcreateaccount.php";
 
                     }
 
@@ -125,7 +128,6 @@ session_start();
                     var age = Number(currentDate) - Number(dob.getFullYear());
                     if(age < 18) {
                             alert("You do not have permission to make an account. Your guardian must make one for you.");
-                            //window.location.href = "/MYcreateaccount.php";
             }});
 
 
