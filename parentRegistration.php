@@ -352,6 +352,7 @@ Javascript Segment
             */
             //else {
               var newPostRef = firebase.database().ref('/users').push({
+                user_type: "parent",
                 first_name: fName,
                 last_name: lName,
                 phone: phoneNum,

@@ -57,13 +57,6 @@ session_start();
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Email:<b style = "color: red;">*</b></span>
-                    </div>
-                    <input type="text" placeholder="Ex: 123@gmail.com" name="email" id="email" class="form-control" required>
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
                         <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
                     </div>
                     <input type="text" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>
@@ -358,7 +351,6 @@ session_start();
             document.getElementById("submitContact").addEventListener("click", functSubmit);
                 function functSubmit(event){
                     var database = firebase.database();
-                    var email = document.getElementById("email").value;
                     var fn = document.getElementById("firstname").value;
                     var ln = document.getElementById("lastname").value;
                     var gender = document.getElementById("gender").value;
@@ -422,7 +414,7 @@ session_start();
 
                     else {
                         var newPostRef = firebase.database().ref('/users').push({
-                            email: email,
+                            user_type: "student18",
                             first_name: fn,
                             last_name: ln,
                             gender: gender,
