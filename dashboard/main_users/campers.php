@@ -35,8 +35,8 @@
       <button class="tablinks" onclick="toggleInfo(event, 'group')">Group</button>
       <br>
       <div id="bus" class="tabcontent">
-        <h3>Bus #<?php echo $_SESSION["queryData"]["bus_num"]; ?> </h3>
-        <p>This is bus information. </p>
+        <h3 id="bus_test">Bus #<?php echo $_SESSION["queryData"]["bus_num"]; ?> </h3>
+        <p id="data">This is bus information. </p>
       </div>
       <div id="cabin" class="tabcontent">
         <h3>Cabin #<?php echo $_SESSION["queryData"]["cabin_num"]; ?></h3>
@@ -69,5 +69,8 @@
       </div>
     </div>
     
+      <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+
   </body>
 </html>

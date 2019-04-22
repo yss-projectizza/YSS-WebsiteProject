@@ -1,4 +1,6 @@
 function toggleInfo(evt, infoType) {
+  var bus_num = document.getElementById("bus_test").innerHTML.slice(5);
+  console.log(bus_num);
   var config = {
       apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
       authDomain: "yss-project-69ba2.firebaseapp.com",
@@ -10,8 +12,8 @@ function toggleInfo(evt, infoType) {
 
   firebase.initializeApp(config);
 
-  var ref = firebase.database().ref("users");
-  var bus_number = "<?php echo $_SESSION['queryData']['bus_num']; ?>"
+  // var all_names = firebase.database().ref("/users/bus_num/").equalTo(bus_num);
+  // console.log(all_names);
 
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -24,4 +26,8 @@ function toggleInfo(evt, infoType) {
   }
   document.getElementById(infoType).style.display = "block";
   evt.currentTarget.className += "active";
+
+  var name = "Jenny Chau";
+  document.getElementById("data").innerHTML = name;
+
 }
