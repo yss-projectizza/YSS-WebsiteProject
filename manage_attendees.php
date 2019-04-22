@@ -16,7 +16,7 @@ session_start();
         $credit = "50";
         $price = "299";
         $childid = 123456;
-        include 'dashboard/manage_attendees.php';
+        
     }
 ?>
 <html lang="en">
@@ -75,13 +75,13 @@ session_start();
             </div>
             <div class="left">
               <h3><?php echo $first_name . " " . $last_name ?></h3>
-              <h4>Amount Paid: $<?php echo $price?></h4>
+              <h4>Amount Due: $<?php echo $price?></h4>
               <h4>Credit: $<?php echo $credit?></h4><br>
-              <form action="updateAdditionalPaid.php" method="post">
+              <!-- <form action="updateAdditionalPaid.php" method="post">
                 Update Credit: <input type="number" step="0.01" name="amount">
                 <input type="hidden" name="childid" value="<?php echo $childid ?>">
                 <input type="submit" value="Submit">
-              </form>  
+              </form>   -->
             </div>			            
           </div>
         </div>
