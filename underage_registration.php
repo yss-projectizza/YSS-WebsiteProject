@@ -187,7 +187,7 @@ session_start();
 					}
                     else {
                         var newPostRef = firebase.database().ref('/users').push({
-                            user_type: student,
+                            user_type: "student",
                             first_name: fn,
                             last_name: ln,
                             gender: gender,
