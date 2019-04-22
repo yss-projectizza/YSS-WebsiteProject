@@ -334,7 +334,6 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
             firebase.initializeApp(config);
 
             document.getElementById("submitform").addEventListener("click", function(){
-                    var user_type = "counselor";
                     var yss_avail = document.getElementById("yss_avail").value;
                     var cs_avail = document.getElementById("cs_avail").value;
                     var fn = document.getElementById("firstname").value;
@@ -381,8 +380,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                         setTimeout(function(){
 
                     if (check_e == null){
-                            var newPostRef = firebase.database().ref('users/' + e).update({
-                                user_type: user_type,
+                            var newPostRef = firebase.database().ref('counselors/' + e).update({
                                 yss_avail: yss_avail,
                                 cs_avail: cs_avail,
                                 first_name: fn,
