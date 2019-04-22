@@ -60,7 +60,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 					<button onclick="location.href = '/MYcreateaccount.php'" id="register"
 					 class="btn btn-med btn-outline-info btn-block" role="button"
 					 style="margin-top:18">Register</button>
-					 <!--
+					 
 					<script>
 						function registerApprove() {
 						var age = prompt("Please enter your age:", "");
@@ -76,7 +76,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 						}
 						}
 					</script>
-				-->
+				
 					<button onclick="forgotPassword()" id="forgot" class="btn btn-med btn-outline-info btn-block" role="button" style="margin-top:10">Forgot Password?</button>
 					<script>
 						function forgotPassword() {
