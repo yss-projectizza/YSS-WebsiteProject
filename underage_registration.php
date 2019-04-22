@@ -46,7 +46,7 @@ session_start();
     <form id=form1 method="post">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
-        <h1 align="center" style = "font-size:50px;padding-top: 20px;">Youth Registration</h1>
+        <h1 align="center" style = "font-size:30px;padding-top: 20px;">Youth Participant Registration</h1>
 
         <!-- NEW STUFF STARTING HERE -->
         <div class="block_1"><p style="padding-top:20px"</div> <hr />
@@ -54,7 +54,7 @@ session_start();
         <div class="container">
         <!-- Youth Information -->
         <!-- ONLY PARENT SHOULD FILL THIS OUT. STUDENT CAN NOT CHANGE IT -->
-            <label><p style = "font-size:30px;">Youth Information</p></label>
+            <label><p style = "font-size:30px;">Participant Information</p></label>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -140,90 +140,6 @@ session_start();
 
         <div class="block_1"><p style="padding-top:30px"</div> <hr />
 
-        <div class="container">
-        <!-- Personal Information -->
-            <label><p style = "font-size:30px;padding-top: 10px;"">Personal Information</p></label>
-        </div>
-        <div class="container">
-            <label><p style = "font-size:18px;"">How would you rate yourself in the following areas?</p></label>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Spirituality (closeness to God)<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="spiritual" id="spiritual">
-                            <option>Very High</option>
-                            <option>High</option>
-                            <option>Neutral</option>
-                            <option>Low</option>
-                            <option>Very Low</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Religious Knowledge:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="knowledge" id="knowledge">
-                            <option>Very High</option>
-                            <option>High</option>
-                            <option>Neutral</option>
-                            <option>Low</option>
-                            <option>Very Low</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Actively Improving Myself:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="improvement" id="improvement">
-                            <option>Very High</option>
-                            <option>High</option>
-                            <option>Neutral</option>
-                            <option>Low</option>
-                            <option>Very Low</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Actively Involved In Making My Community Better:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" id="community">
-                            <option>Very High</option>
-                            <option>High</option>
-                            <option>Neutral</option>
-                            <option>Low</option>
-                            <option>Very Low</option>
-                        </select>
-                    </div>
-                </div>
-
-
-                <div class="row initial-task-padding">
-                    <div class="col">
-                        <p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>
-                        <textarea id="hopes" cols="132" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="row initial-task-padding">
-                    <div class="col">
-                        <p>What are some activities that you enjoy?</p>
-                        <textarea id="activities" cols="132" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="row initial-task-padding">
-                    <div class="col">
-                        <p>What is one question you would like to have answered during this year's Summit?</b></p>
-                        <textarea id="question" cols="132" rows="3"></textarea>
-                    </div>
-                </div>
-
-
-        <div class="block_1"><p style="padding-top:30px"</div> <hr />
-
         <!-- Submit -->
             <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
                 <div class="col">
@@ -260,13 +176,6 @@ session_start();
                     var age = document.getElementById("age").value;
                     var size = document.getElementById("size").value;
                     var file = document.getElementById("upload").value;
-                    var spiritual = document.getElementById("spiritual").value;
-                    var knowledge = document.getElementById("knowledge").value;
-                    var improvement = document.getElementById("improvement").value;
-                    var community = document.getElementById("community").value;
-                    var hopes = document.getElementById("hopes").value;
-                    var activities = document.getElementById("activities").value;
-                    var question = document.getElementById("question").value;
                     if (fn == ''){
                         alert("fill in first name");
                     }
@@ -288,20 +197,13 @@ session_start();
                             age: age,
                             size: size,
                             file: file,
-                            spiritual: spiritual,
-                            knowledge: knowledge,
-                            improvement: improvement,
-                            community: community,
-                            hopes: hopes,
-                            activities: activities,
-                            question: question
                         }, function(error){
                         if (error) {
                             alert("Did not go through")
                         } else {
                             alert("The form was submitted.");
                             var postID = newPostRef.key;
-                            window.location.replace("form_handler.php")
+                            window.location.replace("dashboard.php")
                         }
                         }
                         );
