@@ -13,12 +13,12 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 <script>
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-    authDomain: "yss-project-69ba2.firebaseapp.com",
-    databaseURL: "https://yss-project-69ba2.firebaseio.com",
-    projectId: "yss-project-69ba2",
-    storageBucket: "yss-project-69ba2.appspot.com",
-    messagingSenderId: "530416464878"
+    apiKey: "AIzaSyDdBVALQJWdMvR5ed0UswgmdWY1me9eL20",
+    authDomain: "inf117.firebaseapp.com",
+    databaseURL: "https://inf117.firebaseio.com",
+    projectId: "inf117",
+    storageBucket: "inf117.appspot.com",
+    messagingSenderId: "839601382632"
   };
   firebase.initializeApp(config);
 </script>
@@ -81,16 +81,25 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 					<script>
 						function forgotPassword() {
 						var email = prompt("Please enter your email:", "abcde@gmail.com");
-						console.log(email);
-						var ref = firebase.database().ref();
-						ref.child("users").orderByChild("email").equalTo(email).once("value", snapshot => {
-							if (snapshot.exists()){
+						var comma_email = email.replace(/\./g,',');
+						var ref = firebase.database().ref("/users");
+						ref.once("value").then(function(snapshot){
+							if (snapshot.child(comma_email).exists()){
 								window.alert("A link to reset your password has been sent to " + email +".")
 							}
 							else {
 								alert('The email: (' + email + ') does not exist in the system. Please create an account.');
 							}
 						});
+
+						// ref.orderByChild("email").equalTo(email).once("value", snapshot => {
+						// 	if (snapshot.exists()){
+						// 		window.alert("A link to reset your password has been sent to " + email +".")
+						// 	}
+						// 	else {
+						// 		alert('The email: (' + email + ') does not exist in the system. Please create an account.');
+						// 	}
+						// });
 					}
 					</script>
 
