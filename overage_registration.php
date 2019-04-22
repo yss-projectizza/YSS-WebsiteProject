@@ -362,9 +362,7 @@ session_start();
                     var fn = document.getElementById("firstname").value;
                     var ln = document.getElementById("lastname").value;
                     var gender = document.getElementById("gender").value;
-                    var dob = document.getElementById("dob").value;
                     var year = document.getElementById("schoolyear").value;
-                    var age = document.getElementById("age").value;
                     var size = document.getElementById("size").value;
                     var file = document.getElementById("upload").value;
                     var spiritual = document.getElementById("spiritual").value;
@@ -393,9 +391,6 @@ session_start();
                     }
                     else if (ln == ''){
                         alert("fill in last name");
-                    }
-                    else if (dob == ''){
-                        alert("fill in date of birth");
                     }
                     else if (file == ''){
 						alert("please add id file");
@@ -431,9 +426,7 @@ session_start();
                             first_name: fn,
                             last_name: ln,
                             gender: gender,
-                            dob: dob,
                             year: year,
-                            age: age,
                             size: size,
                             file: file,
                             spiritual: spiritual,
