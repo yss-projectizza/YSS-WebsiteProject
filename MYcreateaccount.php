@@ -42,7 +42,7 @@ session_start();
 		</div>
     </nav>
 
-    <form id=form1 method="post">
+    <form id=form1 method="post" action="whichform.php">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
         <h1 align="center" style = "font-size:30px;padding-top: 20px;">Create a New Account</h1>
@@ -69,13 +69,13 @@ session_start();
 								<span class="input-group-text">Choose Account type:<b
 									style = "color: red;">*</b></span>
 						</div>
-								<select id="accountType" class="input-group-option" style="
+								<select name="user_type" id="accountType" class="input-group-option" style="
 									padding-left: 15px;
 									padding-right: 20px;
 								">
-									<option value="parent">Guardian</option>
-									<option value="counselor">Counselor</option>
-									<option value="overage">Youth</option>
+									<option value="parentRegistration.php">Guardian</option>
+									<option value="counselor_registration.php">Counselor</option>
+									<option value="overage_registration.php">Youth</option>
 								</select>
 				</div>
 
@@ -84,7 +84,7 @@ session_start();
         <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
                 <div class="col">
                     <!-- <button id="myBtn">Submit</button> -->
-                    <button type="button" value="Submit"
+                    <button type="submit" value="Submit"
 										 name="proceed" id="submitAccount" >Next
                 </div>
             </div>
@@ -107,102 +107,26 @@ session_start();
             firebase.initializeApp(config);
 
             document.getElementById("submitAccount").addEventListener("click", function(){
+
                     var database = firebase.database();
                     var email = document.getElementById("email").value;
                     var dob = new Date(document.getElementById("ageInput").value);
-										var acct = document.getElementById("accountType").value;
+					var acct = document.getElementById("accountType").value;
                     email = email.replace(".", ",");
                         console.log("testing");
                         console.log(dob, email);
                     if (!email || !dob){
                         alert("Please fill in all fields");
+                        //window.location.href = "/MYcreateaccount.php";
+
                     }
-										else{
-												var currentDate = new Date().getFullYear();
-												var age = Number(currentDate) - Number(dob.getFullYear());
-												if(age < 18) {
-														alert("You do not have permission to make an account. Your guardian must make one for you.");
-														//window.location.replace("/login.php");
-												}
 
-												else {
-													var data = new FormData();
-													data.append("email",email);
-													var xhr = new XMLHttpRequest();
-													var url;
-													/*
-													//alert("you are over 18!");
-													if(acct == "counselor") {
-														url = "/counselor_registration.php";
-														//alert("navigating into counselor registration");
-														//window.location.replace("/counselor_registration.php");
-													}
-													else if(acct == "parent") {
-														url = "/parentRegistration.php";
-														//alert("navigating into guardian registration");
-														//window.location.replace("/parentRegistration.php");
-													}
-													else if(acct == "overage"){
-														url = "/overage_registration.php";
-														//alert("navigating into youth registration");
-														//window.location.replace("/overage_registration.php");
-													}
-													*/
-													var params = "email=email&dob=dob";
-													xhr.open("POST", "/parentRegistration.php", true);
-													/*
-													//Send the proper header information along with the request
-													http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-													http.setRequestHeader("Content-length", params.length);
-													http.setRequestHeader("Connection", "close");
-
-													http.onreadystatechange = function() {//Call a function when the state changes.
-														if(http.readyState == 4 && http.status == 200) {
-															alert(http.responseText);
-														}
-													}
-													*/
-													xhr.send(data);
-													window.location = ("/parentRegistration.php");
-												}
-									}
-											/*
-                        var check_e;
-                        var check_u;
-                        firebase.database().ref('/counselors/' + email + '/').once('value').then(function(snapshot)
-                            {
-                                console.log("checking if exists");
-                                check_e = (snapshot.val() && snapshot.val().email);
-                                //check_u = (snapshot.val() && snapshot.val().email);
-                                console.log(check_e);
-                            }
-                        );
-
-                        setTimeout(function(){
-
-                    if (check_e == null){
-                            var newPostRef = firebase.database().ref('/counselors/' + email + '/').set({
-                            password: password,
-                            dob: dob,
-                            email: email
-                            },
-                            function(error) {
-                                if (error) {
-                                    alert("didn't go through");
-                                } else {
-                                    //var postID = newPostRef.key;
-                                    //window.location.replace("index.php");
-                                    console.log("went to firebase");
-                                }
-                                });
-                            } else {
-                                alert("email already exists")
-                            }
-                        }, 3000);
-                    }
-										*/
-            });
-                // Get the unique ID generated by push() by accessing its key
+                    var currentDate = new Date().getFullYear();
+                    var age = Number(currentDate) - Number(dob.getFullYear());
+                    if(age < 18) {
+                            alert("You do not have permission to make an account. Your guardian must make one for you.");
+                            //window.location.href = "/MYcreateaccount.php";
+            }});
 
 
 
