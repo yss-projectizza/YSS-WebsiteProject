@@ -120,7 +120,7 @@ session_start();
                 <!-- STUDENT FILL THIS OUT ONCE THERE'S AN ACCOUNT-->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text">Clothing Size:<b style = "color: red;">*</b></span>
+                    <span class="input-group-text">Sweatshirt Size:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="size" id="size">
                             <option>Small</option>
                             <option>Medium</option>
