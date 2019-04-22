@@ -13,8 +13,8 @@ if( !$_SESSION["loggedin"]){
 
   if($user_type == "student" || $user_type == "student18" || $user_type == "counselor" || $user_type == "parent"){
     // add any needed data for student or counselor or parent
-    $age = $_SESSION["queryData"]["age"];
-    $dob = $_SESSION["queryData"]["dob"];
+    // $age = $_SESSION["queryData"]["age"];
+    // $dob = $_SESSION["queryData"]["dob"];
     $email = $_SESSION["queryData"]["email"];
     $file = $_SESSION["queryData"]["file"];
     $first_name = $_SESSION["queryData"]["first_name"];
