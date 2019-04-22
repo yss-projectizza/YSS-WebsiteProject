@@ -88,7 +88,7 @@ session_start();
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="input-group mb-3">
                      <div class="input-group-prepend">
                         <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
@@ -417,7 +417,7 @@ session_start();
                     var other = document.getElementById("other").value;
                     var insurance = document.getElementById("insurance").value;
                     var policy_holder = document.getElementById("policy_holder").value;
-                    var password = document.getElementById("policy_holder").value;
+                    var password = document.getElementById("password").value;
 
 
 
