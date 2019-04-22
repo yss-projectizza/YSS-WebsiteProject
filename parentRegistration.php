@@ -293,7 +293,7 @@ session_start();
                   padding-top: 10px;"
                   align="center";>
       			<div class="col">
-      				<input type="submit" class="btn-xl" align="center" value="Submit" >
+      				<input id="submitForm" type="button" class="btn-xl" align="center" value="Submit" >
       			</div>
       		</div>
     	</form>
@@ -309,22 +309,21 @@ Javascript Segment
 
     <script>
         var config = {
-          apiKey: "AIzaSyDyWL6I7h4Vm_n3eJBWLie92wm77E1lQhU",
-          authDomain: "youth-spiritual-summit.firebaseapp.com",
-          databaseURL: "https://youth-spiritual-summit.firebaseio.com",
-          projectId: "youth-spiritual-summit",
-          storageBucket: "youth-spiritual-summit.appspot.com",
-          messagingSenderId: "215019311847"
+          apiKey: "AIzaSyDdBVALQJWdMvR5ed0UswgmdWY1me9eL20",
+          authDomain: "inf117.firebaseapp.com",
+          databaseURL: "https://inf117.firebaseio.com",
+          projectId: "inf117",
+          storageBucket: "inf117.appspot.com",
+          messagingSenderId: "839601382632"
         };
         firebase.initializeApp(config);
 
-        document.getElementById("appForm").addEventListener("click", function(){
+        document.getElementById("submitForm").addEventListener("click", function(){
             var database = firebase.database();
             //name and password
             var fName = document.getElementById("fnameInput").value;
             var lName = document.getElementById("lnameInput").value;
             //contact info
-            var Email = document.getElementById("emailInput").value;
             var phoneNum = document.getElementById("phoneInput").value;
             //Residence info
             var Address = document.getElementById("addressInput").value;
@@ -355,7 +354,6 @@ Javascript Segment
               var newPostRef = firebase.database().ref('/parent').push({
                 first_name: fName,
                 last_name: lName,
-                email: Email,
                 phone: phoneNum,
                 address: Address,
                 city: City,
