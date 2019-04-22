@@ -176,7 +176,7 @@ session_start();
                     var age = document.getElementById("age").value;
                     var size = document.getElementById("size").value;
                     var file = document.getElementById("upload").value;
-                    else if (fn == ''){
+                    if (fn == ''){
                         alert("fill in first name");
                     }
                     else if (ln == ''){
