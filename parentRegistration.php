@@ -102,17 +102,21 @@ session_start();
                       <input id="phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
                       name="phone" class="form-control" required>
                   </div>
-                  <!--
+
                   <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Email Address:
-                            <b style = "color: red;">*</b>
-                          </span>
+                       <div class="input-group-prepend">
+                          <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
                       </div>
-                      <input id="emailInput" type="semail" placeholder="Ex: johnsmith@gmail.com"
-                       name="email" class="form-control" required>
+                          <input type="password" name="password" id="password" class="form-control" required>
                   </div>
-                -->
+
+                  <div class="input-group mb-3">
+                       <div class="input-group-prepend">
+                          <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
+                      </div>
+                          <input type="password" name="password2" id="password2" class="form-control" required>
+                  </div>
+
                   <p align="center" style = "font-size:30px;padding-top: 10px;">
                     Residence Information</p>
                   <br>

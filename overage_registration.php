@@ -87,16 +87,20 @@ session_start();
                         </select>
                     </div>
                 </div>
-								<!--
+                
                 <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <div class='input-group date'>
-                            <span class="input-group-text">Date Of Birth:<b style = "color: red;">*</b></span>
-                            <input type='date' name="dob" id="dob" class="form-control" required>
-                        </div>
+                     <div class="input-group-prepend">
+                        <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
                     </div>
+                        <input type="password" name="password" id="password" class="form-control" required>
                 </div>
-							-->
+
+                <div class="input-group mb-3">
+                     <div class="input-group-prepend">
+                        <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
+                    </div>
+                        <input type="password" name="password2" id="password2" class="form-control" required>
+                </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
