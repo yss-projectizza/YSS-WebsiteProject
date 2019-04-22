@@ -196,7 +196,8 @@ session_start();
                         alert("fill in date of birth");
 					}
                     else {
-                        var newPostRef = firebase.database().ref('/student').push({
+                        var newPostRef = firebase.database().ref('/users').push({
+                            user_type: student,
 							email: email,
                             first_name: fn,
                             last_name: ln,

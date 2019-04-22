@@ -421,7 +421,7 @@ session_start();
                     }
 
                     else {
-                        var newPostRef = firebase.database().ref('/student18').push({
+                        var newPostRef = firebase.database().ref('/users').push({
                             email: email,
                             first_name: fn,
                             last_name: ln,
