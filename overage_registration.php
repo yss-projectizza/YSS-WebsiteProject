@@ -5,7 +5,6 @@ session_start();
 <script>
     var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
     var emailwcharactersreplaced = email.replace(".",",");
-    var pw = "pw";
     var bus_num = "N/A";
     var group_num = "N/A";
     var cabin_num = "N/A";
@@ -53,7 +52,7 @@ session_start();
 		</div>
 	</nav>
 
-    <form id=form1 method="post">
+    <form id=form1 action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
         <h1 align="center" style = "font-size:40px;padding-top: 20px;">Youth Participant Registration</h1>
@@ -144,7 +143,7 @@ session_start();
 
                 <form action="upload.php" method="post" enctype="multipart/form-data">
                     Picture of Drivers License / Government ID:<b style = "color: red;">*</b>
-                    <input type="file" name="upload" id="upload" class="form-control" required">
+                    <input type="file" name="upload" id="upload" class="form-control" required>
                 </form>
         </div>
 
@@ -155,7 +154,7 @@ session_start();
             <label><p style = "font-size:30px;padding-top: 10px;">Personal Information</p></label>
         </div>
         <div class="container">
-            <label><p style = "font-size:18px;"">How would you rate yourself in the following areas?</p></label>
+            <label><p style = "font-size:18px;">How would you rate yourself in the following areas?</p></label>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -213,21 +212,21 @@ session_start();
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>
-                        <textarea id="hopes" cols="132" rows="3"></textarea>
+                        <textarea id="hopes" cols="132" rows="3" value=""></textarea>
                     </div>
                 </div>
 
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What are some activities that you enjoy?</p>
-                        <textarea id="activities" cols="132" rows="3"></textarea>
+                        <textarea id="activities" cols="132" rows="3" value=""></textarea>
                     </div>
                 </div>
 
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What is one question you would like to have answered during this year's Summit?</b></p>
-                        <textarea id="question" cols="132" rows="3"></textarea>
+                        <textarea id="question" cols="132" rows="3" value=""></textarea>
                     </div>
                 </div>
 
@@ -290,35 +289,35 @@ session_start();
             <div class="row initial-task-padding">
                 <div class="col">
                     <p>Please List Any Allergies You Have. If none, type N/A.<b style = "color: red;">*</b></p>
-                    <textarea id="allergies" cols="132" rows="2"></textarea>
+                    <input type="text" name="allergies" id="allergies" times-label="allergies" class="form-control" required>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
                     <p>Please List Any Medication You Are Currently On. If none, type N/A<b style = "color: red;">*</b></p>
-                    <textarea id="meds" cols="132" rows="2"></textarea>
+                    <input type="text" name="meds" id="meds" times-label="meds" class="form-control" required>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
                     <p>Please List Any Activity Restrictions.</b></p>
-                    <textarea id="activities" cols="132" rows="2"></textarea>
+                    <input type="text" name="activity_restrictions" value="" id="activity_restrictions" times-label="activity_restrictions" class="form-control">
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
                     <p>Please List Any Dietary Restrictions.</b></p>
-                    <textarea id="dietary" cols="132" rows="2"></textarea>
+                    <input type="text" name="dietary_restrictions" value="" id="dietary_restrictions" times-label="dietary_restrictions" class="form-control">
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
                     <p>Other Important Information </b></p>
-                    <textarea id="other" cols="132" rows="2"></textarea>
+                    <input type="text" name="other" value="" id="other" times-label="other" class="form-control">
                 </div>
             </div>
 
@@ -341,7 +340,7 @@ session_start();
             <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
                 <div class="col">
                     <!-- <button id="myBtn">Submit</button> -->
-                    <button type="button" value="Submit" name="subscribe" id="submitContact">Submit
+                    <button type="submit" value="Submit" name="subscribe" id="submitForm">Submit
                 </div>
             </div>
         </div>
@@ -378,87 +377,87 @@ session_start();
         <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
         <!--<script src="counselor_app.js"></script>-->
         <script>
-                    var config = {
-                        apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-                        authDomain: "yss-project-69ba2.firebaseapp.com",
-                        databaseURL: "https://yss-project-69ba2.firebaseio.com",
-                        projectId: "yss-project-69ba2",
-                        storageBucket: "yss-project-69ba2.appspot.com",
-                        messagingSenderId: "530416464878"
-                    };
-            firebase.initializeApp(config);
-
-            document.getElementById("submitContact").addEventListener("click", functSubmit);
-                function functSubmit(event){
-                    var database = firebase.database();
-                    var fn = document.getElementById("firstname").value;
-                    var ln = document.getElementById("lastname").value;
-                    var gender = document.getElementById("gender").value;
-                    var password = document.getElementById("password").value;
-                    var password2 = document.getElementById("password2").value;
-                    var year = document.getElementById("schoolyear").value;
-                    var size = document.getElementById("size").value;
-                    var file = document.getElementById("upload").value;
-                    var spiritual = document.getElementById("spiritual").value;
-                    var knowledge = document.getElementById("knowledge").value;
-                    var improvement = document.getElementById("improvement").value;
-                    var community = document.getElementById("community").value;
-                    var hopes = document.getElementById("hopes").value;
-                    var activities = document.getElementById("activities").value;
-                    var question = document.getElementById("question").value;
-                    var ec_name1 = document.getElementById("ec_name1").value;
-                    var ec_phone1 = document.getElementById("ec_phone1").value;
-                    var ec_relationship1 = document.getElementById("ec_relationship1").value;
-                    var ec_name2 = document.getElementById("ec_name2").value;
-                    var ec_phone2 = document.getElementById("ec_phone2").value;
-                    var ec_relationship2 = document.getElementById("ec_relationship2").value;
-                    var allergies = document.getElementById("ec_relationship2").value;
-                    var meds = document.getElementById("meds").value;
-                    var activity = document.getElementById("activities").value;
-                    var dietary = document.getElementById("dietary").value;
-                    var other = document.getElementById("other").value;
-                    var insurance = document.getElementById("insurance").value;
-                    var policy_holder = document.getElementById("policy_holder").value;
-                    var password = document.getElementById("password").value;
+            function submitForm(){
+                console.log("submitForm called");
+                var config = {
+                    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                    authDomain: "yss-project-69ba2.firebaseapp.com",
+                    databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                    projectId: "yss-project-69ba2",
+                    storageBucket: "yss-project-69ba2.appspot.com",
+                    messagingSenderId: "530416464878"
+                };
+                firebase.initializeApp(config);
+                var database = firebase.database();
+                var fn = document.getElementById("firstname").value;
+                var ln = document.getElementById("lastname").value;
+                var gender = document.getElementById("gender").value;
+                var password = document.getElementById("password").value;
+                var password2 = document.getElementById("password2").value;
+                var year = document.getElementById("schoolyear").value;
+                var size = document.getElementById("size").value;
+                var file = document.getElementById("upload").value;
+                var spiritual = document.getElementById("spiritual").value;
+                var knowledge = document.getElementById("knowledge").value;
+                var improvement = document.getElementById("improvement").value;
+                var community = document.getElementById("community").value;
+                var hopes = document.getElementById("hopes").value;
+                var activities = document.getElementById("activities").value;
+                var question = document.getElementById("question").value;
+                var ec_name1 = document.getElementById("ec_name1").value;
+                var ec_phone1 = document.getElementById("ec_phone1").value;
+                var ec_relationship1 = document.getElementById("ec_relationship1").value;
+                var ec_name2 = document.getElementById("ec_name2").value;
+                var ec_phone2 = document.getElementById("ec_phone2").value;
+                var ec_relationship2 = document.getElementById("ec_relationship2").value;
+                var allergies = document.getElementById("allergies").value;
+                var meds = document.getElementById("meds").value;
+                var activity_r = document.getElementById("activity_restrictions").value;
+                var dietary_r = document.getElementById("dietary_restrictions").value;
+                var other = document.getElementById("other").value;
+                var insurance = document.getElementById("insurance").value;
+                var policy_holder = document.getElementById("policy_holder").value;
 
 
 
-                    if (fn == ''){
-                        alert("fill in first name");
-                    }
-                    else if (ln == ''){
-                        alert("fill in last name");
-                    }
-                    else if (file == ''){
-						alert("please add id file");
-                    }
-                    else if (ec_name1 == ''){
-                        alert("please add emergency contact name 1");
-                    }
-                    else if (ec_phone1 == ''){
-                        alert("please add emergency contact phone 1");
-                    }
-                    else if (ec_relationship1 == ''){
-                        alert("please add emergency contact relationship 1");
-                    }
-                    else if (ec_name2 == ''){
-                        alert("please add emergency contact name 2");
-                    }
-                    else if (ec_phone2 == ''){
-                        alert("please add emergency contact phone 2");
-                    }
-                    else if (ec_relationship2 == ''){
-                        alert("please add emergency contact relationship 2");
-                    }
-                    else if (allergies == ''){
-                        alert("please add any alleriges or type N/A");
-                    }
-                    else if (meds == ''){
-                        alert("please add any medication or type N/A");
-                    }
-
-                    else {
-                        var newPostRef = firebase.database().ref('users/' + emailwcharactersreplaced).set({
+                    // if (fn == ''){
+                    //     alert("fill in first name");
+                    // }
+                    // else if (ln == ''){
+                    //     alert("fill in last name");
+                    // }
+                    // else if (file == ''){
+					// 	alert("please add id file");
+                    // }
+                    // else if (ec_name1 == ''){
+                    //     alert("please add emergency contact name 1");
+                    // }
+                    // else if (ec_phone1 == ''){
+                    //     alert("please add emergency contact phone 1");
+                    // }
+                    // else if (ec_relationship1 == ''){
+                    //     alert("please add emergency contact relationship 1");
+                    // }
+                    // else if (ec_name2 == ''){
+                    //     alert("please add emergency contact name 2");
+                    // }
+                    // else if (ec_phone2 == ''){
+                    //     alert("please add emergency contact phone 2");
+                    // }
+                    // else if (ec_relationship2 == ''){
+                    //     alert("please add emergency contact relationship 2");
+                    // }
+                    // else if (allergies == ''){
+                    //     alert("please add any alleriges or type N/A");
+                    // }
+                    // else if (meds == ''){
+                    //     alert("please add any medication or type N/A");
+                    // }
+                     if ( password != password2 ){
+                        alert("Retyped password must match password");
+                    } else {
+                        console.log("hellooo")
+                        var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
                             email:email,
                             password:password,
                             bus_num:bus_num,
@@ -486,25 +485,26 @@ session_start();
                             ec_relationship2: ec_relationship2,
                             alleriges: allergies,
                             meds: meds,
-                            activities: activities,
-                            dietary: dietary,
+                            activity_restrictions: activity_r,
+                            dietary_restrictions: dietary_r,
                             other: other,
                             insurance: insurance,
                             policy_holder: policy_holder,
                             credit_due:credit_due
                         }, function(error){
-                        if (error) {
-                            alert("Did not go through")
-                        } else {
-                            alert("Your account has been created successfully. Please log in to view your dashboard.");
-                            var postID = newPostRef.key;
-                            window.location.replace("logout.php")
-                        }
-                        }
-                        );
+                            if (error) {
+                                alert("Did not go through")
+                            } else {
+                                alert("Your account has been created successfully. Please log in to view your dashboard.");
+                                console.log("here")
+                                var postID = newPostRef.key;
+                                window.location.replace("index.php")
+                            }
+                        });
                     }
+                return false;
 
-                };
+            }
 
         </script>
 

@@ -380,7 +380,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     // }
 
                     if ( password != password2 ){
-                        alert("Reyped password must match password");
+                        alert("Retyped password must match password");
                     } else {
                             console.log("submitting to db")
                             var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
@@ -411,8 +411,9 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                                 if (error) {
                                     alert("didn't go through");
                                 } else {
+                                    lert("Your account has been created successfully. Please log in to view your dashboard.");
                                     var postID = newPostRef.key;
-                                    window.location.replace("index.php");
+                                    window.location.replace("login.php");
                                     console.log("went to firebase");
                                 }
                             });
