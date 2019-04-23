@@ -96,8 +96,7 @@ session_start();
                       name="lastname" class="form-control" required>
                   </div>
 
-                  <p align="center" style = "font-size:30px;padding-top: 10px;">
-                    Contact Information</p>
+                  <p align="center" style = "font-size:30px;padding-top: 10px;">Contact Information</p>
                   <br>
 
                   <div class="input-group mb-3">
