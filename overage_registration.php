@@ -377,7 +377,6 @@ session_start();
         <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
         <!--<script src="counselor_app.js"></script>-->
         <script>
-<<<<<<< HEAD
             function submitForm(){
                 console.log("submitForm called");
                 var config = {
@@ -459,7 +458,6 @@ session_start();
                     } else {
                         console.log("hellooo")
                         var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
-=======
                     var config = {
                         apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
                         authDomain: "yss-project-69ba2.firebaseapp.com",
@@ -539,7 +537,6 @@ session_start();
 
                     else {
                         var newPostRef = firebase.database().ref('users/' + emailwcharactersreplaced).set({
->>>>>>> 3f0e7120468c453528a8a73d9d065b8bdacac1db
                             email:email,
                             password:password,
                             bus_num:bus_num,
