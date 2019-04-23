@@ -6,11 +6,7 @@ session_start();
 <script>
     var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
     var emailwcharactersreplaced = email.replace(".",",");
-    var pw = "pw";
-    var bus_num = "N/A";
-    var group_num = "N/A";
-    var cabin_num = "N/A";
-    var credit_due = "299";
+    var total_credit_due = "0";
 
     </script>
 
@@ -367,6 +363,7 @@ Javascript Segment
             */
             //else {
               var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
+                email: email,
                 user_type: "parent",
                 first_name: fName,
                 last_name: lName,
@@ -386,7 +383,8 @@ Javascript Segment
                 dietary_restrictions: dietrestriction,
                 other: other,
                 insurance: insurance,
-                policy_holder: policy
+                policy_holder: policy,
+                total_credit_due: total_credit_due
                 },
                function(error){
                   if(error) {
