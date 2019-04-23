@@ -63,7 +63,7 @@ session_start();
     </nav>
 
     <form id= "appForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
-      method="post">
+      method="post" onsubmit="return submitForm();">
       <div class="container" style = "background: white; margin-top: 20px;">
           <!-- Parent Registration Header -->
           <h1 align="center" style = "font-size:50px;padding-top: 20px;">Register for a Parent Account</h1>
@@ -238,7 +238,7 @@ session_start();
                   padding-top: 10px;
                   align: center"">
       			<div class="col">
-      				<input id="submitForm" type="button" class="btn-xl" align="center" value="Submit" >
+      				<input id="submitForm" type="submit" class="btn-xl" align="center" value="Submit" >
       			</div>
       		</div>
     	</form>
@@ -253,21 +253,23 @@ Javascript Segment
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
 
     <script>
-        var config = {
-            apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-            authDomain: "yss-project-69ba2.firebaseapp.com",
-            databaseURL: "https://yss-project-69ba2.firebaseio.com",
-            projectId: "yss-project-69ba2",
-            storageBucket: "yss-project-69ba2.appspot.com",
-            messagingSenderId: "530416464878"
-        };
-        firebase.initializeApp(config);
+        function submitForm(){
+            var config = {
+                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                authDomain: "yss-project-69ba2.firebaseapp.com",
+                databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                projectId: "yss-project-69ba2",
+                storageBucket: "yss-project-69ba2.appspot.com",
+                messagingSenderId: "530416464878"
+            };
+            firebase.initializeApp(config);
 
-        document.getElementById("submitForm").addEventListener("click", function(){
             var database = firebase.database();
             //name and password
             var fName = document.getElementById("fnameInput").value;
             var lName = document.getElementById("lnameInput").value;
+            var password = document.getElementById("password").value;
+            var password2 = document.getElementById("password2").value;
             //contact info
             var phoneNum = document.getElementById("phoneInput").value;
             //Residence info
@@ -282,42 +284,44 @@ Javascript Segment
             var ec2relation = document.getElementById("ec2relInput").value;
             var ec2name = document.getElementById("ec2nameInput").value;
             var ec2phone = document.getElementById("ec2phoneInput").value;
-            /*
-            if (fName == ""){
-                alert("fill in first name");
-            }
-            */
-            //else {
-              var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
-                email: email,
-                user_type: "parent",
-                first_name: fName,
-                last_name: lName,
-                phone: phoneNum,
-                address: Address,
-                city: City,
-                zipcode: Zipcode,
-                ec_name1: ec1name,
-                ec_relationship1: ec1relation,
-                ec_phone1: ec1phone,
-                ec_name2: ec2name,
-                ec_relationship2: ec2relation,
-                ec_phone2: ec2phone,
-                total_credit_due: total_credit_due
+
+            if ( password != password2 ){
+                    alert("Retyped password must match password");
+            } else{
+                var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
+                    email: email,
+                    user_type: "parent",
+                    first_name: fName,
+                    last_name: lName,
+                    password: password
+                    phone: phoneNum,
+                    address: Address,
+                    city: City,
+                    zipcode: Zipcode,
+                    ec_name1: ec1name,
+                    ec_relationship1: ec1relation,
+                    ec_phone1: ec1phone,
+                    ec_name2: ec2name,
+                    ec_relationship2: ec2relation,
+                    ec_phone2: ec2phone,
+                    total_credit_due: total_credit_due
                 },
-               function(error){
-                  if(error) {
-                      alert("didn't go through")
-                  }
-                  else {
-                      var postID = newPostRef.key;
-                      window.location.replace("login.php");
-                      console.log("went to firebase");
-                  // Data saved successfully!
-                  }
-              });
+                    function(error){
+                    if(error) {
+                        alert("didn't go through")
+                    }
+                    else {
+                        var postID = newPostRef.key;
+                        window.location.replace("login.php");
+                        console.log("went to firebase");
+                    // Data saved successfully!
+                    }
+                });
           //}
-        });
+            }
+            return false;
+
+        }
     </script>
   </body>
 </html>
