@@ -27,8 +27,8 @@
         </div>
       </div>
     </nav>
-    <div class="container rounded box">
-    <!-- Financial Aid Information -->
+    <div class="container profile-box">
+    <!-- Profile Information -->
       <label><p style = "font-size:26px;">Profile Information</p></label>
 
       <div class="row initial-task-padding">
@@ -83,17 +83,15 @@
           style = "padding-bottom: 50px;
                padding-top: 10px;"
                align="center";>
-           <button onclick="location.href = '/dashboard.php'" id="back"
-            class="btn-xl" align="center" role="button"
-            style="margin-top:18"> Back
-          </button>
-           <div class="col">
-               <input id="update" type="button"
-               class="btn-xl" align="center" value="Save changes" >
-           </div>
+            <button onclick="location.href = '/dashboard.php'" id="back"
+              class="btn-xl" align="center" role="button"> Back
+            </button>
+            <input id="update" type="button"
+              class="btn-xl" align="center" value="Save changes" >
        </div>
       </div>
     </div>
+
 
     <!--Javascript Segment
   -->
@@ -119,8 +117,11 @@
           var phone = document.getElementById("phone").value;
           var email = document.getElementById("email").value;
           var password = document.getElementById("password").value;
+          var emailwcharactersreplaced = email.replace(".",",");
+          var oldemail = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
 
-          var newPostRef = firebase.database().ref('/users/').update({
+
+          var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).update({
               first_name: fname,
               last_name: lname,
               phone: phone,
@@ -141,7 +142,6 @@
         //}
       });
   </script>
-
 
     <div class="footer top-buffer">
       <div class="container">
