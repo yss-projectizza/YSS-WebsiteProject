@@ -141,13 +141,18 @@
                         firebase.database().ref('/users/emachta@uci,edu/credit_due').once('value').then(async function(snapshot) {
                           var credit_now = await parseInt(snapshot.val());
                           
+                          
 
                           firebase.database().ref('/users/emachta@uci,edu/').update({
                           credit_due: credit_now - payed_dollar
+                          
                         });
 
+                        window.location.href = "/logout.php";
                         });
+                        
 
+                        
 
                         
                         
