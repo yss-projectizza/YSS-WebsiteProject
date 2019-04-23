@@ -37,16 +37,16 @@
       <button class="tablinks" onclick="toggleInfo(event, 'group')">Group</button>
       <br>
       <div id="bus" class="tabcontent">
-        <h3 id="bus_test">Bus #<?php echo $_SESSION["queryData"]["bus_num"]; ?> </h3>
-        <p id="data">This is bus information. </p>
+        <h3 id="bus_num">Bus #<?php echo $_SESSION["queryData"]["bus_num"]; ?> </h3>
+        <p id="bus_data"></p>
       </div>
       <div id="cabin" class="tabcontent">
-        <h3>Cabin #<?php echo $_SESSION["queryData"]["cabin_num"]; ?></h3>
-        <p>This is cabin information. </p>
+        <h3 id="cabin_num">Cabin #<?php echo $_SESSION["queryData"]["cabin_num"]; ?></h3>
+        <p id="cabin_data"></p>
       </div>
       <div id="group" class="tabcontent">
-        <h3>Group #<?php echo $_SESSION["queryData"]["group_num"]; ?></h3>
-        <p>This is group information. </p>
+        <h3 id="group_num">Group #<?php echo $_SESSION["queryData"]["group_num"]; ?></h3>
+        <p id="group_data"></p>
       </div>
     </div>
     
