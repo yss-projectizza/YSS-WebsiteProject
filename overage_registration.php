@@ -321,7 +321,7 @@ session_start();
                  </div>
                 <input type="text" placeholder="Ex: John" name="policy_holder" id="policy_holder" class="form-control" required>
             </div>
-        <div class="block_1"><p style="padding-top:30px"</div> <hr />-->
+        <div class="block_1"><p style="padding-top:30px"</div> <hr />
 
         <!-- Submit -->
             <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
