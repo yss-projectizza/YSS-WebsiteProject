@@ -16,12 +16,12 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 <script>
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyDdBVALQJWdMvR5ed0UswgmdWY1me9eL20",
-    authDomain: "inf117.firebaseapp.com",
-    databaseURL: "https://inf117.firebaseio.com",
-    projectId: "inf117",
-    storageBucket: "inf117.appspot.com",
-    messagingSenderId: "839601382632"
+          apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+          authDomain: "yss-project-69ba2.firebaseapp.com",
+          databaseURL: "https://yss-project-69ba2.firebaseio.com",
+          projectId: "yss-project-69ba2",
+          storageBucket: "yss-project-69ba2.appspot.com",
+          messagingSenderId: "530416464878"
   };
   firebase.initializeApp(config);
 </script>

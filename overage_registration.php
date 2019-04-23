@@ -377,6 +377,7 @@ session_start();
         <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
         <!--<script src="counselor_app.js"></script>-->
         <script>
+<<<<<<< HEAD
             function submitForm(){
                 console.log("submitForm called");
                 var config = {
@@ -458,6 +459,87 @@ session_start();
                     } else {
                         console.log("hellooo")
                         var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
+=======
+                    var config = {
+                        apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                        authDomain: "yss-project-69ba2.firebaseapp.com",
+                        databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                        projectId: "yss-project-69ba2",
+                        storageBucket: "yss-project-69ba2.appspot.com",
+                        messagingSenderId: "530416464878"
+                    };
+            firebase.initializeApp(config);
+
+            document.getElementById("submitContact").addEventListener("click", functSubmit);
+                function functSubmit(event){
+                    var database = firebase.database();
+                    var fn = document.getElementById("firstname").value;
+                    var ln = document.getElementById("lastname").value;
+                    var gender = document.getElementById("gender").value;
+                    var password = document.getElementById("password").value;
+                    var password2 = document.getElementById("password2").value;
+                    var year = document.getElementById("schoolyear").value;
+                    var size = document.getElementById("size").value;
+                    var file = document.getElementById("upload").value;
+                    var spiritual = document.getElementById("spiritual").value;
+                    var knowledge = document.getElementById("knowledge").value;
+                    var improvement = document.getElementById("improvement").value;
+                    var community = document.getElementById("community").value;
+                    var hopes = document.getElementById("hopes").value;
+                    var activities = document.getElementById("activities").value;
+                    var question = document.getElementById("question").value;
+                    var ec_name1 = document.getElementById("ec_name1").value;
+                    var ec_phone1 = document.getElementById("ec_phone1").value;
+                    var ec_relationship1 = document.getElementById("ec_relationship1").value;
+                    var ec_name2 = document.getElementById("ec_name2").value;
+                    var ec_phone2 = document.getElementById("ec_phone2").value;
+                    var ec_relationship2 = document.getElementById("ec_relationship2").value;
+                    var allergies = document.getElementById("ec_relationship2").value;
+                    var meds = document.getElementById("meds").value;
+                    var activity = document.getElementById("activities").value;
+                    var dietary = document.getElementById("dietary").value;
+                    var other = document.getElementById("other").value;
+                    var insurance = document.getElementById("insurance").value;
+                    var policy_holder = document.getElementById("policy_holder").value;
+                    var password = document.getElementById("password").value;
+
+                    if (fn == ''){
+                        alert("fill in first name");
+                    }
+                    else if (ln == ''){
+                        alert("fill in last name");
+                    }
+                    else if (file == ''){
+						alert("please add id file");
+                    }
+                    else if (ec_name1 == ''){
+                        alert("please add emergency contact name 1");
+                    }
+                    else if (ec_phone1 == ''){
+                        alert("please add emergency contact phone 1");
+                    }
+                    else if (ec_relationship1 == ''){
+                        alert("please add emergency contact relationship 1");
+                    }
+                    else if (ec_name2 == ''){
+                        alert("please add emergency contact name 2");
+                    }
+                    else if (ec_phone2 == ''){
+                        alert("please add emergency contact phone 2");
+                    }
+                    else if (ec_relationship2 == ''){
+                        alert("please add emergency contact relationship 2");
+                    }
+                    else if (allergies == ''){
+                        alert("please add any alleriges or type N/A");
+                    }
+                    else if (meds == ''){
+                        alert("please add any medication or type N/A");
+                    }
+
+                    else {
+                        var newPostRef = firebase.database().ref('users/' + emailwcharactersreplaced).set({
+>>>>>>> 3f0e7120468c453528a8a73d9d065b8bdacac1db
                             email:email,
                             password:password,
                             bus_num:bus_num,
