@@ -1,11 +1,12 @@
 <?php
-// session_start();
+session_start();
 
-// if( !$_SESSION["loggedin"]){
-// 		header("Location: login.php");
-// 		exit;
-// }
 ?>
+
+<script>
+    var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
+    var emailwcharactersreplaced = email.replace(".",",");
+</script>
 
 <!doctype html>
 <html lang="en">
@@ -49,7 +50,7 @@
 		</div>
 	</nav>
 
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
 <div class="container" style = "background: white; margin-top: 20px;">
     <!-- Counselor Registration Header -->
     <h1 align="center" style = "font-size:50px;padding-top: 20px;">Counselor Application</h1>
@@ -74,7 +75,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     <small span class="subtitle">This includes meeting at 3:30pm on Friday 8/30 and staying with the youth until they are picked up at 3pm on Monday 9/2. If not, please indicate otherwise.
                     </small> </span>
                     <br>
-                    <select class="form-control form-control-md" name="yss_avail" id="yss_avail" style="width:30%">
+                    <select class="form-control form-control-md" name="yss_avail" id="yss_avail" style="width:30%" required>
                         <option disabled selected value> -- select an option -- </option>
                         <option>Yes</option>
                         <option>No</option>
@@ -90,7 +91,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     <small span class="subtitle">We would like all counselors to attend this full day (8am-6pm) mandatory counselor retreat prior to camp. Exceptions can be made on a case by case basis.
                     </small> </span>
                     <br>
-                    <select class="form-control form-control-md" name="cs_avail" id="cs_avail" style="width:30%">
+                    <select class="form-control form-control-md" name="cs_avail" id="cs_avail" style="width:30%" required>
                         <option disabled selected value> -- select an option -- </option>
                         <option>Yes</option>
                         <option>No</option>
@@ -118,13 +119,27 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
             <div class="input-group mb-3">
 		  		<div class="input-group-prepend">
                   <span class="input-group-text">Gender:<b style = "color: red;">*</b></span>
-				    <select class="form-control form-control-md" name="gender" id="gender">
+				    <select class="form-control form-control-md" name="gender" id="gender" required>
 						    <option disabled selected value> -- select an option -- </option>
                             <option>Female</option>
 						    <option>Male</option>
 				    </select>
 				</div>
 			</div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
+                </div>
+                    <input type="password" name="password" id="password" class="form-control" required>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
+                </div>
+                    <input type="password" name="password2" id="password2" class="form-control" required>
+            </div>
 
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
@@ -157,7 +172,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     </small> </span>
                     <br>
                     </div>
-                    <select class="form-control form-control-md" name="experience" id="experience" style="width:30%">
+                    <select class="form-control form-control-md" name="experience" id="experience" style="width:30%" required>
 					        <option disabled selected value> -- select an option -- </option>
                             <option>0</option>
                             <option>1</option>
@@ -178,7 +193,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                 <div class="col">
                     Do you have any siblings or relatives that you think will be attending YSS?<b style = "color: red;">*</b>
                     <br>
-                    <select class="form-control form-control-md" name="sibling" id="sibling" style="width:30%">
+                    <select class="form-control form-control-md" name="sibling" id="sibling" style="width:30%" required>
                         <option disabled selected value> -- select an option -- </option>
                         <option>Yes</option>
                         <option>No</option>
@@ -192,7 +207,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                 <div class="col">
                 Have you ever been a counselor before?<b style = "color: red;">*</b>
                     <br>
-                    <select class="form-control form-control-md" name="counselor_short" id="counselor_short" style="width:30%">
+                    <select class="form-control form-control-md" name="counselor_short" id="counselor_short" style="width:30%" required>
                         <option disabled selected value> -- select an option -- </option>
                         <option>Yes</option>
                         <option>No</option>
@@ -261,7 +276,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                 <div class="col">
                     Have you ever been convicted of a felony (if yes, please explain in the text box below)<b style = "color: red;">*</b>
                     <br>
-                    <select class="form-control form-control-md" name="felony1" id="felony1" style="width:30%">
+                    <select class="form-control form-control-md" name="felony1" id="felony1" style="width:30%" required>
                         <option disabled selected value> -- select an option -- </option>
                         <option>No</option>
                         <option>Yes</option>
@@ -276,7 +291,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
             <div class="row initial-task-padding">
                 <div class="col">
                 I certify that my answers are true and complete to the best of my knowledge. By checking "yes," I certify that if this application leads to my participation, any false or misleading information in my application or interview may result in my release.<b style = "color: red;">*</b>
-                    <select class="form-control form-control-md" name="verification" id="verification" style="width:30%">
+                    <select class="form-control form-control-md" name="verification" id="verification" style="width:30%" required>
                         <option disabled selected value> -- select an option -- </option>
                         <option>Yes</option>
                         <option>No</option>
@@ -285,13 +300,13 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                 </div>
             </div>
         </div>
-    </div>
-	<input type="hidden" id="gender" name="gender" value="">
+    <!--</div>
+	<input type="hidden" id="gender" name="gender" value="">-->
 
 	<!-- Submit -->
     <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
 			<div class="col">
-				<input id="submitform" type="button" class="btn-xl" align="center" value="Submit" >
+				<input id="submitform" type="submit" class="btn-xl" align="center" value="Submit">
 			</div>
 		</div>
 	</div>
@@ -315,22 +330,27 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
         <script>
 
-            var config = {
-                apiKey: "AIzaSyDdBVALQJWdMvR5ed0UswgmdWY1me9eL20",
-                authDomain: "inf117.firebaseapp.com",
-                databaseURL: "https://inf117.firebaseio.com",
-                projectId: "inf117",
-                storageBucket: "inf117.appspot.com",
-                messagingSenderId: "839601382632"
-            };
-            firebase.initializeApp(config);
+            //document.getElementById("submitform").addEventListener("click", function()
+            function submitForm(){
 
-            document.getElementById("submitform").addEventListener("click", function(){
+                var config = {
+                    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                    authDomain: "yss-project-69ba2.firebaseapp.com",
+                    databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                    projectId: "yss-project-69ba2",
+                    storageBucket: "yss-project-69ba2.appspot.com",
+                    messagingSenderId: "530416464878"
+                };
+                firebase.initializeApp(config);
+
+                console.log("form submitted");
                     var yss_avail = document.getElementById("yss_avail").value;
                     var cs_avail = document.getElementById("cs_avail").value;
                     var fn = document.getElementById("firstname").value;
                     var ln = document.getElementById("lastname").value;
                     var gender = document.getElementById("gender").value;
+                    var password = document.getElementById("password").value;
+                    var password2 = document.getElementById("password2").value;
                     var dob = document.getElementById("dob").value;
                     var city = document.getElementById("city").value;
                     var phone = document.getElementById("phone").value;
@@ -351,15 +371,21 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     }
                         //console.log("testing");
                         //console.log(fn, ln, dob, e);
-                    if (!yss_avail || !cs_avail || !fn || !ln || !gender || !dob ||
-                        !city || !phone || !experience || !sibling || !counselor_short ||
-                        !exp_desc || !group_age || !gain || !fit || !references ||
-                        !felony1 || !felony2 || !verification){
-                            alert("Please fill out all required fields");
-                    }
+                    // if (!yss_avail || !cs_avail || !fn || !ln || !gender || !dob ||
+                    //     !city || !phone || !experience || !sibling || !counselor_short ||
+                    //     !exp_desc || !group_age || !gain || !fit || !references ||
+                    //     !felony1 || !felony2 || !verification){
+                    //         alert("Please fill out all required fields");
+                    //         return false;
+                    // }
 
-                    else {
-                            var newPostRef = firebase.database().ref('/users').push({
+                    if ( password != password2 ){
+                        alert("Reyped password must match password");
+                    } else {
+                            console.log("submitting to db")
+                            var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
+                                email: emailwcharactersreplaced,
+                                password: password,
                                 user_type: "counselor",
                                 yss_avail: yss_avail,
                                 cs_avail: cs_avail,
@@ -389,9 +415,11 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                                     window.location.replace("index.php");
                                     console.log("went to firebase");
                                 }
-                                });
-                        }
-            });
+                            });
+                    }
+                    return false;
+            }
+
     </script>
 	<div class="footer top-buffer">
 		<div class="container">

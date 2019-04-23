@@ -152,7 +152,7 @@ session_start();
 
         <div class="container">
         <!-- Personal Information -->
-            <label><p style = "font-size:30px;padding-top: 10px;"">Personal Information</p></label>
+            <label><p style = "font-size:30px;padding-top: 10px;">Personal Information</p></label>
         </div>
         <div class="container">
             <label><p style = "font-size:18px;"">How would you rate yourself in the following areas?</p></label>
@@ -237,7 +237,7 @@ session_start();
         <div class="container">
         <!-- Emergency Contacts -->
         </div>
-            <label><p style = "font-size:30px;padding-top: 10px;"">Emergency Contacts</p></label>
+            <label><p style = "font-size:30px;padding-top: 10px;">Emergency Contacts</p></label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 1 - Name:<b style = "color: red;">*</b></span>
@@ -281,12 +281,12 @@ session_start();
                 </div>
 
 
-        <div class="block_1"><p style="padding-top:30px"</div> <hr />
+        <div class="block_1"><p style="padding-top:30px"></div> <hr>
 
         <div class="container">
         <!-- Health Information -->
         </div>
-            <label><p style = "font-size:30px;padding-top: 10px;"">Health Information</p></label>
+            <label><p style = "font-size:30px;padding-top: 10px;">Health Information</p></label>
             <div class="row initial-task-padding">
                 <div class="col">
                     <p>Please List Any Allergies You Have. If none, type N/A.<b style = "color: red;">*</b></p>
@@ -394,6 +394,8 @@ session_start();
                     var fn = document.getElementById("firstname").value;
                     var ln = document.getElementById("lastname").value;
                     var gender = document.getElementById("gender").value;
+                    var password = document.getElementById("password").value;
+                    var password2 = document.getElementById("password2").value;
                     var year = document.getElementById("schoolyear").value;
                     var size = document.getElementById("size").value;
                     var file = document.getElementById("upload").value;

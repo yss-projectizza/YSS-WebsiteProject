@@ -305,8 +305,8 @@ session_start();
       	<!-- Submit -->
           <div class="row margin-data"
           style = "padding-bottom: 50px;
-                  padding-top: 10px;"
-                  align="center";>
+                  padding-top: 10px;
+                  align: center"">
       			<div class="col">
       				<input id="submitForm" type="button" class="btn-xl" align="center" value="Submit" >
       			</div>
