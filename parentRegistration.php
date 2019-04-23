@@ -293,7 +293,7 @@ Javascript Segment
                     user_type: "parent",
                     first_name: fName,
                     last_name: lName,
-                    password: password
+                    password: password,
                     phone: phoneNum,
                     address: Address,
                     city: City,
