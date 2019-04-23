@@ -1,11 +1,28 @@
-.rounded-box {
-  border: 3px solid black;
+.profile-box {
+  border: 1px solid black;
   border-radius: 5px;
   overflow: hidden;
+  position: relative;
+  width: 80%;
+  height: auto;
+  margin: 2%;
+  /* fix margin bottom! */
+  margin-bottom: 5%;
+  padding: 3%;
 }
 
 #update:hover {
   filter: brightness(85%);
+}
+
+#update {
+  position: absolute;
+  left: 6%;
+}
+
+#back{
+  position: absolute;
+  left: 1%;
 }
 
 input {
