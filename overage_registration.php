@@ -307,7 +307,7 @@ session_start();
                     <input type="text" name="other" value="" id="other" times-label="other" class="form-control">
                 </div>
             </div>
-
+            
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Insurance Provider:<b style = "color: red;">*</b></span>
