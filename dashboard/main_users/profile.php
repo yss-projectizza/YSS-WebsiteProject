@@ -117,6 +117,7 @@
           var email = document.getElementById("email").value;
           var password = document.getElementById("password").value;
           var emailwcharactersreplaced = email.replace(".",",");
+          var oldemail = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
 
           var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).update({
               first_name: fname,
