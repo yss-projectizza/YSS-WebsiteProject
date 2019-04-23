@@ -1,5 +1,8 @@
 <?php
-  session_start();
+      if(!isset($_SESSION)) 
+      { 
+          session_start(); 
+      } 
 ?>
 <html lang="en">
   <head>
@@ -66,3 +69,4 @@
 	  </div>
   </body>
 </html>
+
