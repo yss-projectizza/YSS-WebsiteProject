@@ -26,6 +26,7 @@
             <a class="nav-item nav-link" href="http://campizza.com/calendar"><font color="white">Activities</font></a>
             <a class="nav-item nav-link" href="http://campizza.com/camp-fees"><font color="white">Fees</font></a>
             <a class="nav-item nav-link" href="http://campizza.com/contact"><font color="white">Contact</font></a>
+            <a class="nav-item nav-link" href="/logout.php"><font color="white">Logout</font></a>
           </div>
         </div>
       </div>
