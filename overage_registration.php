@@ -421,8 +421,6 @@ session_start();
                     var policy_holder = document.getElementById("policy_holder").value;
                     var password = document.getElementById("password").value;
 
-
-
                     if (fn == ''){
                         alert("fill in first name");
                     }
