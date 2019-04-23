@@ -307,7 +307,7 @@ session_start();
                     <input type="text" name="other" value="" id="other" times-label="other" class="form-control">
                 </div>
             </div>
-            
+
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Insurance Provider:<b style = "color: red;">*</b></span>
@@ -323,7 +323,7 @@ session_start();
             </div>
         <div class="block_1"><p style="padding-top:30px"</div> <hr />-->
 
-        <!-- Submit 
+        <!-- Submit -->
             <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
                 <div class="col">
                     <!-- <button id="myBtn">Submit</button> -->
