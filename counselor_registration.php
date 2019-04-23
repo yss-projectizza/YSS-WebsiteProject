@@ -433,7 +433,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
 				</div>
 				<div class="vertline"></div>
 				<div class="col">
-				<p>YSS</p>
+				    <p>YSS</p>
 				</div>
 				<div class="vertline"></div>
 				<div class="col">
