@@ -62,8 +62,7 @@ session_start();
       </div>
     </nav>
 
-    <form id= "appForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
-      method="post" onsubmit="return submitForm();">
+    <form id= "appForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
       <div class="container" style = "background: white; margin-top: 20px;">
           <!-- Parent Registration Header -->
           <h1 align="center" style = "font-size:50px;padding-top: 20px;">Register for a Parent Account</h1>
@@ -238,7 +237,7 @@ session_start();
                   padding-top: 10px;
                   align: center"">
       			<div class="col">
-      				<input id="submitForm" type="submit" class="btn-xl" align="center" value="Submit" >
+      				<input type="submit" class="btn-xl" align="center" value="Submit">
       			</div>
       		</div>
     	</form>
