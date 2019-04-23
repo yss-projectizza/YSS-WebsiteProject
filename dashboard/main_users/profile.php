@@ -3,7 +3,7 @@
 ?>
 <html lang="en">
   <head>
-    <title>Edit Your Account | Youth Spiritual Summit</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="/css/profile.css" />
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -27,24 +27,14 @@
         </div>
       </div>
     </nav>
-    <div class="container profile-box">
-    <!-- Profile Information -->
+    <div class="container rounded box">
+    <!-- Financial Aid Information -->
       <label><p style = "font-size:26px;">Profile Information</p></label>
 
       <div class="row initial-task-padding">
         <div class="col">
-          First name<b style = "color: red;">*</b>
-          <input id="fname"type="text" name="fname"
-          times-label="fname" class="form-control" required>
-          <br>
-        </div>
-      </div>
-
-      <div class="row initial-task-padding">
-        <div class="col">
-          Last name<b style = "color: red;">*</b>
-          <input id="lname"type="text" name="lname"
-          times-label="lname" class="form-control" required>
+          Name<b style = "color: red;">*</b>
+          <input type="text" name="name" times-label="name" class="form-control" required>
           <br>
         </div>
       </div>
@@ -53,44 +43,28 @@
         <div class="col">
           Email<b style = "color: red;">*</b>
           <br>
-          <input id="email" type="semail" name="email"
-           times-label="email" class="form-control" required>
+          <input type="text" name="email" times-label="email" class="form-control" required>
           <br>
         </div>
       </div>
 
-      <div class="row initial-task-padding">
-        <div class="col">
-          Phone number<b style = "color: red;">*</b>
-          <input id="phone" type="tel" name="phone"
-          times-label="phone" class="form-control" required>
-          <br>
-        </div>
-      </div>
 
       <div class="row initial-task-padding">
         <div class="col">
             Password<b style = "color: red;">*</b>
-            <input id="password" type="password" name="password"
-            times-label="password" class="form-control" required>
+            <input type="text" name="password" times-label="password" class="form-control" required>
             <br>
         </div>
       </div>
 
       <!-- Submit -->
       <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
-        <div class="row margin-data"
-          style = "padding-bottom: 50px;
-               padding-top: 10px;"
-               align="center";>
-            <button onclick="location.href = '/dashboard.php'" id="back"
-              class="btn-xl" align="center" role="button"> Back
-            </button>
-            <input id="update" type="button"
-              class="btn-xl" align="center" value="Save changes" >
-       </div>
+        <div class="col">
+          <input type="submit" class="btn-xl rounded" align="center" value="Submit" >
+        </div>
       </div>
     </div>
+<<<<<<< HEAD
 
     <!--Javascript Segment
   -->
@@ -142,6 +116,8 @@
   </script>
 
 
+=======
+>>>>>>> 35ae7ecf6b8cd8db070d977b803f383a5b8ac073
     <div class="footer top-buffer">
       <div class="container">
         <div class="row align-items-center">
