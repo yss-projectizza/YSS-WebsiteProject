@@ -4,6 +4,10 @@
   overflow: hidden;
 }
 
+#update:hover {
+  filter: brightness(85%);
+}
+
 input {
   margin: 10%;
 }
