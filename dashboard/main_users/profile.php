@@ -91,10 +91,7 @@
        </div>
       </div>
     </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 622b3366749f964c0332763066b147141c701b3a
+
 
     <!--Javascript Segment
   -->
@@ -121,10 +118,8 @@
           var email = document.getElementById("email").value;
           var password = document.getElementById("password").value;
           var emailwcharactersreplaced = email.replace(".",",");
-<<<<<<< HEAD
           var oldemail = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
-=======
->>>>>>> 622b3366749f964c0332763066b147141c701b3a
+
 
           var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).update({
               first_name: fname,
@@ -148,12 +143,6 @@
       });
   </script>
 
-
-<<<<<<< HEAD
-=======
->>>>>>> 35ae7ecf6b8cd8db070d977b803f383a5b8ac073
-=======
->>>>>>> 622b3366749f964c0332763066b147141c701b3a
     <div class="footer top-buffer">
       <div class="container">
         <div class="row align-items-center">
