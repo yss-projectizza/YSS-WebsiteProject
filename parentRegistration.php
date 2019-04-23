@@ -6,11 +6,7 @@ session_start();
 <script>
     var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
     var emailwcharactersreplaced = email.replace(".",",");
-    var pw = "pw";
-    var bus_num = "N/A";
-    var group_num = "N/A";
-    var cabin_num = "N/A";
-    var credit_due = "299";
+    var total_credit_due = "0";
 
     </script>
 
@@ -82,6 +78,9 @@ session_start();
         	<div class="container">
 
               <!-- Info and Exp -->
+                  <p align="left" style = "font-size:30px;padding-top: 10px;">Contact Information</p>
+                  <br>
+
                   <div class="input-group mb-3">
                       <div class="input-group-prepend">
                           <span class="input-group-text">First Name:<b
@@ -100,9 +99,6 @@ session_start();
                       name="lastname" class="form-control" required>
                   </div>
 
-                  <p align="center" style = "font-size:30px;padding-top: 10px;">
-                    Contact Information</p>
-                  <br>
 
                   <div class="input-group mb-3">
                       <div class="input-group-prepend">
@@ -128,7 +124,7 @@ session_start();
                           <input type="password" name="password2" id="password2" class="form-control" required>
                   </div>
 
-                  <p align="center" style = "font-size:30px;padding-top: 10px;">
+                  <p align="left" style = "font-size:30px;padding-top: 10px;">
                     Residence Information</p>
                   <br>
 
@@ -227,72 +223,6 @@ session_start();
                       name="ec2phone" class="form-control" required>
                   </div>
 
-                  <p align="center" style = "font-size:30px;padding-top: 10px;">
-                    Medical Information</p>
-                  <br>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Allergies/Conditions: <b
-                            style = "color: red;">*</b></span>
-                      </div>
-                      <input id = "allergiesInput" type="text"name="allergies"
-                       class="form-control" required>
-                  </div>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Medications: <b
-                            style = "color: red;">*</b></span>
-                      </div>
-                      <input id = "medInput" type="text"name="medication"
-                       class="form-control" required>
-                  </div>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Activity Restrictions: <b
-                            style = "color: red;">*</b></span>
-                      </div>
-                      <input id = "actRestrictionInput" type="text"
-                      name="actRestriction" class="form-control" required>
-                  </div>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Dietary Restrictions: <b
-                            style = "color: red;">*</b></span>
-                      </div>
-                      <input id = "dietRestrictionsInput" type="text"
-                      name="dietRestrictions" class="form-control" required>
-                  </div>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Other: </span>
-                      </div>
-                      <input id = "otherInput" type="text"name="other"
-                       class="form-control">
-                  </div>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Insurance Provider: <b
-                            style = "color: red;">*</b></span>
-                      </div>
-                      <input id = "insuranceInput" type="text" name="insurance"
-                       class="form-control" required>
-                  </div>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Name of Policy Holder: <b
-                            style = "color: red;">*</b></span>
-                      </div>
-                      <input id = "policyInput" type="text" name="policy"
-                       class="form-control" required>
-                  </div>
-
                   <p align="left" style = "font-size:20px;">
                     Parent Authentication</p>
                   <br>
@@ -352,14 +282,6 @@ Javascript Segment
             var ec2relation = document.getElementById("ec2relInput").value;
             var ec2name = document.getElementById("ec2nameInput").value;
             var ec2phone = document.getElementById("ec2phoneInput").value;
-            //Medical Information
-            var allergy = document.getElementById("allergiesInput").value;
-            var medications = document.getElementById("medInput").value;
-            var actrestriction = document.getElementById("actRestrictionInput").value;
-            var dietrestriction = document.getElementById("dietRestrictionsInput").value;
-            var other = document.getElementById("otherInput").value;
-            var insurance = document.getElementById("insuranceInput").value;
-            var policy = document.getElementById("policyInput").value;
             /*
             if (fName == ""){
                 alert("fill in first name");
@@ -367,6 +289,7 @@ Javascript Segment
             */
             //else {
               var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
+                email: email,
                 user_type: "parent",
                 first_name: fName,
                 last_name: lName,
@@ -380,13 +303,7 @@ Javascript Segment
                 ec_name2: ec2name,
                 ec_relationship2: ec2relation,
                 ec_phone2: ec2phone,
-                allergies: allergy,
-                meds: medications,
-                activity_restrictions: actrestriction,
-                dietary_restrictions: dietrestriction,
-                other: other,
-                insurance: insurance,
-                policy_holder: policy
+                total_credit_due: total_credit_due
                 },
                function(error){
                   if(error) {

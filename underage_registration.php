@@ -145,7 +145,60 @@ session_start();
 
         <div class="block_1"><p style="padding-top:30px"</div> <hr />
 
-        <!-- Submit -->
+        <div class="container">
+        <!-- Health Information -->
+        </div>
+            <label><p style = "font-size:30px;padding-top: 10px;">Health Information</p></label>
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Please List Any Allergies You Have. If none, type N/A.<b style = "color: red;">*</b></p>
+                    <textarea id="allergies" cols="132" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Please List Any Medication You Are Currently On. If none, type N/A<b style = "color: red;">*</b></p>
+                    <textarea id="meds" cols="132" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Please List Any Activity Restrictions.</b></p>
+                    <textarea id="activities" cols="132" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Please List Any Dietary Restrictions.</b></p>
+                    <textarea id="dietary" cols="132" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Other Important Information </b></p>
+                    <textarea id="other" cols="132" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Insurance Provider:<b style = "color: red;">*</b></span>
+                 </div>
+                <input type="text" placeholder="Ex: PPO" name="insurance" id="insurance" class="form-control" required>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Policy Holder:<b style = "color: red;">*</b></span>
+                 </div>
+                <input type="text" placeholder="Ex: John" name="policy_holder" id="policy_holder" class="form-control" required>
+            </div>
+        
+        <div class="block_1"><p style="padding-top:30px"</div> <hr /><!-- Submit -->
             <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
                 <div class="col">
                     <!-- <button id="myBtn">Submit</button> -->
@@ -176,31 +229,46 @@ session_start();
                     var fn = document.getElementById("firstname").value;
                     var ln = document.getElementById("lastname").value;
                     var gender = document.getElementById("gender").value;
-                    var dob = document.getElementById("dob").value;
                     var year = document.getElementById("schoolyear").value;
                     var age = document.getElementById("age").value;
                     var size = document.getElementById("size").value;
                     var file = document.getElementById("upload").value;
+                    var allergies = document.getElementById("allergies").value;
+                    var meds = document.getElementById("meds").value;
+                    var activity = document.getElementById("activities").value;
+                    var dietary = document.getElementById("dietary").value;
+                    var other = document.getElementById("other").value;
+                    var insurance = document.getElementById("insurance").value;
+                    var policy_holder = document.getElementById("policy_holder").value;
                     if (fn == ''){
                         alert("fill in first name");
                     }
                     else if (ln == ''){
                         alert("fill in last name");
                     }
-                    else if (dob == ''){
-                        alert("fill in date of birth");
-					}
+                    else if (allergies == ''){
+                        alert("please add any alleriges or type N/A");
+                    }
+                    else if (meds == ''){
+                        alert("please add any medication or type N/A");
+                    }
                     else {
                         var newPostRef = firebase.database().ref('/users').push({
                             user_type: "student",
                             first_name: fn,
                             last_name: ln,
                             gender: gender,
-                            dob: dob,
                             year: year,
                             age: age,
                             size: size,
                             file: file,
+                            alleriges: allergies,
+                            meds: meds,
+                            activities: activities,
+                            dietary: dietary,
+                            other: other,
+                            insurance: insurance,
+                            policy_holder: policy_holder
                         }, function(error){
                         if (error) {
                             alert("Did not go through")
