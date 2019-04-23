@@ -33,7 +33,7 @@ session_start();
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav mx-auto">
-					<a class="nav-item nav-link" href="http://campizza.com"><font color="white">Home</font></a>
+					<a class="nav-item nav-link" href="http://youthspiritualsummit.weebly.com"><font color="white">Home</font></a>
 					<a class="nav-item nav-link" href="http://campizza.com/calendar"><font color="white">Activities</font></a>
 					<a class="nav-item nav-link" href="http://campizza.com/camp-fees"><font color="white">Fees</font></a>
 					<a class="nav-item nav-link" href="http://campizza.com/contact"><font color="white">Contact</font></a>
