@@ -129,7 +129,7 @@
           // var phone = document.getElementById("phone").value; // There is no phone number in the database yet
           // var email = document.getElementById("email").value; //COMMENTED THIS BECAUSE EMAIL KEY IS UNCHANGEABLE
           var password = document.getElementById("password").value;
-          var emailwithperiod = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
+          var emailwithperiod = "<?php echo $_SESSION["queryData"]["email"];?>";
           var emailwithcomma = emailwithperiod.replace(".",",");
 
           var newPostRef = firebase.database().ref('/users/' + emailwithcomma).update({
