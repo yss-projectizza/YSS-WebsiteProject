@@ -9,21 +9,6 @@ body {
   top: 30%;
 }
 
-#profile {
-  position: absolute;
-  text-align: center;
-  right: 0%;
-  top: 5%;
-}
-
-#profile img {
-  width: 25%;
-  height: auto;
-  cursor: pointer;
-  border: 1px solid black;
-  border-radius: 50px;
-}
-
 .to_do {
   font-size: 20px;
 }
@@ -31,23 +16,6 @@ body {
 .navbar-brand:hover {
   opacity: 0.70;
 }
-
-/*
-#profile {
-  position: absolute;
-  text-align: center;
-  right: 0%;
-  top: 10%;
-}
-
-#profile img {
-  width: 40%;
-  height: auto;
-  cursor: pointer;
-  border: 3px solid black;
-  border-radius: 50px;
-}
-*/
 
 #profile img:hover {
   border: 5px solid #5b77a5;
