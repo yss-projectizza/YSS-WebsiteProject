@@ -84,10 +84,6 @@ firebase.database().ref('/users/emachta@uci,edu/credit_due').once('value').then(
             <div class="card">
                 <h2>Payment</h2>
                 <label>You owe: <?php echo "<label style='font-size:22;color:red;'>$$credit_due</label>";?></label>
-                
-                
-
-
                 <script src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk"></script>
                 <div id="paypal-button-container"></div>
                 <script>
@@ -124,13 +120,6 @@ firebase.database().ref('/users/emachta@uci,edu/credit_due').once('value').then(
 
                         window.location.href = "/logout.php";
                         });
-                        
-
-                        
-
-                        
-                        
-
                       });
                     }
                   }).render('#paypal-button-container');
@@ -165,18 +154,9 @@ firebase.database().ref('/users/emachta@uci,edu/credit_due').once('value').then(
                 <p>ETC</p>
               </div>
 
-
             <?php endif ?>
           </div>
         </div>
-        <!-- Merging Your Information Card with Status Card
-        <div class="card rounded">
-          <h2>Your Information</h2>
-          <p>Name: <?php echo $name; ?></p>
-          <p>Email: <?php echo $email; ?></p>
-        </div>
-        -->
-      <!--/div-->
     </main>
   </body>
 </html>

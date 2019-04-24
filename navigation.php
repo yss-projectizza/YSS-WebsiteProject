@@ -19,7 +19,7 @@
         <a class="nav-item nav-link" href="/logout.php"><font color="white">Logout</font></a>
         <div id="profile">
               <img title="Edit your profile information"
-                src="profile_placeholder.jpg" onClick="goToProfile();"/>
+                src="/profile_placeholder.jpg" onClick="goToProfile();"/>
               <p style="color:#eff3f9;">Hello <?php echo $_SESSION["queryData"]["first_name"];?></p>
         </div>
       </div>
