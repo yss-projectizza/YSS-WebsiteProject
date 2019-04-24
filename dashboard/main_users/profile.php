@@ -117,11 +117,11 @@
           var phone = document.getElementById("phone").value;
           var email = document.getElementById("email").value;
           var password = document.getElementById("password").value;
-          var emailwcharactersreplaced = email.replace(".",",");
+          var email = email.replace(".",",");
           var oldemail = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
 
 
-          var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).update({
+          var newPostRef = firebase.database().ref('/users/' + oldemail).update({
               first_name: fname,
               last_name: lname,
               phone: phone,
