@@ -83,53 +83,52 @@
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
 
     <script>
-        var config = {
-            apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-            authDomain: "yss-project-69ba2.firebaseapp.com",
-            databaseURL: "https://yss-project-69ba2.firebaseio.com",
-            projectId: "yss-project-69ba2",
-            storageBucket: "yss-project-69ba2.appspot.com",
-            messagingSenderId: "530416464878"
-        };
-        firebase.initializeApp(config);
+      var config = {
+          apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+          authDomain: "yss-project-69ba2.firebaseapp.com",
+          databaseURL: "https://yss-project-69ba2.firebaseio.com",
+          projectId: "yss-project-69ba2",
+          storageBucket: "yss-project-69ba2.appspot.com",
+          messagingSenderId: "530416464878"
+      };
+      firebase.initializeApp(config);
 
-        firebase.database().ref('/users/' + "<?php echo $email?>").once("value").then(async function(snapshot) {
-            let profiledata= snapshot.val();
-            console.log(profiledata)
-            document.getElementById("fname").value = profiledata.first_name;
-            document.getElementById("lname").value = profiledata.last_name;
-            document.getElementById("password").value = profiledata.password;
+      firebase.database().ref('/users/' + "<?php echo $email?>").once("value").then(async function(snapshot) {
+          let profiledata= snapshot.val();
+          console.log(profiledata)
+          document.getElementById("fname").value = profiledata.first_name;
+          document.getElementById("lname").value = profiledata.last_name;
+          document.getElementById("password").value = profiledata.password;
+      });
+
+      document.getElementById("update").addEventListener("click", function(){
+        var database = firebase.database();
+        //getting input data
+        var fname = document.getElementById("fname").value;
+        var lname = document.getElementById("lname").value;
+        // var phone = document.getElementById("phone").value; // There is no phone number in the database yet
+        // var email = document.getElementById("email").value; //COMMENTED THIS BECAUSE EMAIL KEY IS UNCHANGEABLE
+        var password = document.getElementById("password").value;
+        var email = email.replace(".",",");
+        var oldemail = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
 
 
-        }); 
-        document.getElementById("update").addEventListener("click", function(){
-            var database = firebase.database();
-            //getting input data
-            var fname = document.getElementById("fname").value;
-            var lname = document.getElementById("lname").value;
-            // var phone = document.getElementById("phone").value; // There is no phone number in the database yet
-            // var email = document.getElementById("email").value; //COMMENTED THIS BECAUSE EMAIL KEY IS UNCHANGEABLE
-            var password = document.getElementById("password").value;
-            var emailwithperiod = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
-            var emailwithcomma = emailwithperiod.replace(".",",");
-
-            var newPostRef = firebase.database().ref('/users/' + emailwithcomma).update({
-                first_name: fname,
-                last_name: lname,
-                password: password
-              },
-              function(error){
-                  if(error) {
-                      alert("didn't go through")
-                  }
-                  else {
-                      var postID = newPostRef.key;
-                      console.log("went to firebase");
-                  // Data saved successfully!
-                  }
-              });
-          //}
-        });
+        var newPostRef = firebase.database().ref('/users/' + oldemail).update({
+            first_name: fname,
+            last_name: lname,
+            password: password
+          },
+            function(error){
+              if(error) {
+                  alert("didn't go through")
+              }
+              else {
+                  var postID = newPostRef.key;
+                  console.log("went to firebase");
+              // Data saved successfully!
+              }
+            });
+      });
     </script>
   </body>
 </html>
