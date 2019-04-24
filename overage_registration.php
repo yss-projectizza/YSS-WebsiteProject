@@ -404,7 +404,7 @@ session_start();
                 var other = document.getElementById("other").value;
                 var insurance = document.getElementById("insurance").value;
                 var policy_holder = document.getElementById("policy_holder").value;
-
+                var verified = "false";
 
 
                     // if (fn == ''){
@@ -477,7 +477,8 @@ session_start();
                             other: other,
                             insurance: insurance,
                             policy_holder: policy_holder,
-                            credit_due:credit_due
+                            credit_due:credit_due,
+                            verified: verified
                         }, function(error){
                             if (error) {
                                 alert("Did not go through")
