@@ -1,5 +1,8 @@
 <?php
   session_start();
+  $emailwcomma = $_SESSION["queryData"]["email"];
+  $email= str_replace(".",",",$emailwcomma);
+
 ?>
 <html lang="en">
   <head>
@@ -75,6 +78,7 @@
       </div>
     </div>
 
+
     <!--Javascript Segment-->
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
@@ -90,21 +94,29 @@
         };
         firebase.initializeApp(config);
 
+        firebase.database().ref('/users/' + "<?php echo $email?>").once("value").then(async function(snapshot) {
+            let profiledata= snapshot.val();
+            console.log(profiledata)
+            document.getElementById("fname").value = profiledata.first_name;
+            document.getElementById("lname").value = profiledata.last_name;
+            document.getElementById("password").value = profiledata.password;
+
+
+        }); 
         document.getElementById("update").addEventListener("click", function(){
             var database = firebase.database();
             //getting input data
             var fname = document.getElementById("fname").value;
             var lname = document.getElementById("lname").value;
-            var phone = document.getElementById("phone").value;
-            var email = document.getElementById("email").value;
+            // var phone = document.getElementById("phone").value; // There is no phone number in the database yet
+            // var email = document.getElementById("email").value; //COMMENTED THIS BECAUSE EMAIL KEY IS UNCHANGEABLE
             var password = document.getElementById("password").value;
-            var emailwcharactersreplaced = email.replace(".",",");
+            var emailwithperiod = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
+            var emailwithcomma = emailwithperiod.replace(".",",");
 
-            var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).update({
+            var newPostRef = firebase.database().ref('/users/' + emailwithcomma).update({
                 first_name: fname,
                 last_name: lname,
-                phone: phone,
-                email: email,
                 password: password
               },
               function(error){
@@ -113,7 +125,6 @@
                   }
                   else {
                       var postID = newPostRef.key;
-                      window.location.replace("/dashboard.php");
                       console.log("went to firebase");
                   // Data saved successfully!
                   }

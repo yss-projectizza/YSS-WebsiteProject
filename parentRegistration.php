@@ -62,8 +62,7 @@ session_start();
       </div>
     </nav>
 
-    <form id= "appForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
-      method="post">
+    <form id= "appForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
       <div class="container" style = "background: white; margin-top: 20px;">
           <!-- Parent Registration Header -->
           <h1 align="center" style = "font-size:50px;padding-top: 20px;">Register for a Parent Account</h1>
@@ -78,6 +77,9 @@ session_start();
         	<div class="container">
 
               <!-- Info and Exp -->
+                  <p align="left" style = "font-size:30px;padding-top: 10px;">Contact Information</p>
+                  <br>
+
                   <div class="input-group mb-3">
                       <div class="input-group-prepend">
                           <span class="input-group-text">First Name:<b
@@ -96,8 +98,6 @@ session_start();
                       name="lastname" class="form-control" required>
                   </div>
 
-                  <p align="center" style = "font-size:30px;padding-top: 10px;">Contact Information</p>
-                  <br>
 
                   <div class="input-group mb-3">
                       <div class="input-group-prepend">
@@ -123,7 +123,7 @@ session_start();
                           <input type="password" name="password2" id="password2" class="form-control" required>
                   </div>
 
-                  <p align="center" style = "font-size:30px;padding-top: 10px;">
+                  <p align="left" style = "font-size:30px;padding-top: 10px;">
                     Residence Information</p>
                   <br>
 
@@ -222,72 +222,6 @@ session_start();
                       name="ec2phone" class="form-control" required>
                   </div>
 
-                  <p align="center" style = "font-size:30px;padding-top: 10px;">
-                    Medical Information</p>
-                  <br>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Allergies/Conditions: <b
-                            style = "color: red;">*</b></span>
-                      </div>
-                      <input id = "allergiesInput" type="text"name="allergies"
-                       class="form-control" required>
-                  </div>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Medications: <b
-                            style = "color: red;">*</b></span>
-                      </div>
-                      <input id = "medInput" type="text"name="medication"
-                       class="form-control" required>
-                  </div>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Activity Restrictions: <b
-                            style = "color: red;">*</b></span>
-                      </div>
-                      <input id = "actRestrictionInput" type="text"
-                      name="actRestriction" class="form-control" required>
-                  </div>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Dietary Restrictions: <b
-                            style = "color: red;">*</b></span>
-                      </div>
-                      <input id = "dietRestrictionsInput" type="text"
-                      name="dietRestrictions" class="form-control" required>
-                  </div>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Other: </span>
-                      </div>
-                      <input id = "otherInput" type="text"name="other"
-                       class="form-control">
-                  </div>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Insurance Provider: <b
-                            style = "color: red;">*</b></span>
-                      </div>
-                      <input id = "insuranceInput" type="text" name="insurance"
-                       class="form-control" required>
-                  </div>
-
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">Name of Policy Holder: <b
-                            style = "color: red;">*</b></span>
-                      </div>
-                      <input id = "policyInput" type="text" name="policy"
-                       class="form-control" required>
-                  </div>
-
                   <p align="left" style = "font-size:20px;">
                     Parent Authentication</p>
                   <br>
@@ -303,7 +237,7 @@ session_start();
                   padding-top: 10px;
                   align: center"">
       			<div class="col">
-      				<input id="submitForm" type="button" class="btn-xl" align="center" value="Submit" >
+      				<input type="submit" class="btn-xl" align="center" value="Submit">
       			</div>
       		</div>
     	</form>
@@ -318,21 +252,23 @@ Javascript Segment
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
 
     <script>
-        var config = {
-            apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-            authDomain: "yss-project-69ba2.firebaseapp.com",
-            databaseURL: "https://yss-project-69ba2.firebaseio.com",
-            projectId: "yss-project-69ba2",
-            storageBucket: "yss-project-69ba2.appspot.com",
-            messagingSenderId: "530416464878"
-        };
-        firebase.initializeApp(config);
+        function submitForm(){
+            var config = {
+                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                authDomain: "yss-project-69ba2.firebaseapp.com",
+                databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                projectId: "yss-project-69ba2",
+                storageBucket: "yss-project-69ba2.appspot.com",
+                messagingSenderId: "530416464878"
+            };
+            firebase.initializeApp(config);
 
-        document.getElementById("submitForm").addEventListener("click", function(){
             var database = firebase.database();
             //name and password
             var fName = document.getElementById("fnameInput").value;
             var lName = document.getElementById("lnameInput").value;
+            var password = document.getElementById("password").value;
+            var password2 = document.getElementById("password2").value;
             //contact info
             var phoneNum = document.getElementById("phoneInput").value;
             //Residence info
@@ -347,57 +283,44 @@ Javascript Segment
             var ec2relation = document.getElementById("ec2relInput").value;
             var ec2name = document.getElementById("ec2nameInput").value;
             var ec2phone = document.getElementById("ec2phoneInput").value;
-            //Medical Information
-            var allergy = document.getElementById("allergiesInput").value;
-            var medications = document.getElementById("medInput").value;
-            var actrestriction = document.getElementById("actRestrictionInput").value;
-            var dietrestriction = document.getElementById("dietRestrictionsInput").value;
-            var other = document.getElementById("otherInput").value;
-            var insurance = document.getElementById("insuranceInput").value;
-            var policy = document.getElementById("policyInput").value;
-            /*
-            if (fName == ""){
-                alert("fill in first name");
-            }
-            */
-            //else {
-              var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
-                email: email,
-                user_type: "parent",
-                first_name: fName,
-                last_name: lName,
-                phone: phoneNum,
-                address: Address,
-                city: City,
-                zipcode: Zipcode,
-                ec_name1: ec1name,
-                ec_relationship1: ec1relation,
-                ec_phone1: ec1phone,
-                ec_name2: ec2name,
-                ec_relationship2: ec2relation,
-                ec_phone2: ec2phone,
-                allergies: allergy,
-                meds: medications,
-                activity_restrictions: actrestriction,
-                dietary_restrictions: dietrestriction,
-                other: other,
-                insurance: insurance,
-                policy_holder: policy,
-                total_credit_due: total_credit_due
+
+            if ( password != password2 ){
+                    alert("Retyped password must match password");
+            } else{
+                var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
+                    email: email,
+                    user_type: "parent",
+                    first_name: fName,
+                    last_name: lName,
+                    password: password,
+                    phone: phoneNum,
+                    address: Address,
+                    city: City,
+                    zipcode: Zipcode,
+                    ec_name1: ec1name,
+                    ec_relationship1: ec1relation,
+                    ec_phone1: ec1phone,
+                    ec_name2: ec2name,
+                    ec_relationship2: ec2relation,
+                    ec_phone2: ec2phone,
+                    total_credit_due: total_credit_due
                 },
-               function(error){
-                  if(error) {
-                      alert("didn't go through")
-                  }
-                  else {
-                      var postID = newPostRef.key;
-                      window.location.replace("login.php");
-                      console.log("went to firebase");
-                  // Data saved successfully!
-                  }
-              });
+                    function(error){
+                    if(error) {
+                        alert("didn't go through")
+                    }
+                    else {
+                        var postID = newPostRef.key;
+                        window.location.replace("login.php");
+                        console.log("went to firebase");
+                    // Data saved successfully!
+                    }
+                });
           //}
-        });
+            }
+            return false;
+
+        }
     </script>
   </body>
 </html>

@@ -1,3 +1,24 @@
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+<script>
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+  authDomain: "yss-project-69ba2.firebaseapp.com",
+  databaseURL: "https://yss-project-69ba2.firebaseio.com",
+  projectId: "yss-project-69ba2",
+  storageBucket: "yss-project-69ba2.appspot.com",
+  messagingSenderId: "530416464878"
+};
+firebase.initializeApp(config);
+
+
+firebase.database().ref('/users/emachta@uci,edu/credit_due').once('value').then(async function(snapshot) {
+          var credit_now = await parseInt(snapshot.val());
+});
+
+</script>
+
+
 <html lang="en">
   <head>
     <title>Youth Spiritual Summit</title>
@@ -63,6 +84,9 @@
             <div class="card">
                 <h2>Payment</h2>
                 <label>You owe: <?php echo "<label style='font-size:22;color:red;'>$$credit_due</label>";?></label>
+                
+                
+
 
                 <script src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk"></script>
                 <div id="paypal-button-container"></div>
@@ -81,7 +105,32 @@
                       // Capture the funds from the transaction
                       return actions.order.capture().then(function(details) {
                         // Show a success message to your buyer
-                        alert('Transaction completed by ' + details.payer.name.given_name);
+                        
+                        console.log(details.purchase_units[0].amount.value)
+                        let amount_payed = details.purchase_units[0].amount.value;
+                        amount_payed = amount_payed.split(".");
+                        let payed_dollar = parseInt(amount_payed[0]);
+                        let payed_cents = parseInt(amount_payed[1]);
+
+                        firebase.database().ref('/users/emachta@uci,edu/credit_due').once('value').then(async function(snapshot) {
+                          var credit_now = await parseInt(snapshot.val());
+                          
+                          
+
+                          firebase.database().ref('/users/emachta@uci,edu/').update({
+                          credit_due: credit_now - payed_dollar
+                          
+                        });
+
+                        window.location.href = "/logout.php";
+                        });
+                        
+
+                        
+
+                        
+                        
+
                       });
                     }
                   }).render('#paypal-button-container');
@@ -90,12 +139,7 @@
 
               </div>
                 <br>
-                <script src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk"></script>
-                <div id="paypal-button-container"></div>
-                <script>
-                  paypal.Buttons().render('#paypal-button-container');
-                </script>
-              </div>
+
           </div>
         </div>
         <div class="row">
