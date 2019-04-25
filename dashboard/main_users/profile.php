@@ -1,5 +1,8 @@
 <?php
-  session_start();
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
   $emailwcomma = $_SESSION["queryData"]["email"];
   $email= str_replace(".",",",$emailwcomma);
 ?>

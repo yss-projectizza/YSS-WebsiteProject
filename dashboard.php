@@ -1,5 +1,8 @@
 <?php
-session_start();
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
 
 if( !$_SESSION["loggedin"]){
 		header("Location: login.php");
