@@ -38,13 +38,13 @@
       </div>
 
       <div class="row initial-task-padding">
-        <div class="col">
+        <!-- <div class="col">
           Email<b style = "color: red;">*</b>
           <br>
           <input id="email" type="semail" name="email"
            times-label="email" class="form-control" required>
           <br>
-        </div>
+        </div> -->
       </div>
 
       <div class="row initial-task-padding">
@@ -112,8 +112,8 @@
         // var phone = document.getElementById("phone").value; // There is no phone number in the database yet
         // var email = document.getElementById("email").value; //COMMENTED THIS BECAUSE EMAIL KEY IS UNCHANGEABLE
         var password = document.getElementById("password").value;
-        var email = email.replace(".",",");
-        var oldemail = "<?php echo $_SESSION["queryData"]["email"];?>";
+        // var email = email.replace(".",",");
+        var oldemail = "<?php echo $email;?>";
 
 
         var newPostRef = firebase.database().ref('/users/' + oldemail).update({
