@@ -110,7 +110,7 @@
         // var email = document.getElementById("email").value; //COMMENTED THIS BECAUSE EMAIL KEY IS UNCHANGEABLE
         var password = document.getElementById("password").value;
         var email = email.replace(".",",");
-        var oldemail = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
+        var oldemail = "<?php echo $_SESSION["queryData"]["email"];?>";
 
 
         var newPostRef = firebase.database().ref('/users/' + oldemail).update({
