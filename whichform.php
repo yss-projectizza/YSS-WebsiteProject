@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 require __DIR__.'/vendor/autoload.php';
@@ -28,10 +27,14 @@ $age = date("Y") - $year;
 $actualEmail = $_SESSION["newuserinfo"]["email"];
 $emailwithcomma = str_replace(".",",",$actualEmail);
 
+function alert($msg) {
+  echo "<script type='text/javascript'>alert('$msg');</script>";
+}
+
 if($reference[$emailwithcomma]){
 // print_r($reference[$emailwithcomma]);
 // header("Location:MYcreateaccount.php");
-echo "This email already exists. Please try again.";
+alert("This email already exists. Please try again.");
 include "MYcreateaccount.php";
 exit;
 }

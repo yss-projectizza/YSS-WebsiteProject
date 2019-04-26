@@ -34,7 +34,7 @@ session_start();
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav mx-auto">
 					<a class="nav-item nav-link" href="http://youthspiritualsummit.weebly.com"><font color="white">Home</font></a>
-					<a class="nav-item nav-link" href="http://campizza.com/calendar"><font color="white">Activities</font></a>
+					<a class="nav-item nav-link" href="/login.php"><font color="white">Login</font></a>
 					<a class="nav-item nav-link" href="http://campizza.com/camp-fees"><font color="white">Fees</font></a>
 					<a class="nav-item nav-link" href="http://campizza.com/contact"><font color="white">Contact</font></a>
 				</div>
@@ -52,7 +52,7 @@ session_start();
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text">Enter email (same one registered with):<b style = "color: red;">*</b></span>
+                <span class="input-group-text">Enter email:<b style = "color: red;">*</b></span>
             </div>
                 <input type="text" placeholder="Ex: 12345@gmail.com" name="email" id="email" class="form-control" required>
         </div>
@@ -115,8 +115,6 @@ session_start();
                     email = email.replace(".", ",");
                     return firebase.database().ref('/users/' + email).once('value')
 
-
-                    
                     console.log("testing");
                     console.log(dob, email);
                     if (!email || !dob){
