@@ -9,7 +9,7 @@ if(!isset($_SESSION))
 <script>
     var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
     var emailwcharactersreplaced = email.replace(".",",");
-    var dob = "<?php echo $_SESSION["newuserinfo"]["dob"];?>";
+    var dob = "<?php echo $_SESSION["newuserinfo"]["age"];?>";
     var bus_num = "N/A";
     var group_num = "N/A";
     var cabin_num = "N/A";
