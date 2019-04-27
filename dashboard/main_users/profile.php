@@ -16,14 +16,14 @@
   <body>
     <?php include '../../navigation.php'; ?>
     <div class="container profile-box">
-    <!-- Profile Information -->
-      <label><p style = "font-size:26px;">Profile Information</p></label>
 
+    <!-- Profile Information -->
+      <label><p style = "font-size:30px;">Profile Information</p></label>
       <div class="row initial-task-padding">
         <div class="col">
           First name<b style = "color: red;">*</b>
-          <input id="fname"type="text" name="fname"
-          times-label="fname" class="form-control" required>
+          <input id="first_name"type="text" name="first_name"
+          times-label="first_name" class="form-control" required>
           <br>
         </div>
       </div>
@@ -31,8 +31,7 @@
       <div class="row initial-task-padding">
         <div class="col">
           Last name<b style = "color: red;">*</b>
-          <input id="lname"type="text" name="lname"
-          times-label="lname" class="form-control" required>
+          <input id="last_name"type="text" name="last_name" times-label="last_name" class="form-control" required>
           <br>
         </div>
       </div>
@@ -50,8 +49,7 @@
       <div class="row initial-task-padding">
         <div class="col">
           Phone number<b style = "color: red;">*</b>
-          <input id="phone" type="tel" name="phone"
-          times-label="phone" class="form-control" required>
+          <input id="phone" type="tel" name="phone" times-label="phone" class="form-control" required>
           <br>
         </div>
       </div>
@@ -59,11 +57,208 @@
       <div class="row initial-task-padding">
         <div class="col">
             Password<b style = "color: red;">*</b>
-            <input id="password" type="password" name="password"
-            times-label="password" class="form-control" required>
+            <input id="password" type="password" name="password" times-label="password" class="form-control" required>
             <br>
         </div>
       </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Clothing Size:<b style = "color: red;">*</b></span>
+            <select class="form-control form-control-md" name="size" id="size">
+              <option selected="selected"> <!--  Display current info in DB --> </option>
+              <option>Small</option>
+              <option>Medium</option>
+              <option>Large</option>
+              <option>XL</option>
+              <option>XXL</option>
+            </select>
+        </div>
+      </div>
+
+<!-- Personal Information -->
+<label><p style = "font-size:30px;padding-top: 10px;">Personal Information</p></label>
+        </div>
+        <div class="container">
+            <label><p style = "font-size:18px;">How would you rate yourself in the following areas?</p></label>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Spirituality (closeness to God)<b style = "color: red;">*</b></span>
+                        <select class="form-control form-control-md" name="spiritual" id="spiritual">
+                            <option>Very High</option>
+                            <option>High</option>
+                            <option>Neutral</option>
+                            <option>Low</option>
+                            <option>Very Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Religious Knowledge:<b style = "color: red;">*</b></span>
+                        <select class="form-control form-control-md" name="knowledge" id="knowledge">
+                            <option>Very High</option>
+                            <option>High</option>
+                            <option>Neutral</option>
+                            <option>Low</option>
+                            <option>Very Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Actively Improving Myself:<b style = "color: red;">*</b></span>
+                        <select class="form-control form-control-md" name="improvement" id="improvement">
+                            <option>Very High</option>
+                            <option>High</option>
+                            <option>Neutral</option>
+                            <option>Low</option>
+                            <option>Very Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Actively Involved In Making My Community Better:<b style = "color: red;">*</b></span>
+                        <select class="form-control form-control-md" id="community">
+                            <option>Very High</option>
+                            <option>High</option>
+                            <option>Neutral</option>
+                            <option>Low</option>
+                            <option>Very Low</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="row initial-task-padding">
+                    <div class="col">
+                        <p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>
+                        <textarea id="hopes" cols="132" rows="3" value=""></textarea>
+                    </div>
+                </div>
+
+                <div class="row initial-task-padding">
+                    <div class="col">
+                        <p>What are some activities that you enjoy?</p>
+                        <textarea id="activities" cols="132" rows="3" value=""></textarea>
+                    </div>
+                </div>
+
+                <div class="row initial-task-padding">
+                    <div class="col">
+                        <p>What is one question you would like to have answered during this year's Summit?</b></p>
+                        <textarea id="question" cols="132" rows="3" value=""></textarea>
+                    </div>
+                </div>
+        <div class="block_1"><p style="padding-top:30px"> </p> </div> <hr />
+
+        <div class="container">
+        <!-- Emergency Contacts -->
+        </div>
+            <label><p style = "font-size:30px;padding-top: 10px;">Emergency Contacts</p></label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 1 - Name:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="text" placeholder="Ex: John" name="ec_name1" id="ec_name1" class="form-control" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 1 - Phone:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="tel" placeholder="Ex: 1234567890" name="ec_phone1" id="ec_phone1" class="form-control" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 1 - Relationship:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="text" placeholder="Ex: Father" name="ec_relationship1" id="ec_relationship1" class="form-control" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 2 - Name:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="text" placeholder="Ex: John" name="ec_name2" id="ec_name2" class="form-control" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 2 - Phone:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="tel" placeholder="Ex: 1234567890" name="ec_phone2" id="ec_phone2" class="form-control" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 2 - Relationship:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="text" placeholder="Ex: Mother" name="ec_relationship2" id="ec_relationship2" class="form-control" required>
+                </div>
+
+
+        <div class="block_1"><p style="padding-top:30px"></div> <hr>
+
+        <div class="container">
+        <!-- Health Information -->
+        </div>
+            <label><p style = "font-size:30px;padding-top: 10px;">Health Information</p></label>
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Please List Any Allergies You Have. If none, type N/A.<b style = "color: red;">*</b></p>
+                    <input type="text" name="allergies" id="allergies" times-label="allergies" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Please List Any Medication You Are Currently On. If none, type N/A<b style = "color: red;">*</b></p>
+                    <input type="text" name="meds" id="meds" times-label="meds" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Please List Any Activity Restrictions.</b></p>
+                    <input type="text" name="activity_restrictions" value="" id="activity_restrictions" times-label="activity_restrictions" class="form-control">
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Please List Any Dietary Restrictions.</b></p>
+                    <input type="text" name="dietary_restrictions" value="" id="dietary_restrictions" times-label="dietary_restrictions" class="form-control">
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>Other Important Information </b></p>
+                    <input type="text" name="other" value="" id="other" times-label="other" class="form-control">
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Insurance Provider:<b style = "color: red;">*</b></span>
+                 </div>
+                <input type="text" placeholder="Ex: PPO" name="insurance" id="insurance" class="form-control" required>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Policy Holder:<b style = "color: red;">*</b></span>
+                 </div>
+                <input type="text" placeholder="Ex: John" name="policy_holder" id="policy_holder" class="form-control" required>
+            </div>
+        <div class="block_1"><p style="padding-top:30px"></div> <hr />
 
       <!-- Submit -->
       <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
@@ -74,8 +269,7 @@
             <button onclick="location.href = '/dashboard.php'" id="back"
               class="btn-xl" align="center" role="button"> Back
             </button>
-            <input id="update" type="button"
-              class="btn-xl" align="center" value="Save changes" >
+            <input id="update" type="button" class="btn-xl" align="center" value="Save changes" >
        </div>
       </div>
     </div>
@@ -99,27 +293,92 @@
       firebase.database().ref('/users/' + "<?php echo $email?>").once("value").then(async function(snapshot) {
           let profiledata= snapshot.val();
           console.log(profiledata)
-          document.getElementById("fname").value = profiledata.first_name;
-          document.getElementById("lname").value = profiledata.last_name;
+          document.getElementById("first_name").value = profiledata.first_name;
+          document.getElementById("last_name").value = profiledata.last_name;
+          document.getElementById("phone").value = profiledata.phone;
           document.getElementById("password").value = profiledata.password;
+          /*
+          document.getElementById("spiritual").value = profiledata.spiritual;
+          document.getElementById("knowledge").value = profiledata.knowledge;
+          document.getElementById("improvement").value = profiledata.improvement;
+          document.getElementById("community").value = profiledata.community;
+          document.getElementById("hopes").value = profiledata.hopes;
+          document.getElementById("activities").value = profiledata.activities;
+          document.getElementById("question").value = = profiledata.question;
+          document.getElementById("ec_name1").value = profiledata.ec_name1;
+          document.getElementById("ec_phone1").value = profiledata.ec_phone1;
+          document.getElementById("ec_relationship1").value = profiledata.ec_relationship1;
+          document.getElementById("ec_name2").value = profiledata.ec_name2;
+          document.getElementById("ec_phone2").value = profiledata.ec_phone2;
+          document.getElementById("ec_relationship2").value = profiledata.ec_relationship2;
+          document.getElementById("allergies").value = profiledata.allergies;
+          document.getElementById("meds").value = profiledata.meds;
+          document.getElementById("activity_restrictions").value = profiledata.activity_restrictions;
+          document.getElementById("dietary_restrictions").value = profiledata.dietary_restrictions;
+          document.getElementById("other").value = profiledata.other;
+          document.getElementById("insurance").value = profiledata.insurance;
+          document.getElementById("policy_holder").value = profiledata.policy_holder;
+          */
       });
 
       document.getElementById("update").addEventListener("click", function(){
         var database = firebase.database();
         //getting input data
-        var fname = document.getElementById("fname").value;
-        var lname = document.getElementById("lname").value;
-        var phone = document.getElementById("phone").value; // There is no phone number in the database yet
+        var first_name = document.getElementById("first_name").value;
+        var last_name = document.getElementById("last_name").value;
+        var phone = document.getElementById("phone").value;
         // var email = document.getElementById("email").value; //COMMENTED THIS BECAUSE EMAIL KEY IS UNCHANGEABLE
-        var password = document.getElementById("password").value;
         // var email = email.replace(".",",");
-        var oldemail = "<?php echo $email;?>";
-
+        var password = document.getElementById("password").value;
+        var size = document.getElementById("size").value;
+        //var oldemail = "<?php echo $email;?>";
+        var spiritual = document.getElementById("spiritual").value;
+        var knowledge = document.getElementById("knowledge").value;
+        var improvement = document.getElementById("improvement").value;
+        var community = document.getElementById("community").value;
+        var hopes = document.getElementById("hopes").value;
+        var activities = document.getElementById("activities").value;
+        var question = document.getElementById("question").value;
+        var ec_name1 = document.getElementById("ec_name1").value;
+        var ec_phone1 = document.getElementById("ec_phone1").value;
+        var ec_relationship1 = document.getElementById("ec_relationship1").value;
+        var ec_name2 = document.getElementById("ec_name2").value;
+        var ec_phone2 = document.getElementById("ec_phone2").value;
+        var ec_relationship2 = document.getElementById("ec_relationship2").value;
+        var allergies = document.getElementById("allergies").value;
+        var meds = document.getElementById("meds").value;
+        var activity_r = document.getElementById("activity_restrictions").value;
+        var dietary_r = document.getElementById("dietary_restrictions").value;
+        var other = document.getElementById("other").value;
+        var insurance = document.getElementById("insurance").value;
+        var policy_holder = document.getElementById("policy_holder").value;
 
         var newPostRef = firebase.database().ref('/users/' + oldemail).update({
-            first_name: fname,
-            last_name: lname,
-            password: password
+            first_name: first_name,
+            last_name: last_name,
+            password: password,
+            size: size,
+            spiritual: spiritual,
+            knowledge: knowledge,
+            improvement: improvement,
+            community: community,
+            hopes: hopes,
+            activities: activities,
+            question: question,
+            ec_name1: ec_name1,
+            ec_phone1: ec_phone1,
+            ec_relationship1: ec_relationship1,
+            ec_name2: ec_name2,
+            ec_phone2: ec_phone2,
+            ec_relationship2: ec_relationship2,
+            alleriges: allergies,
+            meds: meds,
+            activity_restrictions: activity_r,
+            dietary_restrictions: dietary_r,
+            other: other,
+            insurance: insurance,
+            policy_holder: policy_holder,
+            credit_due:credit_due,
           },
             function(error){
               if(error) {
