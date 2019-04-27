@@ -54,7 +54,7 @@ session_start();
             <div class="input-group-prepend">
                 <span class="input-group-text">Enter email:<b style = "color: red;">*</b></span>
             </div>
-                <input type="text" placeholder="Ex: 12345@gmail.com" name="email" id="email" class="form-control" required>
+                <input type="email" placeholder="Ex: 12345@gmail.com" name="email" id="email" class="form-control" required>
         </div>
 
         <div class="input-group mb-3">

@@ -9,6 +9,7 @@ if(!isset($_SESSION))
 <script>
     var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
     var emailwcharactersreplaced = email.replace(".",",");
+    var dob = "<?php echo $_SESSION["newuserinfo"]["dob"];?>";
     var bus_num = "N/A";
     var group_num = "N/A";
     var cabin_num = "N/A";
@@ -391,6 +392,7 @@ if(!isset($_SESSION))
                 var other = document.getElementById("other").value;
                 var insurance = document.getElementById("insurance").value;
                 var policy_holder = document.getElementById("policy_holder").value;
+<<<<<<< HEAD
                 var verified = true;
                 var passed_checks = true;
 
@@ -434,6 +436,16 @@ if(!isset($_SESSION))
 
                 if (passed_tests == "true"){
                         var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
+=======
+                var verified = "true";
+
+                if ( password != password2 ){
+                    alert("Retyped password must match password");
+                }
+                else {
+                    var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
+                            dob: dob,
+>>>>>>> f67881f92d4fcec891ed76a8a6b75f1b47139bbd
                             first_name: fn,
                             email:email,
                             password:password,

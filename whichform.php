@@ -25,6 +25,7 @@ $reference = $database->getReference('/users')->getValue();
 $redirectpagename =$_POST["user_type"];
 $_SESSION["newuserinfo"] = $_POST;
 $year = substr($_SESSION["newuserinfo"]["age"],0,4);
+$dob = $_SESSION["newuserinfo"]["age"];
 $age = date("Y") - $year;
 
 $actualEmail = $_SESSION["newuserinfo"]["email"];
