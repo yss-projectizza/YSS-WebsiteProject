@@ -379,7 +379,6 @@
             other: other,
             insurance: insurance,
             policy_holder: policy_holder,
-            credit_due:credit_due,
           },
             function(error){
               if(error) {
