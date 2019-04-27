@@ -85,7 +85,7 @@ session_start();
                           <span class="input-group-text">First Name:<b
                             style = "color: red;">*</b></span>
                       </div>
-                      <input id = "fnameInput" type="text" placeholder="Ex: John"
+                      <input id = "fnameInput" type="text" pattern="[A-Za-z]+" placeholder="Ex: John"
                        name="firstname" class="form-control" required>
                   </div>
 

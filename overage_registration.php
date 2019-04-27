@@ -5,6 +5,7 @@ if(!isset($_SESSION))
     session_start();
 }
 ?>
+
 <script>
     var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
     var emailwcharactersreplaced = email.replace(".",",");
@@ -12,29 +13,6 @@ if(!isset($_SESSION))
     var group_num = "N/A";
     var cabin_num = "N/A";
     var credit_due = "299";
-
-function check_fn(fn, passed_checks){
-    if (fn = ''){
-        alert("must fill in first name");
-        passed_checks = false;
-    }
-    else if (!/[^a-zA-Z]/.test(fn)){
-        alert("first name can only contain letters");
-        passed_checks = false;
-    }
-}
-
-function check_ln(ln, passed_checks){
-    if (ln = ''){
-        alert("must fill in last name");
-        passed_checks = false;
-    }
-    else if (!/[^a-zA-Z]/.test(ln)){
-        alert("last name can only contain letters");
-        passed_checks = false;
-    }
-}
-
 </script>
 
 <!doctype html>
@@ -77,7 +55,7 @@ function check_ln(ln, passed_checks){
 		</div>
 	</nav>
 
-    <form id=form1 action="formHandle.php" method="post" onsubmit="return submitForm();">
+    <form id=form1 action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
         <h1 align="center" style = "font-size:40px;padding-top: 20px;">Youth Participant Registration</h1>
@@ -131,7 +109,7 @@ function check_ln(ln, passed_checks){
                     <div class="input-group-prepend">
                         <span class="input-group-text">Phone number:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="tel" placeholder="Ex: 1234567890" name="ec_phone1" id="ec_phone1" class="form-control" required>
+                    <input type="tel" placeholder="Ex: 1234567890" name="phone" id="phone" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -503,7 +481,6 @@ function check_ln(ln, passed_checks){
                         });
                     }
                 return false;
-
             }
 
         </script>
