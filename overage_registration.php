@@ -3,7 +3,7 @@
 if(!isset($_SESSION))
 {
     session_start();
-} 
+}
 ?>
 
 <script>
@@ -392,6 +392,49 @@ if(!isset($_SESSION))
                 var other = document.getElementById("other").value;
                 var insurance = document.getElementById("insurance").value;
                 var policy_holder = document.getElementById("policy_holder").value;
+                var verified = true;
+                var passed_checks = true;
+
+                check_fn(fn, passed_checks);
+                check_ln(ln, passed_checks);
+                    // if (fn == ''){
+                    //     alert("fill in first name");
+                    // }
+                    // else if (ln == ''){
+                    //     alert("fill in last name");
+                    // }
+                    // else if (file == ''){
+					// 	alert("please add id file");
+                    // }
+                    // else if (ec_name1 == ''){
+                    //     alert("please add emergency contact name 1");
+                    // }
+                    // else if (ec_phone1 == ''){
+                    //     alert("please add emergency contact phone 1");
+                    // }
+                    // else if (ec_relationship1 == ''){
+                    //     alert("please add emergency contact relationship 1");
+                    // }
+                    // else if (ec_name2 == ''){
+                    //     alert("please add emergency contact name 2");
+                    // }
+                    // else if (ec_phone2 == ''){
+                    //     alert("please add emergency contact phone 2");
+                    // }
+                    // else if (ec_relationship2 == ''){
+                    //     alert("please add emergency contact relationship 2");
+                    // }
+                    // else if (allergies == ''){
+                    //     alert("please add any alleriges or type N/A");
+                    // }
+                    // else if (meds == ''){
+                    //     alert("please add any medication or type N/A");
+                    // }
+                    // else if ( password != password2 ){
+                    //     alert("Retyped password must match password");
+
+                if (passed_tests == "true"){
+                        var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
                 var verified = "true";
 
                 if ( password != password2 ){
