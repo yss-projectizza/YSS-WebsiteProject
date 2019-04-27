@@ -126,6 +126,7 @@
                   alert("didn't go through")
               }
               else {
+                  alert("Your information has been saved successfully.")
                   var postID = newPostRef.key;
                   console.log("went to firebase");
               // Data saved successfully!
