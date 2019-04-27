@@ -6,6 +6,7 @@ session_start();
 <script>
     var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
     var emailwcharactersreplaced = email.replace(".",",");
+    var dob = "<?php echo $_SESSION["newuserinfo"]["age"];?>";
 </script>
 
 <!doctype html>
@@ -343,7 +344,6 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     var gender = document.getElementById("gender").value;
                     var password = document.getElementById("password").value;
                     var password2 = document.getElementById("password2").value;
-                    var dob = document.getElementById("dob").value;
                     var city = document.getElementById("city").value;
                     var phone = document.getElementById("phone").value;
                     var experience = document.getElementById("experience").value;
@@ -376,6 +376,7 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     } else {
                             console.log("submitting to db")
                             var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
+                                dob: dob,
                                 email: emailwcharactersreplaced,
                                 password: password,
                                 user_type: "counselor",
