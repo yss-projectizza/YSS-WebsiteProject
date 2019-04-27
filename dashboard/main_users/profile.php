@@ -22,8 +22,7 @@
       <div class="row initial-task-padding">
         <div class="col">
           First name<b style = "color: red;">*</b>
-          <input id="first_name"type="text" name="first_name"
-          times-label="first_name" class="form-control" required>
+          <input id="first_name" type="text" name="first_name" times-label="first_name" class="form-control" required>
           <br>
         </div>
       </div>
@@ -297,14 +296,13 @@
           document.getElementById("last_name").value = profiledata.last_name;
           document.getElementById("phone").value = profiledata.phone;
           document.getElementById("password").value = profiledata.password;
-          /*
           document.getElementById("spiritual").value = profiledata.spiritual;
           document.getElementById("knowledge").value = profiledata.knowledge;
           document.getElementById("improvement").value = profiledata.improvement;
           document.getElementById("community").value = profiledata.community;
           document.getElementById("hopes").value = profiledata.hopes;
           document.getElementById("activities").value = profiledata.activities;
-          document.getElementById("question").value = = profiledata.question;
+          document.getElementById("question").value = profiledata.question;
           document.getElementById("ec_name1").value = profiledata.ec_name1;
           document.getElementById("ec_phone1").value = profiledata.ec_phone1;
           document.getElementById("ec_relationship1").value = profiledata.ec_relationship1;
@@ -318,7 +316,7 @@
           document.getElementById("other").value = profiledata.other;
           document.getElementById("insurance").value = profiledata.insurance;
           document.getElementById("policy_holder").value = profiledata.policy_holder;
-          */
+          
       });
 
       document.getElementById("update").addEventListener("click", function(){
