@@ -60,7 +60,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 					<input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign In" id="submitbutton"></input>
 					<hr>
 
-					<button onclick="location.href = '/MYcreateaccount.php'" id="register"
+					<button type="reset" onclick="location.href = '/MYcreateaccount.php'" id="register"
 					 class="btn btn-med btn-outline-info btn-block" role="button"
 					 style="margin-top:18">Register</button>
 					 
@@ -73,6 +73,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 						}
 						else if (age >= 18){
 							window.location.href = "/MYcreateaccount.php";
+							exit();
 						}
 						else {
 							window.alert("You must be 18 to register for an account.");
@@ -80,7 +81,7 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 						}
 					</script>
 				
-					<button onclick="forgotPassword()" id="forgot" class="btn btn-med btn-outline-info btn-block" role="button" style="margin-top:10">Forgot Password?</button>
+					<button type="reset" onclick="forgotPassword()" id="forgot" class="btn btn-med btn-outline-info btn-block" role="button" style="margin-top:10">Forgot Password?</button>
 					<script>
 						function forgotPassword() {
 						var email = prompt("Please enter your email:", "abcde@gmail.com");
@@ -88,21 +89,12 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 						var ref = firebase.database().ref("/users");
 						ref.once("value").then(function(snapshot){
 							if (snapshot.child(comma_email).exists()){
-								window.alert("A link to reset your password has been sent to " + email +".")
+								alert("A link to reset your password has been sent to (" + email +").");
 							}
 							else {
 								alert('The email: (' + email + ') does not exist in the system. Please create an account.');
 							}
 						});
-
-						// ref.orderByChild("email").equalTo(email).once("value", snapshot => {
-						// 	if (snapshot.exists()){
-						// 		window.alert("A link to reset your password has been sent to " + email +".")
-						// 	}
-						// 	else {
-						// 		alert('The email: (' + email + ') does not exist in the system. Please create an account.');
-						// 	}
-						// });
 					}
 					</script>
 

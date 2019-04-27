@@ -29,23 +29,20 @@ $firebase = (new Factory)
 $database = $firebase->getDatabase();
 $reference = $database->getReference('/users')->getValue();
 
-
-
 if (array_key_exists($username,$reference)){
     if ($reference[$username]["password"] == $password){
         $_SESSION["loggedin"] = true;
         $_SESSION["queryData"] = $reference[$username];
         header("Location:Dashboard.php");
-    }else{
+    } else {
         include "login.php";
-        echo "Incorrect Password. Please try again.";
+        echo "<script type='text/javascript'>alert('Incorrect Password. Please Try Again');</script>";
         exit;
     }
 }
-else{
+else {
     include "login.php";
-    echo "Unrecognized email. Please try again or sign up if you don't have an account.";
+    echo "<script type='text/javascript'>alert('Unrecognized email. Please try again or register for an account.');</script>";
     exit;
-
 }
-		?>
+?>
