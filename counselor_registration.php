@@ -141,14 +141,6 @@ If you have any questions, please contact us at youthspiritualsummit@gmail.com <
                     <input type="password" name="password2" id="password2" class="form-control" required>
             </div>
 
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-			        <div class='input-group date'>
-                         <span class="input-group-text">Date Of Birth:<b style = "color: red;">*</b></span>
-			            <input type='date' name="dob" id="dob" class="form-control" required>
-			        </div>
-				</div>
-            </div>
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">

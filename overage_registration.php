@@ -9,6 +9,7 @@ if(!isset($_SESSION))
 <script>
     var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
     var emailwcharactersreplaced = email.replace(".",",");
+    var dob = "<?php echo $_SESSION["newuserinfo"]["dob"];?>";
     var bus_num = "N/A";
     var group_num = "N/A";
     var cabin_num = "N/A";
@@ -398,6 +399,7 @@ if(!isset($_SESSION))
                 }
                 else {
                     var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
+                            dob: dob,
                             first_name: fn,
                             email:email,
                             password:password,
