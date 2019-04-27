@@ -109,7 +109,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">Phone number:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="tel" placeholder="Ex: 1234567890" name="ec_phone1" id="ec_phone1" class="form-control" required>
+                    <input type="tel" placeholder="Ex: 1234567890" name="phone" id="phone" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
