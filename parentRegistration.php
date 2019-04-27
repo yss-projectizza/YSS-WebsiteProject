@@ -218,6 +218,7 @@ Javascript Segment
 
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-storage.js"></script>
 
     <script>
         function submitForm(){
@@ -230,7 +231,8 @@ Javascript Segment
                 messagingSenderId: "530416464878"
             };
             firebase.initializeApp(config);
-
+            var storageRef = firebase.storage().ref();
+            
             var database = firebase.database();
             //name and password
             var fName = document.getElementById("fnameInput").value;
@@ -251,10 +253,16 @@ Javascript Segment
             var ec2relation = document.getElementById("ec2relInput").value;
             var ec2name = document.getElementById("ec2nameInput").value;
             var ec2phone = document.getElementById("ec2phoneInput").value;
+            //DL image
+            var dl = document.getElementById("licenseUpload").files[0];
 
             if ( password != password2 ){
                     alert("Retyped password must match password");
             } else{
+                //var DLImageRef = storageRef.child('/images/'+emailwcharactersreplaced);
+                firebase.storage().ref('/images/').put(dl).then(function(snapshot) {
+                    console.log('Uploaded a blob or file!');
+                });
                 var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
                     dob: dob,
                     email: email,
