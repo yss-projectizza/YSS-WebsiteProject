@@ -1,7 +1,11 @@
 <?php
 // Initialize the session
-session_start();
+if(!isset($_SESSION))
+{
+    session_start();
+} 
 ?>
+
 <script>
     var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
     var emailwcharactersreplaced = email.replace(".",",");
@@ -9,8 +13,7 @@ session_start();
     var group_num = "N/A";
     var cabin_num = "N/A";
     var credit_due = "299";
-
-    </script>
+</script>
 
 <!doctype html>
 <html lang="en">
@@ -106,7 +109,7 @@ session_start();
                     <div class="input-group-prepend">
                         <span class="input-group-text">Phone number:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="tel" placeholder="Ex: 1234567890" name="ec_phone1" id="ec_phone1" class="form-control" required>
+                    <input type="tel" placeholder="Ex: 1234567890" name="phone" id="phone" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -340,32 +343,6 @@ session_start();
         </div>
     </form>
 
-    <!-- <script>
-                            //TEMPORARY DATA TO FILL IN VALUES
-                            document.getElementById("firstname").value = "hi";
-                    document.getElementById("lastname").value = "hi";
-                    document.getElementById("spiritual").value = "hi";
-                    document.getElementById("knowledge").value = "hi";
-                    document.getElementById("improvement").value = "hi";
-                    document.getElementById("community").value = "hi";
-                    document.getElementById("hopes").value = "hi";
-                    document.getElementById("activities").value = "hi";
-                    document.getElementById("question").value = "hi";
-                    document.getElementById("ec_name1").value = "hi";
-                    document.getElementById("ec_phone1").value = "hi";
-                    document.getElementById("ec_relationship1").value = "hi";
-                    document.getElementById("ec_name2").value = "hi";
-                    document.getElementById("ec_phone2").value = "hi";
-                    document.getElementById("ec_relationship2").value = "hi";
-                    document.getElementById("ec_relationship2").value = "hi";
-                    document.getElementById("meds").value = "hi";
-                    document.getElementById("activities").value = "hi";
-                    document.getElementById("dietary").value = "hi";
-                    document.getElementById("other").value = "hi";
-                    document.getElementById("insurance").value = "hi";
-                    document.getElementById("policy_holder").value = "hi";
-        </script> -->
-
 
 	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
@@ -414,47 +391,13 @@ session_start();
                 var other = document.getElementById("other").value;
                 var insurance = document.getElementById("insurance").value;
                 var policy_holder = document.getElementById("policy_holder").value;
-                var verified = "false";
+                var verified = "true";
 
-
-                    // if (fn == ''){
-                    //     alert("fill in first name");
-                    // }
-                    // else if (ln == ''){
-                    //     alert("fill in last name");
-                    // }
-                    // else if (file == ''){
-					// 	alert("please add id file");
-                    // }
-                    // else if (ec_name1 == ''){
-                    //     alert("please add emergency contact name 1");
-                    // }
-                    // else if (ec_phone1 == ''){
-                    //     alert("please add emergency contact phone 1");
-                    // }
-                    // else if (ec_relationship1 == ''){
-                    //     alert("please add emergency contact relationship 1");
-                    // }
-                    // else if (ec_name2 == ''){
-                    //     alert("please add emergency contact name 2");
-                    // }
-                    // else if (ec_phone2 == ''){
-                    //     alert("please add emergency contact phone 2");
-                    // }
-                    // else if (ec_relationship2 == ''){
-                    //     alert("please add emergency contact relationship 2");
-                    // }
-                    // else if (allergies == ''){
-                    //     alert("please add any alleriges or type N/A");
-                    // }
-                    // else if (meds == ''){
-                    //     alert("please add any medication or type N/A");
-                    // }
-                     if ( password != password2 ){
-                        alert("Retyped password must match password");
-                    } else {
-                        console.log("hellooo")
-                        var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
+                if ( password != password2 ){
+                    alert("Retyped password must match password");
+                }
+                else {
+                    var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
                             first_name: fn,
                             email:email,
                             password:password,
@@ -502,7 +445,6 @@ session_start();
                         });
                     }
                 return false;
-
             }
 
         </script>
