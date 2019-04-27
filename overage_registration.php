@@ -2,6 +2,7 @@
 // Initialize the session
 session_start();
 ?>
+
 <script>
     var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
     var emailwcharactersreplaced = email.replace(".",",");
@@ -10,27 +11,20 @@ session_start();
     var cabin_num = "N/A";
     var credit_due = "299";
 
-function check_fn(fn, passed_checks){
-    if (fn = ''){
-        alert("must fill in first name");
-        passed_checks = false;
-    }
-    else if (!/[^a-zA-Z]/.test(fn)){
-        alert("first name can only contain letters");
-        passed_checks = false;
-    }
-}
+// function check_fn(fn){
+//     if (!/[^a-zA-Z]/.test(fn)){
+//         alert("first name can only contain letters");
+//     }
+// }
 
-function check_ln(ln, passed_checks){
-    if (ln = ''){
-        alert("must fill in last name");
-        passed_checks = false;
-    }
-    else if (!/[^a-zA-Z]/.test(ln)){
-        alert("last name can only contain letters");
-        passed_checks = false;
-    }
-}
+// function check_ln(ln){
+//     if (ln = ''){
+//         alert("must fill in last name");
+//     }
+//     else if (!/[^a-zA-Z]/.test(ln)){
+//         alert("last name can only contain letters");
+//     }
+// }
 
 </script>
 
@@ -410,11 +404,10 @@ function check_ln(ln, passed_checks){
                 var other = document.getElementById("other").value;
                 var insurance = document.getElementById("insurance").value;
                 var policy_holder = document.getElementById("policy_holder").value;
-                var verified = true;
-                var passed_checks = true;
+                var verified = "true";
 
-                check_fn(fn, passed_checks);
-                check_ln(ln, passed_checks);
+                // check_fn(fn);
+                // check_ln(ln);
                     // if (fn == ''){
                     //     alert("fill in first name");
                     // }
