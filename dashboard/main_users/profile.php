@@ -1,8 +1,8 @@
 <?php
-    if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
   $emailwcomma = $_SESSION["queryData"]["email"];
   $email= str_replace(".",",",$emailwcomma);
 ?>
@@ -109,7 +109,7 @@
         //getting input data
         var fname = document.getElementById("fname").value;
         var lname = document.getElementById("lname").value;
-        // var phone = document.getElementById("phone").value; // There is no phone number in the database yet
+        var phone = document.getElementById("phone").value; // There is no phone number in the database yet
         // var email = document.getElementById("email").value; //COMMENTED THIS BECAUSE EMAIL KEY IS UNCHANGEABLE
         var password = document.getElementById("password").value;
         // var email = email.replace(".",",");
@@ -126,6 +126,7 @@
                   alert("didn't go through")
               }
               else {
+                  alert("Your information has been saved successfully.")
                   var postID = newPostRef.key;
                   console.log("went to firebase");
               // Data saved successfully!

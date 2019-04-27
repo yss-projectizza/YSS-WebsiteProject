@@ -11,9 +11,19 @@ var config = {
 };
 firebase.initializeApp(config);
 
+<?php 
+  $emailwithperiod = $_SESSION["queryData"]["email"]; 
+  $emailwithcomma = str_replace(".",",",$emailwithperiod);
+  
+?>
 
-firebase.database().ref('/users/emachta@uci,edu/credit_due').once('value').then(async function(snapshot) {
+var email = "<?php echo $emailwithcomma; ?>"
+
+
+
+firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot) {
           var credit_now = await parseInt(snapshot.val());
+          document.getElementById("amount_owed").innerText = "$" + credit_now;
 });
 
 </script>
@@ -83,7 +93,7 @@ firebase.database().ref('/users/emachta@uci,edu/credit_due').once('value').then(
           <div class="col">
             <div class="card">
                 <h2>Payment</h2>
-                <label>You owe: <?php echo "<label style='font-size:22;color:red;'>$$credit_due</label>";?></label>
+                <label>You owe: <label id="amount_owed" style='font-size:22;color:red;'>$</label></label>
                 <script src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk"></script>
                 <div id="paypal-button-container"></div>
                 <script>
@@ -108,17 +118,17 @@ firebase.database().ref('/users/emachta@uci,edu/credit_due').once('value').then(
                         let payed_dollar = parseInt(amount_payed[0]);
                         let payed_cents = parseInt(amount_payed[1]);
 
-                        firebase.database().ref('/users/emachta@uci,edu/credit_due').once('value').then(async function(snapshot) {
+                        firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot) {
                           var credit_now = await parseInt(snapshot.val());
                           
                           
 
-                          firebase.database().ref('/users/emachta@uci,edu/').update({
+                          firebase.database().ref('/users/' + email).update({
                           credit_due: credit_now - payed_dollar
                           
                         });
 
-                        window.location.href = "/logout.php";
+                        location.reload();
                         });
                       });
                     }
