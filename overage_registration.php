@@ -1,6 +1,9 @@
 <?php
 // Initialize the session
-session_start();
+if(!isset($_SESSION))
+{
+    session_start();
+} 
 ?>
 <script>
     var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
