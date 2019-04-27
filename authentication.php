@@ -29,7 +29,9 @@ $firebase = (new Factory)
 $database = $firebase->getDatabase();
 $reference = $database->getReference('/users')->getValue();
 
-
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+  }
 
 if (array_key_exists($username,$reference)){
     if ($reference[$username]["password"] == $password){
@@ -38,14 +40,14 @@ if (array_key_exists($username,$reference)){
         header("Location:Dashboard.php");
     }else{
         include "login.php";
-        echo "Incorrect Password. Please try again.";
+        alert("Incorrect Password. Please try again.");
         exit;
     }
 }
-else{
+else {
     include "login.php";
-    echo "Unrecognized email. Please try again or sign up if you don't have an account.";
+    alert("Unrecognized email. Please try again or sign up if you don't have an account.");
     exit;
 
 }
-		?>
+?>
