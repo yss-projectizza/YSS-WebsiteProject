@@ -330,7 +330,7 @@ if(!isset($_SESSION))
                 <div class="input-group-prepend">
                     <span class="input-group-text">Policy Holder:<b style = "color: red;">*</b></span>
                  </div>
-                <input type="text" placeholder="Ex: John" name="policy_holder" id="policy_holder" class="form-control" required>
+                <input type="text" placeholder="Ex: Kaiser" name="policy_holder" id="policy_holder" class="form-control" required>
             </div>
         <div class="block_1"><p style="padding-top:30px"</div> <hr />
 

@@ -65,7 +65,6 @@
         <div class="input-group-prepend">
           <span class="input-group-text">Clothing Size:<b style = "color: red;">*</b></span>
             <select class="form-control form-control-md" name="size" id="size">
-              <option selected="selected"> <!--  Display current info in DB --> </option>
               <option>Small</option>
               <option>Medium</option>
               <option>Large</option>
