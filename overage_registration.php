@@ -104,6 +104,13 @@ session_start();
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
+                        <span class="input-group-text">Phone number:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="tel" placeholder="Ex: 1234567890" name="ec_phone1" id="ec_phone1" class="form-control" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
                     <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="schoolyear" id="schoolyear">
                             <option>Junior</option>
@@ -235,7 +242,7 @@ session_start();
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 1 - Phone:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: 1234567890" name="ec_phone1" id="ec_phone1" class="form-control" required>
+                    <input type="tel" placeholder="Ex: 1234567890" name="ec_phone1" id="ec_phone1" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -256,7 +263,7 @@ session_start();
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 2 - Phone:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: 1234567890" name="ec_phone2" id="ec_phone2" class="form-control" required>
+                    <input type="tel" placeholder="Ex: 1234567890" name="ec_phone2" id="ec_phone2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -362,7 +369,9 @@ session_start();
 
 	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
-        <!--<script src="counselor_app.js"></script>-->
+        <!--<script src="counselor_app.js"></script>
+        <script src="firebaseSetup.js"></script>-->
+
         <script>
             function submitForm(){
                 console.log("submitForm called");
@@ -381,6 +390,7 @@ session_start();
                 var gender = document.getElementById("gender").value;
                 var password = document.getElementById("password").value;
                 var password2 = document.getElementById("password2").value;
+                var phone = document.getElementById("phone").value;
                 var year = document.getElementById("schoolyear").value;
                 var size = document.getElementById("size").value;
                 var file = document.getElementById("upload").value;
@@ -448,6 +458,7 @@ session_start();
                             first_name: fn,
                             email:email,
                             password:password,
+                            phone:phone,
                             bus_num:"N/A",
                             group_num:"N/A",
                             cabin_num:"N/A",
@@ -457,7 +468,7 @@ session_start();
                             year: year,
                             size: size,
                             file: file,
-                            spiritual: spiritual, 
+                            spiritual: spiritual,
                             knowledge: knowledge,
                             improvement: improvement,
                             community: community,
