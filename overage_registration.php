@@ -3,7 +3,7 @@
 if(!isset($_SESSION))
 {
     session_start();
-} 
+}
 ?>
 <script>
     var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
@@ -77,7 +77,7 @@ function check_ln(ln, passed_checks){
 		</div>
 	</nav>
 
-    <form id=form1 action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
+    <form id=form1 action="formHandle.php" method="post" onsubmit="return submitForm();">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
         <h1 align="center" style = "font-size:40px;padding-top: 20px;">Youth Participant Registration</h1>
@@ -453,7 +453,7 @@ function check_ln(ln, passed_checks){
                     // }
                     // else if ( password != password2 ){
                     //     alert("Retyped password must match password");
-                
+
                 if (passed_tests == "true"){
                         var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
                             first_name: fn,
