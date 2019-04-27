@@ -329,9 +329,9 @@
         var phone = document.getElementById("phone").value;
         // var email = document.getElementById("email").value; //COMMENTED THIS BECAUSE EMAIL KEY IS UNCHANGEABLE
         // var email = email.replace(".",",");
+        // var oldemail = "<?php echo $email;?>";
         var password = document.getElementById("password").value;
         var size = document.getElementById("size").value;
-        //var oldemail = "<?php echo $email;?>";
         var spiritual = document.getElementById("spiritual").value;
         var knowledge = document.getElementById("knowledge").value;
         var improvement = document.getElementById("improvement").value;
@@ -353,9 +353,10 @@
         var insurance = document.getElementById("insurance").value;
         var policy_holder = document.getElementById("policy_holder").value;
 
-        var newPostRef = firebase.database().ref('/users/' + oldemail).update({
+        var newPostRef = firebase.database().ref('/users/' + /*oldemail*/"<?php echo $email?>").update({
             first_name: first_name,
             last_name: last_name,
+            phone: phone,
             password: password,
             size: size,
             spiritual: spiritual,
