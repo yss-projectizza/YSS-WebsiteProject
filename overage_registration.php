@@ -13,7 +13,29 @@ if(!isset($_SESSION))
     var cabin_num = "N/A";
     var credit_due = "299";
 
-    </script>
+function check_fn(fn, passed_checks){
+    if (fn = ''){
+        alert("must fill in first name");
+        passed_checks = false;
+    }
+    else if (!/[^a-zA-Z]/.test(fn)){
+        alert("first name can only contain letters");
+        passed_checks = false;
+    }
+}
+
+function check_ln(ln, passed_checks){
+    if (ln = ''){
+        alert("must fill in last name");
+        passed_checks = false;
+    }
+    else if (!/[^a-zA-Z]/.test(ln)){
+        alert("last name can only contain letters");
+        passed_checks = false;
+    }
+}
+
+</script>
 
 <!doctype html>
 <html lang="en">
@@ -343,32 +365,6 @@ if(!isset($_SESSION))
         </div>
     </form>
 
-    <!-- <script>
-                            //TEMPORARY DATA TO FILL IN VALUES
-                            document.getElementById("firstname").value = "hi";
-                    document.getElementById("lastname").value = "hi";
-                    document.getElementById("spiritual").value = "hi";
-                    document.getElementById("knowledge").value = "hi";
-                    document.getElementById("improvement").value = "hi";
-                    document.getElementById("community").value = "hi";
-                    document.getElementById("hopes").value = "hi";
-                    document.getElementById("activities").value = "hi";
-                    document.getElementById("question").value = "hi";
-                    document.getElementById("ec_name1").value = "hi";
-                    document.getElementById("ec_phone1").value = "hi";
-                    document.getElementById("ec_relationship1").value = "hi";
-                    document.getElementById("ec_name2").value = "hi";
-                    document.getElementById("ec_phone2").value = "hi";
-                    document.getElementById("ec_relationship2").value = "hi";
-                    document.getElementById("ec_relationship2").value = "hi";
-                    document.getElementById("meds").value = "hi";
-                    document.getElementById("activities").value = "hi";
-                    document.getElementById("dietary").value = "hi";
-                    document.getElementById("other").value = "hi";
-                    document.getElementById("insurance").value = "hi";
-                    document.getElementById("policy_holder").value = "hi";
-        </script> -->
-
 
 	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
@@ -417,9 +413,11 @@ if(!isset($_SESSION))
                 var other = document.getElementById("other").value;
                 var insurance = document.getElementById("insurance").value;
                 var policy_holder = document.getElementById("policy_holder").value;
-                var verified = "false";
+                var verified = true;
+                var passed_checks = true;
 
-
+                check_fn(fn, passed_checks);
+                check_ln(ln, passed_checks);
                     // if (fn == ''){
                     //     alert("fill in first name");
                     // }
@@ -453,10 +451,10 @@ if(!isset($_SESSION))
                     // else if (meds == ''){
                     //     alert("please add any medication or type N/A");
                     // }
-                     if ( password != password2 ){
-                        alert("Retyped password must match password");
-                    } else {
-                        console.log("hellooo")
+                    // else if ( password != password2 ){
+                    //     alert("Retyped password must match password");
+                
+                if (passed_tests == "true"){
                         var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
                             first_name: fn,
                             email:email,
