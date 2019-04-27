@@ -6,6 +6,7 @@ session_start();
 <script>
     var email = "<?php echo $_SESSION["newuserinfo"]["email"];?>";
     var emailwcharactersreplaced = email.replace(".",",");
+    var dob = "<?php echo $_SESSION["newuserinfo"]["age"];?>";
     var total_credit_due = "0";
 
     </script>
@@ -288,6 +289,7 @@ Javascript Segment
                     alert("Retyped password must match password");
             } else{
                 var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
+                    dob: dob,
                     email: email,
                     user_type: "parent",
                     first_name: fName,
