@@ -16,6 +16,7 @@ if(!isset($_SESSION))
     var credit_due = "299";
 </script>
 
+
 <!doctype html>
 <html lang="en">
 
