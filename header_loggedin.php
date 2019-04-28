@@ -9,7 +9,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav mx-auto">
-        <a class="nav-item nav-link" href="/login.php"><font color="white">Login</font></a>
         <a class="nav-item nav-link" href="/logout.php"><font color="white">Logout</font></a>
         <div id="profile">
               <img title="Edit your profile information"
