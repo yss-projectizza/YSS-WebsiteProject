@@ -68,20 +68,9 @@ firebase.database().ref('/users/' + email + '/credit_due').once('value').then(as
             <div class="col my-auto" style="padding-bottom: 20px;">
             <button type="button" class="rounded" onclick="document.location.href = 'manage_attendees.php';">Manage Youth Participants</button>
             </div>
-        <?php endif ?>
-      <!--div class="main-cards"-->
-        <div class="row ">
-          <!-- intro moved to top left corner>
-          <div class="col">
-            <div class="card">
-              <div id="intro">
-                <h3>Hello <?php echo $name; ?>!</h3>
-                <p id="status">Your Status is: <?php echo $status; ?></p> <
-              </div>
-            </div>
-          </div>
-          -->
-          <div class="col">
+        <?php endif ?>       
+         <div class="row ">          
+           <div class="col">
             <div class="card">
               <h2>Your To Dos:</h2>
               <div class="to_do">
