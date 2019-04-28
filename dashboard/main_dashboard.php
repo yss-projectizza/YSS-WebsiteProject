@@ -69,7 +69,8 @@ firebase.database().ref('/users/' + email + '/credit_due').once('value').then(as
             <button type="button" class="rounded" onclick="document.location.href = 'manage_attendees.php';">Manage Youth Participants</button>
             </div>
         <?php endif ?>       
-         <div class="row ">          <div class="col">
+         <div class="row ">          
+           <div class="col">
             <div class="card">
               <h2>Your To Dos:</h2>
               <div class="to_do">
