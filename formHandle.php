@@ -20,10 +20,10 @@
   $database = $firebase->getDatabase();
 
   $setToFirebase = function($emailwComma, $responseArr) {
-      $user_directory = '/users'.'/'.$emailwComma;
+      $userTree = '/users'.'/'.$emailwComma;
         //echo gettype($database);
       foreach ($responseArr as $key => $value) {
-          echo $user_directory;
+          //echo $userTree;
           //$database->getReference($user_directory)
           //  ->set([$key => $value]);
       }
