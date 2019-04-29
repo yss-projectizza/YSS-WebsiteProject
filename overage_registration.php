@@ -40,7 +40,7 @@ if(!isset($_SESSION))
 <body>
     <?php include("header_loggedout.php")?>
 
-    <form id=form1 action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
+    <form id=form1 action="formToDatabase.php" method="post">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
         <h1 align="center" style = "font-size:40px;padding-top: 20px;">Youth Participant Registration</h1>

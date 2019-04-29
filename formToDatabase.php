@@ -10,5 +10,7 @@
   }
   else {
     $setToFirebase($emailwcomma,$_POST);
+    alert("Your account has been created successfully. Please log in to view your dashboard.");
+    header("Location:MYcreateaccount.php");
   }
 ?>
