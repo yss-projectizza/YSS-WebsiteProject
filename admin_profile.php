@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
   <body>
-    <?php include '../../navigation.php'; ?>
+    <?php include 'navigation.php'; ?>
     <div class="container profile-box">
     <!-- Profile Information -->
       <label><p style = "font-size:26px;">Profile Information</p></label>
@@ -54,6 +54,40 @@
             Password<b style = "color: red;">*</b>
             <input id="password" type="password" name="password"
             times-label="password" class="form-control" required>
+            <br>
+        </div>
+      </div>
+
+      <div class="row initial-task-padding">
+        <div class="col">
+            Group #<b style = "color: red;">*</b>
+            <input id="group_num" type="text" name="group_num"
+            times-label="group_num" class="form-control" required>
+            <br>
+        </div>
+      </div>
+
+      <div class="row initial-task-padding">
+        <div class="col">
+            Cabin #<b style = "color: red;">*</b>
+            <input id="cabin_num" type="text" name="cabin_num"
+            times-label="cabin_num" class="form-control" required>
+            <br>
+        </div>
+      </div>
+
+      <div class="row initial-task-padding">
+        <div class="col">
+            Bus #<b style = "color: red;">*</b>
+            <input id="bus_num" type="text" name="bus_num"
+            times-label="bus_num" class="form-control" required>
+            <br>
+        </div>
+      </div>
+
+      <div class="row initial-task-padding">
+        <div class="col">
+            User Type: <label id="user_type" type="text" name="user_type">
             <br>
         </div>
       </div>
@@ -99,6 +133,12 @@
           document.getElementById("fname").value = profiledata.first_name;
           document.getElementById("lname").value = profiledata.last_name;
           document.getElementById("password").value = profiledata.password;
+          document.getElementById("group_num").value = profiledata.group_num;
+          document.getElementById("cabin_num").value = profiledata.cabin_num;
+          document.getElementById("bus_num").value = profiledata.bus_num;
+          document.getElementById("user_type").innerText = profiledata.user_type;
+          document.getElementById("phone").value = profiledata.phone;
+
       });
 
       document.getElementById("update").addEventListener("click", function(){
@@ -106,17 +146,22 @@
         //getting input data
         var fname = document.getElementById("fname").value;
         var lname = document.getElementById("lname").value;
-        var phone = document.getElementById("phone").value; // There is no phone number in the database yet
-        // var email = document.getElementById("email").value; //COMMENTED THIS BECAUSE EMAIL KEY IS UNCHANGEABLE
+        var phone = document.getElementById("phone").value;
         var password = document.getElementById("password").value;
-        // var email = email.replace(".",",");
         var oldemail = "<?php echo $email;?>";
+        var group_num = document.getElementById("group_num").value;
+        var cabin_num = document.getElementById("cabin_num").value;
+        var bus_num = document.getElementById("bus_num").value;
 
 
         var newPostRef = firebase.database().ref('/users/' + nameParam).update({
             first_name: fname,
             last_name: lname,
-            password: password
+            password: password,
+            phone:phone,
+            group_num:group_num,
+            cabin_num:cabin_num,
+            bus_num:bus_num
           },
             function(error){
               if(error) {
