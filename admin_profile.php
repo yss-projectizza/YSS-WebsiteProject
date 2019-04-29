@@ -103,8 +103,12 @@
             </button>
             <input id="update" type="button"
               class="btn-xl" align="center" value="Save changes" >
+              <button id="delete_user"style="background-color:red;"
+               align="center" role="button"> Delete User
+            </button>
        </div>
       </div>
+      
     </div>
 
 
@@ -140,6 +144,13 @@
           document.getElementById("phone").value = profiledata.phone;
 
       });
+
+      document.getElementById("delete_user").addEventListener("click", function(){
+
+        firebase.database().ref('/users/' + nameParam).remove();
+        alert("Data deleted successfully.")
+      });
+      
 
       document.getElementById("update").addEventListener("click", function(){
         var database = firebase.database();
