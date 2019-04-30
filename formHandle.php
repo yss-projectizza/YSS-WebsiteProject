@@ -1,6 +1,9 @@
-<html>
-<body>
+
 <?php
+  ini_set('display_errors',1);
+  ini_set('display_startup_errors',1);
+  error_reporting(E_ALL);
+
   if(!isset($_SESSION))
   {
       session_start();
@@ -19,15 +22,18 @@
       ->create();
   $database = $firebase->getDatabase();
 
-  $setToFirebase = function($emailwComma, $responseArr) {
+  //echo'<pre>';
+  //var_dump($database);
+
+  $updateFirebase = function($emailwComma, $responseArr) {
       $userTree = '/users'.'/'.$emailwComma;
+      global $serviceAccount, $firebase, $database;
         //echo gettype($database);
       foreach ($responseArr as $key => $value) {
           //echo $userTree;
-          //$database->getReference($user_directory)
-          //  ->set([$key => $value]);
+          //$database->getReference();
+          $database->getReference($userTree)
+            ->update([$key => $value]);
       }
   };
 ?>
-</body>
-</html>
