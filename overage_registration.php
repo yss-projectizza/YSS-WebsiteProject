@@ -56,14 +56,14 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>
+                    <input type="text" pattern="[A-Za-z'-]+" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: Smith" name="lastname" id="lastname" class="form-control" required>
+                    <input type="text" pattern="[A-Za-z'-]+" placeholder="Ex: Smith" name="lastname" id="lastname" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -78,16 +78,16 @@ if(!isset($_SESSION))
 
                 <div class="input-group mb-3">
                      <div class="input-group-prepend">
-                        <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Enter A Password (8+ char, at least one number):<b style = "color: red;">*</b></span>
                     </div>
-                        <input type="password" name="password" id="password" class="form-control" required>
+                        <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" name="password" id="password" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                      <div class="input-group-prepend">
                         <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
                     </div>
-                        <input type="password" name="password2" id="password2" class="form-control" required>
+                        <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" name="password2" id="password2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
