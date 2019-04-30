@@ -78,23 +78,23 @@ if(!isset($_SESSION))
 
                 <div class="input-group mb-3">
                      <div class="input-group-prepend">
-                        <span class="input-group-text">Enter A Password (8+ char, at least one number):<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
                     </div>
-                        <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" name="password" id="password" class="form-control" required>
+                        <input type="password" placeholder="Ex: abcde123 (8+ char, at least one number)" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" name="password" id="password" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                      <div class="input-group-prepend">
-                        <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Retype Password:<b style = "color: red;">*</b></span>
                     </div>
-                        <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" name="password2" id="password2" class="form-control" required>
+                        <input type="password" placeholder="Must match above password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" name="password2" id="password2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Phone number:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="tel" placeholder="Ex: 1234567890" name="phone" id="phone" class="form-control" required>
+                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" name="phone" id="phone" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -221,16 +221,16 @@ if(!isset($_SESSION))
             <label><p style = "font-size:30px;padding-top: 10px;">Emergency Contacts</p></label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Emergency Contact 1 - Name:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Emergency Contact 1 - Full Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: John" name="ec_name1" id="ec_name1" class="form-control" required>
+                    <input type="text" placeholder="Ex: John Smith" name="ec_name1" id="ec_name1" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 1 - Phone:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="tel" placeholder="Ex: 1234567890" name="ec_phone1" id="ec_phone1" class="form-control" required>
+                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" name="ec_phone1" id="ec_phone1" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -242,16 +242,16 @@ if(!isset($_SESSION))
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Emergency Contact 2 - Name:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Emergency Contact 2 - Full Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: John" name="ec_name2" id="ec_name2" class="form-control" required>
+                    <input type="text" placeholder="Ex: Emma Jones" name="ec_name2" id="ec_name2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 2 - Phone:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="tel" placeholder="Ex: 1234567890" name="ec_phone2" id="ec_phone2" class="form-control" required>
+                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" name="ec_phone2" id="ec_phone2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
