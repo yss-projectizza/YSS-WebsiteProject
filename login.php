@@ -1,10 +1,10 @@
 <?php
-    if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
+	if(!isset($_SESSION)) 
+	{ 
+			session_start(); 
+	} 
 
-if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
+	if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 		header("Location: dashboard.php");
 		exit;
 
@@ -39,7 +39,6 @@ if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredericka+the+Great">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 		<!-- <link rel="stylesheet" href="registrationstyle.css"> -->
-
 		<!-- <link href="signin.css" rel="stylesheet"> -->
 	</head>
 

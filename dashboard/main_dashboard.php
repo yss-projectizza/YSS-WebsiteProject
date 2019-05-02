@@ -72,7 +72,7 @@ firebase.database().ref('/users/' + email + '/credit_due').once('value').then(as
          <div class="row ">          
            <div class="col">
             <div class="card">
-              <h2>Your To Dos:</h2>
+              <h2>Your To Dossss:</h2>
               <div class="to_do">
                 <input class="check" type="checkbox" disabled="disabled" checked="checked"/>
                  Payment has been Recieved.
