@@ -8,13 +8,15 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <!-- <div> Hello <?php echo $_SESSION["queryData"]["first_name"];?> </div> -->
-      <div class="navbar-nav mx-auto">
-        <a style="right:50" href="/logout.php"><font color="white">Logout</font></a>
-        <div id="profile">
+      <div><span style="position:absolute; font-size: 40px; color: white; right:20%; top: 30%;"> Hello <?php echo $_SESSION["queryData"]["first_name"];?>!</span>
+        <div class="navbar-nav mx-auto">
+          <a href="/dashboard.php" style="margin-right: 20px;"><font color="white">Dashboard</font></a>
+          <a href="/logout.php"><font color="white">Logout</font></a>
+          <div id="profile">
               <img title="Edit your profile information"
                 src="/profile_placeholder.jpg" onClick="goToProfile();"/>
               <p style="color:#eff3f9;">Edit Profile</p> 
+          </div>
         </div>
       </div>
     </div>
