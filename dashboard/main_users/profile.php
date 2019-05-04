@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <?php include '../../navigation.php'; ?>
+    <?php include('../../header_loggedin.php') ?>
     <div class="container profile-box">
 
         <!-- Profile Information -->

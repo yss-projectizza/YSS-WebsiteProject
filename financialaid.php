@@ -15,7 +15,7 @@
 	</head>
 
 	<body>
-		<?php include('navigation.php') ?>
+		<?php include('header_loggedin.php') ?>
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 			<div class="container" style="background: white; margin-top: 20px;">
 				<!-- Financial Aid Header -->

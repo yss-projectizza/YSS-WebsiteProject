@@ -41,7 +41,7 @@
 </head>
 
 <body onload=getLogic();>
-  <?php include('navigation.php') ?>
+  <?php include('header_loggedin.php') ?>
   <!--
       Notes:
       View People = another page to view people in their cabin, group, bus
@@ -68,17 +68,17 @@
 
   <main class="main">
     <?php if ($user_type == "parent"): ?>
-    <div class="col my-auto" style="padding-bottom: 20px;">
-      <button type="button" class="rounded" onclick="document.location.href = 'manage_attendees.php';">Manage Youth
-        Participants</button>
-    </div>
+      <div class="col my-auto" style="padding-bottom: 20px;">
+        <button type="button" class="rounded" onclick="document.location.href = 'manage_attendees.php';">Manage Youth
+          Participants</button>
+      </div>
     <?php endif ?>
-    <div class="row ">
+    <div class="row">
       <div class="col">
         <div class="card">
           <h2>Your To Dos:</h2>
           <div class="to_do">
-            <input class="check" type="checkbox" disabled="disabled" checked="checked" />
+            <input class="check" type="checkbox" disabled="disabled"/>
             Payment has been Recieved.
           </div>
         </div>
@@ -139,15 +139,15 @@
     <div class="row">
       <div class="col">
         <?php if ($user_type != "parent"): ?>
-        <div class="card">
-          <h2>Camp Information</h2>
-          <p>Group Number: <?php echo $group_num; ?></p>
-          <p>Bus Number: <?php echo $bus_num; ?></p>
-          <p>Cabin Number: <?php echo $cabin_num; ?></p>
-          <br />
-          <button type="button" class="rounded"
-            onclick="document.location.href = '/dashboard/main_users/campers.php';">View Youth Participants</button>
-        </div>
+          <div class="card">
+            <h2>Camp Information</h2>
+            <p>Group Number: <?php echo $group_num; ?></p>
+            <p>Bus Number: <?php echo $bus_num; ?></p>
+            <p>Cabin Number: <?php echo $cabin_num; ?></p>
+            <br />
+            <button type="button" class="rounded"
+              onclick="document.location.href = '/dashboard/main_users/campers.php';">View Youth Participants</button>
+          </div>
         <?php endif ?>
       </div>
       <div class="col">

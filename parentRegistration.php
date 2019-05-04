@@ -17,6 +17,7 @@ session_start();
   <head>
     <meta charset="utf-8">
     <title>Parent Registration | Youth Spiritual Summit</title>
+    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!--
@@ -25,11 +26,7 @@ session_start();
   </head>
 
   <body style = "text-align: center" >
-    <!--
-    Navigation bar
-    -->
     <?php include("header_loggedout.php")?>
-
     <form id= "appForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
       <div class="container" style = "background: white; margin-top: 20px;">
           <!-- Parent Registration Header -->
