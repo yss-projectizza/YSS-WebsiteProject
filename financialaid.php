@@ -107,7 +107,7 @@
 						<button onclick="location.href = '/dashboard.php'" id="back" class="btn-xl" align="center"
 								role="button" style="background-color:#ccced1; margin-right:1%;height:2%;"> Back
 						</button>
-						<input type="submit" class="btn-xl" align="center" value="Submit">
+						<input type="submit" class="btn-xl rounded" align="center" value="Submit">
           </div>
 				</div>
 		</form>

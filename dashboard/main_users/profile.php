@@ -296,10 +296,10 @@
         <div class="row margin-data" style="padding-bottom: 50px;padding-top: 10px;" align="center">
             <div class="row margin-data" style="padding-bottom: 50px;
                padding-top: 10px;" align="center" ;>
-                <button onclick="location.href = '/dashboard.php'" id="back" class="btn-xl" align="center"
+                <button onclick="location.href = '/dashboard.php'" id="back" class="btn-xl rounded" align="center"
                     role="button"> Back
                 </button>
-                <input id="update" type="button" class="btn-xl" align="center" value="Save changes">
+                <input id="update" type="button" class="btn-xl rounded" align="center" value="Save changes">
             </div>
         </div>
     </div>
