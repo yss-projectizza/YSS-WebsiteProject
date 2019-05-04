@@ -18,27 +18,25 @@
       "credit_due" => "N/A"
     );
     function alert($msg) {
-      global $userCreated, $redirectpagename;
+      //global $userCreated, $redirectpagename;
       echo "<script type='text/javascript'>
         alert('$msg');
-        /*
-        if($userCreated == true){
-          location = 'login.php';
-        }
-        else{
-          location = 'overage_registration.php';
-        }
-        */
       </script>";
     }
     if($_POST["password"] != $_POST["password2"]) {
+      //header("refresh:5; url=localhost:8000/overage_registration.php");
       alert("Retyped password must match password");
-      //header("Location:overage_registration.php");
+      echo "<script>
+        setTimeout(function(){window.location.replace('overage_registration.php')},1500);
+      </script>";
     }
     else {
       $updateFirebase($emailwcomma, $userInfo, $_POST);
+      //header("refresh:5; url=localhost:8000/login.php");
       alert("Your account has been created successfully. Please log in to view your dashboard.");
-      header("Location:login.php");
+      echo "<script>
+        setTimeout(function(){window.location.replace('login.php')},1500);
+      </script>";
     }
   ?>
 </body>
