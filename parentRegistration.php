@@ -253,25 +253,16 @@ Javascript Segment
             // var ec2name = document.getElementById("ec2nameInput").value;
             // var ec2phone = document.getElementById("ec2phoneInput").value;
             //DL image
-            var dl = document.getElementById("licenseUpload").files[0];
+            //var dl = document.getElementById("licenseUpload").files[0];
 
             if ( password != password2 ){
                     alert("Retyped password must match password");
             } else{
-                //var DLImageRef = storageRef.child('/images/'+emailwcharactersreplaced);
-                // firebase.storage().ref('/images/').put(dl).then(function(snapshot) {
-                //     alert("in",dl);
-                // }).catch(error => alert("ERROR",error));
-                // alert("bottom",dl);
-
-                var storageRef = firebase.storage().ref();
-                //var dlRef = storageRef.child('dl.jpg');
-                var dlImagesRef = storageRef.child('images/mountains.jpg');
-                dlImagesRef.put(dl).then(function(snapshot) {
-                    alert("hello");
-                    console.log('Uploaded a blob or file!');
-                });
-
+                var DLImageRef = storageRef.child('/images/'+emailwcharactersreplaced);
+                firebase.storage().ref('/images/').put(dl).then(function(snapshot) {
+                    alert("in",dl);
+                }).catch(error => alert("ERROR",error.code));
+                alert("bottom",dl);
                 
                 return;
                 var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
