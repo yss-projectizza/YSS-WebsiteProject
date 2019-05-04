@@ -13,15 +13,6 @@ body {
   font-size: 20px;
 }
 
-.navbar-brand:hover {
-  opacity: 0.70;
-}
-
-#profile img:hover {
-  border: 5px solid #5b77a5;
-  opacity: 0.75;
-}
-
 .grid-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -51,9 +42,6 @@ body {
   margin-bottom: 20px;
   -webkit-column-break-inside: avoid;
   padding: 24px;
-}
-
-.card{
   background-color: #eceff1;
   border: 2px solid black;
   border-radius: 5px;
