@@ -10,13 +10,29 @@
     $userCreated = false;
     $emailwcomma = str_replace(".",",",$_SESSION["newuserinfo"]["email"]);
     $redirectpagename = $_SESSION["newuserinfo"]["user_type"];
+
+    if($redirectpagename == "overage_registration.php"){
+      $userType = "student18";
+    }
+    elseif($redirectpagename == "counselor_registration.php"){
+      $userType = "counselor";
+    }
+    elseif($redirectpagename == "parentRegistration.php"){
+      $userType = "parent";
+    }
+    elseif($redirectpagename == "underage_registration.php"){
+      $userType = "student";
+    }
     $userInfo = array(
       "dob" => $_SESSION["newuserinfo"]["age"],
       "bus_num" => "N/A",
       "group_num" => "N/A",
       "cabin_num" => "N/A",
-      "credit_due" => "299"
+      "credit_due" => "299",
+      "user_type" => $userType,
+      "email" => $_SESSION["newuserinfo"]["email"]
     );
+
     function alert($msg) {
       //global $userCreated, $redirectpagename;
       echo "<script type='text/javascript'>
