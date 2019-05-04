@@ -194,10 +194,8 @@ session_start();
                     Parent Authentication</p>
                   <br>
 
-                  <form action="upload.php" method="post" enctype="multipart/form-data">
-                      Picture of Driver's License:<b style = "color: red;">*</b>
+                      Picture of Drivers License:<b style = "color: red;">*</b>
                       <input type="file" name="license" id="licenseUpload" class="form-control" required">
-                  </form>
 
       	<!-- Submit -->
           <div class="row margin-data"
@@ -222,6 +220,7 @@ Javascript Segment
 
     <script>
         function submitForm(){
+            
             var config = {
                 apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
                 authDomain: "yss-project-69ba2.firebaseapp.com",
@@ -260,9 +259,21 @@ Javascript Segment
                     alert("Retyped password must match password");
             } else{
                 //var DLImageRef = storageRef.child('/images/'+emailwcharactersreplaced);
-                firebase.storage().ref('/images/').put(dl).then(function(snapshot) {
-                    alert('Uploaded a blob or file!');
+                // firebase.storage().ref('/images/').put(dl).then(function(snapshot) {
+                //     alert("in",dl);
+                // }).catch(error => alert("ERROR",error));
+                // alert("bottom",dl);
+
+                var storageRef = firebase.storage().ref();
+                //var dlRef = storageRef.child('dl.jpg');
+                var dlImagesRef = storageRef.child('images/mountains.jpg');
+                dlImagesRef.put(dl).then(function(snapshot) {
+                    alert("hello");
+                    console.log('Uploaded a blob or file!');
                 });
+
+                
+                return;
                 var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
                     dob: dob,
                     email: email,
