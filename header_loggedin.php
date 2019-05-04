@@ -10,8 +10,8 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="height: 13%;">
       <div>
         <div class="navbar-nav mx-auto">
-          <a href="/dashboard.php" style="margin-right: 20px;"><font color="white">Dashboard</font></a>
-          <a href="/logout.php"><font color="white">Logout</font></a>
+          <a href="/dashboard.php" class="navlinks" style="margin-right: 20px;">Dashboard</font></a>
+          <a href="/logout.php" class="navlinks">Logout</font></a>
           <div id="profile">
               <span style="color: white;"> Hello <?php echo $_SESSION["queryData"]["first_name"];?>!</span>
               <br/>

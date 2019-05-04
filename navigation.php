@@ -5,7 +5,6 @@
     } 
 ?>
 <?php include("header_loggedin.php")?>
-
 <div class="footer top-buffer">
   <div class="container">
     <div class="row align-items-center">
