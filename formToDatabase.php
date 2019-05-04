@@ -15,7 +15,7 @@
       "bus_num" => "N/A",
       "group_num" => "N/A",
       "cabin_num" => "N/A",
-      "credit_due" => "N/A"
+      "credit_due" => "299"
     );
     function alert($msg) {
       //global $userCreated, $redirectpagename;
