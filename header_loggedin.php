@@ -2,7 +2,7 @@
   <div class="container">
     <a title="Go back to main page" class="navbar-brand"
       href="http://youthspiritualsummit.weebly.com">
-      <img id="yss-image" src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" alt="">
+      <img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png" alt="" width="175" height=auto>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -16,7 +16,7 @@
               <span style="color: white;"> Hello <?php echo $_SESSION["queryData"]["first_name"];?>!</span>
               <br/>
               <img title="Edit your profile information"
-                src="/profile_placeholder.jpg" onClick="goToProfile();"/>
+                src="/profile_placeholder.jpg" onClick="document.location.href = '/dashboard/main_users/profile.php';"/>
               <p style="color:#eff3f9;">Edit Profile</p> 
           </div>
         </div>
