@@ -82,8 +82,11 @@ input[type=submit]:hover{
 }
 
 #profile img:hover {
-  border: 5px solid #5b77a5;
+  border: 1px solid black;
+  border-radius: 50px;
   opacity: 0.75;
+  width: 20%;
+  height: auto;
 }
 
 .navbar-brand:hover {

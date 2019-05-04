@@ -146,7 +146,8 @@
             <p>Cabin Number: <?php echo $cabin_num; ?></p>
             <br />
             <button type="button" class="rounded"
-              onclick="document.location.href = '/dashboard/main_users/campers.php';">View Group Details</button>
+              onclick="document.location.href = '/dashboard/main_users/campers.php';">View Group Details
+            </button>
           </div>
         <?php endif ?>
       </div>
