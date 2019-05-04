@@ -90,7 +90,7 @@ session_start();
                       </div>
                           <input type="password" name="password2" id="password2" class="form-control" required>
                   </div>
-
+<!-- 
                   <p align="left" style = "font-size:30px;padding-top: 10px;">
                     Residence Information</p>
                   <br>
@@ -188,7 +188,7 @@ session_start();
                       </div>
                       <input id="ec2phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
                       name="ec2phone" class="form-control" required>
-                  </div>
+                  </div> -->
 
                   <p align="left" style = "font-size:20px;">
                     Parent Authentication</p>
@@ -242,17 +242,17 @@ Javascript Segment
             //contact info
             var phoneNum = document.getElementById("phoneInput").value;
             //Residence info
-            var Address = document.getElementById("addressInput").value;
-            var City = document.getElementById("cityInput").value;
-            var Zipcode = document.getElementById("zipcodeInput").value;
-            //Emergency Contact 1
-            var ec1relation = document.getElementById("ec1relInput").value;
-            var ec1name = document.getElementById("ec1nameInput").value;
-            var ec1phone = document.getElementById("ec1phoneInput").value;
-            //Emergency Contact2
-            var ec2relation = document.getElementById("ec2relInput").value;
-            var ec2name = document.getElementById("ec2nameInput").value;
-            var ec2phone = document.getElementById("ec2phoneInput").value;
+            // var Address = document.getElementById("addressInput").value;
+            // var City = document.getElementById("cityInput").value;
+            // var Zipcode = document.getElementById("zipcodeInput").value;
+            // //Emergency Contact 1
+            // var ec1relation = document.getElementById("ec1relInput").value;
+            // var ec1name = document.getElementById("ec1nameInput").value;
+            // var ec1phone = document.getElementById("ec1phoneInput").value;
+            // //Emergency Contact2
+            // var ec2relation = document.getElementById("ec2relInput").value;
+            // var ec2name = document.getElementById("ec2nameInput").value;
+            // var ec2phone = document.getElementById("ec2phoneInput").value;
             //DL image
             var dl = document.getElementById("licenseUpload").files[0];
 
@@ -261,7 +261,7 @@ Javascript Segment
             } else{
                 //var DLImageRef = storageRef.child('/images/'+emailwcharactersreplaced);
                 firebase.storage().ref('/images/').put(dl).then(function(snapshot) {
-                    console.log('Uploaded a blob or file!');
+                    alert('Uploaded a blob or file!');
                 });
                 var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
                     dob: dob,
@@ -271,16 +271,16 @@ Javascript Segment
                     last_name: lName,
                     password: password,
                     phone: phoneNum,
-                    address: Address,
-                    city: City,
-                    zipcode: Zipcode,
-                    ec_name1: ec1name,
-                    ec_relationship1: ec1relation,
-                    ec_phone1: ec1phone,
-                    ec_name2: ec2name,
-                    ec_relationship2: ec2relation,
-                    ec_phone2: ec2phone,
-                    total_credit_due: total_credit_due
+                    // address: Address,
+                    // city: City,
+                    // zipcode: Zipcode,
+                    // ec_name1: ec1name,
+                    // ec_relationship1: ec1relation,
+                    // ec_phone1: ec1phone,
+                    // ec_name2: ec2name,
+                    // ec_relationship2: ec2relation,
+                    // ec_phone2: ec2phone,
+                    // total_credit_due: total_credit_due
                 },
                     function(error){
                     if(error) {
