@@ -60,7 +60,7 @@ if(!isset($_SESSION))
                     <div class="col">
                         <!-- <button id="myBtn">Submit</button> -->
                         <button type="submit" value="Submit"
-                                            name="proceed" id="submitAccount" class="rounded" >Next
+                                            name="proceed" id="submitAccount" class="rounded">Next
                     </div>
                 </div>
             </div>
