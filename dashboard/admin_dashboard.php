@@ -29,7 +29,7 @@ if (!isset($_SESSION))
 </head>
 
 <body>
-  <?php include('navigation.php') ?>
+  <?php include('header_loggedin.php') ?>
   <main class="main">
     <h3>Admin Panel</h3>
     <div class="main-cards">
