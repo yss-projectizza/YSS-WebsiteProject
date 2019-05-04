@@ -71,6 +71,15 @@ input[type=submit]:hover{
   border-radius: 50px;
 }
 
+#profile img:hover {
+  border: 5px solid #5b77a5;
+  opacity: 0.75;
+}
+
+.navbar-brand:hover {
+  opacity: 0.70;
+}
+
 .navlinks {
   font-size: 20px;
   color: white;
@@ -78,4 +87,9 @@ input[type=submit]:hover{
 
 .navlinks:hover{
   color: #b0bcf1;
+}
+
+#yss-image{
+  width: 175;
+  height: auto;
 }
