@@ -33,19 +33,15 @@
 <div class="footer top-buffer">
   <div class="container">
     <div class="row align-items-center">
-      <div class="col">
-        <a class="footerphone">
-          Call us:<br>
-          949-416-3753
-        </a>
+      <div class="col" id="left">
+        Call Us: 949-416-3753
+      </div>
+      <div class="col" id="mid">
+        YSS
       </div>
       <div class="vertline"></div>
-      <div class="col">
-      <p>YSS</p>
-      </div>
-      <div class="vertline"></div>
-      <div class="col">
-      © 2019 Youth Spiritual Summit
+      <div class="col" id="right">
+        © 2019 Youth Spiritual Summit
       </div>
     </div>
   </div>
