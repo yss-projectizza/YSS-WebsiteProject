@@ -37,7 +37,8 @@
         Call Us: 949-416-3753
       </div>
       <div class="col" id="mid">
-        YSS
+        Follow us:  
+        <img src="/instagram.png" width="15%" onClick="document.location.href = 'https://www.instagram.com/youth_summit/';"/>
       </div>
       <div class="vertline"></div>
       <div class="col" id="right">
