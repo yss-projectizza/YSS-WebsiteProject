@@ -1,3 +1,9 @@
+<?php
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
+?>
 <nav class="navbar navbar-expand-sm navbar-light">
   <div class="container">
     <a title="Go back to main page" class="navbar-brand"
