@@ -22,18 +22,28 @@
   //echo'<pre>';
   //var_dump($database);
 
+  function alertRedirect($redirectpagename, $msg) {
+      echo "<script type='text/javascript'>
+        alert('$msg');
+      </script>";
+
+      echo "<script>
+        setTimeout(function(){window.location.replace('$redirectpagename')},1500);
+      </script>";
+  }
+
   $updateFirebase = function($emailwComma, $userInfo, $responseArr) {
       $userTree = '/users'.'/'.$emailwComma;
       global $serviceAccount, $firebase, $database;
       $toSend = $userInfo;
         //echo gettype($database);
       foreach ($responseArr as $key => $value) {
-        if($key != 'password2' && $key != 'subscribe') {
-            $toSend[$key] = $value;
-        }
-        else{
-          continue;
-        }
+          if($key != 'password2' && $key != 'subscribe') {
+              $toSend[$key] = $value;
+          }
+          else{
+            continue;
+          }
           //$database->getReference($userTree)
           //  ->update([$key => $value]);
       }
