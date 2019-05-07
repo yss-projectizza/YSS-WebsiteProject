@@ -99,10 +99,10 @@
                padding-top: 10px;"
                align="center";>
             <button onclick="location.href = '/dashboard.php'" id="back"
-              class="btn-xl" align="center" role="button"> Back
+              class="btn-xl rounded" align="center" role="button"> Back
             </button>
             <input id="update" type="button"
-              class="btn-xl" align="center" value="Save changes" >
+              class="btn-xl rounded" align="center" value="Save changes" >
               <button id="delete_user"style="background-color:red;"
                align="center" role="button"> Delete User
             </button>

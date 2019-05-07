@@ -196,9 +196,9 @@ session_start();
           <div class="row margin-data"
           style = "padding-bottom: 50px;
                   padding-top: 10px;
-                  align: center"">
+                  align: center;">
       			<div class="col">
-      				<input type="submit" class="btn-xl" align="center" value="Submit">
+      				<input type="submit" class="btn-xl rounded" align="center" value="Submit">
       			</div>
       		</div>
     	</form>
