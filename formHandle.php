@@ -1,6 +1,10 @@
 <html>
 <body>
 <?php
+  ini_set('display_errors',1);
+  ini_set('display_startup_errors',1);
+  error_reporting(E_ALL);
+
   if(!isset($_SESSION))
   {
       session_start();
@@ -15,15 +19,26 @@
       ->create();
   $database = $firebase->getDatabase();
 
-  $setToFirebase = function($emailwComma, $responseArr) {
+  //echo'<pre>';
+  //var_dump($database);
+
+  $updateFirebase = function($emailwComma, $userInfo, $responseArr) {
+      $userTree = '/users'.'/'.$emailwComma;
+      global $serviceAccount, $firebase, $database;
+      $toSend = $userInfo;
+        //echo gettype($database);
       foreach ($responseArr as $key => $value) {
-          print("key: ");
-          echo $key;
-          print("value: ");
-          echo $value;
-          //$database->getReference('/users'+'/'+$emailwComma)
-          //  ->set([$key => $value]);
+        if($key != 'password2' && $key != 'subscribe') {
+            $toSend[$key] = $value;
+        }
+        else{
+          continue;
+        }
+          //$database->getReference($userTree)
+          //  ->update([$key => $value]);
       }
+      $database->getReference($userTree)
+        ->update($toSend);
   };
 ?>
 </body>
