@@ -67,6 +67,7 @@ session_start();
                   </div>
 
 
+<!--
                   <div class="input-group mb-3">
                       <div class="input-group-prepend">
                           <span class="input-group-text">Phone Number:
@@ -76,6 +77,7 @@ session_start();
                       <input id="phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
                       name="phone" class="form-control" required>
                   </div>
+-->
 
                   <div class="input-group mb-3">
                        <div class="input-group-prepend">
@@ -193,17 +195,17 @@ session_start();
                   <p align="left" style = "font-size:20px;">
                     Parent Authentication</p>
                   <br>
-
+                    <form enctype="multipart/form-data">
                       Picture of Drivers License:<b style = "color: red;">*</b>
-                      <input type="file" name="license" id="licenseUpload" class="form-control" required">
-
+                      <input type="file" name="license" id="licenseUpload" value="upload" class="form-control" required>
+                    </form>
       	<!-- Submit -->
           <div class="row margin-data"
           style = "padding-bottom: 50px;
                   padding-top: 10px;
                   align: center"">
       			<div class="col">
-      				<input type="submit" class="btn-xl" align="center" value="Submit">
+      				<input type="submit" id="submitButton" class="btn-xl" align="center" value="Submit">
       			</div>
       		</div>
     	</form>
@@ -219,8 +221,19 @@ Javascript Segment
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-storage.js"></script>
 
     <script>
+        var dlImage;
+
+        function uploadImage(evt){
+            //dlImage = evt.target.files[0];
+            licenseUpload = document.getElementById('licenseUpload');
+            dlImage = new File([licenseUpload.files[0]], licenseUpload.files[0].name);
+            //dlImage = document.getElementById('licenseUpload').files[0];
+            //dlImage = new File([evt.target.files[0]], evt.target.name);
+            alert("upload image: " + dlImage.name + " size: " + dlImage.size);
+
+        }
+        document.getElementById('licenseUpload').addEventListener('change', uploadImage, false);
         function submitForm(){
-            
             var config = {
                 apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
                 authDomain: "yss-project-69ba2.firebaseapp.com",
@@ -230,7 +243,6 @@ Javascript Segment
                 messagingSenderId: "530416464878"
             };
             firebase.initializeApp(config);
-            var storageRef = firebase.storage().ref();
             
             var database = firebase.database();
             //name and password
@@ -239,7 +251,7 @@ Javascript Segment
             var password = document.getElementById("password").value;
             var password2 = document.getElementById("password2").value;
             //contact info
-            var phoneNum = document.getElementById("phoneInput").value;
+            //var phoneNum = document.getElementById("phoneInput").value;
             //Residence info
             // var Address = document.getElementById("addressInput").value;
             // var City = document.getElementById("cityInput").value;
@@ -251,20 +263,17 @@ Javascript Segment
             // //Emergency Contact2
             // var ec2relation = document.getElementById("ec2relInput").value;
             // var ec2name = document.getElementById("ec2nameInput").value;
-            // var ec2phone = document.getElementById("ec2phoneInput").value;
-            //DL image
-            //var dl = document.getElementById("licenseUpload").files[0];
-
+            // var ec2phone = document.getElementById("ec2phoneInput").value;    
+            
             if ( password != password2 ){
                     alert("Retyped password must match password");
             } else{
-                var DLImageRef = storageRef.child('/images/'+emailwcharactersreplaced);
-                firebase.storage().ref('/images/').put(dl).then(function(snapshot) {
-                    alert("in",dl);
-                }).catch(error => alert("ERROR",error.code));
-                alert("bottom",dl);
-                
-                return;
+                var storageRef = firebase.storage().ref('dl/' + dlImage.name);
+                alert("here! image name: " + dlImage.name);
+                storageRef.put(dlImage).then(function(snapshot) {
+                    console.log("Uploaded an array!");
+                });
+            
                 var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
                     dob: dob,
                     email: email,
@@ -272,7 +281,7 @@ Javascript Segment
                     first_name: fName,
                     last_name: lName,
                     password: password,
-                    phone: phoneNum,
+                    //phone: phoneNum,
                     // address: Address,
                     // city: City,
                     // zipcode: Zipcode,
@@ -292,10 +301,8 @@ Javascript Segment
                         var postID = newPostRef.key;
                         window.location.replace("login.php");
                         console.log("went to firebase");
-                    // Data saved successfully!
                     }
                 });
-          //}
             }
             return false;
 
