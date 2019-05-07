@@ -23,24 +23,15 @@ if(!isset($_SESSION))
 <head>
 	<title>Youth Registration | Youth Spiritual Summit</title>
     <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/css/main.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredericka+the+Great"> -->
-	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"> -->
-	<!-- <link rel="stylesheet" href="registrationstyle.css"> -->
-	<!-- <link rel="stylesheet" href="StudentRegistration.css"> -->
-
-	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
-
 </head>
 
 <body>
     <?php include("header_loggedout.php")?>
 
-    <form id=form1 action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
+    <form id=form1 action="formToDatabase.php" method="post" enctype="multipart/form-data">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
         <h1 align="center" style = "font-size:40px;padding-top: 20px;">Youth Participant Registration</h1>
@@ -56,14 +47,16 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>
+                    <input type="text" pattern="[A-Za-z'-]+" placeholder="Ex: John" 
+                           name="first_name" id="firstname" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: Smith" name="lastname" id="lastname" class="form-control" required>
+                    <input type="text" pattern="[A-Za-z'-]+" placeholder="Ex: Smith" 
+                           name="last_name" id="lastname" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -80,27 +73,27 @@ if(!isset($_SESSION))
                      <div class="input-group-prepend">
                         <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
                     </div>
-                        <input type="password" name="password" id="password" class="form-control" required>
+                        <input type="password" placeholder="Ex: abcde123 (8+ char, at least one number)" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" name="password" id="password" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                      <div class="input-group-prepend">
-                        <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Retype Password:<b style = "color: red;">*</b></span>
                     </div>
-                        <input type="password" name="password2" id="password2" class="form-control" required>
+                        <input type="password" placeholder="Must match above password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" name="password2" id="password2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Phone number:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="tel" placeholder="Ex: 1234567890" name="phone" id="phone" class="form-control" required>
+                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" name="phone" id="phone" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="schoolyear" id="schoolyear">
+                        <select class="form-control form-control-md" name="year" id="schoolyear">
                             <option>Junior</option>
                             <option>Senior</option>
                             <option>Early College</option>
@@ -125,7 +118,7 @@ if(!isset($_SESSION))
 
                 <form action="upload.php" method="post" enctype="multipart/form-data">
                     Picture of Drivers License / Government ID:<b style = "color: red;">*</b>
-                    <input type="file" name="upload" id="upload" class="form-control" required>
+                    <input type="file" name="file" id="upload" class="form-control" required>
                 </form>
         </div>
 
@@ -180,7 +173,7 @@ if(!isset($_SESSION))
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Actively Involved In Making My Community Better:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" id="community">
+                        <select class="form-control form-control-md" id="community" name="community">
                             <option>Very High</option>
                             <option>High</option>
                             <option>Neutral</option>
@@ -194,21 +187,21 @@ if(!isset($_SESSION))
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>
-                        <textarea id="hopes" cols="132" rows="3" value=""></textarea>
+                        <textarea id="hopes" name="hopes" cols="132" rows="3" value=""></textarea>
                     </div>
                 </div>
 
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What are some activities that you enjoy?</p>
-                        <textarea id="activities" cols="132" rows="3" value=""></textarea>
+                        <textarea id="activities" name="activites" cols="132" rows="3" value=""></textarea>
                     </div>
                 </div>
 
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What is one question you would like to have answered during this year's Summit?</b></p>
-                        <textarea id="question" cols="132" rows="3" value=""></textarea>
+                        <textarea id="question" name="question" cols="132" rows="3" value=""></textarea>
                     </div>
                 </div>
 
@@ -221,16 +214,16 @@ if(!isset($_SESSION))
             <label><p style = "font-size:30px;padding-top: 10px;">Emergency Contacts</p></label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Emergency Contact 1 - Name:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Emergency Contact 1 - Full Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: John" name="ec_name1" id="ec_name1" class="form-control" required>
+                    <input type="text" placeholder="Ex: John Smith" name="ec_name1" id="ec_name1" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 1 - Phone:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="tel" placeholder="Ex: 1234567890" name="ec_phone1" id="ec_phone1" class="form-control" required>
+                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" name="ec_phone1" id="ec_phone1" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -242,16 +235,16 @@ if(!isset($_SESSION))
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Emergency Contact 2 - Name:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Emergency Contact 2 - Full Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: John" name="ec_name2" id="ec_name2" class="form-control" required>
+                    <input type="text" placeholder="Ex: Emma Jones" name="ec_name2" id="ec_name2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 2 - Phone:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="tel" placeholder="Ex: 1234567890" name="ec_phone2" id="ec_phone2" class="form-control" required>
+                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" name="ec_phone2" id="ec_phone2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
