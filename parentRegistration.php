@@ -220,13 +220,8 @@ Javascript Segment
         var dlImage;
 
         function uploadImage(evt){
-            //dlImage = evt.target.files[0];
             licenseUpload = document.getElementById('licenseUpload');
             dlImage = new File([licenseUpload.files[0]], licenseUpload.files[0].name);
-            //dlImage = document.getElementById('licenseUpload').files[0];
-            //dlImage = new File([evt.target.files[0]], evt.target.files[0].name);
-            alert("upload image: " + dlImage.name + " size: " + dlImage.size);
-
         }
         document.getElementById('licenseUpload').addEventListener('change', uploadImage, false);
         function submitForm(){
