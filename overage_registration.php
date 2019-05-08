@@ -31,7 +31,7 @@ if(!isset($_SESSION))
 <body>
     <?php include("header_loggedout.php")?>
 
-    <form id=form1 action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
+    <form id=form1 action="formToDatabase.php" method="post" enctype="multipart/form-data">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
         <h1 align="center" style = "font-size:40px;padding-top: 20px;">Youth Participant Registration</h1>
@@ -47,14 +47,16 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" pattern="[A-Za-z'-]+" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>
+                    <input type="text" pattern="[A-Za-z'-]+" placeholder="Ex: John" 
+                           name="first_name" id="firstname" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" pattern="[A-Za-z'-]+" placeholder="Ex: Smith" name="lastname" id="lastname" class="form-control" required>
+                    <input type="text" pattern="[A-Za-z'-]+" placeholder="Ex: Smith" 
+                           name="last_name" id="lastname" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -91,7 +93,7 @@ if(!isset($_SESSION))
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="schoolyear" id="schoolyear">
+                        <select class="form-control form-control-md" name="year" id="schoolyear">
                             <option>Junior</option>
                             <option>Senior</option>
                             <option>Early College</option>
@@ -116,7 +118,7 @@ if(!isset($_SESSION))
 
                 <form action="upload.php" method="post" enctype="multipart/form-data">
                     Picture of Drivers License / Government ID:<b style = "color: red;">*</b>
-                    <input type="file" name="upload" id="upload" class="form-control" required>
+                    <input type="file" name="file" id="upload" class="form-control" required>
                 </form>
         </div>
 
@@ -171,7 +173,7 @@ if(!isset($_SESSION))
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Actively Involved In Making My Community Better:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" id="community">
+                        <select class="form-control form-control-md" id="community" name="community">
                             <option>Very High</option>
                             <option>High</option>
                             <option>Neutral</option>
@@ -185,21 +187,21 @@ if(!isset($_SESSION))
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>
-                        <textarea id="hopes" cols="132" rows="3" value=""></textarea>
+                        <textarea id="hopes" name="hopes" cols="132" rows="3" value=""></textarea>
                     </div>
                 </div>
 
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What are some activities that you enjoy?</p>
-                        <textarea id="activities" cols="132" rows="3" value=""></textarea>
+                        <textarea id="activities" name="activites" cols="132" rows="3" value=""></textarea>
                     </div>
                 </div>
 
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What is one question you would like to have answered during this year's Summit?</b></p>
-                        <textarea id="question" cols="132" rows="3" value=""></textarea>
+                        <textarea id="question" name="question" cols="132" rows="3" value=""></textarea>
                     </div>
                 </div>
 
