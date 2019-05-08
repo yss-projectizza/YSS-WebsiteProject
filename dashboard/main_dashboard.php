@@ -42,29 +42,6 @@
 
 <body onload=getLogic();>
   <?php include('header_loggedin.php') ?>
-  <!--
-      Notes:
-      View People = another page to view people in their cabin, group, bus
-      Camp Info = another page to view direct camp info
-      Student (underage): Has ToDos, Schedule, View People, Profile, Camp Info
-        - Profile: only has interest, phone #, email, etc. (no address or emergency contact)
-      Student (18): Has ToDos, Schedule, View People, Profile, Camp Info
-        - Profile: only has interest, phone #, email,  billing address, emergency contact, etc.
-      Parent: Has ToDos, Schedule, Manage Campers, Can see each camper's info
-        - Manage Campers: can add camper, see camper status + name, and give access to camper
-                          for their own account
-        - Profile: can see profile of their campers, can edit that info for each camper,
-                  also has own profile,
-      Counselor: Camp Info, Schedule, Profile, View People
-        - Profile: has interest, phone #, email, etc.
-
-      OTHER TODOS:
-      - figure how to toggle between student type, parent, and counselor
-        - ideas
-          - hide certain elements through javascript
-          - figure out how to get user type into php
-        - hardcode -> have separate dashboards for each user type
-    -->
 
   <main class="main">
     <?php if ($user_type == "parent"): ?>
@@ -83,6 +60,7 @@
           </div>
         </div>
       </div>
+    <?php if ($user_type != "counselor"): ?>
       <div class="col">
         <div class="card">
           <h2>Payment</h2>
@@ -136,6 +114,7 @@
         <br>
       </div>
     </div>
+          <?php endif; ?>
     <div class="row">
       <div class="col">
         <?php if ($user_type != "parent"): ?>
@@ -158,6 +137,9 @@
             <p>Saturday</p>
             <p>Sunday</p>
             <p>ETC</p>
+            <?php if ($user_type == "counselor"): ?>
+            <button>Edit Schedule</button>
+          <?php endif; ?>
           </div>
         <?php endif ?>
       </div>
