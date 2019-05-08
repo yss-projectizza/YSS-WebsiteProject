@@ -24,7 +24,7 @@ session_start();
 
   <body style = "text-align: center" >
     <?php include("header_loggedout.php")?>
-    <form id= "appForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
+    <form id= "appForm" action="formToDatabase.php" method="post" enctype="multipart/form-data">
       <div class="container" style = "background: white; margin-top: 20px;">
           <!-- Parent Registration Header -->
           <h1 align="center" style = "font-size:50px;padding-top: 20px;">Register for a Parent Account</h1>
@@ -47,7 +47,7 @@ session_start();
                             style = "color: red;">*</b></span>
                       </div>
                       <input id = "fnameInput" type="text" pattern="[A-Za-z'-]+" placeholder="Ex: John"
-                       name="firstname" class="form-control" required>
+                       name="first_name" class="form-control" required>
                   </div>
 
                   <div class="input-group mb-3">
@@ -56,7 +56,7 @@ session_start();
                             style = "color: red;">*</b></span>
                       </div>
                       <input id = "lnameInput" type="text" pattern="[A-Za-z'-]+" placeholder="Ex: Smith"
-                      name="lastname" class="form-control" required>
+                      name="last_name" class="form-control" required>
                   </div>
 
 
@@ -128,7 +128,7 @@ session_start();
                           <span class="input-group-text">Relationship: <b
                             style = "color: red;">*</b></span>
                       </div>
-                      <input id = "ec1relInput" type="text"name="ec1relation"
+                      <input id = "ec1relInput" type="text"name="ec_relationship1"
                        class="form-control" required>
                   </div>
 
@@ -137,7 +137,7 @@ session_start();
                           <span class="input-group-text">Name: <b
                             style = "color: red;">*</b></span>
                       </div>
-                      <input id = "ec1nameInput" type="text"name="ec1name"
+                      <input id = "ec1nameInput" type="text"name="ec_name1"
                        class="form-control" required>
                   </div>
 
@@ -148,7 +148,7 @@ session_start();
                           </span>
                       </div>
                       <input id="ec1phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
-                      name="ec1phone" class="form-control" required>
+                      name="ec_phone1" class="form-control" required>
                   </div>
 
                   <p align="left" style = "font-size:20px;padding-top: 10px;">
@@ -160,7 +160,7 @@ session_start();
                           <span class="input-group-text">Relationship: <b
                             style = "color: red;">*</b></span>
                       </div>
-                      <input id = "ec2relInput" type="text"name="ec2relation"
+                      <input id = "ec2relInput" type="text"name="ec_relationship2"
                        class="form-control" required>
                   </div>
 
@@ -169,7 +169,7 @@ session_start();
                           <span class="input-group-text">Name: <b
                             style = "color: red;">*</b></span>
                       </div>
-                      <input id = "ec2nameInput" type="text"name="ec2name"
+                      <input id = "ec2nameInput" type="text"name="ec_name2"
                        class="form-control" required>
                   </div>
 
@@ -180,7 +180,7 @@ session_start();
                           </span>
                       </div>
                       <input id="ec2phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
-                      name="ec2phone" class="form-control" required>
+                      name="ec_phone2" class="form-control" required>
                   </div>
 
                   <p align="left" style = "font-size:20px;">
@@ -189,7 +189,7 @@ session_start();
 
                   <form action="upload.php" method="post" enctype="multipart/form-data">
                       Picture of Driver's License:<b style = "color: red;">*</b>
-                      <input type="file" name="license" id="licenseUpload" class="form-control" required">
+                      <input type="file" name="file" id="licenseUpload" class="form-control" required">
                   </form>
 
       	<!-- Submit -->
@@ -198,7 +198,8 @@ session_start();
                   padding-top: 10px;
                   align: center"">
       			<div class="col">
-      				<input type="submit" class="btn-xl" align="center" value="Submit">
+      				<input type="submit" name="subscribe" class="btn-xl"
+              align="center" value="Submit">
       			</div>
       		</div>
     	</form>
@@ -225,7 +226,7 @@ Javascript Segment
             };
             firebase.initializeApp(config);
             var storageRef = firebase.storage().ref();
-            
+
             var database = firebase.database();
             //name and password
             var fName = document.getElementById("fnameInput").value;

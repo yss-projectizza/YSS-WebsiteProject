@@ -1,5 +1,3 @@
-<html>
-<body>
 <?php
   ini_set('display_errors',1);
   ini_set('display_startup_errors',1);
@@ -44,12 +42,8 @@
           else{
             continue;
           }
-          //$database->getReference($userTree)
-          //  ->update([$key => $value]);
       }
       $database->getReference($userTree)
         ->update($toSend);
   };
 ?>
-</body>
-</html>

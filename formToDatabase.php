@@ -11,7 +11,7 @@
     $redirectpagename = $_SESSION["newuserinfo"]["user_type"];
 
     if($redirectpagename != "parentRegistration.php" &&
-    $redirectpagename != "counselor_registration.php") {
+      $redirectpagename != "counselor_registration.php") {
         if($redirectpagename == "overage_registration.php") {
           $userType = "student18";
         }
@@ -29,10 +29,10 @@
         );
     }
     else {
-      $userInfo = array(
-        "dob" => $_SESSION["newuserinfo"]["age"],
-        "email" => $_SESSION["newuserinfo"]["email"]
-      );
+        $userInfo = array(
+          "dob" => $_SESSION["newuserinfo"]["age"],
+          "email" => $_SESSION["newuserinfo"]["email"]
+        );
         if($redirectpagename == "counselor_registration.php") {
           $userInfo["user_type"] = "counselor";
         }
@@ -48,8 +48,8 @@
     else {
       $updateFirebase($emailwcomma, $userInfo, $_POST);
         //header("refresh:5; url=localhost:8000/login.php");
-        alertRedirect("login.php",
-        "Your account has been created successfully. Please log in to view your dashboard.");
+      alertRedirect("login.php",
+      "Your account has been created successfully. Please log in to view your dashboard.");
     }
   ?>
 </body>
