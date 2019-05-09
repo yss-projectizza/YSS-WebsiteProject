@@ -14,12 +14,9 @@
   <?php 
   $emailwithperiod = $_SESSION["queryData"]["email"]; 
   $emailwithcomma = str_replace(".",",",$emailwithperiod);
-  
-?>
+  ?>
 
   var email = "<?php echo $emailwithcomma; ?>"
-
-
 
   firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function (snapshot) {
     var credit_now = await parseInt(snapshot.val());
@@ -29,7 +26,6 @@
 
 
 <html lang="en">
-
 <head>
   <title>Youth Spiritual Summit</title>
   <script src="dashboard/main_dashboard.js"></script>
@@ -40,9 +36,8 @@
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
 
-<body onload=getLogic();>
+<body>
   <?php include('header_loggedin.php') ?>
-
   <main class="main">
     <?php if ($user_type == "parent"): ?>
       <div class="col my-auto" style="padding-bottom: 20px;">
@@ -60,7 +55,7 @@
         <div class="card">
           <h2>Your To Dos:</h2>
           <div class="to_do">
-            <input class="check" type="checkbox" disabled="disabled"/>
+            <input class="check" type="checkbox" disabled="disabled" />
             Payment has been Recieved.
           </div>
         </div>
@@ -97,7 +92,7 @@
                   let payed_cents = parseInt(amount_payed[1]);
 
                   firebase.database().ref('/users/' + email + '/credit_due').once('value').then(
-                  async function (snapshot) {
+                    async function (snapshot) {
                       var credit_now = await parseInt(snapshot.val());
 
 
@@ -123,15 +118,16 @@
     <div class="row">
       <div class="col">
         <?php if ($user_type != "parent"): ?>
-          <div class="card">
-            <h2>Camp Information</h2>
-            <p>Group Number: <?php echo $group_num; ?></p>
-            <p>Bus Number: <?php echo $bus_num; ?></p>
-            <p>Cabin Number: <?php echo $cabin_num; ?></p>
-            <br />
-            <button type="button" class="rounded"
-              onclick="document.location.href = '/dashboard/main_users/campers.php';">View Group Details</button>
-          </div>
+        <div class="card">
+          <h2>Camp Information</h2>
+          <p>Group Number: <?php echo $group_num; ?></p>
+          <p>Bus Number: <?php echo $bus_num; ?></p>
+          <p>Cabin Number: <?php echo $cabin_num; ?></p>
+          <br />
+          <button type="button" class="rounded"
+            onclick="document.location.href = '/dashboard/main_users/campers.php';">View Group Details
+          </button>
+        </div>
         <?php endif ?>
       </div>
       <div class="col">

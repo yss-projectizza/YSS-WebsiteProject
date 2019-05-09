@@ -295,7 +295,7 @@
         <!-- Submit -->
         <div class="row margin-data" style="padding-bottom: 50px;padding-top: 10px;" align="center">
             <div class="row margin-data" style="padding-bottom: 50px;
-               padding-top: 10px;" align="center" ;>
+               padding-top: 10px; margin-bottom: 5%;" align="center" ;>
                 <button onclick="location.href = '/dashboard.php'" id="back" class="btn-xl rounded" align="center"
                     role="button"> Back
                 </button>
