@@ -39,7 +39,7 @@
       <div class="col" id="mid">
         Follow us:  
         <img src="/instagram.svg" width="10%" onClick="document.location.href = 'https://www.instagram.com/youth_summit/';"/>
-        <img src="/facebook.png" width="10%" onClick="document.location.href = 'https://www.facebook.com/youthspiritualsummit/';"/>
+        <img src="/facebook.svg" width="11%" onClick="document.location.href = 'https://www.facebook.com/youthspiritualsummit/';"/>
       </div>
       <div class="vertline"></div>
       <div class="col" id="right">
