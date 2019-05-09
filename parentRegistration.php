@@ -283,7 +283,9 @@ Javascript Segment
                     ec_name2: ecName2,
                     ec_relationship2: ecRelation2,
                     ec_phone2: ecPhone2,
-                    total_credit_due: total_credit_due
+                    total_credit_due: total_credit_due,
+                    credit_due:0,
+                    attendees:[]
                 },
                     function(error){
                     if(error) {
