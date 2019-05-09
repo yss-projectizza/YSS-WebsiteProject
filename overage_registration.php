@@ -104,7 +104,7 @@ if(!isset($_SESSION))
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text">Clothing Size:<b style = "color: red;">*</b></span>
+                    <span class="input-group-text">Sweatshirt Size:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="size" id="size">
                             <option>Small</option>
                             <option>Medium</option>
@@ -117,7 +117,7 @@ if(!isset($_SESSION))
 
 
                 <form action="upload.php" method="post" enctype="multipart/form-data">
-                    Picture of Drivers License / Government ID:<b style = "color: red;">*</b>
+                    Upload Picture of Drivers License / Government ID:<b style = "color: red;">*</b>
                     <input type="file" name="file" id="upload" class="form-control" required>
                 </form>
         </div>
@@ -214,9 +214,9 @@ if(!isset($_SESSION))
             <label><p style = "font-size:30px;padding-top: 10px;">Emergency Contacts</p></label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Emergency Contact 1 - Full Name:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Emergency Contact 1 - Name (First & Last):<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: John Smith" name="ec_name1" id="ec_name1" class="form-control" required>
+                    <input type="text" pattern="([A-Z][a-zA-Z]*)" placeholder="Ex: John Smith" name="ec_name1" id="ec_name1" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -235,9 +235,9 @@ if(!isset($_SESSION))
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Emergency Contact 2 - Full Name:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Emergency Contact 2 - Name (First & Last)<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: Emma Jones" name="ec_name2" id="ec_name2" class="form-control" required>
+                    <input type="text" pattern="([A-Z][a-zA-Z]*)" placeholder="Ex: Emma Jones" name="ec_name2" id="ec_name2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -296,7 +296,7 @@ if(!isset($_SESSION))
                 </div>
             </div>
 
-            <div class="input-group mb-3">
+            <div class="input-group mb-3"  style = "padding-top: 20px;">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Insurance Provider:<b style = "color: red;">*</b></span>
                  </div>
