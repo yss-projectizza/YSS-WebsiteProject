@@ -26,11 +26,11 @@ session_start();
 
   <body style = "text-align: center" >
     <?php include("header_loggedout.php")?>
-    <form id= "appForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
-        <div class="container" style = "background: white; margin-top: 20px;">
-            <!-- Parent Registration Header -->
-            <h1 align="center" style = "font-size:50px;padding-top: 20px;">Register for a Parent Account</h1>
-            <br>
+    <form id= "appForm" action="formToDatabase.php" method="post" enctype="multipart/form-data">
+      <div class="container" style = "background: white; margin-top: 20px;">
+          <!-- Parent Registration Header -->
+          <h1 align="center" style = "font-size:50px;padding-top: 20px;">Register for a Parent Account</h1>
+          <br>
 
         <div class="block_1"><p style="padding-top:20px"</div>
             <hr  style="
@@ -39,165 +39,169 @@ session_start();
             " />
         	<div class="container">
 
-                <!-- Info and Exp -->
-                    <p align="left" style = "font-size:30px;padding-top: 10px;">Contact Information</p>
-                    <br>
+              <!-- Info and Exp -->
+                  <p align="left" style = "font-size:30px;padding-top: 10px;">Contact Information</p>
+                  <br>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">First Name:<b
-                                style = "color: red;">*</b></span>
-                        </div>
-                        <input id = "fnameInput" type="text" pattern="[A-Za-z'-]+" placeholder="Ex: John"
-                        name="firstname" class="form-control" required>
-                    </div>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">First Name:<b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "fnameInput" type="text" pattern="[A-Za-z'-]+" placeholder="Ex: John"
+                       name="first_name" class="form-control" required>
+                  </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Last Name:<b
-                                style = "color: red;">*</b></span>
-                            </div>
-                        <input id = "lnameInput" type="text" pattern="[A-Za-z'-]+" placeholder="Ex: Smith"
-                        name="lastname" class="form-control" required>
-                    </div>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Last Name:<b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "lnameInput" type="text" pattern="[A-Za-z'-]+" placeholder="Ex: Smith"
+                      name="last_name" class="form-control" required>
+                  </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Phone Number:
-                                <b style = "color: red;">*</b>
-                            </span>
-                        </div>
-                        <input id="phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
-                        name="phone" class="form-control" required>
-                    </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
-                        </div>
-                            <input type="password" name="password" id="password" class="form-control" required>
-                    </div>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Phone Number:
+                            <b style = "color: red;">*</b>
+                          </span>
+                      </div>
+                      <input id="phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
+                      name="phone" class="form-control" required>
+                  </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
-                        </div>
-                            <input type="password" name="password2" id="password2" class="form-control" required>
-                    </div>
+                  <div class="input-group mb-3">
+                       <div class="input-group-prepend">
+                          <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
+                      </div>
+                          <input type="password" name="password" id="password" class="form-control" required>
+                  </div>
 
-                    <p align="left" style = "font-size:30px;padding-top: 10px;">
-                        Residence Information</p>
-                    <br>
+                  <div class="input-group mb-3">
+                       <div class="input-group-prepend">
+                          <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
+                      </div>
+                          <input type="password" name="password2" id="password2" class="form-control" required>
+                  </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Address:
-                                <b style = "color: red;">*</b>
-                            </span>
-                        </div>
-                        <input id="addressInput" type="text"
-                        placeholder="Ex: 102 Irvine Avenue" name="address"
-                        class="form-control" required>
-                    </div>
+                  <p align="left" style = "font-size:30px;padding-top: 10px;">
+                    Residence Information</p>
+                  <br>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">City:
-                                <b style = "color: red;">*</b>
-                            </span>
-                        </div>
-                        <input id="cityInput" type="text" placeholder="Ex: Irvine" name="city"
-                        class="form-control" required>
-                    </div>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Address:
+                            <b style = "color: red;">*</b>
+                          </span>
+                      </div>
+                      <input id="addressInput" type="text"
+                      placeholder="Ex: 102 Irvine Avenue" name="address"
+                       class="form-control" required>
+                  </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Zipcode:
-                                <b style = "color: red;">*</b>
-                            </span>
-                        </div>
-                        <input id="zipcodeInput" type="text" placeholder="Ex: 111222"
-                        name="zipcode" class="form-control" required>
-                    </div>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">City:
+                            <b style = "color: red;">*</b>
+                          </span>
+                      </div>
+                      <input id="cityInput" type="text" placeholder="Ex: Irvine" name="city"
+                       class="form-control" required>
+                  </div>
 
-                    <p align="left" style = "font-size:20px;padding-top: 10px;">
-                        Emergency Contact 1 Information</p>
-                    <br>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Zipcode:
+                            <b style = "color: red;">*</b>
+                          </span>
+                      </div>
+                      <input id="zipcodeInput" type="text" placeholder="Ex: 111222"
+                      name="zipcode" class="form-control" required>
+                  </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Relationship: <b
-                                style = "color: red;">*</b></span>
-                        </div>
-                        <input id = "ec1relInput" type="text"name="ec1relation"
-                        class="form-control" required>
-                    </div>
+                  <p align="left" style = "font-size:20px;padding-top: 10px;">
+                    Emergency Contact 1 Information</p>
+                  <br>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Name: <b
-                                style = "color: red;">*</b></span>
-                        </div>
-                        <input id = "ec1nameInput" type="text"name="ec1name"
-                        class="form-control" required>
-                    </div>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Relationship: <b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "ec1relInput" type="text"name="ec_relationship1"
+                       class="form-control" required>
+                  </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Phone Number:
-                                <b style = "color: red;">*</b>
-                            </span>
-                        </div>
-                        <input id="ec1phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
-                        name="ec1phone" class="form-control" required>
-                    </div>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Name: <b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "ec1nameInput" type="text"name="ec_name1"
+                       class="form-control" required>
+                  </div>
 
-                    <p align="left" style = "font-size:20px;padding-top: 10px;">
-                        Emergency Contact 2 Information</p>
-                    <br>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Phone Number:
+                            <b style = "color: red;">*</b>
+                          </span>
+                      </div>
+                      <input id="ec1phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
+                      name="ec_phone1" class="form-control" required>
+                  </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Relationship: <b
-                                style = "color: red;">*</b></span>
-                        </div>
-                        <input id = "ec2relInput" type="text"name="ec2relation"
-                        class="form-control" required>
-                    </div>
+                  <p align="left" style = "font-size:20px;padding-top: 10px;">
+                    Emergency Contact 2 Information</p>
+                  <br>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Name: <b
-                                style = "color: red;">*</b></span>
-                        </div>
-                        <input id = "ec2nameInput" type="text"name="ec2name"
-                        class="form-control" required>
-                    </div>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Relationship: <b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "ec2relInput" type="text"name="ec_relationship2"
+                       class="form-control" required>
+                  </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Phone Number:
-                                <b style = "color: red;">*</b>
-                            </span>
-                        </div>
-                        <input id="ec2phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
-                        name="ec2phone" class="form-control" required>
-                    </div>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Name: <b
+                            style = "color: red;">*</b></span>
+                      </div>
+                      <input id = "ec2nameInput" type="text"name="ec_name2"
+                       class="form-control" required>
+                  </div>
 
-                    <p align="left" style = "font-size:20px;">
-                        Parent Authentication</p>
-                    <br>
-                        <form enctype="multipart/form-data">
-                            Picture of Drivers License:<b style = "color: red;">*</b>
-                            <input type="file" name="license" id="licenseUpload" value="upload" class="form-control" required>
-                        </form>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">Phone Number:
+                            <b style = "color: red;">*</b>
+                          </span>
+                      </div>
+                      <input id="ec2phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
+                      name="ec_phone2" class="form-control" required>
+                  </div>
+
+                  <p align="left" style = "font-size:20px;">
+                    Parent Authentication</p>
+                  <br>
+
+                  <form action="upload.php" method="post" enctype="multipart/form-data">
+                      Picture of Driver's License:<b style = "color: red;">*</b>
+                      <input type="file" name="file" id="licenseUpload" class="form-control" required">
+                  </form>
+
       	<!-- Submit -->
         <div class="row margin-data"
           style = "padding-bottom: 50px;
                   padding-top: 10px;
                   align: center;">
       			<div class="col">
-      				<input type="submit" id="submitButton" class="btn-xl rounded" align="center" value="Submit">
+      				<input type="submit" name="subscribe" class="btn-xl"
+              align="center" value="Submit">
       			</div>
       		</div>
     	</form>
@@ -230,7 +234,7 @@ Javascript Segment
                 messagingSenderId: "530416464878"
             };
             firebase.initializeApp(config);
-            
+            var storageRef = firebase.storage().ref();
             var database = firebase.database();
             //name and password
             var fName = document.getElementById("fnameInput").value;

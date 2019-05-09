@@ -24,7 +24,7 @@ session_start();
 <body>
     <?php include("header_loggedout.php")?>
 
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
+    <form action="formToDatabase.php" method="post" enctype="multipart/form-data">
         <div class="container" style="background: white; margin-top: 20px;">
             <!-- Counselor Registration Header -->
             <h1 align="center" style="font-size:50px;padding-top: 20px;">Counselor Application</h1>
@@ -92,7 +92,7 @@ session_start();
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">First Name:<b style="color: red;">*</b></span>
                                 </div>
-                                <input type="text" placeholder="Ex: John" name="firstname" id="firstname"
+                                <input type="text" placeholder="Ex: John" name="first_name" id="firstname"
                                     class="form-control" required>
                             </div>
 
@@ -100,7 +100,7 @@ session_start();
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Last Name:<b style="color: red;">*</b></span>
                                 </div>
-                                <input type="text" placeholder="Ex: Smith" name="lastname" id="lastname"
+                                <input type="text" placeholder="Ex: Smith" name="last_name" id="lastname"
                                     class="form-control" required>
                             </div>
 
@@ -225,7 +225,7 @@ session_start();
                                         comfortable working with.
                                     </small> </span>
                                     <br>
-                                    <input type="text" name="group age" id="group_age" times-label="group age"
+                                    <input type="text" name="group_age" id="group_age" times-label="group age"
                                         class="form-control" required>
                                     <br>
                                 </div>
