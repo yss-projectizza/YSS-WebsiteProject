@@ -11,7 +11,11 @@
 }
 
 #add-youth-btn{
-    margin-bottom: 2%;
+    background-color: rgb(161, 238, 171);
+}
+
+#add-youth-btn:hover{
+    background-color: rgb(121, 240, 174);
 }
 
 #add-youth{
@@ -19,4 +23,13 @@
     height: auto;
     padding: 5%;
     margin-bottom: 10%;
+}
+
+#delete-youth{
+    background-color: rgb(231, 57, 57);
+    color: white;
+}
+
+#delete-youth:hover{
+    background-color: rgb(214, 78, 44);
 }
