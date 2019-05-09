@@ -132,16 +132,13 @@
       </div>
       <div class="col">
         <?php if ($user_type != "parent"): ?>
-          <div class="card">
-            <h2>Schedule</h2>
-            <p>Friday</p>
-            <p>Saturday</p>
-            <p>Sunday</p>
-            <p>ETC</p>
-            <?php if ($user_type == "counselor"): ?>
-            <button>Edit Schedule</button>
-          <?php endif; ?>
-          </div>
+        <div class="card">
+          <h2>Schedule</h2>
+          <p>Friday</p>
+          <p>Saturday</p>
+          <p>Sunday</p>
+          <p>ETC</p>
+        </div>
         <?php endif ?>
       </div>
     </div>
