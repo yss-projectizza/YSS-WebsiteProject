@@ -46,25 +46,61 @@ session_start();
 
       <!-- php -->
     <div class="container rounded box" id="add-youth">
-      <div class="right">
-        <button class="rounded" id="edit-youth"
-          onclick="document.location.href = './editchild.php?childid=<?php echo $childid; ?>';">
-          Edit Youth Participant
-        </button>
-        <button class="rounded" id="delete-youth"
-          onclick="deleteChildById(<?php echo $childid; ?>)">
-          Delete Youth Participant
-        </button>
+      <div class="rounded box youth-info">
+        <div class="right">
+          <button class="rounded" id="edit-youth"
+            onclick="document.location.href = './editchild.php?childid=<?php echo $childid; ?>';">
+            Edit Youth Participant
+          </button>
+          <button class="rounded" id="delete-youth"
+            onclick="deleteChildById(<?php echo $childid; ?>)">
+            Delete Youth Participant
+          </button>
+        </div>
+        <div class="left">
+          <h3><?php echo $first_name . " " . $last_name ?></h3>
+          <h4>Amount Due: <span style="color: red;">$<?php echo $price?></span></h4>
+          <h4>Credit: <span style="color: green;">$<?php echo $credit?></span></h4><br>
+          <!-- <form action="updateAdditionalPaid.php" method="post">
+          Update Credit: <input type="number" step="0.01" name="amount">
+          <input type="hidden" name="childid" value="<?php echo $childid ?>">
+          <input type="submit" value="Submit">
+        </form>   -->
+        </div>
       </div>
-      <div class="left">
-        <h3><?php echo $first_name . " " . $last_name ?></h3>
-        <h4>Amount Due: <span style="color: red;">$<?php echo $price?></span></h4>
-        <h4>Credit: <span style="color: green;">$<?php echo $credit?></span></h4><br>
-        <!-- <form action="updateAdditionalPaid.php" method="post">
-        Update Credit: <input type="number" step="0.01" name="amount">
-        <input type="hidden" name="childid" value="<?php echo $childid ?>">
-        <input type="submit" value="Submit">
-      </form>   -->
+      <div class="rounded box youth-info">
+        <div class="right">
+          <button class="rounded" id="edit-youth"
+            onclick="document.location.href = './editchild.php?childid=<?php echo $childid; ?>';">
+            Edit Youth Participant
+          </button>
+          <button class="rounded" id="delete-youth"
+            onclick="deleteChildById(<?php echo $childid; ?>)">
+            Delete Youth Participant
+          </button>
+        </div>
+        <div class="left">
+          <h3><?php echo $first_name . " " . $last_name ?></h3>
+          <h4>Amount Due: <span style="color: red;">$<?php echo $price?></span></h4>
+          <h4>Credit: <span style="color: green;">$<?php echo $credit?></span></h4><br>
+        </div>
+      </div>
+      <div class="rounded box youth-info">
+        <div class="right">
+          <button class="rounded" id="edit-youth"
+            onclick="document.location.href = './editchild.php?childid=<?php echo $childid; ?>';">
+            Edit Youth Participant
+          </button>
+          <button class="rounded" id="delete-youth"
+            onclick="deleteChildById(<?php echo $childid; ?>)">
+            Delete Youth Participant
+          </button>
+        </div>
+        <div class="left">
+          <h3><?php echo $first_name . " " . $last_name ?></h3>
+          <h4>Amount Due: <span style="color: red;">$<?php echo $price?></span></h4>
+          <h4>Credit: <span style="color: green;">$<?php echo $credit?></span></h4><br>
+        </div>
       </div>
     </div>
   </div>
