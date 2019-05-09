@@ -104,7 +104,7 @@
 					<!-- Submit -->
 					<div class="row margin-data" style="padding-bottom: 50px;
                padding-top:10px; margin-bottom:5%;" align="center" ;>
-						<button onclick="location.href = '/dashboard.php'" id="back" class="btn-xl" align="center"
+						<button onclick="location.href = '/dashboard.php'" id="back" class="btn-xl rounded" align="center"
 								role="button" style="background-color:#ccced1; margin-right:1%;height:2%;"> Back
 						</button>
 						<input type="submit" class="btn-xl rounded" align="center" value="Submit">
