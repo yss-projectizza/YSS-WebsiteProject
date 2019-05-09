@@ -29,7 +29,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend" style="padding-right: 30px;">
                             <span class="input-group-text">Who Are You?<b
                                 style = "color: red;">*</b></span>
-                    </div>
+        
                             <select name="user_type" id="accountType" class="input-group-option" style="
                                 padding-left: 15px;
                                 padding-right: 20px;
@@ -38,6 +38,7 @@ if(!isset($_SESSION))
                                 <option value="counselor_registration.php">I am a Counselor.</option>
                                 <option value="overage_registration.php">I am a Youth Participant over the age of 18.</option>
                             </select>
+                    </div>
             </div>
 
             <div class="input-group mb-3">
