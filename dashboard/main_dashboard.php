@@ -26,6 +26,7 @@
 
 
 <html lang="en">
+
 <head>
   <title>Youth Spiritual Summit</title>
   <script src="dashboard/main_dashboard.js"></script>
@@ -40,15 +41,10 @@
   <?php include('header_loggedin.php') ?>
   <main class="main">
     <?php if ($user_type == "parent"): ?>
-      <div class="col my-auto" style="padding-bottom: 20px;">
-        <!-- <button type="button" class="rounded" onclick="document.location.href = 'manage_attendees.php';">Manage Youth
-          Participants</button> -->
-
-          <form method="get" action="manage_attendees.php">
-          <input type="hidden" name="email" value=<?php echo $email; ?>>
-              <input class="rounded" type="submit" value="Manage Youth Participants"></input>
-          </form>
-      </div>
+      <form method="get" action="manage_attendees.php" style="margin-bottom: -3%;">
+        <input type="hidden" name="email" value=<?php echo $email; ?> />
+        <input class="rounded" type="submit" value="Manage Youth Participants" />
+      </form>
     <?php endif ?>
     <div class="row">
       <div class="col">
@@ -60,7 +56,7 @@
           </div>
         </div>
       </div>
-    <?php if ($user_type != "counselor"): ?>
+      <?php if ($user_type != "counselor"): ?>
       <div class="col">
         <div class="card">
           <h2>Payment</h2>
@@ -114,7 +110,7 @@
         <br>
       </div>
     </div>
-          <?php endif; ?>
+    <?php endif; ?>
     <div class="row">
       <div class="col">
         <?php if ($user_type != "parent"): ?>

@@ -17,7 +17,7 @@ session_start();
   <?php include('header_loggedin.php') ?>
   <div class="container">
     <!-- Dashboard Title Registration Header -->
-    <h1 align="center" style="font-size:50px;padding-top: 1%;">Manage Youth Participant</h1>
+    <h1 align="center" style="font-size:50px;padding-top: 2%;">Manage Youth Participant</h1>
     <br>
     <p> This page allows you to add, remove, and edit your Youth Participant information. </p>
     <div class="block_1"></div>
