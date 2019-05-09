@@ -415,13 +415,17 @@ session_start();
                         extra: extra,
                         references: references,
                         felony1: felony1,
-                        verification: verification
+                        verification: verification,
+                        bus_num: "N/A",
+                        cabin_num: "N/A",
+                        group_num:"N/A",
+                        size: "M"
                     },
                     function (error) {
                         if (error) {
                             alert("didn't go through");
                         } else {
-                            lert(
+                            alert(
                                 "Your account has been created successfully. Please log in to view your dashboard.");
                             var postID = newPostRef.key;
                             window.location.replace("login.php");

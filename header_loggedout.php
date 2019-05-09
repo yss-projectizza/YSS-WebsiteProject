@@ -1,3 +1,9 @@
+<?php
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
+?>
 <nav class="navbar navbar-expand-sm navbar-light">
   <div class="container">
     <a title="Go back to main page" class="navbar-brand"
@@ -19,19 +25,17 @@
 <div class="footer top-buffer">
   <div class="container">
     <div class="row align-items-center">
-      <div class="col">
-        <a class="footerphone">
-          Call us:<br>
-          949-416-3753
-        </a>
+      <div class="col" id="left">
+        Call Us: 949-416-3753
+      </div>
+      <div class="col" id="mid">
+        Follow us:  
+        <img src="/instagram.png" width="15%" onClick="document.location.href = 'https://www.instagram.com/youth_summit/';"/>
+        <img src="/facebook.png" width="10%" onClick="document.location.href = 'https://www.facebook.com/youthspiritualsummit/';"/>
       </div>
       <div class="vertline"></div>
-      <div class="col">
-      <p>YSS</p>
-      </div>
-      <div class="vertline"></div>
-      <div class="col">
-      © 2019 Youth Spiritual Summit
+      <div class="col" id="right">
+        © 2019 Youth Spiritual Summit
       </div>
     </div>
   </div>
