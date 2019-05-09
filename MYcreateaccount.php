@@ -26,6 +26,21 @@ if(!isset($_SESSION))
             <div class="block_1"><p style="padding-top:20px"</div> <hr />
 
             <div class="input-group mb-3">
+                    <div class="input-group-prepend" style="padding-right: 30px;">
+                            <span class="input-group-text">Who Are You?<b
+                                style = "color: red;">*</b></span>
+                    </div>
+                            <select name="user_type" id="accountType" class="input-group-option" style="
+                                padding-left: 15px;
+                                padding-right: 20px;
+                            ">
+                                <option value="parentRegistration.php">I am a Parent/Guardian.</option>
+                                <option value="counselor_registration.php">I am a Counselor.</option>
+                                <option value="overage_registration.php">I am a Youth Participant over the age of 18.</option>
+                            </select>
+            </div>
+
+            <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Enter email:<b style = "color: red;">*</b></span>
                 </div>
@@ -38,21 +53,6 @@ if(!isset($_SESSION))
                 </div>
                     <input type="date" name="age" id="ageInput" class="form-control" required>
             </div>
-
-                    <div class="input-group mb-3">
-                            <div class="input-group-prepend" style="padding-right: 30px;">
-                                    <span class="input-group-text">Choose Account type:<b
-                                        style = "color: red;">*</b></span>
-                            </div>
-                                    <select name="user_type" id="accountType" class="input-group-option" style="
-                                        padding-left: 15px;
-                                        padding-right: 20px;
-                                    ">
-                                        <option value="parentRegistration.php">Guardian</option>
-                                        <option value="counselor_registration.php">Counselor</option>
-                                        <option value="overage_registration.php">Youth</option>
-                                    </select>
-                    </div>
 
             <div class="block_1"><p style="padding-top:30px"</div> <hr />
             <!-- Submit -->
