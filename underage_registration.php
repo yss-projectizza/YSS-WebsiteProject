@@ -1,6 +1,8 @@
 <?php
 // Initialize the session
 session_start();
+
+$parent_email = $_SESSION["queryData"]["email"];
 ?>
 
 <!doctype html>
@@ -186,12 +188,12 @@ session_start();
         <!--<script src="counselor_app.js"></script>-->
         <script>
             var config = {
-                apiKey: "AIzaSyDdBVALQJWdMvR5ed0UswgmdWY1me9eL20",
-                authDomain: "inf117.firebaseapp.com",
-                databaseURL: "https://inf117.firebaseio.com",
-                projectId: "inf117",
-                storageBucket: "inf117.appspot.com",
-                messagingSenderId: "839601382632"
+                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                authDomain: "yss-project-69ba2.firebaseapp.com",
+                databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                projectId: "yss-project-69ba2",
+                storageBucket: "yss-project-69ba2.appspot.com",
+                messagingSenderId: "530416464878"
             };
             firebase.initializeApp(config);
 
@@ -225,7 +227,7 @@ session_start();
                         alert("please add any medication or type N/A");
                     }
                     else {
-                        var newPostRef = firebase.database().ref('/users').push({
+                        var newPostRef = firebase.database().ref('/users/' + fn + ln).set({
                             user_type: "student",
                             first_name: fn,
                             last_name: ln,
@@ -240,7 +242,8 @@ session_start();
                             dietary: dietary,
                             other: other,
                             insurance: insurance,
-                            policy_holder: policy_holder
+                            policy_holder: policy_holder,
+                            parent_email:"<?php echo $parent_email; ?>",
                         }, function(error){
                         if (error) {
                             alert("Did not go through")

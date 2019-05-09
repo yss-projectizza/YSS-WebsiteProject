@@ -2,23 +2,7 @@
 session_start();
 ?>
 
-<?php
-    $user_type = "admin";
-    if($user_type == "admin"){
-        $first_name = "First Name";
-        $last_name = "Last Name";
-        $group_num = 3;
-        $bus_num = 10;
-        $cabin_num = 15;
-        $name = "admin";
-        $email = "test@example.com";
-        $status = "Registered!";
-        $credit = "50";
-        $price = "299";
-        $childid = 123456;
-        
-    }
-?>
+
 <html lang="en">
 
 <head>
@@ -43,7 +27,6 @@ session_start();
       <button class="rounded" id="add-youth-btn"
           onclick="document.location.href = './underage_registration.php';">+ Add Youth Participant
       </button>
-
       <!-- php -->
     <div class="container rounded box" id="add-youth">
       <div class="rounded box youth-info">
@@ -107,3 +90,71 @@ session_start();
 </body>
 
 </html>
+    <!-- php -->
+    <!-- <div class="row" style="padding-bottom:100px">
+      <div class="col" >
+        <div id="test" class="card" style="border-color:grey; height: 40%;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <a class="card-text"></a>
+              <div class="right">
+                <a href="editchild.php?childid=<?php echo $childid; ?>" role="button" class="btn btn-sm btn-secondary">Edit Youth Participant</a>
+                <button onclick="deleteChildById(<?php echo $childid; ?>)" id="deletecamper" class="btn btn-sm btn-danger">Delete Youth Participant</button>
+              </div>
+            </div>		            
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div id="test"></div>
+  </body>
+</html>
+
+
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+    <script>
+      let parent_email = decodeURIComponent(window.location.search.split("=")[1])
+
+            var config = {
+                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                authDomain: "yss-project-69ba2.firebaseapp.com",
+                databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                projectId: "yss-project-69ba2",
+                storageBucket: "yss-project-69ba2.appspot.com",
+                messagingSenderId: "530416464878"
+            };
+            firebase.initializeApp(config);
+          
+
+
+          firebase.database().ref('/users').once('value').then(async function(snapshot) {
+            console.log(snapshot.val())
+
+            
+
+            var idk = Object.entries(snapshot.val());
+            console.log(idk)
+
+            for(let i = 0; i < idk.length; i++){
+              if (idk[i][1].parent_email == parent_email){
+                console.log("found!", idk[i][0]);
+
+                var div = document.createElement("div");  
+                div.class = "card"
+
+                var p = document.createElement("p"); 
+                p.innerHTML = idk[i][0];
+                div.appendChild(p); 
+                
+                
+                document.getElementById("test").appendChild(div); 
+                               
+              }
+            }
+
+
+          });
+
+        </script>

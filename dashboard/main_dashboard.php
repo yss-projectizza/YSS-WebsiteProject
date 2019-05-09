@@ -40,10 +40,15 @@
   <?php include('header_loggedin.php') ?>
   <main class="main">
     <?php if ($user_type == "parent"): ?>
-    <div class="col" style="padding-bottom: 20px;">
-      <button type="button" class="rounded" onclick="document.location.href = 'manage_attendees.php';">Manage Youth
-        Participants</button>
-    </div>
+      <div class="col my-auto" style="padding-bottom: 20px;">
+        <!-- <button type="button" class="rounded" onclick="document.location.href = 'manage_attendees.php';">Manage Youth
+          Participants</button> -->
+
+          <form method="get" action="manage_attendees.php">
+          <input type="hidden" name="email" value=<?php echo $email; ?>>
+              <input class="rounded" type="submit" value="Manage Youth Participants"></input>
+          </form>
+      </div>
     <?php endif ?>
     <div class="row">
       <div class="col">
@@ -55,6 +60,7 @@
           </div>
         </div>
       </div>
+    <?php if ($user_type != "counselor"): ?>
       <div class="col">
         <div class="card">
           <h2>Payment</h2>
@@ -108,6 +114,7 @@
         <br>
       </div>
     </div>
+          <?php endif; ?>
     <div class="row">
       <div class="col">
         <?php if ($user_type != "parent"): ?>
