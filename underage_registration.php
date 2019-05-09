@@ -15,7 +15,7 @@ session_start();
 </head>
 
 <body>
-    <?php include('header_loggedout.php') ?>
+    <?php include('header_loggedin.php') ?>
     <form id=form1 method="post">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
@@ -171,11 +171,10 @@ session_start();
                 <input type="text" placeholder="Ex: John" name="policy_holder" id="policy_holder" class="form-control" required>
             </div>
         
-        <div class="block_1"><p style="padding-top:30px"</div> <hr /><!-- Submit -->
-            <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
+        <div class="block_1">
+            <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px; margin-bottom: 10%;" align="center">
                 <div class="col">
-                    <!-- <button id="myBtn">Submit</button> -->
-                    <button type="button" value="Submit" name="subscribe" id="submitContact">Submit
+                    <button type="button" value="Submit" class="rounded" name="subscribe" id="submitContact">Submit
                 </div>
             </div>
         </div>

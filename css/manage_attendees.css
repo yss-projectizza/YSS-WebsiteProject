@@ -9,3 +9,14 @@
     right: 10%;
     top: 15%;
 }
+
+#add-youth-btn{
+    margin-bottom: 2%;
+}
+
+#add-youth{
+    position: absolute;
+    height: auto;
+    padding: 5%;
+    margin-bottom: 10%;
+}
