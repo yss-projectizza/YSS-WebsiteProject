@@ -46,8 +46,13 @@
   <main class="main">
     <?php if ($user_type == "parent"): ?>
       <div class="col my-auto" style="padding-bottom: 20px;">
-        <button type="button" class="rounded" onclick="document.location.href = 'manage_attendees.php';">Manage Youth
-          Participants</button>
+        <!-- <button type="button" class="rounded" onclick="document.location.href = 'manage_attendees.php';">Manage Youth
+          Participants</button> -->
+
+          <form method="get" action="manage_attendees.php">
+          <input type="hidden" name="email" value=<?php echo $email; ?>>
+              <input class="rounded" type="submit" value="Manage Youth Participants"></input>
+          </form>
       </div>
     <?php endif ?>
     <div class="row">
