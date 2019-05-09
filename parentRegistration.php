@@ -67,7 +67,7 @@ session_start();
                                 <b style = "color: red;">*</b>
                             </span>
                         </div>
-                        <input id="phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
+                        <input id="phoneInput" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Ex: 123-456-7890"
                         name="phone" class="form-control" required>
                     </div>
 
@@ -75,14 +75,14 @@ session_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
                         </div>
-                            <input type="password" name="password" id="password" class="form-control" required>
+                            <input type="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" placeholder="Ex: abcde123 (8+ char, at least one number)" id="password" class="form-control" required>
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
                         </div>
-                            <input type="password" name="password2" id="password2" class="form-control" required>
+                            <input type="password" name="password2" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" placeholder="Ex: abcde123 (8+ char, at least one number)" id="password2" class="form-control" required>
                     </div>
 
                     <p align="left" style = "font-size:30px;padding-top: 10px;">
@@ -116,73 +116,58 @@ session_start();
                                 <b style = "color: red;">*</b>
                             </span>
                         </div>
-                        <input id="zipcodeInput" type="text" placeholder="Ex: 111222"
+                        <input id="zipcodeInput" type="text" placeholder="Ex: 12345"
                         name="zipcode" class="form-control" required>
                     </div>
 
-                    <p align="left" style = "font-size:20px;padding-top: 10px;">
-                        Emergency Contact 1 Information</p>
-                    <br>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Relationship: <b
-                                style = "color: red;">*</b></span>
-                        </div>
-                        <input id = "ec1relInput" type="text"name="ec1relation"
-                        class="form-control" required>
+        <div class="container">
+        <!-- Emergency Contacts -->
+        </div>
+            <label><p style = "font-size:30px;padding-top: 10px;">Emergency Contacts</p></label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 1 - Name (First & Last):<b style = "color: red;">*</b></span>
                     </div>
+                    <input type="text" pattern="([A-Z][a-zA-Z]*)" placeholder="Ex: John Smith" name="ec_name1" id="ec_name1" class="form-control" required>
+                </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Name: <b
-                                style = "color: red;">*</b></span>
-                        </div>
-                        <input id = "ec1nameInput" type="text"name="ec1name"
-                        class="form-control" required>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 1 - Phone:<b style = "color: red;">*</b></span>
                     </div>
+                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" name="ec_phone1" id="ec_phone1" class="form-control" required>
+                </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Phone Number:
-                                <b style = "color: red;">*</b>
-                            </span>
-                        </div>
-                        <input id="ec1phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
-                        name="ec1phone" class="form-control" required>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 1 - Relationship:<b style = "color: red;">*</b></span>
                     </div>
+                    <input type="text" placeholder="Ex: Father" name="ec_relationship1" id="ec_relationship1" class="form-control" required>
+                </div>
 
-                    <p align="left" style = "font-size:20px;padding-top: 10px;">
-                        Emergency Contact 2 Information</p>
-                    <br>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Relationship: <b
-                                style = "color: red;">*</b></span>
-                        </div>
-                        <input id = "ec2relInput" type="text"name="ec2relation"
-                        class="form-control" required>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 2 - Name (First & Last)<b style = "color: red;">*</b></span>
                     </div>
+                    <input type="text" pattern="([A-Z][a-zA-Z]*)" placeholder="Ex: Emma Jones" name="ec_name2" id="ec_name2" class="form-control" required>
+                </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Name: <b
-                                style = "color: red;">*</b></span>
-                        </div>
-                        <input id = "ec2nameInput" type="text"name="ec2name"
-                        class="form-control" required>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 2 - Phone:<b style = "color: red;">*</b></span>
                     </div>
+                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" name="ec_phone2" id="ec_phone2" class="form-control" required>
+                </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Phone Number:
-                                <b style = "color: red;">*</b>
-                            </span>
-                        </div>
-                        <input id="ec2phoneInput" type="tel" placeholder="Ex: (123)-456-7890"
-                        name="ec2phone" class="form-control" required>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Emergency Contact 2 - Relationship:<b style = "color: red;">*</b></span>
                     </div>
+                    <input type="text" placeholder="Ex: Mother" name="ec_relationship2" id="ec_relationship2" class="form-control" required>
+                </div>
+
+
+        <div class="block_1"><p style="padding-top:30px"></div> <hr>
 
                     <p align="left" style = "font-size:20px;">
                         Parent Authentication</p>
@@ -244,13 +229,12 @@ Javascript Segment
             var city = document.getElementById("cityInput").value;
             var zipCode = document.getElementById("zipcodeInput").value;
             //Emergency Contact 1
-            var ecRelation1 = document.getElementById("ec1relInput").value;
-            var ecName1 = document.getElementById("ec1nameInput").value;
-            var ecPhone1 = document.getElementById("ec1phoneInput").value;
-            //Emergency Contact2
-            var ecRelation2 = document.getElementById("ec2relInput").value;
-            var ecName2 = document.getElementById("ec2nameInput").value;
-            var ecPhone2 = document.getElementById("ec2phoneInput").value;    
+            var ec_name1 = document.getElementById("ec_name1").value;
+            var ec_phone1 = document.getElementById("ec_phone1").value;
+            var ec_relationship1 = document.getElementById("ec_relationship1").value;
+            var ec_name2 = document.getElementById("ec_name2").value;
+            var ec_phone2 = document.getElementById("ec_phone2").value;
+            var ec_relationship2 = document.getElementById("ec_relationship2").value;   
             
             if ( password != password2 ){
                     alert("Retyped password must match password");
@@ -277,12 +261,12 @@ Javascript Segment
                     address: address,
                     city: city,
                     zipcode: zipCode,
-                    ec_name1: ecName1,
-                    ec_relationship1: ecRelation1,
-                    ec_phone1: ecPhone1,
-                    ec_name2: ecName2,
-                    ec_relationship2: ecRelation2,
-                    ec_phone2: ecPhone2,
+                    ec_name1: ec_name1,
+                    ec_phone1: ec_phone1,
+                    ec_relationship1: ec_relationship1,
+                    ec_name2: ec_name2,
+                    ec_phone2: ec_phone2,
+                    ec_relationship2: ec_relationship2,
                     total_credit_due: total_credit_due
                 },
                     function(error){
