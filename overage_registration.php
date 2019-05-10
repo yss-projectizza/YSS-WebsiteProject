@@ -321,7 +321,7 @@ if(!isset($_SESSION))
             <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
                 <div class="col">
                     <!-- <button id="myBtn">Submit</button> -->
-                    <input type="submit" value="Submit" name="subscribe" id="submit">
+                    <input type="submit" class="rounded" value="Submit" name="subscribe" id="submit">
                 </div>
             </div>
         </div>

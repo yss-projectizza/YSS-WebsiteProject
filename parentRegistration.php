@@ -15,7 +15,7 @@ session_start();
 
   <head>
     <meta charset="utf-8">
-    <title>Parent Registration | Youth Spiritual Summit</title>
+    <title> Guardian Registration | Youth Spiritual Summit</title>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -26,11 +26,11 @@ session_start();
 
   <body style = "text-align: center" >
     <?php include("header_loggedout.php")?>
-    <form id= "appForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
-        <div class="container" style = "background: white; margin-top: 20px;">
-            <!-- Parent Registration Header -->
-            <h1 align="center" style = "font-size:40px;padding-top: 20px;">Register for a Parent Account</h1>
-            <br>
+    <form id= "appForm" action="formToDatabase.php" method="post" enctype="multipart/form-data">
+      <div class="container" style = "background: white; margin-top: 20px;">
+          <!-- Parent Registration Header -->
+          <h1 align="center" style = "font-size:50px;padding-top: 20px;">Register for a Guardian Account</h1>
+          <br>
 
         <div class="block_1"><p style="padding-top:20px"</div>
             <hr  style="
@@ -38,7 +38,6 @@ session_start();
               border-color: LightSteelBlue;
             " />
         	<div class="container">
-
                 <!-- Info and Exp -->
                     <p align="left" style = "font-size:30px;padding-top: 10px;">Contact Information</p>
                     <br>
@@ -181,13 +180,15 @@ session_start();
                             <br>
                             <input type="file" name="license" id="licenseUpload" value="upload" class="form-control" required>
                         </form>
+            
       	<!-- Submit -->
         <div class="row margin-data"
           style = "padding-bottom: 50px;
                   padding-top: 10px;
-                  align: center"">
+                  align: center;">
       			<div class="col">
-      				<input type="submit" id="submitButton" class="btn-xl" align="center" value="Submit">
+      				<input type="submit" name="subscribe" class="btn-xl"
+              align="center" value="Submit">
       			</div>
       		</div>
     	</form>
@@ -220,7 +221,7 @@ Javascript Segment
                 messagingSenderId: "530416464878"
             };
             firebase.initializeApp(config);
-            
+            var storageRef = firebase.storage().ref();
             var database = firebase.database();
             //name and password
             var fName = document.getElementById("fnameInput").value;
