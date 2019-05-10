@@ -15,7 +15,7 @@ session_start();
 
   <head>
     <meta charset="utf-8">
-    <title>Parent Registration | Youth Spiritual Summit</title>
+    <title> Guardian Registration | Youth Spiritual Summit</title>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -29,7 +29,7 @@ session_start();
     <form id= "appForm" action="formToDatabase.php" method="post" enctype="multipart/form-data">
       <div class="container" style = "background: white; margin-top: 20px;">
           <!-- Parent Registration Header -->
-          <h1 align="center" style = "font-size:50px;padding-top: 20px;">Register for a Parent Account</h1>
+          <h1 align="center" style = "font-size:50px;padding-top: 20px;">Register for a Guardian Account</h1>
           <br>
 
         <div class="block_1"><p style="padding-top:20px"</div>
@@ -186,7 +186,7 @@ session_start();
                   </div>
 
                   <p align="left" style = "font-size:20px;">
-                    Parent Authentication</p>
+                    Guardian Authentication</p>
                   <br>
 
                   <form action="upload.php" method="post" enctype="multipart/form-data">
