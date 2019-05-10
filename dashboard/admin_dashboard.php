@@ -125,6 +125,18 @@ if (!isset($_SESSION))
           </script>
       </div>
 
+      <div class="card">
+        <h3>Schedule</h3>
+        <p id="schedule" />
+        <script>
+            firebase.database().ref('/schedule').set({
+              test:"test"
+            });
+
+            firebase.database().ref('/schedule').once('value').then(item => console.log(item.val()));
+          </script>
+      </div>
+
     </div>
   </main>
 </body>

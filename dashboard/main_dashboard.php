@@ -132,7 +132,7 @@
       </div>
       <div class="col">
         <?php if ($user_type != "parent"): ?>
-        <div class="card">
+        <div class="card" id="schedule">
           <h2>Schedule</h2>
           <p>Friday</p>
           <p>Saturday</p>
