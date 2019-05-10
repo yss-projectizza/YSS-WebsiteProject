@@ -14,12 +14,9 @@
   <?php 
   $emailwithperiod = $_SESSION["queryData"]["email"]; 
   $emailwithcomma = str_replace(".",",",$emailwithperiod);
-  
-?>
+  ?>
 
   var email = "<?php echo $emailwithcomma; ?>"
-
-
 
   firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function (snapshot) {
     var credit_now = await parseInt(snapshot.val());
@@ -29,7 +26,6 @@
 
 
 <html lang="en">
-
 <head>
   <title>Youth Spiritual Summit</title>
   <script src="dashboard/main_dashboard.js"></script>
@@ -40,37 +36,18 @@
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
 
-<body onload=getLogic();>
+<body>
   <?php include('header_loggedin.php') ?>
-  <!--
-      Notes:
-      View People = another page to view people in their cabin, group, bus
-      Camp Info = another page to view direct camp info
-      Student (underage): Has ToDos, Schedule, View People, Profile, Camp Info
-        - Profile: only has interest, phone #, email, etc. (no address or emergency contact)
-      Student (18): Has ToDos, Schedule, View People, Profile, Camp Info
-        - Profile: only has interest, phone #, email,  billing address, emergency contact, etc.
-      Parent: Has ToDos, Schedule, Manage Campers, Can see each camper's info
-        - Manage Campers: can add camper, see camper status + name, and give access to camper
-                          for their own account
-        - Profile: can see profile of their campers, can edit that info for each camper,
-                  also has own profile,
-      Counselor: Camp Info, Schedule, Profile, View People
-        - Profile: has interest, phone #, email, etc.
-
-      OTHER TODOS:
-      - figure how to toggle between student type, parent, and counselor
-        - ideas
-          - hide certain elements through javascript
-          - figure out how to get user type into php
-        - hardcode -> have separate dashboards for each user type
-    -->
-
   <main class="main">
     <?php if ($user_type == "parent"): ?>
       <div class="col my-auto" style="padding-bottom: 20px;">
-        <button type="button" class="rounded" onclick="document.location.href = 'manage_attendees.php';">Manage Youth
-          Participants</button>
+        <!-- <button type="button" class="rounded" onclick="document.location.href = 'manage_attendees.php';">Manage Youth
+          Participants</button> -->
+
+          <form method="get" action="manage_attendees.php">
+          <input type="hidden" name="email" value=<?php echo $email; ?>>
+              <input class="rounded" type="submit" value="Manage Youth Participants"></input>
+          </form>
       </div>
     <?php endif ?>
     <div class="row">
@@ -78,11 +55,12 @@
         <div class="card">
           <h2>Your To Dos:</h2>
           <div class="to_do">
-            <input class="check" type="checkbox" disabled="disabled"/>
+            <input class="check" type="checkbox" disabled="disabled" />
             Payment has been Recieved.
           </div>
         </div>
       </div>
+    <?php if ($user_type != "counselor"): ?>
       <div class="col">
         <div class="card">
           <h2>Payment</h2>
@@ -114,7 +92,7 @@
                   let payed_cents = parseInt(amount_payed[1]);
 
                   firebase.database().ref('/users/' + email + '/credit_due').once('value').then(
-                  async function (snapshot) {
+                    async function (snapshot) {
                       var credit_now = await parseInt(snapshot.val());
 
 
@@ -136,29 +114,31 @@
         <br>
       </div>
     </div>
+          <?php endif; ?>
     <div class="row">
       <div class="col">
         <?php if ($user_type != "parent"): ?>
-          <div class="card">
-            <h2>Camp Information</h2>
-            <p>Group Number: <?php echo $group_num; ?></p>
-            <p>Bus Number: <?php echo $bus_num; ?></p>
-            <p>Cabin Number: <?php echo $cabin_num; ?></p>
-            <br />
-            <button type="button" class="rounded"
-              onclick="document.location.href = '/dashboard/main_users/campers.php';">View Group Details</button>
-          </div>
+        <div class="card">
+          <h2>Camp Information</h2>
+          <p>Group Number: <?php echo $group_num; ?></p>
+          <p>Bus Number: <?php echo $bus_num; ?></p>
+          <p>Cabin Number: <?php echo $cabin_num; ?></p>
+          <br />
+          <button type="button" class="rounded"
+            onclick="document.location.href = '/dashboard/main_users/campers.php';">View Group Details
+          </button>
+        </div>
         <?php endif ?>
       </div>
       <div class="col">
         <?php if ($user_type != "parent"): ?>
-          <div class="card">
-            <h2>Schedule</h2>
-            <p>Friday</p>
-            <p>Saturday</p>
-            <p>Sunday</p>
-            <p>ETC</p>
-          </div>
+        <div class="card">
+          <h2>Schedule</h2>
+          <p>Friday</p>
+          <p>Saturday</p>
+          <p>Sunday</p>
+          <p>ETC</p>
+        </div>
         <?php endif ?>
       </div>
     </div>

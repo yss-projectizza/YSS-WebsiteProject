@@ -1,5 +1,3 @@
-<html>
-<body>
 <?php
   ini_set('display_errors',1);
   ini_set('display_startup_errors',1);
@@ -22,24 +20,40 @@
   //echo'<pre>';
   //var_dump($database);
 
+  function alertRedirect($redirectpagename, $msg) {
+      echo "<script type='text/javascript'>
+        alert('$msg');
+      </script>";
+
+      echo "<script>
+        setTimeout(function(){window.location.replace('$redirectpagename')},1500);
+      </script>";
+  }
+
   $updateFirebase = function($emailwComma, $userInfo, $responseArr) {
       $userTree = '/users'.'/'.$emailwComma;
       global $serviceAccount, $firebase, $database;
       $toSend = $userInfo;
+      //Felony object specific for counselor accounts
+      $felony = false;
         //echo gettype($database);
       foreach ($responseArr as $key => $value) {
-        if($key != 'password2' && $key != 'subscribe') {
-            $toSend[$key] = $value;
-        }
-        else{
-          continue;
-        }
-          //$database->getReference($userTree)
-          //  ->update([$key => $value]);
+          if($key != 'password2' && $key != 'subscribe') {
+              if($key == 'felony1' && $value == 'Yes'){
+                  $felony = true;
+              }
+              if($key == 'felony2' && $felony == false){
+                  $toSend[$key] = "N/A";
+              }
+              else{
+                  $toSend[$key] = $value;
+              }
+          }
+          else{
+            continue;
+          }
       }
       $database->getReference($userTree)
         ->update($toSend);
   };
 ?>
-</body>
-</html>
