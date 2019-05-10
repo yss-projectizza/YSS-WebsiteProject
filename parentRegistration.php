@@ -29,7 +29,7 @@ session_start();
     <form id= "appForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
         <div class="container" style = "background: white; margin-top: 20px;">
             <!-- Parent Registration Header -->
-            <h1 align="center" style = "font-size:50px;padding-top: 20px;">Register for a Parent Account</h1>
+            <h1 align="center" style = "font-size:40px;padding-top: 20px;">Register for a Parent Account</h1>
             <br>
 
         <div class="block_1"><p style="padding-top:20px"</div>
@@ -85,6 +85,8 @@ session_start();
                             <input type="password" name="password2" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" placeholder="Ex: abcde123 (8+ char, at least one number)" id="password2" class="form-control" required>
                     </div>
 
+                    <div class="block_1"><p style="padding-top:30px"></div> <hr>
+
                     <p align="left" style = "font-size:30px;padding-top: 10px;">
                         Residence Information</p>
                     <br>
@@ -120,10 +122,13 @@ session_start();
                         name="zipcode" class="form-control" required>
                     </div>
 
+        <div class="block_1"><p style="padding-top:30px"></div> <hr>
+
         <div class="container">
         <!-- Emergency Contacts -->
         </div>
-            <label><p style = "font-size:30px;padding-top: 10px;">Emergency Contacts</p></label>
+            <<p align="left" style = "font-size:30px;padding-top: 10px;">Contact Information</p>
+                    <br>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 1 - Name (First & Last):<b style = "color: red;">*</b></span>
@@ -169,11 +174,11 @@ session_start();
 
         <div class="block_1"><p style="padding-top:30px"></div> <hr>
 
-                    <p align="left" style = "font-size:20px;">
-                        Parent Authentication</p>
+                    <p align="left" style = "font-size:30px;"> Parent Authentication</p>
                     <br>
                         <form enctype="multipart/form-data">
-                            Picture of Drivers License:<b style = "color: red;">*</b>
+                        <p align="left" style = "font-size:18px;">Upload Picture of Drivers License:<b style = "color: red;">*</b></p>
+                            <br>
                             <input type="file" name="license" id="licenseUpload" value="upload" class="form-control" required>
                         </form>
       	<!-- Submit -->
