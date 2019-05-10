@@ -123,13 +123,13 @@
       </div>
       <div class="col-md-6">
         <?php if ($user_type != "parent"): ?>
-          <div class="card">
-            <h2>Schedule</h2>
-            <p>Friday</p>
-            <p>Saturday</p>
-            <p>Sunday</p>
-            <p>ETC</p>
-          </div>
+        <div class="card" id="schedule">
+          <h2>Schedule</h2>
+          <p>Friday</p>
+          <p>Saturday</p>
+          <p>Sunday</p>
+          <p>ETC</p>
+        </div>
         <?php endif ?>
       </div>
     </div>

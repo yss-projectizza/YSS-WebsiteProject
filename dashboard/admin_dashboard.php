@@ -125,6 +125,60 @@ if (!isset($_SESSION))
           </script>
       </div>
 
+      <div class="card">
+        <h3>Schedule</h3>
+        <p id="schedule" />
+        <div id="inside-div">
+          
+        <div>
+
+        <button id="addEvent">
+              Add an event
+            </button>
+          <button id="submit">
+              Submit
+            </button>
+        <script>
+          let counter = 0
+            
+
+
+            firebase.database().ref('/schedule').once('value').then(item => 
+            
+            {
+              let firebasedataArray = Object.entries(item.val());
+
+              for(let i = 0; i < firebasedataArray.length; ++i){
+                var updiv = document.getElementById("inside-div");
+                var newp = document.createElement("p");
+                newp.innerHTML = firebasedataArray[i]
+                updiv.appendChild(newp)
+              }
+            }
+            ); 
+
+            addEventButton= document.getElementById("addEvent");
+            addEventButton.addEventListener("click", function(){
+              counter++;
+              let label = document.createElement("label");
+              let input = document.createElement("input");
+              label.innerHTML = "Event " + counter;
+              input.type = "text"
+              document.getElementById("inside-div").appendChild(label);
+              document.getElementById("inside-div").appendChild(input);
+              
+            });
+
+            document.getElementById("submit").addEventListener("click", function(){
+              firebase.database().ref('/schedule').set({
+              test:"hello",
+              testing:"tlkasdjfls",
+             });
+            });
+
+          </script>
+      </div>
+
     </div>
   </main>
 </body>
