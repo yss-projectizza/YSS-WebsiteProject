@@ -236,6 +236,7 @@ Javascript Segment
             var ec_phone2 = document.getElementById("ec_phone2").value;
             var ec_relationship2 = document.getElementById("ec_relationship2").value;   
             
+            
             if ( password != password2 ){
                     alert("Retyped password must match password");
             } else{
@@ -267,9 +268,11 @@ Javascript Segment
                     ec_name2: ec_name2,
                     ec_phone2: ec_phone2,
                     ec_relationship2: ec_relationship2,
-                    total_credit_due: total_credit_due
+                    total_credit_due: total_credit_due,
+                    credit_due:0,
+                    attendees:[]
                 },
-                
+
                     function(error){
                     if(error) {
                         alert("didn't go through")
