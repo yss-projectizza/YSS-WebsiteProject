@@ -269,6 +269,7 @@ Javascript Segment
                     ec_relationship2: ec_relationship2,
                     total_credit_due: total_credit_due
                 },
+                
                     function(error){
                     if(error) {
                         alert("didn't go through")
