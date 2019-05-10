@@ -128,12 +128,40 @@ if (!isset($_SESSION))
       <div class="card">
         <h3>Schedule</h3>
         <p id="schedule" />
+        <div id="inside-div">
+          
+        <div>
+
+        <button>
+              Add an event
+            </button>
+          <button>
+              Submit
+            </button>
         <script>
+            
+
+
+            firebase.database().ref('/schedule').once('value').then(item => 
+            
+            {
+
+              for(let i = 0; i < 5; ++i){
+                console.log(item.val())
+                var updiv = document.getElementById("inside-div");
+                var newp = document.createElement("p");
+                newp.innerHTML = "Test"
+                updiv.appendChild(newp)
+              }
+            }
+            );
+
+            
+
+
             firebase.database().ref('/schedule').set({
               test:"test"
             });
-
-            firebase.database().ref('/schedule').once('value').then(item => console.log(item.val()));
           </script>
       </div>
 
