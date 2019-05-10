@@ -333,30 +333,28 @@ session_start();
         </div>
         </div>
     </form>
-    
+
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
  
-    <div class="footer top-buffer">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col">
-                    <a class="footerphone">
-                        Call us:<br>
-                        949-422-8123
-                    </a>
-                </div>
-                <div class="vertline"></div>
-                <div class="col">
-                    <p>YSS</p>
-                </div>
-                <div class="vertline"></div>
-                <div class="col">
-                    © 2019 Youth Spiritual Summit
-                </div>
-            </div>
-        </div>
+   <div class="footer top-buffer">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col" id="left">
+        Call Us: 949-416-3753
+      </div>
+      <div class="col" id="mid">
+        Follow us:  
+        <img src="/instagram.svg" width="10%" onClick="document.location.href = 'https://www.instagram.com/youth_summit/';"/>
+        <img src="/facebook.svg" width="11%" onClick="document.location.href = 'https://www.facebook.com/youthspiritualsummit/';"/>
+      </div>
+      <div class="vertline"></div>
+      <div class="col" id="right">
+        © 2019 Youth Spiritual Summit 
+      </div>
     </div>
+  </div>
+</div>
 </body>
 
 </html>
