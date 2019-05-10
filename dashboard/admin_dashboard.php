@@ -139,6 +139,7 @@ if (!isset($_SESSION))
               Submit
             </button>
         <script>
+          let counter = 0
             
 
 
@@ -158,10 +159,13 @@ if (!isset($_SESSION))
 
             addEventButton= document.getElementById("addEvent");
             addEventButton.addEventListener("click", function(){
+              counter++;
+              let label = document.createElement("label");
               let input = document.createElement("input");
+              label.innerHTML = "Event " + counter;
               input.type = "text"
+              document.getElementById("inside-div").appendChild(label);
               document.getElementById("inside-div").appendChild(input);
-              
               
             });
 
@@ -169,10 +173,8 @@ if (!isset($_SESSION))
               firebase.database().ref('/schedule').set({
               test:"hello",
               testing:"tlkasdjfls",
+             });
             });
-              
-            });
-
 
           </script>
       </div>
