@@ -126,7 +126,7 @@ session_start();
         <div class="container">
         <!-- Emergency Contacts -->
         </div>
-            <<p align="left" style = "font-size:30px;padding-top: 10px;">Contact Information</p>
+            <p align="left" style = "font-size:30px;padding-top: 10px;">Contact Information</p>
                     <br>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
