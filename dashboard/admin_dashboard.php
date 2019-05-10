@@ -132,10 +132,10 @@ if (!isset($_SESSION))
           
         <div>
 
-        <button>
+        <button id="addEvent">
               Add an event
             </button>
-          <button>
+          <button id="submit">
               Submit
             </button>
         <script>
@@ -145,23 +145,35 @@ if (!isset($_SESSION))
             firebase.database().ref('/schedule').once('value').then(item => 
             
             {
+              let firebasedataArray = Object.entries(item.val());
 
-              for(let i = 0; i < 5; ++i){
-                console.log(item.val())
+              for(let i = 0; i < firebasedataArray.length; ++i){
                 var updiv = document.getElementById("inside-div");
                 var newp = document.createElement("p");
-                newp.innerHTML = "Test"
+                newp.innerHTML = firebasedataArray[i]
                 updiv.appendChild(newp)
               }
             }
-            );
+            ); 
 
-            
-
-
-            firebase.database().ref('/schedule').set({
-              test:"test"
+            addEventButton= document.getElementById("addEvent");
+            addEventButton.addEventListener("click", function(){
+              let input = document.createElement("input");
+              input.type = "text"
+              document.getElementById("inside-div").appendChild(input);
+              
+              
             });
+
+            document.getElementById("submit").addEventListener("click", function(){
+              firebase.database().ref('/schedule').set({
+              test:"hello",
+              testing:"tlkasdjfls",
+            });
+              
+            });
+
+
           </script>
       </div>
 
