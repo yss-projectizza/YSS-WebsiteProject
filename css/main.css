@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto' sans-serif, Arial, Helvetica, sans-serif;
 }
 
 .navbar {
@@ -15,6 +15,17 @@ body {
   border: thin solid black;
   border-radius: 5px;
 }
+
+/* .shadow {
+  font-family: 'Playfair Display', serif;
+  font-size: 75px;
+  color: #20b2aa;
+  text-shadow:
+   -1px -1px 0 #000,
+   1px -1px 0 #000,
+   -1px 1px 0 #000,
+   1px 1px 0 #000;
+} */
 
 .box {
   position: relative;
@@ -37,8 +48,18 @@ button:hover{
   cursor: pointer;
 }
 
+input[type=button] {
+  background-color:#b7a5f7;
+}
+
+input[type=button]:hover{
+  background-color:#8fd4d9;
+  cursor: pointer;
+}
+
 input[type=submit]{
   background-color: #f5be6c;
+  margin-bottom: 5%;
 }
 
 input[type=submit]:hover{
@@ -47,13 +68,19 @@ input[type=submit]:hover{
 }
 
 .footer{
+  font-size: 17px;
   position: absolute;
-  padding: 1%;
+  padding: 2%;
   width: 100%;
+  height: auto;
   overflow: hidden;
   background-color: #474c54;
   color: white;
   bottom: 0%;
+}
+
+.footer img {
+  cursor: pointer;
 }
 
 #profile {
@@ -64,9 +91,42 @@ input[type=submit]:hover{
 }
 
 #profile img {
-  width: 25%;
+  width: 20%;
   height: auto;
   cursor: pointer;
   border: 1px solid black;
   border-radius: 50px;
+}
+
+#profile img:hover {
+  border: 1px solid black;
+  border-radius: 50px;
+  opacity: 0.75;
+  width: 20%;
+  height: auto;
+}
+
+.navbar-brand:hover {
+  opacity: 0.70;
+}
+
+.navlinks {
+  font-size: 20px;
+  color: white;
+}
+
+.navlinks:hover{
+  color: #b0bcf1;
+}
+
+#left {
+  left: -10%;
+}
+
+#mid {
+  left: 7%;
+}
+
+#right {
+  left: 20%;
 }

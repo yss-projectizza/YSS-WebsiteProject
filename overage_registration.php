@@ -23,30 +23,28 @@ if(!isset($_SESSION))
 <head>
 	<title>Youth Registration | Youth Spiritual Summit</title>
     <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/css/main.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredericka+the+Great"> -->
-	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"> -->
-	<!-- <link rel="stylesheet" href="registrationstyle.css"> -->
-	<!-- <link rel="stylesheet" href="StudentRegistration.css"> -->
-
-	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
-
 </head>
 
 <body>
     <?php include("header_loggedout.php")?>
 
-    <form id=form1 action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return submitForm();">
+    <form id=form1 action="formToDatabase.php" method="post" enctype="multipart/form-data"
+    onsubmit="imagetoDatabase()">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
         <h1 align="center" style = "font-size:40px;padding-top: 20px;">Youth Participant Registration</h1>
 
         <!-- NEW STUFF STARTING HERE -->
-        <div class="block_1"><p style="padding-top:20px"</div> <hr />
+        <div class="block_1"><p style="padding-top:20px"</div>
+            <hr  style="
+              border-width: medium;
+              border-color: LightSteelBlue;
+            " />
+        	<div class="container">
+        </div>
 
         <div class="container">
         <!-- Camper Information -->
@@ -56,14 +54,16 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>
+                    <input type="text" pattern="[A-Za-z'-]+" placeholder="Ex: John"
+                           name="first_name" id="firstname" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: Smith" name="lastname" id="lastname" class="form-control" required>
+                    <input type="text" pattern="[A-Za-z'-]+" placeholder="Ex: Smith"
+                           name="last_name" id="lastname" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -80,27 +80,27 @@ if(!isset($_SESSION))
                      <div class="input-group-prepend">
                         <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
                     </div>
-                        <input type="password" name="password" id="password" class="form-control" required>
+                        <input type="password" placeholder="Ex: abcde123 (8+ char, at least one number)" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" name="password" id="password" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                      <div class="input-group-prepend">
-                        <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Retype Password:<b style = "color: red;">*</b></span>
                     </div>
-                        <input type="password" name="password2" id="password2" class="form-control" required>
+                        <input type="password" placeholder="Must match above password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" name="password2" id="password2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Phone number:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="tel" placeholder="Ex: 1234567890" name="phone" id="phone" class="form-control" required>
+                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" name="phone" id="phone" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="schoolyear" id="schoolyear">
+                        <select class="form-control form-control-md" name="year" id="schoolyear">
                             <option>Junior</option>
                             <option>Senior</option>
                             <option>Early College</option>
@@ -111,7 +111,7 @@ if(!isset($_SESSION))
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text">Clothing Size:<b style = "color: red;">*</b></span>
+                    <span class="input-group-text">Sweatshirt Size:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="size" id="size">
                             <option>Small</option>
                             <option>Medium</option>
@@ -122,10 +122,9 @@ if(!isset($_SESSION))
                     </div>
                 </div>
 
-
-                <form action="upload.php" method="post" enctype="multipart/form-data">
-                    Picture of Drivers License / Government ID:<b style = "color: red;">*</b>
-                    <input type="file" name="upload" id="upload" class="form-control" required>
+                <form enctype="multipart/form-data">
+                    Upload Picture of Drivers License / Government ID:<b style = "color: red;">*</b>
+                    <input type="file" name="file" id="upload" value="upload" class="form-control" required>
                 </form>
         </div>
 
@@ -180,7 +179,7 @@ if(!isset($_SESSION))
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Actively Involved In Making My Community Better:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" id="community">
+                        <select class="form-control form-control-md" id="community" name="community">
                             <option>Very High</option>
                             <option>High</option>
                             <option>Neutral</option>
@@ -194,21 +193,21 @@ if(!isset($_SESSION))
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>
-                        <textarea id="hopes" cols="132" rows="3" value=""></textarea>
+                        <textarea id="hopes" name="hopes" cols="132" rows="3" value=""></textarea>
                     </div>
                 </div>
 
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What are some activities that you enjoy?</p>
-                        <textarea id="activities" cols="132" rows="3" value=""></textarea>
+                        <textarea id="activities" name="activites" cols="132" rows="3" value=""></textarea>
                     </div>
                 </div>
 
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What is one question you would like to have answered during this year's Summit?</b></p>
-                        <textarea id="question" cols="132" rows="3" value=""></textarea>
+                        <textarea id="question" name="question" cols="132" rows="3" value=""></textarea>
                     </div>
                 </div>
 
@@ -221,16 +220,16 @@ if(!isset($_SESSION))
             <label><p style = "font-size:30px;padding-top: 10px;">Emergency Contacts</p></label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Emergency Contact 1 - Name:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Emergency Contact 1 - Name (First & Last):<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: John" name="ec_name1" id="ec_name1" class="form-control" required>
+                    <input type="text" pattern="([A-Z][a-zA-Z]*)" placeholder="Ex: John Smith" name="ec_name1" id="ec_name1" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 1 - Phone:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="tel" placeholder="Ex: 1234567890" name="ec_phone1" id="ec_phone1" class="form-control" required>
+                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" name="ec_phone1" id="ec_phone1" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -242,16 +241,16 @@ if(!isset($_SESSION))
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Emergency Contact 2 - Name:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Emergency Contact 2 - Name (First & Last)<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" placeholder="Ex: John" name="ec_name2" id="ec_name2" class="form-control" required>
+                    <input type="text" pattern="([A-Z][a-zA-Z]*)" placeholder="Ex: Emma Jones" name="ec_name2" id="ec_name2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 2 - Phone:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="tel" placeholder="Ex: 1234567890" name="ec_phone2" id="ec_phone2" class="form-control" required>
+                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" name="ec_phone2" id="ec_phone2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -303,7 +302,7 @@ if(!isset($_SESSION))
                 </div>
             </div>
 
-            <div class="input-group mb-3">
+            <div class="input-group mb-3"  style = "padding-top: 20px;">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Insurance Provider:<b style = "color: red;">*</b></span>
                  </div>
@@ -322,7 +321,7 @@ if(!isset($_SESSION))
             <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px;" align="center">
                 <div class="col">
                     <!-- <button id="myBtn">Submit</button> -->
-                    <input type="submit" value="Submit" name="subscribe" id="submit">
+                    <input type="submit" class="rounded" value="Submit" name="subscribe" id="submit">
                 </div>
             </div>
         </div>
@@ -335,105 +334,35 @@ if(!isset($_SESSION))
         <script src="firebaseSetup.js"></script>-->
 
         <script>
-            function submitForm(){
-                console.log("submitForm called");
-                var config = {
-                    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-                    authDomain: "yss-project-69ba2.firebaseapp.com",
-                    databaseURL: "https://yss-project-69ba2.firebaseio.com",
-                    projectId: "yss-project-69ba2",
-                    storageBucket: "yss-project-69ba2.appspot.com",
-                    messagingSenderId: "530416464878"
-                };
-                firebase.initializeApp(config);
-                var database = firebase.database();
-                var fn = document.getElementById("firstname").value;
-                var ln = document.getElementById("lastname").value;
-                var gender = document.getElementById("gender").value;
-                var password = document.getElementById("password").value;
-                var password2 = document.getElementById("password2").value;
-                var phone = document.getElementById("phone").value;
-                var year = document.getElementById("schoolyear").value;
-                var size = document.getElementById("size").value;
-                var file = document.getElementById("upload").value;
-                var spiritual = document.getElementById("spiritual").value;
-                var knowledge = document.getElementById("knowledge").value;
-                var improvement = document.getElementById("improvement").value;
-                var community = document.getElementById("community").value;
-                var hopes = document.getElementById("hopes").value;
-                var activities = document.getElementById("activities").value;
-                var question = document.getElementById("question").value;
-                var ec_name1 = document.getElementById("ec_name1").value;
-                var ec_phone1 = document.getElementById("ec_phone1").value;
-                var ec_relationship1 = document.getElementById("ec_relationship1").value;
-                var ec_name2 = document.getElementById("ec_name2").value;
-                var ec_phone2 = document.getElementById("ec_phone2").value;
-                var ec_relationship2 = document.getElementById("ec_relationship2").value;
-                var allergies = document.getElementById("allergies").value;
-                var meds = document.getElementById("meds").value;
-                var activity_r = document.getElementById("activity_restrictions").value;
-                var dietary_r = document.getElementById("dietary_restrictions").value;
-                var other = document.getElementById("other").value;
-                var insurance = document.getElementById("insurance").value;
-                var policy_holder = document.getElementById("policy_holder").value;
-                var verified = true;
+        var dlImage;
 
+        function uploadImage(evt){
+            licenseUpload = document.getElementById('upload');
+            dlImage = new File([licenseUpload.files[0]], emailwcharactersreplaced);
+        }
+        document.getElementById('upload').addEventListener('change', uploadImage, false);
 
-                if ( password != password2 ){
-                    alert("Retyped password must match password");
-                }
-                else {
-                    var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
-                            dob: dob,
-                            first_name: fn,
-                            email:email,
-                            password:password,
-                            phone:phone,
-                            bus_num:"N/A",
-                            group_num:"N/A",
-                            cabin_num:"N/A",
-                            user_type: "student18",
-                            last_name: ln,
-                            gender: gender,
-                            year: year,
-                            size: size,
-                            file: file,
-                            spiritual: spiritual,
-                            knowledge: knowledge,
-                            improvement: improvement,
-                            community: community,
-                            hopes: hopes,
-                            activities: activities,
-                            question: question,
-                            ec_name1: ec_name1,
-                            ec_phone1: ec_phone1,
-                            ec_relationship1: ec_relationship1,
-                            ec_name2: ec_name2,
-                            ec_phone2: ec_phone2,
-                            ec_relationship2: ec_relationship2,
-                            alleriges: allergies,
-                            meds: meds,
-                            activity_restrictions: activity_r,
-                            dietary_restrictions: dietary_r,
-                            other: other,
-                            insurance: insurance,
-                            policy_holder: policy_holder,
-                            credit_due:credit_due,
-                            verified: verified
-                        }, function(error){
-                            if (error) {
-                                alert("Did not go through")
-                            } else {
-                                alert("Your account has been created successfully. Please log in to view your dashboard.");
-                                console.log("here")
-                                var postID = newPostRef.key;
-                                window.location.replace("index.php")
-                            }
-                        });
-                    }
-                return false;
-            }
-
+        function imagetoDatabase(){
+            var config = {
+                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                authDomain: "yss-project-69ba2.firebaseapp.com",
+                databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                projectId: "yss-project-69ba2",
+                storageBucket: "yss-project-69ba2.appspot.com",
+                messagingSenderId: "530416464878"
+            };
+            firebase.initializeApp(config);
+            var storageRef = firebase.storage().ref();
+            var database = firebase.database();
+            var storageRef = firebase.storage().ref('dl/' + dlImage.name);
+            alert("here! image name: " + dlImage.name);
+            var metadata = {
+                contentType: 'image/jpeg'
+            };
+            storageRef.put(dlImage, metadata).then(function(snapshot) {
+                console.log("Uploaded an array!");
+            });
+        }
         </script>
 
 </body>
