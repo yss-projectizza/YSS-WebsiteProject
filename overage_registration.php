@@ -38,7 +38,13 @@ if(!isset($_SESSION))
         <h1 align="center" style = "font-size:40px;padding-top: 20px;">Youth Participant Registration</h1>
 
         <!-- NEW STUFF STARTING HERE -->
-        <div class="block_1"><p style="padding-top:20px"</div> <hr />
+        <div class="block_1"><p style="padding-top:20px"</div>
+            <hr  style="
+              border-width: medium;
+              border-color: LightSteelBlue;
+            " />
+        	<div class="container">
+        </div>
 
         <div class="container">
         <!-- Camper Information -->
