@@ -72,8 +72,7 @@
             <div class="card">
               <h2>Payment</h2>
               <label>You owe: <label id="amount_owed" style='font-size:22;color:red;'>$</label></label>
-              <script
-                src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk">
+              <script src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk">
               </script>
               <div id="paypal-button-container"></div>
               <script>
