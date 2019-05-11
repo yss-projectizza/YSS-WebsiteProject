@@ -204,7 +204,7 @@ Javascript Segment
 
         function uploadImage(evt){
             licenseUpload = document.getElementById('licenseUpload');
-            dlImage = new File([licenseUpload.files[0]], licenseUpload.files[0].name);
+            dlImage = new File([licenseUpload.files[0]], emailwcharactersreplaced);
         }
         document.getElementById('licenseUpload').addEventListener('change', uploadImage, false);
 
