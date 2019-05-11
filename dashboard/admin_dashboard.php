@@ -125,6 +125,110 @@ if (!isset($_SESSION))
           </script>
       </div>
 
+      <div class="card">
+        <h3>Schedule</h3>
+        <p id="schedule" />
+        <div id="inside-div">
+          
+        <div>
+
+        <button id="addEvent">
+              Add an event
+            </button>
+          <button id="submit">
+              Submit
+            </button>
+        <script>
+          var counter = 0
+            
+
+
+            firebase.database().ref('/schedule/6').once('value').then(item => 
+            {
+              let firebasedataArray = Object.entries(item.val());
+
+              for(let i = 0; i < firebasedataArray.length/ 3; ++i){
+                counter++;
+                
+
+              var updiv = document.getElementById("inside-div");
+              
+
+              var label = document.createElement("label");
+              var input = document.createElement("input");
+              label.innerHTML = "Event " + counter;
+              input.type = "text"
+              input.id = "eventinput" + counter
+              input.value = firebasedataArray[i][1];
+              document.getElementById("inside-div").appendChild(label);
+              document.getElementById("inside-div").appendChild(input);
+
+              var label = document.createElement("label");
+              var input = document.createElement("input");
+              label.innerHTML = "Time " + counter;
+              input.type = "text"
+              input.id = "timeinput" + counter;
+              input.value = firebasedataArray[i][1];
+              document.getElementById("inside-div").appendChild(label);
+              document.getElementById("inside-div").appendChild(input);
+
+
+              var label = document.createElement("label");
+              var input = document.createElement("input");
+              label.innerHTML = "Date " + counter;
+              input.type = "text"
+              input.id = "dateinput" + counter;
+              input.value = firebasedataArray[i][1];
+              document.getElementById("inside-div").appendChild(label);
+              document.getElementById("inside-div").appendChild(input);
+              updiv.appendChild(input)
+
+              }
+            }
+            ); 
+            addEventButton = document.getElementById("addEvent");
+            addEventButton.addEventListener("click", function(){
+              counter++;
+              
+              var label = document.createElement("label");
+              var input = document.createElement("input");
+              label.innerHTML = "Event " + counter;
+              input.type = "text"
+              input.id = "eventinput" + counter
+              document.getElementById("inside-div").appendChild(label);
+              document.getElementById("inside-div").appendChild(input);
+
+              var label = document.createElement("label");
+              var input = document.createElement("input");
+              label.innerHTML = "Time " + counter;
+              input.type = "text"
+              input.id = "timeinput" + counter
+              document.getElementById("inside-div").appendChild(label);
+              document.getElementById("inside-div").appendChild(input);
+              
+              var label = document.createElement("label");
+              var input = document.createElement("input");
+              label.innerHTML = "Date " + counter;
+              input.type = "text"
+              input.id = "dateinput" + counter
+              document.getElementById("inside-div").appendChild(label);
+              document.getElementById("inside-div").appendChild(input);
+              
+            });
+            newdict = {}
+
+            document.getElementById("submit").addEventListener("click", function(){
+              for (let i = 1; i <= counter; i++){
+                newdict["event" + i] = document.getElementById("eventinput" + i).value;
+                newdict["time" + i] = document.getElementById("timeinput" + i).value;
+                newdict["date" + i] = document.getElementById("dateinput" + i).value;
+              }
+            firebase.database().ref('/schedule/6').set(newdict);
+          });
+
+          </script>
+      </div>
+
     </div>
   </main>
 </body>
