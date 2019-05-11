@@ -5,6 +5,7 @@
     }
   $emailwcomma = $_SESSION["queryData"]["email"];
   $email= str_replace(".",",",$emailwcomma);
+  $user=$_SESSION["queryData"]["user_type"];
 ?>
 <html lang="en">
 
@@ -43,16 +44,6 @@
         </div>
 
         <div class="row initial-task-padding">
-            <!-- <div class="col">
-          Email<b style = "color: red;">*</b>
-          <br>
-          <input id="email" type="semail" name="email"
-           times-label="email" class="form-control" required>
-          <br>
-        </div> -->
-        </div>
-
-        <div class="row initial-task-padding">
             <div class="col">
                 Phone number<b style="color: red;">*</b>
                 <input id="phone" type="tel" name="phone" times-label="phone" class="form-control" required>
@@ -69,6 +60,8 @@
             </div>
         </div>
 
+        <?php if($user == "student" || $user == "student18" || $user == "counselor"): ?>
+
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">Clothing Size:<b style="color: red;">*</b></span>
@@ -81,99 +74,99 @@
                 </select>
             </div>
         </div>
+        
+        <?php endif?>
 
         <!-- Personal Information -->
+        <?php if($user == "student" || $user == "student18"): ?>
         <label>
             <p style="font-size:30px;padding-top: 10px;">Personal Information</p>
         </label>
-    </div>
-    <div class="container">
-        <label>
-            <p style="font-size:18px;">How would you rate yourself in the following areas?</p>
-        </label>
-
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Spirituality (closeness to God)<b style="color: red;">*</b></span>
-                <select class="form-control form-control-md" name="spiritual" id="spiritual">
-                    <option>Very High</option>
-                    <option>High</option>
-                    <option>Neutral</option>
-                    <option>Low</option>
-                    <option>Very Low</option>
-                </select>
-            </div>
         </div>
-
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Religious Knowledge:<b style="color: red;">*</b></span>
-                <select class="form-control form-control-md" name="knowledge" id="knowledge">
-                    <option>Very High</option>
-                    <option>High</option>
-                    <option>Neutral</option>
-                    <option>Low</option>
-                    <option>Very Low</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Actively Improving Myself:<b style="color: red;">*</b></span>
-                <select class="form-control form-control-md" name="improvement" id="improvement">
-                    <option>Very High</option>
-                    <option>High</option>
-                    <option>Neutral</option>
-                    <option>Low</option>
-                    <option>Very Low</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Actively Involved In Making My Community Better:<b
-                        style="color: red;">*</b></span>
-                <select class="form-control form-control-md" id="community">
-                    <option>Very High</option>
-                    <option>High</option>
-                    <option>Neutral</option>
-                    <option>Low</option>
-                    <option>Very Low</option>
-                </select>
-            </div>
-        </div>
-
-
-        <div class="row initial-task-padding">
-            <div class="col">
-                <p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>
-                <textarea id="hopes" cols="132" rows="3" value=""></textarea>
-            </div>
-        </div>
-
-        <div class="row initial-task-padding">
-            <div class="col">
-                <p>What are some activities that you enjoy?</p>
-                <textarea id="activities" cols="132" rows="3" value=""></textarea>
-            </div>
-        </div>
-
-        <div class="row initial-task-padding">
-            <div class="col">
-                <p>What is one question you would like to have answered during this year's Summit?</b></p>
-                <textarea id="question" cols="132" rows="3" value=""></textarea>
-            </div>
-        </div>
-        <div class="block_1">
-            <p style="padding-top:30px"> </p>
-        </div>
-        <hr />
-
         <div class="container">
+            <label>
+                <p style="font-size:18px;">How would you rate yourself in the following areas?</p>
+            </label>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Spirituality (closeness to God)<b style="color: red;">*</b></span>
+                    <select class="form-control form-control-md" name="spiritual" id="spiritual">
+                        <option>Very High</option>
+                        <option>High</option>
+                        <option>Neutral</option>
+                        <option>Low</option>
+                        <option>Very Low</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Religious Knowledge:<b style="color: red;">*</b></span>
+                    <select class="form-control form-control-md" name="knowledge" id="knowledge">
+                        <option>Very High</option>
+                        <option>High</option>
+                        <option>Neutral</option>
+                        <option>Low</option>
+                        <option>Very Low</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Actively Improving Myself:<b style="color: red;">*</b></span>
+                    <select class="form-control form-control-md" name="improvement" id="improvement">
+                        <option>Very High</option>
+                        <option>High</option>
+                        <option>Neutral</option>
+                        <option>Low</option>
+                        <option>Very Low</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Actively Involved In Making My Community Better:<b
+                            style="color: red;">*</b></span>
+                    <select class="form-control form-control-md" id="community">
+                        <option>Very High</option>
+                        <option>High</option>
+                        <option>Neutral</option>
+                        <option>Low</option>
+                        <option>Very Low</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>
+                    <textarea id="hopes" cols="132" rows="3" value=""></textarea>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>What are some activities that you enjoy?</p>
+                    <textarea id="activities" cols="132" rows="3" value=""></textarea>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    <p>What is one question you would like to have answered during this year's Summit?</b></p>
+                    <textarea id="question" cols="132" rows="3" value=""></textarea>
+                </div>
+            </div>
+
+        <?php endif?>
             <!-- Emergency Contacts -->
-        </div>
+        <?php if($user == "parent" || $user == "student18"): ?>
+        <div>
         <label>
             <p style="font-size:30px;padding-top: 10px;">Emergency Contacts</p>
         </label>
@@ -222,8 +215,7 @@
             <input type="text" placeholder="Ex: Mother" name="ec_relationship2" id="ec_relationship2"
                 class="form-control" required>
         </div>
-
-
+        <?php endif ?>
         <div class="block_1">
             <p style="padding-top:30px">
         </div>
@@ -232,6 +224,7 @@
         <div class="container">
             <!-- Health Information -->
         </div>
+        <?php if($user == "student" || $user == "student18"): ?>
         <label>
             <p style="font-size:30px;padding-top: 10px;">Health Information</p>
         </label>
@@ -290,6 +283,7 @@
         <div class="block_1">
             <p style="padding-top:30px">
         </div>
+        <?php endif?>
         <hr />
 
         <!-- Submit -->
