@@ -47,6 +47,59 @@ if (!isset($_SESSION))
           });
         </script>
       </div>
+
+      <div class="card">
+        <h3>Driver's License</h3>
+        <p id="dlImages"></p>
+        <script>
+          firebase.database().ref('/').once('value').then(async function(snapshot) {
+            let alldata = Object.entries(snapshot.val().users);
+            console.log(alldata);
+            let newarray = {};
+            for(var index in alldata){
+              console.log(alldata[index]);
+              if( alldata[index][1].user_type == "parent" || alldata[index][1].user_type == "student18"){
+                var dlRef = firebase.storage().ref('dl/'+ (alldata[index][1].email).replace(".",","));
+                console.log('dl/'+ (alldata[index][1].email).replace(".",","));
+                dlRef.getDownloadURL().then(function(url) {
+                  if(!(newarray[alldata[index][1].dlImage]))
+                    newarray[alldata[index][1].email] = new Array();
+                  newarray[alldata[index][1].email].push(url);
+                }).catch(function(error) {
+                  switch (error.code) {
+                    case 'storage/object-not-found':
+                      // File doesn't exist
+                      console.log("file doesn't exist");
+                      break;
+
+                    case 'storage/unauthorized':
+                      // User doesn't have permission to access the object
+                      console.log("no permission");
+                      break;
+
+                    case 'storage/canceled':
+                      // User canceled the upload
+                      console.log("canceled");
+                      break;
+
+                    case 'storage/unknown':
+                      // Unknown error occurred, inspect the server response
+                      console.log("unknown error");
+                      break;
+                  }
+                });
+              
+              }
+            }
+            let groupobjectdata = Object.entries(newarray);
+            let printdata = groupobjectdata.map(item => {
+              return '<p>'+ item[0] + ": "+ "<p>" + item[1].map(item2 => {return '<p style="color:red;">' + item2 + '</p>'}).join("") + '</p></p>'
+            })
+            document.getElementById("dlImages").innerHTML = groupobjectdata.join("");
+          });
+        </script>
+      </div>
+
       <div class="card">
         <h3>Groups</h3>
         <p id="group_numbers" />
