@@ -55,20 +55,21 @@ $parent_email = $_SESSION["queryData"]["email"];
                     </div>
                 </div>
 
-								<div class="input-group mb-3">
-										 <div class="input-group-prepend">
-												<span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
-										</div>
-												<input type="password" name="password" id="password" class="form-control" required>
-								</div>
+                <!--
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="password" name="password" id="password" class="form-control" required>
+                </div>
 
-								<div class="input-group mb-3">
-										 <div class="input-group-prepend">
-												<span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
-										</div>
-												<input type="password" name="password2" id="password2" class="form-control" required>
-								</div>
-
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
+                    </div>
+                    <input type="password" name="password2" id="password2" class="form-control" required>
+                </div>
+                -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
@@ -92,12 +93,12 @@ $parent_email = $_SESSION["queryData"]["email"];
                             <option>15</option>
                             <option>16</option>
                             <option>17</option>
-                            <option>18</option>
+                            <!-- <option>18</option> -->
                         </select>
                     </div>
                 </div>
 
-                <!-- STUDENT FILL THIS OUT ONCE THERE'S AN ACCOUNT-->
+                <!-- STUDENT FILL THIS OUT ONCE THERE'S AN ACCOUNT
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Sweatshirt Size:<b style = "color: red;">*</b></span>
@@ -110,7 +111,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                         </select>
                     </div>
                 </div>
-
+                -->
 
                 <form action="upload.php" method="post" enctype="multipart/form-data">
                     Picture of Student ID:<b style = "color: red;">*</b>

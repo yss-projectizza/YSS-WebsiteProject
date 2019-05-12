@@ -26,7 +26,8 @@ session_start();
 
   <body style = "text-align: center" >
     <?php include("header_loggedout.php")?>
-    <form id= "appForm" action="formToDatabase.php" method="post" enctype="multipart/form-data">
+    <form id= "appForm" action="formToDatabase.php" method="post"
+    enctype="multipart/form-data" onsubmit="imagetoDatabase()">
       <div class="container" style = "background: white; margin-top: 20px;">
           <!-- Parent Registration Header -->
           <h1 align="center" style = "font-size:50px;padding-top: 20px;">Register for a Guardian Account</h1>
@@ -84,6 +85,8 @@ session_start();
                             <input type="password" name="password2" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" placeholder="Ex: abcde123 (8+ char, at least one number)" id="password2" class="form-control" required>
                     </div>
 
+                    <div class="block_1"><p style="padding-top:30px"></div> <hr>
+
                     <p align="left" style = "font-size:30px;padding-top: 10px;">
                         Residence Information</p>
                     <br>
@@ -119,10 +122,13 @@ session_start();
                         name="zipcode" class="form-control" required>
                     </div>
 
+        <div class="block_1"><p style="padding-top:30px"></div> <hr>
+
         <div class="container">
         <!-- Emergency Contacts -->
         </div>
-            <label><p style = "font-size:30px;padding-top: 10px;">Emergency Contacts</p></label>
+            <p align="left" style = "font-size:30px;padding-top: 10px;">Contact Information</p>
+                    <br>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 1 - Name (First & Last):<b style = "color: red;">*</b></span>
@@ -168,14 +174,14 @@ session_start();
 
         <div class="block_1"><p style="padding-top:30px"></div> <hr>
 
-                    <p align="left" style = "font-size:20px;">
-                        Parent Authentication</p>
+                    <p align="left" style = "font-size:30px;"> Parent Authentication</p>
                     <br>
                         <form enctype="multipart/form-data">
-                            Picture of Drivers License:<b style = "color: red;">*</b>
+                        <p align="left" style = "font-size:18px;">Upload Picture of Drivers License:<b style = "color: red;">*</b></p>
+                            <br>
                             <input type="file" name="license" id="licenseUpload" value="upload" class="form-control" required>
                         </form>
-            
+
       	<!-- Submit -->
         <div class="row margin-data"
           style = "padding-bottom: 50px;
@@ -203,9 +209,32 @@ Javascript Segment
 
         function uploadImage(evt){
             licenseUpload = document.getElementById('licenseUpload');
-            dlImage = new File([licenseUpload.files[0]], licenseUpload.files[0].name);
+            dlImage = new File([licenseUpload.files[0]], emailwcharactersreplaced);
         }
         document.getElementById('licenseUpload').addEventListener('change', uploadImage, false);
+
+        function imagetoDatabase(){
+            var config = {
+                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                authDomain: "yss-project-69ba2.firebaseapp.com",
+                databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                projectId: "yss-project-69ba2",
+                storageBucket: "yss-project-69ba2.appspot.com",
+                messagingSenderId: "530416464878"
+            };
+            firebase.initializeApp(config);
+            var storageRef = firebase.storage().ref();
+            var database = firebase.database();
+            var storageRef = firebase.storage().ref('dl/' + dlImage.name);
+            alert("here! image name: " + dlImage.name);
+            var metadata = {
+                contentType: 'image/jpeg'
+            };
+            storageRef.put(dlImage, metadata).then(function(snapshot) {
+                console.log("Uploaded an array!");
+            });
+        }
+                  /*
         function submitForm(){
             var config = {
                 apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
@@ -235,12 +264,13 @@ Javascript Segment
             var ec_relationship1 = document.getElementById("ec_relationship1").value;
             var ec_name2 = document.getElementById("ec_name2").value;
             var ec_phone2 = document.getElementById("ec_phone2").value;
-            var ec_relationship2 = document.getElementById("ec_relationship2").value;   
-            
-            
+            var ec_relationship2 = document.getElementById("ec_relationship2").value;
+
+
             if ( password != password2 ){
                     alert("Retyped password must match password");
             } else{
+
                 //upload dl image to storage
                 var storageRef = firebase.storage().ref('dl/' + dlImage.name);
                 alert("here! image name: " + dlImage.name);
@@ -250,7 +280,6 @@ Javascript Segment
                 storageRef.put(dlImage, metadata).then(function(snapshot) {
                     console.log("Uploaded an array!");
                 });
-            
                 //upload user data to database
                 var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
                     dob: dob,
@@ -284,10 +313,11 @@ Javascript Segment
                         console.log("went to firebase");
                     }
                 });
+
             }
             return false;
-
         }
+                      */
     </script>
   </body>
 </html>
