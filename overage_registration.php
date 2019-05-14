@@ -70,8 +70,9 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                     <span class="input-group-text">Gender:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="gender" id="gender">
-                                <option>Female</option>
-                                <option>Male</option>
+                            <option disabled selected value> -- select an option -- </option>
+                            <option>Female</option>
+                            <option>Male</option>
                         </select>
                     </div>
                 </div>
@@ -101,6 +102,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                     <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="year" id="schoolyear">
+                            <option disabled selected value> -- select an option -- </option>
                             <option>Junior</option>
                             <option>Senior</option>
                             <option>Early College</option>
@@ -113,6 +115,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                     <span class="input-group-text">Sweatshirt Size:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="size" id="size">
+                            <option disabled selected value> -- select an option -- </option>
                             <option>Small</option>
                             <option>Medium</option>
                             <option>Large</option>
@@ -141,6 +144,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                     <span class="input-group-text">Spirituality (closeness to God)<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="spiritual" id="spiritual">
+                            <option disabled selected value> -- select an option -- </option>
                             <option>Very High</option>
                             <option>High</option>
                             <option>Neutral</option>
@@ -154,6 +158,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                     <span class="input-group-text">Religious Knowledge:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="knowledge" id="knowledge">
+                            <option disabled selected value> -- select an option -- </option>
                             <option>Very High</option>
                             <option>High</option>
                             <option>Neutral</option>
@@ -167,6 +172,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                     <span class="input-group-text">Actively Improving Myself:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="improvement" id="improvement">
+                            <option disabled selected value> -- select an option -- </option>
                             <option>Very High</option>
                             <option>High</option>
                             <option>Neutral</option>
@@ -180,6 +186,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                     <span class="input-group-text">Actively Involved In Making My Community Better:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" id="community" name="community">
+                            <option disabled selected value> -- select an option -- </option>
                             <option>Very High</option>
                             <option>High</option>
                             <option>Neutral</option>
@@ -200,7 +207,7 @@ if(!isset($_SESSION))
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What are some activities that you enjoy?</p>
-                        <textarea id="activities" name="activites" cols="132" rows="3" value=""></textarea>
+                        <textarea id="activities" name="activities" cols="132" rows="3" value=""></textarea>
                     </div>
                 </div>
 
