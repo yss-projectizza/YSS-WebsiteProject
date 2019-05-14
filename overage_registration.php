@@ -329,7 +329,8 @@ if(!isset($_SESSION))
 
 
 	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-storage.js"></script>
         <!--<script src="counselor_app.js"></script>
         <script src="firebaseSetup.js"></script>-->
 
