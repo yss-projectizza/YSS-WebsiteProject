@@ -48,7 +48,7 @@ session_start();
                             <span class="input-group-text">First Name:<b
                                 style = "color: red;">*</b></span>
                         </div>
-                        <input id = "fnameInput" type="text" pattern="^[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?$" placeholder="Ex: John"
+                        <input id = "fnameInput" type="text" pattern="[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?" placeholder="Ex: John"
                         name="first_name" class="form-control" required>
                     </div>
 
@@ -57,7 +57,7 @@ session_start();
                             <span class="input-group-text">Last Name:<b
                                 style = "color: red;">*</b></span>
                             </div>
-                        <input id = "lnameInput" type="text" pattern="^[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?$" placeholder="Ex: Smith"
+                        <input id = "lnameInput" type="text" pattern="[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?" placeholder="Ex: Smith"
                         name="last_name" class="form-control" required>
                     </div>
 
@@ -75,14 +75,14 @@ session_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text">Enter A Password:<b style = "color: red;">*</b></span>
                         </div>
-                            <input type="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" placeholder="Ex: abcde123 (8+ char, at least one number)" id="password" class="form-control" required>
+                            <input type="password" name="password" pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}" placeholder="Ex: abcde123 (8+ char, at least one number)" id="password" class="form-control" required>
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Retype Your Password:<b style = "color: red;">*</b></span>
                         </div>
-                            <input type="password" name="password2" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" placeholder="Ex: abcde123 (8+ char, at least one number)" id="password2" class="form-control" required>
+                            <input type="password" name="password2" pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}" placeholder="Ex: abcde123 (8+ char, at least one number)" id="password2" class="form-control" required>
                     </div>
 
                     <div class="block_1"><p style="padding-top:30px"></div> <hr>
