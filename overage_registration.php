@@ -54,7 +54,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" pattern="[A-Za-z'-]+" placeholder="Ex: John"
+                    <input type="text" pattern="^[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?$" placeholder="Ex: John" 
                            name="first_name" id="firstname" class="form-control" required>
                 </div>
 
@@ -62,7 +62,8 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" pattern="[A-Za-z'-]+" placeholder="Ex: Smith"
+                    <input type="text" pattern="^[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?$" placeholder="Ex: Smith" 
+
                            name="last_name" id="lastname" class="form-control" required>
                 </div>
 
@@ -70,8 +71,9 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                     <span class="input-group-text">Gender:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="gender" id="gender">
-                                <option>Female</option>
-                                <option>Male</option>
+                            <option disabled selected value> -- select an option -- </option>
+                            <option>Female</option>
+                            <option>Male</option>
                         </select>
                     </div>
                 </div>
@@ -101,6 +103,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                     <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="year" id="schoolyear">
+                            <option disabled selected value> -- select an option -- </option>
                             <option>Junior</option>
                             <option>Senior</option>
                             <option>Early College</option>
@@ -113,6 +116,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                     <span class="input-group-text">Sweatshirt Size:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="size" id="size">
+                            <option disabled selected value> -- select an option -- </option>
                             <option>Small</option>
                             <option>Medium</option>
                             <option>Large</option>
@@ -141,6 +145,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                     <span class="input-group-text">Spirituality (closeness to God)<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="spiritual" id="spiritual">
+                            <option disabled selected value> -- select an option -- </option>
                             <option>Very High</option>
                             <option>High</option>
                             <option>Neutral</option>
@@ -154,6 +159,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                     <span class="input-group-text">Religious Knowledge:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="knowledge" id="knowledge">
+                            <option disabled selected value> -- select an option -- </option>
                             <option>Very High</option>
                             <option>High</option>
                             <option>Neutral</option>
@@ -167,6 +173,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                     <span class="input-group-text">Actively Improving Myself:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="improvement" id="improvement">
+                            <option disabled selected value> -- select an option -- </option>
                             <option>Very High</option>
                             <option>High</option>
                             <option>Neutral</option>
@@ -180,6 +187,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                     <span class="input-group-text">Actively Involved In Making My Community Better:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" id="community" name="community">
+                            <option disabled selected value> -- select an option -- </option>
                             <option>Very High</option>
                             <option>High</option>
                             <option>Neutral</option>
@@ -200,7 +208,7 @@ if(!isset($_SESSION))
                 <div class="row initial-task-padding">
                     <div class="col">
                         <p>What are some activities that you enjoy?</p>
-                        <textarea id="activities" name="activites" cols="132" rows="3" value=""></textarea>
+                        <textarea id="activities" name="activities" cols="132" rows="3" value=""></textarea>
                     </div>
                 </div>
 
@@ -222,7 +230,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 1 - Name (First & Last):<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" pattern="([A-Z][a-zA-Z]*)" placeholder="Ex: John Smith" name="ec_name1" id="ec_name1" class="form-control" required>
+                    <input type="text" pattern="[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*" placeholder="Ex: John Smith" name="ec_name1" id="ec_name1" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -243,7 +251,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 2 - Name (First & Last)<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" pattern="([A-Z][a-zA-Z]*)" placeholder="Ex: Emma Jones" name="ec_name2" id="ec_name2" class="form-control" required>
+                    <input type="text" pattern="[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*" placeholder="Ex: Emma Jones" name="ec_name2" id="ec_name2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -329,7 +337,8 @@ if(!isset($_SESSION))
 
 
 	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-storage.js"></script>
         <!--<script src="counselor_app.js"></script>
         <script src="firebaseSetup.js"></script>-->
 
