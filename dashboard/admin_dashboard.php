@@ -63,8 +63,6 @@ if (!isset($_SESSION))
                   newarray[alldata[index][1].group_num] = new Array();
                 newarray[alldata[index][1].group_num].push(alldata[index][0]);
               }
-
-
             }
             let groupobjectdata = Object.entries(newarray);
             let printdata = groupobjectdata.map(item => {
@@ -90,7 +88,6 @@ if (!isset($_SESSION))
                   newarray[alldata[index][1].bus_num] = new Array();
                 newarray[alldata[index][1].bus_num].push(alldata[index][0]);
               }
-
             }
             let groupobjectdata = Object.entries(newarray);
             let printdata = groupobjectdata.map(item => {
@@ -117,7 +114,6 @@ if (!isset($_SESSION))
                   newarray[alldata[index][1].cabin_num] = new Array();
                 newarray[alldata[index][1].cabin_num].push(alldata[index][0]);
               }
-
             }
             let groupobjectdata = Object.entries(newarray);
             let printdata = groupobjectdata.map(item => {

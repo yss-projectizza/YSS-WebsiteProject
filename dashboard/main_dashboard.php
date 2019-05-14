@@ -15,7 +15,6 @@
   $emailwithperiod = $_SESSION["queryData"]["email"];
   $emailwithcomma = str_replace(".", ",", $emailwithperiod);
   ?>
-
   var email = "<?php echo $emailwithcomma; ?>"
   var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>"
 
@@ -52,8 +51,26 @@
           <div class="card">
             <h2>Your To Dos:</h2>
             <div class="to_do">
-              <input class="check" type="checkbox" disabled="disabled" />
-              Payment has been Recieved.
+              <?php if($user_type == "student"): ?>
+                <input class="check" type="checkbox" disabled="disabled" />
+                Fill out Personal Information and Interest Form in Profile
+              <?php elseif($user_type == "student18"): ?>
+                <input class="check" type="checkbox" disabled="disabled" />
+                Make Payment 
+              <?php elseif($user_type == "counselor"): ?>
+                <input class="check" type="checkbox" disabled="disabled" />
+                Make a Donation 
+              <?php elseif($user_type == "parent"): ?>
+                <input class="check" type="checkbox" disabled="disabled" />
+                Add Participants  
+                <br>        
+                <input class="check" type="checkbox" disabled="disabled" />
+                Make Payment 
+                <br>        
+                <input class="check" type="checkbox" disabled="disabled" />
+                Activate Participants
+                <br>        
+              <?php endif ?> 
             </div>
           </div>
           <?php if ($user_type != "parent") : ?>
