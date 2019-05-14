@@ -25,11 +25,18 @@ if (!isset($_SESSION))
   <script src="dashboard/main_dashboard.js"></script>
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/dashboard.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
 </head>
 
 <body>
@@ -41,10 +48,11 @@ if (!isset($_SESSION))
         <h3>Edit User Information</h3>
         <p id="data"></p>
         <script>
-          firebase.database().ref('/').once('value').then(async function(snapshot) {
+          firebase.database().ref('/').once('value').then(async function (snapshot) {
             let alldata = Object.keys(snapshot.val().users);
             let printdata = alldata.map(item => {
-              return '<p><a href=/admin_profile.php?name=' + item + '><button>' + item + '</button></a></p>'
+              return '<p><a href=/admin_profile.php?name=' + item + '><button class="rounded">' + item +
+                '</button></a></p>'
             })
             document.getElementById("data").innerHTML = printdata.join("");
           });
@@ -52,9 +60,9 @@ if (!isset($_SESSION))
       </div>
       <div class="card">
         <h3>Groups</h3>
-        <p id="group_numbers" />
+        <p id="group_numbers"></p>
         <script>
-          firebase.database().ref('/').once('value').then(async function(snapshot) {
+          firebase.database().ref('/').once('value').then(async function (snapshot) {
             let alldata = Object.entries(snapshot.val().users);
             let newarray = {};
             for (var index in alldata) {
@@ -63,8 +71,6 @@ if (!isset($_SESSION))
                   newarray[alldata[index][1].group_num] = new Array();
                 newarray[alldata[index][1].group_num].push(alldata[index][0]);
               }
-
-
             }
             let groupobjectdata = Object.entries(newarray);
             let printdata = groupobjectdata.map(item => {
@@ -79,9 +85,9 @@ if (!isset($_SESSION))
 
       <div class="card">
         <h3>Buses</h3>
-        <p id="bus_numbers" />
+        <p id="bus_numbers"></p>
         <script>
-          firebase.database().ref('/').once('value').then(async function(snapshot) {
+          firebase.database().ref('/').once('value').then(async function (snapshot) {
             let alldata = Object.entries(snapshot.val().users);
             let newarray = {};
             for (var index in alldata) {
@@ -105,9 +111,9 @@ if (!isset($_SESSION))
 
       <div class="card">
         <h3>Cabins</h3>
-        <p id="cabin_numbers" />
+        <p id="cabin_numbers"></p>
         <script>
-          firebase.database().ref('/').once('value').then(async function(snapshot) {
+          firebase.database().ref('/').once('value').then(async function (snapshot) {
             let alldata = Object.entries(snapshot.val().users);
             // console.log(alldata)
             let newarray = {};
@@ -132,24 +138,27 @@ if (!isset($_SESSION))
 
       <div class="card">
         <h3>Schedule</h3>
-        <p id="schedule" />
+        <p id="schedule"></p>
         <div id="inside-div">
 
           <div>
-
-            <button id="addEvent">
-              Add an event
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Select Group
             </button>
-            <button id="submit">
-              Submit
-            </button>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select Group
+            <br/>
+            <br/>
+            <div id="schedule_buttons">
+              <button id="addEvent" class="rounded">
+                Add an event
               </button>
-              <div id="dropdown-groupnum" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              </div>
+              <button id="submit" class="rounded">
+                Submit
+              </button>
+              <br/>
+              <br/>
             </div>
+            <div id="dropdown-groupnum" class="dropdown-menu" aria-labelledby="dropdownMenuButton"></div>
             <script>
               var counter = 0
 
@@ -162,10 +171,7 @@ if (!isset($_SESSION))
                   }
                 }
                 var dropdown = document.getElementById("dropdown-groupnum");
-
                 for (let item of group_number_set) {
-
-
                   let dropdownitem = document.createElement("option")
                   dropdownitem.class = "dropdown-item"
                   dropdownitem.value = item;
@@ -177,6 +183,9 @@ if (!isset($_SESSION))
               })
 
               function showFields(group_number) {
+                let schedule_buttons = document.getElementById("schedule_buttons");
+                schedule_buttons.style.display = "block";
+
                 firebase.database().ref('/schedule/' + group_number).once('value').then(item => {
                   firebasedata = item.val()
                   let firebasedataArray = Object.entries(item.val());
@@ -186,70 +195,79 @@ if (!isset($_SESSION))
                   for (let i = 0; i < firebasedataArray.length / 3; ++i) {
                     counter++;
                     var updiv = document.getElementById("inside-div");
+                    const eventDiv = document.createElement('div');
 
                     var label = document.createElement("label");
                     var input = document.createElement("input");
+                    input.classList.add('input');
                     label.innerHTML = "Event " + counter;
                     input.type = "text"
                     input.id = "eventinput" + counter
                     input.value = firebasedata["event" + counter];
-                    document.getElementById("inside-div").appendChild(label);
-                    document.getElementById("inside-div").appendChild(input);
+                    eventDiv.appendChild(label);
+                    eventDiv.appendChild(input);
 
                     var label = document.createElement("label");
                     var input = document.createElement("input");
+                    input.classList.add('input');
                     label.innerHTML = "Time " + counter;
                     input.type = "text"
                     input.id = "timeinput" + counter;
                     input.value = firebasedata["time" + counter];
-                    document.getElementById("inside-div").appendChild(label);
-                    document.getElementById("inside-div").appendChild(input);
-
+                    eventDiv.appendChild(label);
+                    eventDiv.appendChild(input);
 
                     var label = document.createElement("label");
                     var input = document.createElement("input");
+                    input.classList.add('input');
                     label.innerHTML = "Date " + counter;
                     input.type = "text"
                     input.id = "dateinput" + counter;
                     input.value = firebasedata["date" + counter];
-                    document.getElementById("inside-div").appendChild(label);
-                    document.getElementById("inside-div").appendChild(input);
-                    updiv.appendChild(input)
+                    
+                    eventDiv.appendChild(label);
+                    eventDiv.appendChild(input);
 
+                    updiv.appendChild(eventDiv);
                   }
                 });
+
                 addEventButton = document.getElementById("addEvent");
-                addEventButton.addEventListener("click", function() {
+                addEventButton.addEventListener("click", function () {
+
+                  const eventDiv = document.createElement('div');
+                  var updiv = document.getElementById("inside-div");
                   counter++;
 
                   var label = document.createElement("label");
                   var input = document.createElement("input");
                   label.innerHTML = "Event " + counter;
-                  input.type = "text"
-                  input.id = "eventinput" + counter
-                  document.getElementById("inside-div").appendChild(label);
-                  document.getElementById("inside-div").appendChild(input);
+                  input.type = "text";
+                  input.id = "eventinput" + counter;
+                  eventDiv.appendChild(label);
+                  eventDiv.appendChild(input);
 
                   var label = document.createElement("label");
                   var input = document.createElement("input");
                   label.innerHTML = "Time " + counter;
-                  input.type = "text"
-                  input.id = "timeinput" + counter
-                  document.getElementById("inside-div").appendChild(label);
-                  document.getElementById("inside-div").appendChild(input);
+                  input.type = "text";
+                  input.id = "timeinput" + counter;
+                  eventDiv.appendChild(label);
+                  eventDiv.appendChild(input);
 
                   var label = document.createElement("label");
                   var input = document.createElement("input");
                   label.innerHTML = "Date " + counter;
-                  input.type = "text"
-                  input.id = "dateinput" + counter
-                  document.getElementById("inside-div").appendChild(label);
-                  document.getElementById("inside-div").appendChild(input);
+                  input.type = "text";
+                  input.id = "dateinput" + counter;
+                  eventDiv.appendChild(label);
+                  eventDiv.appendChild(input);
 
+                  updiv.appendChild(eventDiv);
                 });
                 newdict = {}
 
-                document.getElementById("submit").addEventListener("click", function() {
+                document.getElementById("submit").addEventListener("click", function () {
                   for (let i = 1; i <= counter; i++) {
                     newdict["event" + i] = document.getElementById("eventinput" + i).value;
                     newdict["time" + i] = document.getElementById("timeinput" + i).value;
