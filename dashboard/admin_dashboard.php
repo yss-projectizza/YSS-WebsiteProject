@@ -61,50 +61,36 @@ if (!isset($_SESSION))
               if( alldata[index][1].user_type == "parent" || alldata[index][1].user_type == "student18"){
                 var email = (alldata[index][1].email).replace(".",",");
                 var dlRef = firebase.storage().ref('dl/'+email);
-                console.log('dl/'+ (alldata[index][1].email).replace(".",","));
+                //console.log('dl/'+ (alldata[index][1].email).replace(".",","));
                 dlRef.getDownloadURL().then(function(url){
                   console.log("url: ", url);
-                  //newarray.push(url);
-
-                  //var printString = '<p>'+ url + '</p>';
-                  //console.log("printString: ", printString);
                   var image = document.createElement("img");
                   image.src = url;
-                  var desc = document.createElement("p");
-                  p.value = alldata[index][1].first_name + alldata[index][1].last_name;
+                  var br = document.createElement("br");
+                  var desc = document.createTextNode(alldata[index][1].firstname + " " + alldata[index][1].lastname);
                   var dlDiv = document.getElementById("dlImages");
-                  document.getElementById("dlImages").appendChild(desc);
-                  document.getElementById("dlImages").appendChild(image);
+                  dlDiv.appendChild(desc);
+                  dlDiv.appendChild(br);
+                  dlDiv.appendChild(image);
+                  dlDiv.appendChild(br);
                 }).catch(function(error){
                   switch (error.code) {
-                    case 'storage/object-not-found':
-                      // File doesn't exist
+                    case 'storage/object-not-found': // File doesn't exist
                       console.log("file doesn't exist");
                       break;
-
-                    case 'storage/unauthorized':
-                      // User doesn't have permission to access the object
+                    case 'storage/unauthorized': // User doesn't have permission to access the object
                       console.log("no permission");
                       break;
-
-                    case 'storage/canceled':
-                      // User canceled the upload
+                    case 'storage/canceled': // User canceled the upload
                       console.log("canceled");
                       break;
-
-                    case 'storage/unknown':
-                      // Unknown error occurred, inspect the server response
+                    case 'storage/unknown': // Unknown error occurred, inspect the server response
                       console.log("unknown error");
                       break;
                   }
                 });
-              
               }
             }
-            // let groupobjectdata = Object.entries(newarray);
-
-            
-            //document.getElementById("dlImages").innerHTML = printString;
           });
         </script>
       </div>
