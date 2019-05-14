@@ -54,7 +54,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" pattern="[A-Za-z'-]+" placeholder="Ex: John"
+                    <input type="text" pattern="^[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?$" placeholder="Ex: John" 
                            name="first_name" id="firstname" class="form-control" required>
                 </div>
 
@@ -62,7 +62,8 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" pattern="[A-Za-z'-]+" placeholder="Ex: Smith"
+                    <input type="text" pattern="^[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?$" placeholder="Ex: Smith" 
+
                            name="last_name" id="lastname" class="form-control" required>
                 </div>
 
@@ -229,7 +230,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 1 - Name (First & Last):<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" pattern="([A-Z][a-zA-Z]*)" placeholder="Ex: John Smith" name="ec_name1" id="ec_name1" class="form-control" required>
+                    <input type="text" pattern="[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*" placeholder="Ex: John Smith" name="ec_name1" id="ec_name1" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
@@ -250,7 +251,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">Emergency Contact 2 - Name (First & Last)<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" pattern="([A-Z][a-zA-Z]*)" placeholder="Ex: Emma Jones" name="ec_name2" id="ec_name2" class="form-control" required>
+                    <input type="text" pattern="[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*" placeholder="Ex: Emma Jones" name="ec_name2" id="ec_name2" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
