@@ -50,22 +50,32 @@ if (!isset($_SESSION))
 
       <div class="card">
         <h3>Driver's License</h3>
-        <p id="dlImages"></p>
+        <div id="dlImages"></div>
         <script>
           firebase.database().ref('/').once('value').then(async function(snapshot) {
             let alldata = Object.entries(snapshot.val().users);
-            console.log(alldata);
-            let newarray = {};
+            console.log("alldata: ", alldata);
+            let newarray = [];
             for(var index in alldata){
-              console.log(alldata[index]);
+              console.log("alldata[", index, "] = ", alldata[index]);
               if( alldata[index][1].user_type == "parent" || alldata[index][1].user_type == "student18"){
-                var dlRef = firebase.storage().ref('dl/'+ (alldata[index][1].email).replace(".",","));
+                var email = (alldata[index][1].email).replace(".",",");
+                var dlRef = firebase.storage().ref('dl/'+email);
                 console.log('dl/'+ (alldata[index][1].email).replace(".",","));
-                dlRef.getDownloadURL().then(function(url) {
-                  if(!(newarray[alldata[index][1].dlImage]))
-                    newarray[alldata[index][1].email] = new Array();
-                  newarray[alldata[index][1].email].push(url);
-                }).catch(function(error) {
+                dlRef.getDownloadURL().then(function(url){
+                  console.log("url: ", url);
+                  //newarray.push(url);
+
+                  //var printString = '<p>'+ url + '</p>';
+                  //console.log("printString: ", printString);
+                  var image = document.createElement("img");
+                  image.src = url;
+                  var desc = document.createElement("p");
+                  p.value = alldata[index][1].first_name + alldata[index][1].last_name;
+                  var dlDiv = document.getElementById("dlImages");
+                  document.getElementById("dlImages").appendChild(desc);
+                  document.getElementById("dlImages").appendChild(image);
+                }).catch(function(error){
                   switch (error.code) {
                     case 'storage/object-not-found':
                       // File doesn't exist
@@ -91,11 +101,10 @@ if (!isset($_SESSION))
               
               }
             }
-            let groupobjectdata = Object.entries(newarray);
-            let printdata = groupobjectdata.map(item => {
-              return '<p>'+ item[0] + ": "+ "<p>" + item[1].map(item2 => {return '<p style="color:red;">' + item2 + '</p>'}).join("") + '</p></p>'
-            })
-            document.getElementById("dlImages").innerHTML = groupobjectdata.join("");
+            // let groupobjectdata = Object.entries(newarray);
+
+            
+            //document.getElementById("dlImages").innerHTML = printString;
           });
         </script>
       </div>
