@@ -29,16 +29,21 @@ session_start();
             <!-- Counselor Registration Header -->
             <h1 align="center" style="font-size:50px;padding-top: 20px;">Counselor Application</h1>
             <br>
-            <p>YSS 2019 will be taking place Labor Day Weekend, Aug. 30st - Sept. 2nd, 2019 in the San Bernardino Mts.
-                **To be considered as a counselor you must be 21 years old or older by the first day of the retreat**
-                Application closes: April 28th at midnight.
+            <p>Youth Spiritual Summit 2019 will be taking place Labor Day Weekend, Aug. 30st - Sept. 2nd, 2019 in the San Bernardino Mountains.<p>
+                
+            <p>**To be considered as a Counselor, you must be 21 years old or older by the first day of the retreat. Application closes on April 28th at 11:59PM.<p>
+            <p>Note: Counselors may be interviewed via Skype or in-person.
+                If you have any questions, please contact us at (youthspiritualsummit@gmail.com).<p>
 
-                All counselors may be interviewed via Skype or in-person meetings.
-                If you have any questions, please contact us at youthspiritualsummit@gmail.com <p>
+            <div class="block_1"><p style="padding-top:20px"</div>
+                <hr  style="
+                border-width: medium;
+                border-color: LightSteelBlue;
+                " />
+                <div class="container">
+            </div>
 
             <div class="block_1">
-                <p style="padding-top:20px" </div> <hr />
-
                     <div class="container">
                     <!-- Availability -->
                     <label>
@@ -83,6 +88,7 @@ session_start();
                     </div>
 
                     <!-- Info -->
+                    <div class="block_1"><p style="padding-top:30px"</div> <hr />
                     <label>
                         <p style="font-size:30px;">Information</p>
                     </label>
@@ -90,7 +96,7 @@ session_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text">First Name:<b style="color: red;">*</b></span>
                         </div>
-                        <input type="text" placeholder="Ex: John" name="first_name" id="firstname"
+                        <input type="text" pattern="[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?" placeholder="Ex: John" name="first_name" id="firstname"
                             class="form-control" required>
                     </div>
 
@@ -98,7 +104,7 @@ session_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text">Last Name:<b style="color: red;">*</b></span>
                         </div>
-                        <input type="text" placeholder="Ex: Smith" name="last_name" id="lastname"
+                        <input type="text" pattern="[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?" placeholder="Ex: Smith" name="last_name" id="lastname"
                             class="form-control" required>
                     </div>
 
@@ -117,7 +123,7 @@ session_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text">Enter A Password:<b style="color: red;">*</b></span>
                         </div>
-                        <input type="password" name="password" id="password" class="form-control" required>
+                        <input type="password" placeholder="Ex: abcde123 (8+ char, at least one number)" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" name="password" id="password" class="form-control" required>
                     </div>
 
                     <div class="input-group mb-3">
@@ -125,9 +131,8 @@ session_start();
                             <span class="input-group-text">Retype Your Password:<b
                                     style="color: red;">*</b></span>
                         </div>
-                        <input type="password" name="password2" id="password2" class="form-control" required>
+                        <input type="password" placeholder="Ex: abcde123 (8+ char, at least one number)" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" name="password" id="password" class="form-control" required>
                     </div>
-
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -141,8 +146,7 @@ session_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text">Phone Number:<b style="color: red;">*</b></span>
                         </div>
-                        <input type="text" placeholder="Ex: (123) 456-7890" name="phone" id="phone"
-                            class="form-control" required>
+                        <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Format: 123-456-7890" name="phone" id="phone" class="form-control" required>
                     </div>
 
                     <div class="input-group mb-3">
@@ -160,6 +164,7 @@ session_start();
                     </div>
 
                     <!-- Experience -->
+                    <div class="block_1"><p style="padding-top:30px"</div> <hr />
                     <label>
                         <p style="font-size:30px;">Experience</p>
                     </label>
@@ -305,6 +310,7 @@ session_start();
                     </div>
 
                     <!-- Verification -->
+                    <div class="block_1"><p style="padding-top:30px"</div> <hr />
                     <label>
                         <p style="font-size:30px;">Verification</p>
                     </label>
@@ -323,6 +329,7 @@ session_start();
                             <br>
                         </div>
                     </div>
+                    <div class="block_1"><p style="padding-top:30px"</div> <hr />
         </div>
         </div>
         <!-- Submit -->
