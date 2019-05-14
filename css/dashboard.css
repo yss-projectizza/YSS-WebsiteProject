@@ -19,8 +19,8 @@ body {
   grid-area: main;
   padding: 2%;
   background-color: rgb(233, 231, 231);
-  height: 105vh;
-  margin-bottom: 7%;
+  height: auto;
+  margin-bottom: 5%;
 }
 
 .card h2 {

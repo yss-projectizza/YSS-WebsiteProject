@@ -10,14 +10,12 @@
     $emailwcomma = str_replace(".",",",$_SESSION["newuserinfo"]["email"]);
     $redirectpagename = $_SESSION["newuserinfo"]["user_type"];
 
-    if($redirectpagename != "parentRegistration.php" &&
-      $redirectpagename != "counselor_registration.php") {
+    if($redirectpagename != "parentRegistration.php") {
         $userInfo = array(
           "dob" => $_SESSION["newuserinfo"]["age"],
           "bus_num" => "N/A",
           "group_num" => "N/A",
           "cabin_num" => "N/A",
-          "credit_due" => "299",
           "email" => $_SESSION["newuserinfo"]["email"]
         );
         if($redirectpagename == "overage_registration.php") {
