@@ -215,9 +215,7 @@
             <input type="text" placeholder="Ex: Mother" name="ec_relationship2" id="ec_relationship2"
                 class="form-control" required>
         </div>
-
         <?php endif ?>
-
         <div class="block_1">
             <p style="padding-top:30px">
         </div>
@@ -227,7 +225,6 @@
             <!-- Health Information -->
         </div>
         <?php if($user == "student" || $user == "student18"): ?>
-
         <label>
             <p style="font-size:30px;padding-top: 10px;">Health Information</p>
         </label>
@@ -286,7 +283,6 @@
         <div class="block_1">
             <p style="padding-top:30px">
         </div>
-
         <?php endif?>
         <hr />
 
