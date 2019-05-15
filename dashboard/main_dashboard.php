@@ -84,7 +84,7 @@
                     let firebasedataArray = Object.entries(item.val());
 
                     for (let i = 0; i < firebasedataArray.length; ++i) {
-                      if (group_num == firebasedataArray[i][1].group_num) {
+                      if (group_num == firebasedataArray[i][1].group_num && firebasedataArray[i][1] != $emailwithcomma) {
                         var updiv = document.getElementById("counselor-div");
                         var newp = document.createElement("ul");
 
@@ -95,13 +95,15 @@
                   });
                 </script>
               </div>
-              <b>Counselors: </b>
-              <div id=counselor-div> </div>
-              <b>Family Number:</b>
+              <?php if($user_type != "counselor"): ?>
+                <b>Counselors: </b>
+                <div id=counselor-div> </div>
+              <?php endif?>
+              <b>Family:</b>
               <p> <?php echo $group_num; ?></p>
-              <b>Bus Number: </b>
+              <b>Bus: </b>
               <p> <?php echo $bus_num; ?></p>
-              <b>Cabin Number: </b>
+              <b>Cabin: </b>
               <p> <?php echo $cabin_num; ?></p>
               <br />
               <button type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">View Group Details
