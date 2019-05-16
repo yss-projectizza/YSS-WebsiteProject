@@ -27,7 +27,7 @@ session_start();
   <body style = "text-align: center" >
     <?php include("header_loggedout.php")?>
     <form id= "appForm" action="formToDatabase.php" method="post"
-    enctype="multipart/form-data" onsubmit="imagetoDatabase()">
+    enctype="multipart/form-data" onsubmit="return validateImgProcess()">
       <div class="container" style = "background: white; margin-top: 20px;">
           <!-- Parent Registration Header -->
           <h1 align="center" style = "font-size:50px;padding-top: 20px;">Register for a Guardian Account</h1>
@@ -213,26 +213,36 @@ Javascript Segment
         }
         document.getElementById('licenseUpload').addEventListener('change', uploadImage, false);
 
-        function imagetoDatabase(){
-            var config = {
-                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-                authDomain: "yss-project-69ba2.firebaseapp.com",
-                databaseURL: "https://yss-project-69ba2.firebaseio.com",
-                projectId: "yss-project-69ba2",
-                storageBucket: "yss-project-69ba2.appspot.com",
-                messagingSenderId: "530416464878"
-            };
-            firebase.initializeApp(config);
-            var storageRef = firebase.storage().ref();
-            var database = firebase.database();
-            var storageRef = firebase.storage().ref('dl/' + dlImage.name);
-            alert("here! image name: " + dlImage.name);
-            var metadata = {
-                contentType: 'image/jpeg'
-            };
-            storageRef.put(dlImage, metadata).then(function(snapshot) {
-                console.log("Uploaded an array!");
-            });
+        function validateImgProcess(){
+            var password = document.getElementById("password").value;
+            var password2 = document.getElementById("password2").value;
+
+            if(password != password2){
+                alert("Retyped password must match password");
+                return false;
+            }
+            else {
+                var config = {
+                    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                    authDomain: "yss-project-69ba2.firebaseapp.com",
+                    databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                    projectId: "yss-project-69ba2",
+                    storageBucket: "yss-project-69ba2.appspot.com",
+                    messagingSenderId: "530416464878"
+                };
+                firebase.initializeApp(config);
+                var storageRef = firebase.storage().ref();
+                var database = firebase.database();
+                var storageRef = firebase.storage().ref('dl/' + dlImage.name);
+                //alert("here! image name: " + dlImage.name);
+                var metadata = {
+                    contentType: 'image/jpeg'
+                };
+                storageRef.put(dlImage, metadata).then(function(snapshot) {
+                    console.log("Uploaded an array!");
+                });
+                return true;
+            }
         }
                   /*
         function submitForm(){
