@@ -199,8 +199,8 @@ if (!isset($_SESSION))
                     var input = document.createElement("input");
                     input.classList.add('input');
                     label.innerHTML = "Event " + counter;
-                    input.type = "text"
-                    input.id = "eventinput" + counter
+                    input.type = "text";
+                    input.id = "eventinput" + counter;
                     input.value = firebasedata["event" + counter];
                     eventDiv.appendChild(label);
                     eventDiv.appendChild(input);
@@ -209,7 +209,7 @@ if (!isset($_SESSION))
                     var input = document.createElement("input");
                     input.classList.add('input');
                     label.innerHTML = "Time " + counter;
-                    input.type = "text"
+                    input.type = "text";
                     input.id = "timeinput" + counter;
                     input.value = firebasedata["time" + counter];
                     eventDiv.appendChild(label);
@@ -219,7 +219,7 @@ if (!isset($_SESSION))
                     var input = document.createElement("input");
                     input.classList.add('input');
                     label.innerHTML = "Date " + counter;
-                    input.type = "text"
+                    input.type = "text";
                     input.id = "dateinput" + counter;
                     input.value = firebasedata["date" + counter];
                     
