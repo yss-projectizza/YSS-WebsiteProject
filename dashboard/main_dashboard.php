@@ -84,11 +84,11 @@
                     let firebasedataArray = Object.entries(item.val());
 
                     for (let i = 0; i < firebasedataArray.length; ++i) {
-                      if (group_num == firebasedataArray[i][1].group_num && firebasedataArray[i][1] != $emailwithcomma) {
+                      if (group_num == firebasedataArray[i][1].group_num && firebasedataArray[i][1].user_type == "counselor") {
                         var updiv = document.getElementById("counselor-div");
                         var newp = document.createElement("ul");
 
-                        newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name;
+                        newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " *";
                         updiv.appendChild(newp)
                       }
                     }
