@@ -45,20 +45,21 @@ if (!isset($_SESSION))
     <h3>Admin Panel</h3>
     <div class="main-cards">
       <div class="card">
-        <h3>Edit User Information</h3>
+        <h3>Name - Group Number - Bus Number - Cabin Number</h3>
         <p id="data"></p>
         <script>
           firebase.database().ref('/').once('value').then(async function (snapshot) {
-            let alldata = Object.keys(snapshot.val().users);
+            let alldata = Object.entries(snapshot.val().users);
+            
             let printdata = alldata.map(item => {
-              return '<p><a href=/admin_profile.php?name=' + item + '><button class="rounded">' + item +
-                '</button></a></p>'
+              return '<p><a href=/admin_profile.php?name=' + item[0] + '><button class="rounded">' + item[1].first_name + " " + item[1].last_name +
+                '</button></a><input value='+  item[1].group_num + '></input>' + " " +  '<input value=' + item[1].bus_num + '></input>' + " " + '<input value=' + item[1].cabin_num + '></label><button>Delete</button></p>'
             })
             document.getElementById("data").innerHTML = printdata.join("");
           });
         </script>
       </div>
-      <div class="card">
+      <!-- <div class="card">
         <h3>Groups</h3>
         <p id="group_numbers"></p>
         <script>
@@ -114,7 +115,6 @@ if (!isset($_SESSION))
         <script>
           firebase.database().ref('/').once('value').then(async function (snapshot) {
             let alldata = Object.entries(snapshot.val().users);
-            // console.log(alldata)
             let newarray = {};
             for (var index in alldata) {
               if (alldata[index][1].user_type !== "parent" && alldata[index][1].user_type !== "admin") {
@@ -132,7 +132,7 @@ if (!isset($_SESSION))
             document.getElementById("cabin_numbers").innerHTML = printdata.join("");
           });
         </script>
-      </div>
+      </div> -->
 
       <div class="card">
         <h3>Schedule</h3>
@@ -140,10 +140,7 @@ if (!isset($_SESSION))
         <div id="inside-div">
 
           <div>
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Select Group
-            </button>
+
             <br/>
             <br/>
             <div id="schedule_buttons">
@@ -160,37 +157,18 @@ if (!isset($_SESSION))
             <script>
               var counter = 0
 
-              firebase.database().ref('/users/').once('value').then(item => {
-                var group_number_set = new Set();
-                let datavalues = Object.values(item.val());
-                for (let i = 0; i < datavalues.length; ++i) {
-                  if (datavalues[i].group_num) {
-                    group_number_set.add(datavalues[i].group_num);
-                  }
-                }
-                var dropdown = document.getElementById("dropdown-groupnum");
-                for (let item of group_number_set) {
-                  let dropdownitem = document.createElement("option")
-                  dropdownitem.class = "dropdown-item"
-                  dropdownitem.value = item;
-                  dropdownitem.text = item
-                  dropdownitem.onclick = () => showFields(item)
-                  dropdown.appendChild(dropdownitem);
-                }
+  
 
-              })
-
-              function showFields(group_number) {
                 let schedule_buttons = document.getElementById("schedule_buttons");
                 schedule_buttons.style.display = "block";
 
-                firebase.database().ref('/schedule/' + group_number).once('value').then(item => {
+                firebase.database().ref('/schedule/').once('value').then(item => {
                   firebasedata = item.val()
+                  console.log(item.val())
                   let firebasedataArray = Object.entries(item.val());
                   console.log(firebasedataArray)
-                  console.log(item.val())
 
-                  for (let i = 0; i < firebasedataArray.length / 3; ++i) {
+                  for (let i = 0; i < firebasedataArray.length; ++i) {
                     counter++;
                     var updiv = document.getElementById("inside-div");
                     const eventDiv = document.createElement('div');
@@ -201,7 +179,7 @@ if (!isset($_SESSION))
                     label.innerHTML = "Event " + counter;
                     input.type = "text";
                     input.id = "eventinput" + counter;
-                    input.value = firebasedata["event" + counter];
+                    input.value = firebasedataArray[i][1]["event" + counter];
                     eventDiv.appendChild(label);
                     eventDiv.appendChild(input);
 
@@ -211,7 +189,7 @@ if (!isset($_SESSION))
                     label.innerHTML = "Time " + counter;
                     input.type = "text";
                     input.id = "timeinput" + counter;
-                    input.value = firebasedata["time" + counter];
+                    input.value = firebasedataArray[i][1]["time" + counter];
                     eventDiv.appendChild(label);
                     eventDiv.appendChild(input);
 
@@ -221,10 +199,11 @@ if (!isset($_SESSION))
                     label.innerHTML = "Date " + counter;
                     input.type = "text";
                     input.id = "dateinput" + counter;
-                    input.value = firebasedata["date" + counter];
+                    input.value = firebasedataArray[i][1]["date" + counter];
                     
                     eventDiv.appendChild(label);
                     eventDiv.appendChild(input);
+
 
                     updiv.appendChild(eventDiv);
                   }
@@ -266,14 +245,14 @@ if (!isset($_SESSION))
                 newdict = {}
 
                 document.getElementById("submit").addEventListener("click", function () {
-                  for (let i = 1; i <= counter; i++) {
-                    newdict["event" + i] = document.getElementById("eventinput" + i).value;
-                    newdict["time" + i] = document.getElementById("timeinput" + i).value;
-                    newdict["date" + i] = document.getElementById("dateinput" + i).value;
-                  }
-                  firebase.database().ref('/schedule/' + group_number).set(newdict);
+                  
+                    newdict["event" + counter] = document.getElementById("eventinput" + counter).value;
+                    newdict["time" + counter] = document.getElementById("timeinput" + counter).value;
+                    newdict["date" + counter] = document.getElementById("dateinput" + counter).value;
+                  
+                  firebase.database().ref('/schedule/').push(newdict);
                 });
-              }
+              
             </script>
           </div>
 
