@@ -68,7 +68,7 @@
                   updiv.appendChild(newp)
                 }else{
                   if(firebasedataArray[i][1].user_type == "counselor"){
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " *";
+                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " * " + firebasedataArray[i][1].email;
                   }else{
                     newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name;
                   }            
@@ -104,7 +104,7 @@
                   updiv.appendChild(newp)
                 }else{
                   if(firebasedataArray[i][1].user_type == "counselor"){
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " *";
+                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " * " + firebasedataArray[i][1].email;
                   }else{
                     newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name;
                   }            
@@ -138,7 +138,7 @@
                   updiv.appendChild(newp)
                 }else{
                   if(firebasedataArray[i][1].user_type == "counselor"){
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " *";
+                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " * " + firebasedataArray[i][1].email;
                   }else{
                     newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name;
                   }               
