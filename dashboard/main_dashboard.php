@@ -29,7 +29,7 @@
 
 <head>
   <title>Youth Spiritual Summit</title>
-  <script src="dashboard/main_dashboard.js"></script>
+
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/dashboard.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -133,7 +133,7 @@
                     return actions.order.capture().then(function(details) {
                       // Show a success message to your buyer
 
-                      console.log(details.purchase_units[0].amount.value)
+
                       let amount_payed = details.purchase_units[0].amount.value;
                       amount_payed = amount_payed.split(".");
                       let payed_dollar = parseInt(amount_payed[0]);
@@ -162,21 +162,21 @@
         <?php if ($user_type != "parent") : ?>
 
           <script>
-            var group_num = "<?php echo $_SESSION["queryData"]["group_num"] ?>";
-            if (group_num !== "N/A") {
-              firebase.database().ref("/schedule/" + group_num).once('value').then(data => {
-                returndata = data.val()
-                console.log(returndata)
-                var schedule_div = document.getElementById("schedule");
-                schedule_items = Object.entries(returndata);
+              firebase.database().ref("/schedule/").once('value').then(data => {
+                returndataArray = Object.entries(data.val())
 
-                for (item of schedule_items) {
+                var schedule_div = document.getElementById("schedule");
+
+
+                for (item of returndataArray) {
+                  if (item[1].group == group_num){
                   let newp = document.createElement("p");
-                  newp.innerHTML = item;
+                  newp.innerHTML = "Event: " + item[1].event + " Date: " + item[1].date +  " Time: " + item[1].time;
                   schedule_div.appendChild(newp);
                 }
+                }
               })
-            }
+            
           </script>
           <div class="card" id="schedule">
             <h2>Schedule</h2>
