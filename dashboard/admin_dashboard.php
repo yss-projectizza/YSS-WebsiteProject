@@ -16,6 +16,9 @@ if (!isset($_SESSION))
     messagingSenderId: "530416464878"
   };
   firebase.initializeApp(config);
+
+  // Get a reference to the storage service
+  var storage = firebase.storage();
 </script>
 
 <html lang="en">
@@ -40,15 +43,15 @@ if (!isset($_SESSION))
 
   <script>
     function update_groupnum(event,id){
-      firebase.database().ref('/users/' + id + '/group_num').set(event.target.value);  
+      firebase.database().ref('/users/' + id + '/group_num').set(event.target.value);
     }
 
     function update_cabinnum(event,id){
-      firebase.database().ref('/users/' + id + '/cabin_num').set(event.target.value);  
+      firebase.database().ref('/users/' + id + '/cabin_num').set(event.target.value);
     }
 
     function update_busnum(event,id){
-      firebase.database().ref('/users/' + id + '/bus_num').set(event.target.value);  
+      firebase.database().ref('/users/' + id + '/bus_num').set(event.target.value);
     }
     </script>
 </head>
@@ -67,7 +70,7 @@ if (!isset($_SESSION))
             let alldata = Object.entries(snapshot.val().users);
 
             let printdata = alldata.map(item => {
-              return ("<p><a href=/admin_profile.php?name=" + item[0] + "><button class='rounded'>" + item[1].first_name 
+              return ("<p><a href=/admin_profile.php?name=" + item[0] + "><button class='rounded'>" + item[1].first_name
               + " " + item[1].last_name + "</button></a><input onchange='update_groupnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].group_num + '></input>' + "<input onchange='update_cabinnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].cabin_num + '></input>' + "<input onchange='update_busnum(event," + `"${item[0]}"` + ")' + value="
@@ -178,7 +181,7 @@ if (!isset($_SESSION))
             <script>
               var counter = 0
 
-  
+
 
                 let schedule_buttons = document.getElementById("schedule_buttons");
                 schedule_buttons.style.display = "block";
@@ -245,7 +248,7 @@ if (!isset($_SESSION))
                     var deletebutton = document.createElement("button");
                     deletebutton.innerHTML = "Delete"
                     deletebutton.onclick = () => {delete_event(key);alert("deleted successfully.");location.reload();}
-                    
+
                     eventDiv.appendChild(label);
                     eventDiv.appendChild(input);
                     eventDiv.appendChild(deletebutton);
@@ -303,17 +306,17 @@ if (!isset($_SESSION))
                   firebase.database().ref('/schedule/').set(null);
 
                   for(let i = 1; i <= counter; ++i){
-                  
+
                     newdict["event"] = document.getElementById("eventinput" + i).value;
                     newdict["time"] = document.getElementById("timeinput" + i).value;
                     newdict["date"] = document.getElementById("dateinput" + i).value;
                     newdict["group"] = document.getElementById("groupinput" + i).value;
                     firebase.database().ref('/schedule/').push(newdict);
                   }
-                  
-                  
+
+
                 });
-              
+
             </script>
           </div>
 
