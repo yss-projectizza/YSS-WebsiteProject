@@ -110,7 +110,7 @@
               </button>
             </div>
           <?php endif ?>
-          <?php if ($user_type != "counselor") : ?>
+          <?php if ($user_type != "counselor" && $user_type != "student") : ?>
             <div class="card">
               <h2>Payment</h2>
               <label>You owe: <label id="amount_owed" style='font-size:22;color:red;'>$</label></label>
