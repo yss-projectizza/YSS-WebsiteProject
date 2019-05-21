@@ -84,7 +84,7 @@
                     let firebasedataArray = Object.entries(item.val());
 
                     for (let i = 0; i < firebasedataArray.length; ++i) {
-                      if (group_num == firebasedataArray[i][1].group_num && firebasedataArray[i][1] != $emailwithcomma) {
+                      if (group_num == firebasedataArray[i][1].group_num && firebasedataArray[i][1] != "<?php echo $emailwithcomma; ?>") {
                         var updiv = document.getElementById("counselor-div");
                         var newp = document.createElement("ul");
 
@@ -133,7 +133,7 @@
                     return actions.order.capture().then(function(details) {
                       // Show a success message to your buyer
 
-                      console.log(details.purchase_units[0].amount.value)
+
                       let amount_payed = details.purchase_units[0].amount.value;
                       amount_payed = amount_payed.split(".");
                       let payed_dollar = parseInt(amount_payed[0]);
@@ -166,7 +166,7 @@
                 returndataArray = Object.entries(data.val())
 
                 var schedule_div = document.getElementById("schedule");
-                console.log(group_num)
+
 
                 for (item of returndataArray) {
                   if (item[1].group == group_num){
