@@ -83,18 +83,21 @@
 					<button type="reset" onclick="forgotPassword()" id="forgot" class="btn btn-med btn-outline-info btn-block" role="button" style="margin-top:10">Forgot Password?</button>
 					<script>
 						function forgotPassword() {
-						var email = prompt("Please enter your email:", "abcde@gmail.com");
-						var comma_email = email.replace(/\./g,',');
-						var ref = firebase.database().ref("/users");
-						ref.once("value").then(function(snapshot){
-							if (snapshot.child(comma_email).exists()){
-								alert("A link to reset your password has been sent to (" + email +").");
-							}
-							else {
-								alert('The email: (' + email + ') does not exist in the system. Please create an account.');
-							}
-						});
-					}
+							var email = prompt("Please enter your email:", "abcde@gmail.com");
+							if (email != null){
+								var comma_email = email.replace(/\./g,',');
+								var ref = firebase.database().ref("/users");
+								ref.once("value").then(function(snapshot){
+									if (snapshot.child(comma_email).exists()){
+										alert("A link to reset your password has been sent to (" + email +").");
+										window.location.href = "send_link.php?email=" + email + "&reset=true";
+									}
+									else {
+										alert('The email: (' + email + ') does not exist in the system. Please create an account.');
+									}
+								});
+							}	
+						}
 					</script>
 
 					<!-- <a id="forgot" class="btn btn-med btn-outline-info btn-block" href="/forgot" role="button" style="margin-top:12">Forgot Password</a> -->
