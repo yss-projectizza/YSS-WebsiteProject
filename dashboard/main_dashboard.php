@@ -169,7 +169,7 @@
 
 
                 for (item of returndataArray) {
-                  if (item[1].group == group_num){
+                  if (item[1].group.split(",").indexOf(group_num) >= 0 || item[1].group === "all"){
                   let newp = document.createElement("p");
                   newp.innerHTML = "Event: " + item[1].event + " Date: " + item[1].date +  " Time: " + item[1].time;
                   schedule_div.appendChild(newp);
