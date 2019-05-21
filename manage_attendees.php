@@ -56,13 +56,16 @@ session_start();
 
     for (let i = 0; i < users.length; i++) {
       if (users[i][1].parent_email == parent_email) {
-        buildYouthDiv(users[i][1]);
+        buildYouthDiv(users[i][1],users[i][0]);
       }
     }
   });
 
-  function buildYouthDiv(youth){
-    console.log(youth)
+  function deleteYouth(key){
+    firebase.database().ref("/users/"+key).remove();
+  }
+
+  function buildYouthDiv(youth,key){
     const boxDiv = document.createElement('div');
     boxDiv.classList.add('rounded', 'box', 'youth-info');
 
@@ -84,6 +87,7 @@ session_start();
     deleteButton.classList.add('rounded');
     deleteButton.id = 'delete-youth';
     deleteButton.innerHTML = "Delete Youth Participant";
+    deleteButton.onclick = () => {var delete_user = confirm("Are you sure you would like to delete this youth participant?"); if (delete_user) {deleteYouth(key);alert("Deleted youth participant successfully.")}}
     buttonDiv.appendChild(deleteButton);
 
     boxDiv.appendChild(infoDiv);
