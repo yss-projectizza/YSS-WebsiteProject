@@ -9,6 +9,27 @@ session_start();
     var dob = "<?php echo $_SESSION["newuserinfo"]["age"];?>";
 </script>
 
+<script>
+    function validate() {
+        verification = document.getElementById('verification').value;
+        password = document.getElementById('password').value;
+        password2 = document.getElementById('password2').value;
+        console.log(password);
+        console.log(password2)
+        if(password != password2) {
+            alert("Retyped password must match password");
+            return false;
+        }
+        if(verification == 'No') {
+          alert("You are not verified to apply");
+          return false;
+        }
+        else{
+          return true;
+        }
+    }
+</script>
+
 <!doctype html>
 <html lang="en">
 
@@ -24,7 +45,8 @@ session_start();
 <body>
     <?php include("header_loggedout.php")?>
 
-    <form action="formToDatabase.php" method="post" enctype="multipart/form-data">
+    <form action="formToDatabase.php" method="post"
+    onsubmit="return validate()" enctype="multipart/form-data">
         <div class="container" style="background: white; margin-top: 20px;">
             <!-- Counselor Registration Header -->
             <h1 align="center" style="font-size:50px;padding-top: 20px;">Counselor Application</h1>
@@ -163,7 +185,7 @@ session_start();
                     <label>
                         <p style="font-size:30px;">Experience</p>
                     </label>
-                    
+
                     <div class="row initial-task-padding">
                         <div class="col">
                             How many years of experience do you have working with youth?<b style="color: red;">*</b>
@@ -296,7 +318,7 @@ session_start();
                             <br>
                             <select class="form-control form-control-md" name="felony1" id="felony1" style="width:30%" required>
                                 <option disabled selected value> -- select an option -- </option>
-                                <option>No</option> 
+                                <option>No</option>
                                 <option>Yes</option>
                             </select>
                             <input type="text" name="felony2" id="felony2" times-label="references" class="form-control">
@@ -336,7 +358,7 @@ session_start();
 
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
- 
+
    <div class="footer top-buffer">
   <div class="container">
     <div class="row align-items-center">
@@ -344,13 +366,13 @@ session_start();
         Call Us: 949-416-3753
       </div>
       <div class="col" id="mid">
-        Follow us:  
+        Follow us:
         <img src="/instagram.svg" width="10%" onClick="document.location.href = 'https://www.instagram.com/youth_summit/';"/>
         <img src="/facebook.svg" width="11%" onClick="document.location.href = 'https://www.facebook.com/youthspiritualsummit/';"/>
       </div>
       <div class="vertline"></div>
       <div class="col" id="right">
-        © 2019 Youth Spiritual Summit 
+        © 2019 Youth Spiritual Summit
       </div>
     </div>
   </div>
