@@ -22,7 +22,7 @@ if (!isset($_SESSION))
 
 <head>
   <title>Youth Spiritual Summit</title>
-  <script src="dashboard/main_dashboard.js"></script>
+
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/dashboard.css">
   <link rel="stylesheet" href="/css/admin.css">
@@ -37,6 +37,20 @@ if (!isset($_SESSION))
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
+
+  <script>
+    function update_groupnum(event,id){
+      firebase.database().ref('/users/' + id + '/group_num').set(event.target.value);  
+    }
+
+    function update_cabinnum(event,id){
+      firebase.database().ref('/users/' + id + '/cabin_num').set(event.target.value);  
+    }
+
+    function update_busnum(event,id){
+      firebase.database().ref('/users/' + id + '/bus_num').set(event.target.value);  
+    }
+    </script>
 </head>
 
 <body>
@@ -46,16 +60,23 @@ if (!isset($_SESSION))
     <div class="main-cards">
       <div class="card">
         <h3>Name - Group Number - Bus Number - Cabin Number</h3>
-        <p id="data"></p>
+        <div id="data">
+</div>
         <script>
           firebase.database().ref('/').once('value').then(async function (snapshot) {
             let alldata = Object.entries(snapshot.val().users);
-            
+
             let printdata = alldata.map(item => {
-              return '<p><a href=/admin_profile.php?name=' + item[0] + '><button class="rounded">' + item[1].first_name + " " + item[1].last_name +
-                '</button></a><input value='+  item[1].group_num + '></input>' + " " +  '<input value=' + item[1].bus_num + '></input>' + " " + '<input value=' + item[1].cabin_num + '></label><button>Delete</button></p>'
-            })
-            document.getElementById("data").innerHTML = printdata.join("");
+              return ("<p><a href=/admin_profile.php?name=" + item[0] + "><button class='rounded'>" + item[1].first_name 
+              + " " + item[1].last_name + "</button></a><input onchange='update_groupnum(event," + `"${item[0]}"` + ")' + value="
+              +  item[1].group_num + '></input>' + "<input onchange='update_cabinnum(event," + `"${item[0]}"` + ")' + value="
+              +  item[1].cabin_num + '></input>' + "<input onchange='update_busnum(event," + `"${item[0]}"` + ")' + value="
+              +  item[1].bus_num + '></input>'
+            );})
+
+
+
+            document.getElementById("data").innerHTML += printdata.join("");
           });
         </script>
       </div>
@@ -163,12 +184,16 @@ if (!isset($_SESSION))
                 schedule_buttons.style.display = "block";
 
                 firebase.database().ref('/schedule/').once('value').then(item => {
-                  firebasedata = item.val()
-                  console.log(item.val())
-                  let firebasedataArray = Object.entries(item.val());
-                  console.log(firebasedataArray)
+
+                  if (!item.val()){
+                    var firebasedataArray = [];
+                  }
+                  else{
+                    var firebasedataArray= Object.entries(item.val());
+                  }
 
                   for (let i = 0; i < firebasedataArray.length; ++i) {
+                    let key = firebasedataArray[i][0];
                     counter++;
                     var updiv = document.getElementById("inside-div");
                     const eventDiv = document.createElement('div');
@@ -179,7 +204,7 @@ if (!isset($_SESSION))
                     label.innerHTML = "Event " + counter;
                     input.type = "text";
                     input.id = "eventinput" + counter;
-                    input.value = firebasedataArray[i][1]["event" + counter];
+                    input.value = firebasedataArray[i][1]["event"];
                     eventDiv.appendChild(label);
                     eventDiv.appendChild(input);
 
@@ -189,7 +214,7 @@ if (!isset($_SESSION))
                     label.innerHTML = "Time " + counter;
                     input.type = "text";
                     input.id = "timeinput" + counter;
-                    input.value = firebasedataArray[i][1]["time" + counter];
+                    input.value = firebasedataArray[i][1]["time"];
                     eventDiv.appendChild(label);
                     eventDiv.appendChild(input);
 
@@ -199,10 +224,31 @@ if (!isset($_SESSION))
                     label.innerHTML = "Date " + counter;
                     input.type = "text";
                     input.id = "dateinput" + counter;
-                    input.value = firebasedataArray[i][1]["date" + counter];
+                    input.value = firebasedataArray[i][1]["date"];
+                    eventDiv.appendChild(label);
+                    eventDiv.appendChild(input);
+
+                    var label = document.createElement("label");
+                    var input = document.createElement("input");
+                    input.classList.add('input');
+                    label.innerHTML = "Group " + counter;
+                    input.type = "text";
+                    input.id = "groupinput" + counter;
+                    input.value = firebasedataArray[i][1]["group"];
+                    eventDiv.appendChild(label);
+                    eventDiv.appendChild(input);
+
+                    function delete_event(id){
+                      firebase.database().ref('/schedule/' + id).remove();
+                    }
+
+                    var deletebutton = document.createElement("button");
+                    deletebutton.innerHTML = "Delete"
+                    deletebutton.onclick = () => {delete_event(key);alert("deleted successfully.");location.reload();}
                     
                     eventDiv.appendChild(label);
                     eventDiv.appendChild(input);
+                    eventDiv.appendChild(deletebutton);
 
 
                     updiv.appendChild(eventDiv);
@@ -240,17 +286,32 @@ if (!isset($_SESSION))
                   eventDiv.appendChild(label);
                   eventDiv.appendChild(input);
 
+                  var label = document.createElement("label");
+                  var input = document.createElement("input");
+                  label.innerHTML = "Group " + counter;
+                  input.type = "text";
+                  input.id = "groupinput" + counter;
+                  eventDiv.appendChild(label);
+                  eventDiv.appendChild(input);
+
                   updiv.appendChild(eventDiv);
                 });
                 newdict = {}
 
                 document.getElementById("submit").addEventListener("click", function () {
+                  newdict = {}
+                  firebase.database().ref('/schedule/').set(null);
+
+                  for(let i = 1; i <= counter; ++i){
                   
-                    newdict["event" + counter] = document.getElementById("eventinput" + counter).value;
-                    newdict["time" + counter] = document.getElementById("timeinput" + counter).value;
-                    newdict["date" + counter] = document.getElementById("dateinput" + counter).value;
+                    newdict["event"] = document.getElementById("eventinput" + i).value;
+                    newdict["time"] = document.getElementById("timeinput" + i).value;
+                    newdict["date"] = document.getElementById("dateinput" + i).value;
+                    newdict["group"] = document.getElementById("groupinput" + i).value;
+                    firebase.database().ref('/schedule/').push(newdict);
+                  }
                   
-                  firebase.database().ref('/schedule/').push(newdict);
+                  
                 });
               
             </script>
