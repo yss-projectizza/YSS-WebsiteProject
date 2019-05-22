@@ -30,7 +30,7 @@
 					<div class="row initial-task-padding">
 						<div class="col">
 							How many people live in your household?<b style="color: red;">*</b>
-							<input type="text" name="household" times-label="household" class="form-control" required>
+							<input id="people-in-household" type="text" name="household" times-label="household" class="form-control" required>
 							<br>
 						</div>
 					</div>
@@ -55,7 +55,7 @@
 					<div class="row initial-task-padding">
 						<div class="col">
 							How much of the $299 registration fee are you able to pay?<b style="color: red;">*</b>
-							<input type="text" name="can pay" times-label="can pay" class="form-control" required>
+							<input id="amount-can-pay" type="text" name="can pay" times-label="can pay" class="form-control" required>
 							<br>
 						</div>
 					</div>
@@ -64,7 +64,7 @@
 						<div class="col">
 							What local organizations (e.g. masjids) do you attend ? The Youth Spiritual Summit will reach out to these
 							organizations to see if they will support local youth to attend the Summit.?<b style="color: red;">*</b>
-							<input type="text" name="org" times-label="org" class="form-control" required>
+							<input id="local-masjid" type="text" name="org" times-label="org" class="form-control" required>
 							<br>
 						</div>
 					</div>
@@ -73,7 +73,7 @@
 						<div class="col">
 							Provide a brief description of the circumstances that lead you to request financial aid.<b
 								style="color: red;">*</b>
-							<input type="text" name="desc" times-label="org" class="form-control" required>
+							<input id="circumstances-description" type="text" name="desc" times-label="org" class="form-control" required>
 							<br>
 						</div>
 					</div>
@@ -107,23 +107,60 @@
 						<button onclick="location.href = '/dashboard.php'" id="back" class="btn-xl rounded" align="center"
 								role="button" style="background-color:#ccced1; margin-right:1%;height:2%;"> Back
 						</button>
-						<input type="submit" class="btn-xl rounded" align="center" value="Submit">
+						<input id="submit-button" type="submit" class="btn-xl rounded" align="center" value="Submit">
           </div>
 				</div>
 		</form>
 
+		<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+    authDomain: "yss-project-69ba2.firebaseapp.com",
+    databaseURL: "https://yss-project-69ba2.firebaseio.com",
+    projectId: "yss-project-69ba2",
+    storageBucket: "yss-project-69ba2.appspot.com",
+    messagingSenderId: "530416464878"
+  };
+  firebase.initializeApp(config);
+</script>
+
+		<script>
+			document.getElementById("submit-button").addEventListener("click", item = (event) => {
+				event.preventDefault();
+				
+				let amount_in_household = document.getElementById("people-in-household").value;
+				let amount_can_pay = document.getElementById("amount-can-pay").value;
+				let local_masjid = document.getElementById("local-masjid").value;
+				let circumstances_description = document.getElementById("circumstances-description").value;
+				firebase.database().ref('/financial_aid/').push({
+					first_name: "<?php echo $_SESSION["queryData"]["first_name"]; ?>",
+					last_name: "<?php echo $_SESSION["queryData"]["last_name"]; ?>",
+					email: "<?php echo $_SESSION["queryData"]["email"]; ?>",
+					amount_in_household:amount_in_household,
+					amount_can_pay:amount_can_pay,
+					local_masjid,local_masjid,
+					circumstances_description:circumstances_description
+				});
+				alert("Your financial aid form was submitted successfully.")
+
+
+
+			})
+			</script>
+
 		<!--Javascript here-->
-		<script type="text/javascript">
+		<!-- <script type="text/javascript">
 			$(".dropdown-menu a").click(function () {
 				$(this).parents(".dropdown").find('.btn').html($(this).text());
 				$(this).parents(".dropdown").find('.btn').val($(this).data('value'));
 			});
-		</script>
+		</script> -->
 
-		<script type="text/javascript">
-			$(".dropdown-menu").click(function () {
-						$("#gender").val($(this).data('value'));
-		</script>
+
 	</body>
 
 </html>

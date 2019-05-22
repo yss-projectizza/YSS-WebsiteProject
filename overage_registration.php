@@ -31,8 +31,8 @@ if(!isset($_SESSION))
 <body>
     <?php include("header_loggedout.php")?>
 
-    <form id=form1 action="formToDatabase.php" method="post" enctype="multipart/form-data"
-    onsubmit="imagetoDatabase()">
+    <form id=form1 action="formToDatabase.php" method="post"
+    enctype="multipart/form-data" onsubmit="return validateImgProcess()">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
         <h1 align="center" style = "font-size:40px;padding-top: 20px;">Youth Participant Registration</h1>
@@ -54,7 +54,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" pattern="^[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?$" placeholder="Ex: John" 
+                    <input type="text" pattern="^[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?$" placeholder="Ex: John"
                            name="first_name" id="firstname" class="form-control" required>
                 </div>
 
@@ -62,7 +62,7 @@ if(!isset($_SESSION))
                     <div class="input-group-prepend">
                         <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
                     </div>
-                    <input type="text" pattern="^[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?$" placeholder="Ex: Smith" 
+                    <input type="text" pattern="^[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?$" placeholder="Ex: Smith"
 
                            name="last_name" id="lastname" class="form-control" required>
                 </div>
@@ -351,27 +351,37 @@ if(!isset($_SESSION))
         }
         document.getElementById('upload').addEventListener('change', uploadImage, false);
 
-        function imagetoDatabase(){
-            var config = {
-                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-                authDomain: "yss-project-69ba2.firebaseapp.com",
-                databaseURL: "https://yss-project-69ba2.firebaseio.com",
-                projectId: "yss-project-69ba2",
-                storageBucket: "yss-project-69ba2.appspot.com",
-                messagingSenderId: "530416464878"
-            };
-            firebase.initializeApp(config);
-            var storageRef = firebase.storage().ref();
-            var database = firebase.database();
-            var storageRef = firebase.storage().ref('dl/' + dlImage.name);
-            alert("here! image name: " + dlImage.name);
-            var metadata = {
-                contentType: 'image/jpeg'
-            };
-            storageRef.put(dlImage, metadata).then(function(snapshot) {
-                console.log("Uploaded an array!");
-            });
-        }
+        function validateImgProcess(){
+            var password = document.getElementById("password").value;
+            var password2 = document.getElementById("password2").value;
+
+            if(password != password2){
+                alert("Retyped password must match password");
+                return false;
+            }
+            else {
+                var config = {
+                    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                    authDomain: "yss-project-69ba2.firebaseapp.com",
+                    databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                    projectId: "yss-project-69ba2",
+                    storageBucket: "yss-project-69ba2.appspot.com",
+                    messagingSenderId: "530416464878"
+                };
+                firebase.initializeApp(config);
+                var storageRef = firebase.storage().ref();
+                var database = firebase.database();
+                var storageRef = firebase.storage().ref('dl/' + dlImage.name);
+                //alert("here! image name: " + dlImage.name);
+                var metadata = {
+                    contentType: 'image/jpeg'
+                };
+                storageRef.put(dlImage, metadata).then(function(snapshot) {
+                    console.log("Uploaded an array!");
+                });
+                return true;
+            }
+          }
         </script>
 
 </body>

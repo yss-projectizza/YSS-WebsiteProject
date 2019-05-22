@@ -103,7 +103,7 @@
             </button>
             <input id="update" type="button"
               class="btn-xl rounded" align="center" value="Save changes" >
-              <button id="delete_user"style="background-color:red;"
+              <button id="delete_user" class="rounded" style="background-color:red;color:white;"
                align="center" role="button"> Delete User
             </button>
        </div>

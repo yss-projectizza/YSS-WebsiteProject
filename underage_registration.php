@@ -206,7 +206,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                     var gender = document.getElementById("gender").value;
                     var year = document.getElementById("schoolyear").value;
                     var age = document.getElementById("age").value;
-                    var size = document.getElementById("size").value;
+                    // var size = document.getElementById("size").value;
                     var file = document.getElementById("upload").value;
                     var allergies = document.getElementById("allergies").value;
                     var meds = document.getElementById("meds").value;
@@ -235,7 +235,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                             gender: gender,
                             year: year,
                             age: age,
-                            size: size,
+                            // size: size,
                             file: file,
                             alleriges: allergies,
                             meds: meds,

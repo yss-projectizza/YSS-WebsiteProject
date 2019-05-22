@@ -1,0 +1,17 @@
+#dropdownMenuButton {
+  width: auto;
+  height: 4.4%;
+  background-color: #f5be6c;
+  color: black;
+  border: thin solid black;
+  border-radius: 5px;
+}
+
+#dropdownMenuButton:hover {
+  background-color: #8fd4d9;
+  cursor: pointer;
+}
+
+#schedule_buttons {
+  display: none;
+}

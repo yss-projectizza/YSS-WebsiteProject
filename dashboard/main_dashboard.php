@@ -29,7 +29,7 @@
 
 <head>
   <title>Youth Spiritual Summit</title>
-  <script src="dashboard/main_dashboard.js"></script>
+
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/dashboard.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -84,31 +84,33 @@
                     let firebasedataArray = Object.entries(item.val());
 
                     for (let i = 0; i < firebasedataArray.length; ++i) {
-                      if (group_num == firebasedataArray[i][1].group_num) {
+                      if (group_num == firebasedataArray[i][1].group_num && firebasedataArray[i][1].user_type == "counselor") {
                         var updiv = document.getElementById("counselor-div");
                         var newp = document.createElement("ul");
 
-                        newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name;
+                        newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " *";
                         updiv.appendChild(newp)
                       }
                     }
                   });
                 </script>
               </div>
-              <b>Counselors: </b>
-              <div id=counselor-div> </div>
-              <b>Family Number:</b>
+              <?php if($user_type != "counselor"): ?>
+                <b>Counselors: </b>
+                <div id=counselor-div> </div>
+              <?php endif?>
+              <b>Family:</b>
               <p> <?php echo $group_num; ?></p>
-              <b>Bus Number: </b>
+              <b>Bus: </b>
               <p> <?php echo $bus_num; ?></p>
-              <b>Cabin Number: </b>
+              <b>Cabin: </b>
               <p> <?php echo $cabin_num; ?></p>
               <br />
               <button type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">View Group Details
               </button>
             </div>
           <?php endif ?>
-          <?php if ($user_type != "counselor") : ?>
+          <?php if ($user_type != "counselor" && $user_type != "student") : ?>
             <div class="card">
               <h2>Payment</h2>
               <label>You owe: <label id="amount_owed" style='font-size:22;color:red;'>$</label></label>
@@ -131,7 +133,7 @@
                     return actions.order.capture().then(function(details) {
                       // Show a success message to your buyer
 
-                      console.log(details.purchase_units[0].amount.value)
+
                       let amount_payed = details.purchase_units[0].amount.value;
                       amount_payed = amount_payed.split(".");
                       let payed_dollar = parseInt(amount_payed[0]);
@@ -160,21 +162,21 @@
         <?php if ($user_type != "parent") : ?>
 
           <script>
-            var group_num = "<?php echo $_SESSION["queryData"]["group_num"] ?>";
-            if (group_num !== "N/A") {
-              firebase.database().ref("/schedule/" + group_num).once('value').then(data => {
-                returndata = data.val()
-                console.log(returndata)
-                var schedule_div = document.getElementById("schedule");
-                schedule_items = Object.entries(returndata);
+              firebase.database().ref("/schedule/").once('value').then(data => {
+                returndataArray = Object.entries(data.val())
 
-                for (item of schedule_items) {
+                var schedule_div = document.getElementById("schedule");
+
+
+                for (item of returndataArray) {
+                  if (item[1].group.split(",").indexOf(group_num) >= 0 || item[1].group === "all"){
                   let newp = document.createElement("p");
-                  newp.innerHTML = item;
+                  newp.innerHTML = "Event: " + item[1].event + " Date: " + item[1].date +  " Time: " + item[1].time;
                   schedule_div.appendChild(newp);
                 }
+                }
               })
-            }
+            
           </script>
           <div class="card" id="schedule">
             <h2>Schedule</h2>
