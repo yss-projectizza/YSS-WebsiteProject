@@ -168,11 +168,17 @@
                 var schedule_div = document.getElementById("schedule");
 
 
+
                 for (item of returndataArray) {
                   if (item[1].group.split(",").indexOf(group_num) >= 0 || item[1].group === "all"){
                   let newp = document.createElement("p");
                   newp.innerHTML = "Event: " + item[1].event + " Date: " + item[1].date +  " Time: " + item[1].time;
                   schedule_div.appendChild(newp);
+                }else{
+                  let newp = document.createElement("p");
+                  newp.innerHTML = "Your schedule has not yet been assigned."
+                  schedule_div.appendChild(newp);
+
                 }
                 }
               })
