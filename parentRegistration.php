@@ -48,7 +48,7 @@ session_start();
                             <span class="input-group-text">First Name:<b
                                 style = "color: red;">*</b></span>
                         </div>
-                        <input id = "fnameInput" type="text" pattern="[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?" placeholder="Ex: John"
+                        <input id = "fnameInput" type="text" pattern="[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))" placeholder="Ex: John"
                         name="first_name" class="form-control" required>
                     </div>
 
@@ -57,7 +57,7 @@ session_start();
                             <span class="input-group-text">Last Name:<b
                                 style = "color: red;">*</b></span>
                             </div>
-                        <input id = "lnameInput" type="text" pattern="[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))?" placeholder="Ex: Smith"
+                        <input id = "lnameInput" type="text" pattern="[A-Za-z]+(((\'|\-|\.)?([A-Za-z])+))" placeholder="Ex: Smith"
                         name="last_name" class="form-control" required>
                     </div>
 
