@@ -32,9 +32,9 @@
         $database->getReference("users/$comma_email/token")->set($token);
 
         // send email with token 
-        $subject = 'Testing PHP Mail';
-        $message = 'This mail is sent using the PHP mail function';
-        $headers = 'From: youthspiritualsummit@gmail.com';
+        $subject = 'Youth Spiritual Summit: Password Reset';
+        $message = "password reset token: $token";
+        $headers = 'From: no-reply@gmail.com';
         $mail = mail($email,$subject,$message,$headers);
 
         if($mail){
@@ -44,7 +44,7 @@
         }
 
         // go back to login.php
-        // include "login.php";
-        // exit;
+        include "login.php";
+        exit;
     }
 ?>
