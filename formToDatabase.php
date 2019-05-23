@@ -16,7 +16,8 @@
           "bus_num" => "N/A",
           "group_num" => "N/A",
           "cabin_num" => "N/A",
-          "email" => $_SESSION["newuserinfo"]["email"]
+          "email" => $_SESSION["newuserinfo"]["email"],
+          "account_verified" => true
         );
         if($redirectpagename == "overage_registration.php") {
           $userInfo["user_type"] = "student18";
@@ -25,16 +26,19 @@
         elseif($redirectpagename == "underage_registration.php") {
           $userInfo["user_type"] = "student";
           $userInfo["credit_due"] = "299";
+          $userInfo["account_verified"] = false;
         }
         elseif($redirectpagename == "counselor_registration.php") {
           $userInfo["user_type"] = "counselor";
+          $userInfo["account_verified"] = false;
         }
 
     }
     else {
         $userInfo = array(
           "dob" => $_SESSION["newuserinfo"]["age"],
-          "email" => $_SESSION["newuserinfo"]["email"]
+          "email" => $_SESSION["newuserinfo"]["email"],
+          "account_verified" => true
         );
 
         if($redirectpagename == "parentRegistration.php") {
