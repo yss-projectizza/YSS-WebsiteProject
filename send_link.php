@@ -33,7 +33,7 @@
 
         // send email with token 
         $subject = 'Youth Spiritual Summit: Password Reset';
-        $message = "password reset token: $token";
+        $message = "password reset token: $token \n reset link: http://localhost:8000/new_password.php";
         $headers = 'From: youthspiritualsummit@gmail.com';
         $mail = mail($email,$subject,$message,$headers);
 
