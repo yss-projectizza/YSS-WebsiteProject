@@ -69,20 +69,121 @@ if (!isset($_SESSION))
           firebase.database().ref('/').once('value').then(async function (snapshot) {
             let alldata = Object.entries(snapshot.val().users);
 
-            let printdata = alldata.map(item => {
+            let printdata = alldata.map((item, index) => {
               return ("<p><a href=/admin_profile.php?name=" + item[0] + "><button class='rounded'>" + item[1].first_name
               + " " + item[1].last_name + "</button></a><input onchange='update_groupnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].group_num + '></input>' + "<input onchange='update_cabinnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].cabin_num + '></input>' + "<input onchange='update_busnum(event," + `"${item[0]}"` + ")' + value="
-              +  item[1].bus_num + '></input>'
+              +  item[1].bus_num + '></input>' + "<a id='dlImg" + index + "'></a>"
             );})
 
 
 
             document.getElementById("data").innerHTML += printdata.join("");
+            console.log(alldata);
+            console.log(printdata);
+
+            for(var index in alldata){
+              //console.log("alldata[", index, "] = ", alldata[index]);
+              console.log("index num=", index)
+              if( alldata[index][1].user_type == "parent" || alldata[index][1].user_type == "student18"){
+                let i = index;
+                var email = (alldata[index][1].email).replace(".",",");
+                var dlRef = firebase.storage().ref('dl/'+email);
+                dlRef.getDownloadURL().then(function(url){
+                  console.log("url: ", url);
+                  var image = document.createElement("img");
+                  image.src = url;
+                  image.style.height = "30px";
+                  var divID = "dlImg" + i; 
+                  console.log("divID=", divID)
+                  var dlElem = document.getElementById(divID);
+                  dlElem.appendChild(image);
+                  dlElem.href = url;
+                }).catch(function(error){
+                  switch (error.code) {
+                    case 'storage/object-not-found': // File doesn't exist
+                      console.log("file doesn't exist");
+                      break;
+                    case 'storage/unauthorized': // User doesn't have permission to access the object
+                      console.log("no permission");
+                      break;
+                    case 'storage/canceled': // User canceled the upload
+                      console.log("canceled");
+                      break;
+                    case 'storage/unknown': // Unknown error occurred, inspect the server response
+                      console.log("unknown error");
+                      break;
+                  }
+                });
+              }
+              //count += 1;
+            }
+          });
+
+  
+        </script>
+      </div>
+
+
+
+
+
+
+ <!--<div class="card">
+        <h3>Driver's License</h3>
+        <div id="dlImages"></div>
+        <script>
+          firebase.database().ref('/').once('value').then(async function(snapshot) {
+            let alldata = Object.entries(snapshot.val().users);
+            console.log("alldata: ", alldata);
+            let newarray = [];
+            for(var index in alldata){
+              console.log("alldata[", index, "] = ", alldata[index]);
+              if( alldata[index][1].user_type == "parent" || alldata[index][1].user_type == "student18"){
+                var email = (alldata[index][1].email).replace(".",",");
+                var dlRef = firebase.storage().ref('dl/'+email);
+                //console.log('dl/'+ (alldata[index][1].email).replace(".",","));
+                dlRef.getDownloadURL().then(function(url){
+                  console.log("url: ", url);
+                  var image = document.createElement("img");
+                  image.src = url;
+                  var br = document.createElement("br");
+                  var desc = document.createTextNode(alldata[index][1].firstname + " " + alldata[index][1].lastname);
+                  var dlDiv = document.getElementById("dlImages");
+                  dlDiv.appendChild(desc);
+                  dlDiv.appendChild(br);
+                  dlDiv.appendChild(image);
+                  dlDiv.appendChild(br);
+                }).catdch(function(error){
+                  switch (error.code) {
+                    case 'storage/object-not-found': // File doesn't exist
+                      console.log("file doesn't exist");
+                      break;
+                    case 'storage/unauthorized': // User doesn't have permission to access the object
+                      console.log("no permission");
+                      break;
+                    case 'storage/canceled': // User canceled the upload
+                      console.log("canceled");
+                      break;
+                    case 'storage/unknown': // Unknown error occurred, inspect the server response
+                      console.log("unknown error");
+                      break;
+                  }
+                });
+              }
+            }
           });
         </script>
       </div>
+-->
+
+
+
+
+
+
+
       <!-- <div class="card">
         <h3>Groups</h3>
         <p id="group_numbers"></p>
