@@ -1,4 +1,4 @@
-#inside-div {
+#schedule {
   width: 90%;
 }
 
@@ -10,6 +10,31 @@ label {
   margin-left: 1%;
 }
 
-.input {
+.group-input {
   margin-right: 1%;
+  width: 40%;
+  padding: 1%;
+}
+
+#data {
+  width: 90%;
+}
+
+.user-button{
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.delete-button{
+  margin-top: 45%;
+}
+
+th, td{
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.auth-img {
+  width: 100%;
+  height: auto;
 }
