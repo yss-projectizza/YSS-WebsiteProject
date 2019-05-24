@@ -62,7 +62,8 @@ if (!isset($_SESSION))
     <h3>Admin Panel</h3>
     <div class="main-cards">
       <div class="card">
-        <h3>Name - Group Number - Bus Number - Cabin Number</h3>
+        <h2>Name - Group Number - Bus Number - Cabin Number</h2>
+        <br/>
         <div id="data">
         </div>
         <script>
