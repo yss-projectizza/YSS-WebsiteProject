@@ -162,7 +162,7 @@ if (!isset($_SESSION))
       </div> -->
 
       <div class="card">
-        <h3>Schedule</h3>
+        <h2>Schedule</h2>
         <p id="schedule"></p>
         <div id="inside-div">
           <div id="schedule_buttons">
