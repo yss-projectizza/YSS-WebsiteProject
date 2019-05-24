@@ -65,7 +65,7 @@ if (!isset($_SESSION))
         <h2>All User Information</h2>
         <br/>
         <table id="data">
-          <tr>
+          <tr id="headings">
             <th> Name </th>
             <th> Group # </th>
             <th> Cabin # </th>
@@ -107,7 +107,7 @@ if (!isset($_SESSION))
                   var divID = "dlImg" + i; 
                   console.log("divID=", divID)
                   var dlElem = document.getElementById(divID);
-                  dlElem.innerHTML = "<button class='rounded' data-toggle='modal' data-target='#"+ 
+                  dlElem.innerHTML = "<button class='rounded user-button' data-toggle='modal' data-target='#"+ 
                                       modal_id + "'>Show Authentication</button><div id='" +
                                       modal_id + "' class='modal fade' role='dialog'>" +
                                       `<div class="modal-dialog">
@@ -145,7 +145,7 @@ if (!isset($_SESSION))
           });
         </script>
       </div>
-      
+
       <!-- <div class="card">
         <h3>Groups</h3>
         <p id="group_numbers"></p>

@@ -16,6 +16,10 @@ label {
   padding: 1%;
 }
 
+#headings {
+  font-size: 130%;
+}
+
 #data {
   width: 90%;
 }
