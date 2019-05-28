@@ -19,6 +19,7 @@ if (!isset($_SESSION))
 
   // Get a reference to the storage service
   var storage = firebase.storage();
+
 </script>
 
 <html lang="en">
@@ -71,6 +72,7 @@ if (!isset($_SESSION))
             <th> Cabin # </th>
             <th> Bus # </th>
             <th> Image </th>
+            <th> Verified </th>
           </tr>
         </table>
         <script>
@@ -81,6 +83,17 @@ if (!isset($_SESSION))
                 buildUserDiv(alldata[i], i);
             }
 
+            function verifyCheck(verified) {
+              if(verified) {
+                  console.log(document.getElementById("verified").checked);
+                  document.getElementById("verified").checked = true;
+                  console.log(document.getElementById("verified").checked);
+              }
+              else{
+                document.getElementById("verified").checked = false;
+              }
+            }
+
             function buildUserDiv(item, index) {
               const boxDiv = document.createElement('tr');
               boxDiv.innerHTML = "<th><a href=/admin_profile.php?name=" + item[0] + "><button class='rounded user-button'>" + item[1].first_name
@@ -88,8 +101,10 @@ if (!isset($_SESSION))
               +  item[1].group_num + '></input></th>' + "<th><input class='group-input' onchange='update_cabinnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].cabin_num + '></input></th>' + "<th><input class='group-input' onchange='update_busnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].bus_num + '></input></th>' + "<th><a id='dlImg" + index + "'></a></th>"
+              + "<th><input type='checkbox' id='verified'> </input></th>"
 
               document.getElementById("data").appendChild(boxDiv);
+              verifyCheck(item[1].account_verified);
             }
 
             console.log(alldata);
@@ -104,10 +119,10 @@ if (!isset($_SESSION))
                 dlRef.getDownloadURL().then(function(url){
                   console.log("url: ", url);
                   var modal_id = "modal" + i;
-                  var divID = "dlImg" + i; 
+                  var divID = "dlImg" + i;
                   console.log("divID=", divID)
                   var dlElem = document.getElementById(divID);
-                  dlElem.innerHTML = "<button class='rounded user-button' data-toggle='modal' data-target='#"+ 
+                  dlElem.innerHTML = "<button class='rounded user-button' data-toggle='modal' data-target='#"+
                                       modal_id + "'>Show Authentication</button><div id='" +
                                       modal_id + "' class='modal fade' role='dialog'>" +
                                       `<div class="modal-dialog">
@@ -232,7 +247,7 @@ if (!isset($_SESSION))
               Submit
             </button>
             <br />
-            <br />
+            <br />a
           </div>
           <table id="inside-div">
           </table>
@@ -254,7 +269,7 @@ if (!isset($_SESSION))
                 counter++;
                 var updiv = document.getElementById("inside-div");
                 const eventDiv = document.createElement('tr');
-                
+
                 var th1 = document.createElement("th");
                 var label = document.createElement("label");
                 var input = document.createElement("input");
@@ -302,7 +317,7 @@ if (!isset($_SESSION))
                 function delete_event(id) {
                   firebase.database().ref('/schedule/' + id).remove();
                 }
-                
+
                 var delete_th = document.createElement("th");
                 var deletebutton = document.createElement("button");
                 deletebutton.classList.add('rounded', 'delete-button');
