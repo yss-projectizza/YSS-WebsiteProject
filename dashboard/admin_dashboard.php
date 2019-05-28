@@ -19,6 +19,7 @@ if (!isset($_SESSION))
 
   // Get a reference to the storage service
   var storage = firebase.storage();
+
 </script>
 
 <html lang="en">
@@ -82,6 +83,7 @@ if (!isset($_SESSION))
             <th> Cabin # </th>
             <th> Bus # </th>
             <th> Image </th>
+            <th> Verified </th>
           </tr>
         <br/>
         <table id="data">
@@ -98,12 +100,23 @@ if (!isset($_SESSION))
 
 
           firebase.database().ref('/').once('value').then(async function (snapshot) {
-          
-            alldata = Object.entries(snapshot.val().users).sort((a, b) => {return a[1][pattern] - b[1][pattern]}); 
+
+            alldata = Object.entries(snapshot.val().users).sort((a, b) => {return a[1][pattern] - b[1][pattern]});
 
 
             for (let i = 0; i < alldata.length; i++) {
                 buildUserDiv(alldata[i], i);
+            }
+
+            function verifyCheck(verified) {
+              if(verified) {
+                  console.log(document.getElementById("verified").checked);
+                  document.getElementById("verified").checked = true;
+                  console.log(document.getElementById("verified").checked);
+              }
+              else{
+                document.getElementById("verified").checked = false;
+              }
             }
 
             function buildUserDiv(item, index) {
@@ -116,12 +129,12 @@ if (!isset($_SESSION))
               + " " + item[1].last_name + "</button></a></th><th><input class='group-input' onchange='update_groupnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].group_num + '></th>' + "<th><input class='group-input' onchange='update_cabinnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].cabin_num + '></th>' + "<th><input class='group-input' onchange='update_busnum(event," + `"${item[0]}"` + ")' + value="
-              +  item[1].bus_num + '></th>' + "<th><a id='dlImg" + index + "'></a></th>" 
-              
+              +  item[1].bus_num + '></th>' + "<th><a id='dlImg" + index + "'></a></th>"
+              + "<th><input type='checkbox' id='verified'> </input></th>"
 
-              
+
               document.getElementById("data").appendChild(boxDiv);
-              }
+              verifyCheck(item[1].account_verified);
             }
 
 
@@ -132,9 +145,10 @@ if (!isset($_SESSION))
                 var dlRef = firebase.storage().ref('dl/'+email);
                 dlRef.getDownloadURL().then(function(url){
                   var modal_id = "modal" + i;
-                  var divID = "dlImg" + i; 
+                  var divID = "dlImg" + i;
+                  console.log("divID=", divID)
                   var dlElem = document.getElementById(divID);
-                  dlElem.innerHTML = "<button class='rounded user-button' data-toggle='modal' data-target='#"+ 
+                  dlElem.innerHTML = "<button class='rounded user-button' data-toggle='modal' data-target='#"+
                                       modal_id + "'>Show Authentication</button><div id='" +
                                       modal_id + "' class='modal fade' role='dialog'>" +
                                       `<div class="modal-dialog">
@@ -166,9 +180,11 @@ if (!isset($_SESSION))
                 });
               }
             }
+          }
           });
-
         }
+      
+
         </script>
       </div>
 
@@ -206,7 +222,7 @@ if (!isset($_SESSION))
                 counter++;
                 var updiv = document.getElementById("inside-div");
                 const eventDiv = document.createElement('tr');
-                
+
                 var th1 = document.createElement("th");
                 var label = document.createElement("label");
                 var input = document.createElement("input");
@@ -254,7 +270,7 @@ if (!isset($_SESSION))
                 function delete_event(id) {
                   firebase.database().ref('/schedule/' + id).remove();
                 }
-                
+
                 var delete_th = document.createElement("th");
                 var deletebutton = document.createElement("button");
                 deletebutton.classList.add('rounded', 'delete-button');
