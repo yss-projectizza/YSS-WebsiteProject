@@ -100,8 +100,8 @@ if (!isset($_SESSION))
 
 
           firebase.database().ref('/').once('value').then(async function (snapshot) {
-          
-            alldata = Object.entries(snapshot.val().users).sort((a, b) => {return a[1][pattern] - b[1][pattern]}); 
+
+            alldata = Object.entries(snapshot.val().users).sort((a, b) => {return a[1][pattern] - b[1][pattern]});
 
 
             for (let i = 0; i < alldata.length; i++) {
@@ -127,24 +127,14 @@ if (!isset($_SESSION))
 
               boxDiv.innerHTML = "<th><a href=/admin_profile.php?name=" + item[0] + "><button class='rounded user-button'>" + item[1].first_name
               + " " + item[1].last_name + "</button></a></th><th><input class='group-input' onchange='update_groupnum(event," + `"${item[0]}"` + ")' + value="
-<<<<<<< HEAD
-              +  item[1].group_num + '></input></th>' + "<th><input class='group-input' onchange='update_cabinnum(event," + `"${item[0]}"` + ")' + value="
-              +  item[1].cabin_num + '></input></th>' + "<th><input class='group-input' onchange='update_busnum(event," + `"${item[0]}"` + ")' + value="
-              +  item[1].bus_num + '></input></th>' + "<th><a id='dlImg" + index + "'></a></th>"
-              + "<th><input type='checkbox' id='verified'> </input></th>"
-=======
               +  item[1].group_num + '></th>' + "<th><input class='group-input' onchange='update_cabinnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].cabin_num + '></th>' + "<th><input class='group-input' onchange='update_busnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].bus_num + '></th>' + "<th><a id='dlImg" + index + "'></a></th>"
->>>>>>> 4a97f8d555368cdf702f08a937bba7117c3afd07
+              + "<th><input type='checkbox' id='verified'> </input></th>"
 
-              
+
               document.getElementById("data").appendChild(boxDiv);
-<<<<<<< HEAD
               verifyCheck(item[1].account_verified);
-=======
-              }
->>>>>>> 4a97f8d555368cdf702f08a937bba7117c3afd07
             }
 
 
@@ -155,12 +145,8 @@ if (!isset($_SESSION))
                 var dlRef = firebase.storage().ref('dl/'+email);
                 dlRef.getDownloadURL().then(function(url){
                   var modal_id = "modal" + i;
-<<<<<<< HEAD
                   var divID = "dlImg" + i;
                   console.log("divID=", divID)
-=======
-                  var divID = "dlImg" + i; 
->>>>>>> 4a97f8d555368cdf702f08a937bba7117c3afd07
                   var dlElem = document.getElementById(divID);
                   dlElem.innerHTML = "<button class='rounded user-button' data-toggle='modal' data-target='#"+
                                       modal_id + "'>Show Authentication</button><div id='" +
@@ -194,9 +180,11 @@ if (!isset($_SESSION))
                 });
               }
             }
+          }
           });
-
         }
+      
+
         </script>
       </div>
 
