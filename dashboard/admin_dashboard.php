@@ -116,7 +116,8 @@ if (!isset($_SESSION))
               + " " + item[1].last_name + "</button></a></th><th><input class='group-input' onchange='update_groupnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].group_num + '></th>' + "<th><input class='group-input' onchange='update_cabinnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].cabin_num + '></th>' + "<th><input class='group-input' onchange='update_busnum(event," + `"${item[0]}"` + ")' + value="
-              +  item[1].bus_num + '></th>' + "<th><a id='dlImg" + index + "'></a></th>"
+              +  item[1].bus_num + '></th>' + "<th><a id='dlImg" + index + "'></a></th>" 
+              
 
               
               document.getElementById("data").appendChild(boxDiv);
