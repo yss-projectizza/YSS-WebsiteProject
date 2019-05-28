@@ -15,14 +15,9 @@ if( !$_SESSION["loggedin"]){
   $user_type = $_SESSION["queryData"]["user_type"];
   
   if($user_type == "student" || $user_type == "student18" || $user_type == "counselor" || $user_type == "parent"){
-    // add any needed data for student or counselor or parent
-    // $age = $_SESSION["queryData"]["age"];
-    // $dob = $_SESSION["queryData"]["dob"];
     $email = $_SESSION["queryData"]["email"];
     $first_name = $_SESSION["queryData"]["first_name"];
     $last_name = $_SESSION["queryData"]["last_name"];
-    // $gender = $_SESSION["queryData"]["gender"];
-    // $size = $_SESSION["queryData"]["size"];
     if ($user_type == "student" || $user_type == "student18" || $user_type == "counselor"){
       $year = $_SESSION["queryData"]["year"];
       $group_num = $_SESSION["queryData"]["group_num"];
