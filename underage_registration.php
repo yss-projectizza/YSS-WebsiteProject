@@ -115,7 +115,7 @@ $parent_email = $_SESSION["queryData"]["email"];
 
                 <form action="upload.php" method="post" enctype="multipart/form-data">
                     Picture of Student ID:<b style = "color: red;">*</b>
-                    <input type="file" name="upload" id="upload" class="form-control" required">
+                    <input type="file" name="upload" id="upload" class="form-control" required>
                 </form>
         </div>
 
@@ -228,7 +228,8 @@ $parent_email = $_SESSION["queryData"]["email"];
                         alert("please add any medication or type N/A");
                     }
                     else {
-                        var newPostRef = firebase.database().ref('/users/' + fn + ln).set({
+                        let parent_email = "<?php echo $parent_email; ?>";
+                        var newPostRef = firebase.database().ref('/users/').push({
                             user_type: "student",
                             first_name: fn,
                             last_name: ln,
@@ -244,7 +245,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                             other: other,
                             insurance: insurance,
                             policy_holder: policy_holder,
-                            parent_email:"<?php echo $parent_email; ?>",
+                            parent_email:"<?php echo $parent_email; ?>"
                         }, function(error){
                         if (error) {
                             alert("Did not go through")
