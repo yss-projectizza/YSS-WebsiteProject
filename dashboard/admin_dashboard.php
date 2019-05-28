@@ -108,19 +108,18 @@ if (!isset($_SESSION))
                 buildUserDiv(alldata[i], i);
             }
 
-            function verifyCheck(verified) {
+            function verifyCheck(verified, id) {
               if(verified) {
-                  console.log(document.getElementById("verified").checked);
-                  document.getElementById("verified").checked = true;
-                  console.log(document.getElementById("verified").checked);
+                  document.getElementById(id).checked = true;
               }
-              else{
-                document.getElementById("verified").checked = false;
+              else {
+                  document.getElementById(id).checked = false;
               }
             }
 
             function buildUserDiv(item, index) {
               const boxDiv = document.createElement('tr');
+              const boxID = item[1].first_name + "verified";
               boxDiv.id = "alldataindiv"
 
               if(item[1].user_type !== "parent" && item[1].user_type !== "admin"){
@@ -130,11 +129,11 @@ if (!isset($_SESSION))
               +  item[1].group_num + '></th>' + "<th><input class='group-input' onchange='update_cabinnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].cabin_num + '></th>' + "<th><input class='group-input' onchange='update_busnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].bus_num + '></th>' + "<th><a id='dlImg" + index + "'></a></th>"
-              + "<th><input type='checkbox' id='verified'> </input></th>"
+              + "<th><input type='checkbox' id='" + boxID + "'> </input></th>"
 
 
               document.getElementById("data").appendChild(boxDiv);
-              verifyCheck(item[1].account_verified);
+              verifyCheck(item[1].account_verified, boxID);
             }
 
 
@@ -183,7 +182,7 @@ if (!isset($_SESSION))
           }
           });
         }
-      
+
 
         </script>
       </div>
