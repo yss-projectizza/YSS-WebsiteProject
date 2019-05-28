@@ -108,19 +108,19 @@ if (!isset($_SESSION))
                 buildUserDiv(alldata[i], i);
             }
 
-            function verifyCheck(verified) {
+            function verifyCheck(verified, id) {
               if(verified) {
-                  // console.log(document.getElementById("verified").checked);
-                  document.getElementById("verified").checked = true;
-                  // console.log(document.getElementById("verified").checked);
+
+                document.getElementById(id).checked = true;
               }
-              else{
-                document.getElementById("verified").checked = false;
+              else {
+                document.getElementById(id).checked = false;
               }
             }
 
             function buildUserDiv(item, index) {
               const boxDiv = document.createElement('tr');
+              const boxID = item[1].first_name + "verified";
               boxDiv.id = "alldataindiv"
 
               if (item[1].user_type !== "parent" && item[1].user_type !== "admin"){
@@ -209,7 +209,7 @@ if (!isset($_SESSION))
           }
           });
         }
-      
+
 
         </script>
       </div>
