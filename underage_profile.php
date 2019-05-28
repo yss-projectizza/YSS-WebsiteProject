@@ -9,7 +9,7 @@ $parent_email = $_SESSION["queryData"]["email"];
 <html lang="en">
 
 <head>
-	<title>Youth Registration | Youth Spiritual Summit</title>
+	<title>Edit Youth Account | Youth Spiritual Summit</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/css/main.css">
@@ -21,7 +21,7 @@ $parent_email = $_SESSION["queryData"]["email"];
     <form id=form1 method="post">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
-        <h1 align="center" style = "font-size:40px;padding-top: 20px;">Youth Participant Registration</h1>
+        <h1 align="center" style = "font-size:40px;padding-top: 20px;">Edit Youth Participant Account</h1>
 
         <!-- NEW STUFF STARTING HERE -->
         <div class="block_1"><p style="padding-top:20px"</div> <hr />
@@ -113,10 +113,10 @@ $parent_email = $_SESSION["queryData"]["email"];
                 </div>
                 -->
 
-                <form action="upload.php" method="post" enctype="multipart/form-data">
+                <!--<form action="upload.php" method="post" enctype="multipart/form-data">
                     Picture of Student ID:<b style = "color: red;">*</b>
                     <input type="file" name="upload" id="upload" class="form-control" required>
-                </form>
+                </form>-->
         </div>
 
         <div class="block_1"><p style="padding-top:30px"</div> <hr />
@@ -206,7 +206,16 @@ $parent_email = $_SESSION["queryData"]["email"];
                 document.getElementById("firstname").value = profiledata.first_name;
                 document.getElementById("lastname").value = profiledata.last_name;
                 document.getElementById("gender").value = profiledata.gender;
-                document.getElementById("phone").value = profiledata.phone;
+                document.getElementById("schoolyear").value = profiledata.year;
+                document.getElementById("age").value = profiledata.age;
+                //document.getElementById("upload").value = profiledata.file;
+                document.getElementById("allergies").value = profiledata.allergies;
+                document.getElementById("meds").value = profiledata.meds;
+                document.getElementById("activities").value = profiledata.activities;
+                document.getElementById("dietary").value = profiledata.dietary;
+                document.getElementById("other").value = profiledata.other;
+                document.getElementById("policy_holder").value = profiledata.policy_holder;
+                document.getElementById("insurance").value = profiledata.insurance;
             });
 
             document.getElementById("submitContact").addEventListener("click", functSubmit);
@@ -218,10 +227,10 @@ $parent_email = $_SESSION["queryData"]["email"];
                     var year = document.getElementById("schoolyear").value;
                     var age = document.getElementById("age").value;
                     // var size = document.getElementById("size").value;
-                    var file = document.getElementById("upload").value;
+                    //var file = document.getElementById("upload").value;
                     var allergies = document.getElementById("allergies").value;
                     var meds = document.getElementById("meds").value;
-                    var activity = document.getElementById("activities").value;
+                    var activities = document.getElementById("activities").value;
                     var dietary = document.getElementById("dietary").value;
                     var other = document.getElementById("other").value;
                     var insurance = document.getElementById("insurance").value;
@@ -240,7 +249,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                     }
                     else {
                         let parent_email = "<?php echo $parent_email; ?>";
-                        var newPostRef = firebase.database().ref('/users/').push({
+                        var newPostRef = firebase.database().ref('/users/'+keyParam).update({
                             user_type: "student",
                             first_name: fn,
                             last_name: ln,
@@ -248,7 +257,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                             year: year,
                             age: age,
                             // size: size,
-                            file: file,
+                            //file: file,
                             alleriges: allergies,
                             meds: meds,
                             activities: activities,
