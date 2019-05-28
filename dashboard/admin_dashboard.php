@@ -110,9 +110,9 @@ if (!isset($_SESSION))
 
             function verifyCheck(verified) {
               if(verified) {
-                  console.log(document.getElementById("verified").checked);
+                  // console.log(document.getElementById("verified").checked);
                   document.getElementById("verified").checked = true;
-                  console.log(document.getElementById("verified").checked);
+                  // console.log(document.getElementById("verified").checked);
               }
               else{
                 document.getElementById("verified").checked = false;
@@ -123,19 +123,45 @@ if (!isset($_SESSION))
               const boxDiv = document.createElement('tr');
               boxDiv.id = "alldataindiv"
 
-              if(item[1].user_type !== "parent" && item[1].user_type !== "admin"){
+              if (item[1].user_type !== "parent" && item[1].user_type !== "admin"){
+                var group = item[1].group_num
+                var cabin = item[1].cabin_num
+                var bus = item[1].bus_num
+              }
+              else{
+                var group = "N/A"
+                var cabin = "N/A"
+                var bus = "N/A"
+              }
 
-              boxDiv.innerHTML = "<th><a href=/admin_profile.php?name=" + item[0] + "><button class='rounded user-button'>" + item[1].first_name
-              + " " + item[1].last_name + "</button></a></th><th><input class='group-input' onchange='update_groupnum(event," + `"${item[0]}"` + ")' + value="
-              +  item[1].group_num + '></th>' + "<th><input class='group-input' onchange='update_cabinnum(event," + `"${item[0]}"` + ")' + value="
-              +  item[1].cabin_num + '></th>' + "<th><input class='group-input' onchange='update_busnum(event," + `"${item[0]}"` + ")' + value="
-              +  item[1].bus_num + '></th>' + "<th><a id='dlImg" + index + "'></a></th>"
-              + "<th><input type='checkbox' id='verified'> </input></th>"
+              boxDiv.innerHTML = 
+            `<th>
+                <a href=/admin_profile.php?name=${item[0]}>
+                  <button class='rounded user-button'>${item[1].first_name} ${item[1].last_name}</button>
+                </a>
+            </th>
+            <th>
+              <input class='group-input' onchange='update_groupnum(event, "${item[0]}")' value=${group}>
+            </th>
+            <th>
+              <input class='group-input' onchange='update_cabinnum(event,"${item[0]}")' value=${cabin}>
+            </th>
+            <th>
+              <input class='group-input' onchange='update_busnum(event,"${item[0]}")' value=${bus}>
+            </th>
+            <th>
+              <a id='dlImg${index}'></a>
+            </th>
+            <th>
+              <input type='checkbox' id='verified'/>
+            </th>
+            `
 
 
               document.getElementById("data").appendChild(boxDiv);
-              verifyCheck(item[1].account_verified);
-            }
+              if(item[1].account_verified)
+                verifyCheck(item[1].account_verified);
+            
 
 
             for(var index in alldata){
@@ -146,7 +172,7 @@ if (!isset($_SESSION))
                 dlRef.getDownloadURL().then(function(url){
                   var modal_id = "modal" + i;
                   var divID = "dlImg" + i;
-                  console.log("divID=", divID)
+                  // console.log("divID=", divID)
                   var dlElem = document.getElementById(divID);
                   dlElem.innerHTML = "<button class='rounded user-button' data-toggle='modal' data-target='#"+
                                       modal_id + "'>Show Authentication</button><div id='" +
@@ -165,7 +191,7 @@ if (!isset($_SESSION))
                 }).catch(function(error){
                   switch (error.code) {
                     case 'storage/object-not-found': // File doesn't exist
-                      console.log("file doesn't exist");
+                      // console.log("file doesn't exist");
                       break;
                     case 'storage/unauthorized': // User doesn't have permission to access the object
                       console.log("no permission");
