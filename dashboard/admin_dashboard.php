@@ -63,9 +63,20 @@ if (!isset($_SESSION))
     <h3>Admin Panel</h3>
     <div class="main-cards">
       <div class="card">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Sort By:
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" onclick="sortData('group_num')">Group</a>
+              <a class="dropdown-item" onclick="sortData('cabin_num')">Cabin</a>
+              <a class="dropdown-item" onclick="sortData('bus_num')">Bus</a>
+              <a class="dropdown-item" onclick="sortData('first_name')">First Name</a>
+              <a class="dropdown-item" onclick="sortData('last_name')">Last Name</a>
+              <a class="dropdown-item" onclick="sortData('gender')">Gender</a>
+            </div>
+          </div>
         <h2>All User Information</h2>
-        <br/>
-        <table id="data">
           <tr id="headings">
             <th> Name </th>
             <th> Group # </th>
@@ -74,10 +85,24 @@ if (!isset($_SESSION))
             <th> Image </th>
             <th> Verified </th>
           </tr>
+        <br/>
+        <table id="data">
         </table>
         <script>
+
+          var sortData = (pattern="group_num") => {
+
+            var div = document.getElementById('data');
+            while(div.firstChild){
+                div.removeChild(div.firstChild);
+            }
+
+
+
           firebase.database().ref('/').once('value').then(async function (snapshot) {
-            let alldata = Object.entries(snapshot.val().users);
+          
+            alldata = Object.entries(snapshot.val().users).sort((a, b) => {return a[1][pattern] - b[1][pattern]}); 
+
 
             for (let i = 0; i < alldata.length; i++) {
                 buildUserDiv(alldata[i], i);
@@ -96,31 +121,46 @@ if (!isset($_SESSION))
 
             function buildUserDiv(item, index) {
               const boxDiv = document.createElement('tr');
+              boxDiv.id = "alldataindiv"
+
+              if(item[1].user_type !== "parent"){
+
               boxDiv.innerHTML = "<th><a href=/admin_profile.php?name=" + item[0] + "><button class='rounded user-button'>" + item[1].first_name
               + " " + item[1].last_name + "</button></a></th><th><input class='group-input' onchange='update_groupnum(event," + `"${item[0]}"` + ")' + value="
+<<<<<<< HEAD
               +  item[1].group_num + '></input></th>' + "<th><input class='group-input' onchange='update_cabinnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].cabin_num + '></input></th>' + "<th><input class='group-input' onchange='update_busnum(event," + `"${item[0]}"` + ")' + value="
               +  item[1].bus_num + '></input></th>' + "<th><a id='dlImg" + index + "'></a></th>"
               + "<th><input type='checkbox' id='verified'> </input></th>"
+=======
+              +  item[1].group_num + '></th>' + "<th><input class='group-input' onchange='update_cabinnum(event," + `"${item[0]}"` + ")' + value="
+              +  item[1].cabin_num + '></th>' + "<th><input class='group-input' onchange='update_busnum(event," + `"${item[0]}"` + ")' + value="
+              +  item[1].bus_num + '></th>' + "<th><a id='dlImg" + index + "'></a></th>"
+>>>>>>> 4a97f8d555368cdf702f08a937bba7117c3afd07
 
+              
               document.getElementById("data").appendChild(boxDiv);
+<<<<<<< HEAD
               verifyCheck(item[1].account_verified);
+=======
+              }
+>>>>>>> 4a97f8d555368cdf702f08a937bba7117c3afd07
             }
 
-            console.log(alldata);
 
             for(var index in alldata){
-              //console.log("alldata[", index, "] = ", alldata[index]);
-              console.log("index num=", index)
               if( alldata[index][1].user_type == "parent" || alldata[index][1].user_type == "student18"){
                 let i = index;
                 var email = (alldata[index][1].email).replace(".",",");
                 var dlRef = firebase.storage().ref('dl/'+email);
                 dlRef.getDownloadURL().then(function(url){
-                  console.log("url: ", url);
                   var modal_id = "modal" + i;
+<<<<<<< HEAD
                   var divID = "dlImg" + i;
                   console.log("divID=", divID)
+=======
+                  var divID = "dlImg" + i; 
+>>>>>>> 4a97f8d555368cdf702f08a937bba7117c3afd07
                   var dlElem = document.getElementById(divID);
                   dlElem.innerHTML = "<button class='rounded user-button' data-toggle='modal' data-target='#"+
                                       modal_id + "'>Show Authentication</button><div id='" +
@@ -136,8 +176,6 @@ if (!isset($_SESSION))
                                           </div>
                                         </div>
                                       </div>`
-                  //dlElem.appendChild(image);
-                  //dlElem.href = url;
                 }).catch(function(error){
                   switch (error.code) {
                     case 'storage/object-not-found': // File doesn't exist
@@ -155,86 +193,13 @@ if (!isset($_SESSION))
                   }
                 });
               }
-              //count += 1;
             }
           });
+
+        }
         </script>
       </div>
 
-      <!-- <div class="card">
-        <h3>Groups</h3>
-        <p id="group_numbers"></p>
-        <script>
-          firebase.database().ref('/').once('value').then(async function (snapshot) {
-            let alldata = Object.entries(snapshot.val().users);
-            let newarray = {};
-            for (var index in alldata) {
-              if (alldata[index][1].user_type !== "parent" && alldata[index][1].user_type !== "admin") {
-                if (!(newarray[alldata[index][1].group_num]))
-                  newarray[alldata[index][1].group_num] = new Array();
-                newarray[alldata[index][1].group_num].push(alldata[index][0]);
-              }
-            }
-            let groupobjectdata = Object.entries(newarray);
-            let printdata = groupobjectdata.map(item => {
-              return '<p>' + item[0] + ": " + "<p>" + item[1].map(item2 => {
-                return '<p style="color:red;">' + item2 + '</p>'
-              }).join("") + '</p></p>'
-            })
-            document.getElementById("group_numbers").innerHTML = printdata.join("");
-          });
-        </script>
-      </div>
-
-      <div class="card">
-        <h3>Buses</h3>
-        <p id="bus_numbers"></p>
-        <script>
-          firebase.database().ref('/').once('value').then(async function (snapshot) {
-            let alldata = Object.entries(snapshot.val().users);
-            let newarray = {};
-            for (var index in alldata) {
-              if (alldata[index][1].user_type !== "parent" && alldata[index][1].user_type !== "admin") {
-                if (!(newarray[alldata[index][1].bus_num]))
-                  newarray[alldata[index][1].bus_num] = new Array();
-                newarray[alldata[index][1].bus_num].push(alldata[index][0]);
-              }
-            }
-            let groupobjectdata = Object.entries(newarray);
-            let printdata = groupobjectdata.map(item => {
-              return '<p>' + item[0] + ": " + "<p>" + item[1].map(item2 => {
-                return '<p style="color:red;">' + item2 + '</p>'
-              }).join("") + '</p></p>'
-            })
-            document.getElementById("bus_numbers").innerHTML = printdata.join("");
-          });
-        </script>
-      </div>
-
-      <div class="card">
-        <h3>Cabins</h3>
-        <p id="cabin_numbers"></p>
-        <script>
-          firebase.database().ref('/').once('value').then(async function (snapshot) {
-            let alldata = Object.entries(snapshot.val().users);
-            let newarray = {};
-            for (var index in alldata) {
-              if (alldata[index][1].user_type !== "parent" && alldata[index][1].user_type !== "admin") {
-                if (!(newarray[alldata[index][1].cabin_num]))
-                  newarray[alldata[index][1].cabin_num] = new Array();
-                newarray[alldata[index][1].cabin_num].push(alldata[index][0]);
-              }
-            }
-            let groupobjectdata = Object.entries(newarray);
-            let printdata = groupobjectdata.map(item => {
-              return '<p>' + item[0] + ": " + "<p>" + item[1].map(item2 => {
-                return '<p style="color:red;">' + item2 + '</p>'
-              }).join("") + '</p></p>'
-            })
-            document.getElementById("cabin_numbers").innerHTML = printdata.join("");
-          });
-        </script>
-      </div> -->
 
       <div class="card">
         <h2>Schedule</h2>

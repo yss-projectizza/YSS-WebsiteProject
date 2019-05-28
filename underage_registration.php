@@ -235,7 +235,6 @@ $parent_email = $_SESSION["queryData"]["email"];
                             gender: gender,
                             year: year,
                             age: age,
-                            // size: size,
                             file: file,
                             alleriges: allergies,
                             meds: meds,
@@ -245,6 +244,9 @@ $parent_email = $_SESSION["queryData"]["email"];
                             insurance: insurance,
                             policy_holder: policy_holder,
                             parent_email:"<?php echo $parent_email; ?>",
+                            group_num: "N/A",
+                            cabin_num: "N/A",
+                            bus_num: "N/A",
                         }, function(error){
                         if (error) {
                             alert("Did not go through")
