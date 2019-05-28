@@ -123,7 +123,7 @@ if (!isset($_SESSION))
               const boxDiv = document.createElement('tr');
               boxDiv.id = "alldataindiv"
 
-              if(item[1].user_type !== "parent"){
+              if(item[1].user_type !== "parent" && item[1].user_type !== "admin"){
 
               boxDiv.innerHTML = "<th><a href=/admin_profile.php?name=" + item[0] + "><button class='rounded user-button'>" + item[1].first_name
               + " " + item[1].last_name + "</button></a></th><th><input class='group-input' onchange='update_groupnum(event," + `"${item[0]}"` + ")' + value="
