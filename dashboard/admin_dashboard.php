@@ -54,6 +54,10 @@ if (!isset($_SESSION))
     function update_busnum(event, id) {
       firebase.database().ref('/users/' + id + '/bus_num').set(event.target.value);
     }
+
+    function update_credit(event, id) {
+      firebase.database().ref('/users/' + id + '/credit_due').set(event.target.value);
+    }
   </script>
 </head>
 
@@ -74,6 +78,9 @@ if (!isset($_SESSION))
               <a class="dropdown-item" onclick="sortData('first_name')">First Name</a>
               <a class="dropdown-item" onclick="sortData('last_name')">Last Name</a>
               <a class="dropdown-item" onclick="sortData('gender')">Gender</a>
+              <a class="dropdown-item" onclick="sortData('user_type')">User Type</a>
+              <a class="dropdown-item" onclick="sortData('credit_due')">Credit Due</a>
+
             </div>
           </div>
         <h2>All User Information</h2>
@@ -110,7 +117,6 @@ if (!isset($_SESSION))
 
             function verifyCheck(verified, id) {
               if(verified) {
-
                 document.getElementById(id).checked = true;
               }
               else {
@@ -123,31 +129,62 @@ if (!isset($_SESSION))
               const boxID = item[1].first_name + "verified";
               boxDiv.id = "alldataindiv"
 
-              if (item[1].user_type !== "parent" && item[1].user_type !== "admin"){
+
+
                 var group = item[1].group_num
                 var cabin = item[1].cabin_num
                 var bus = item[1].bus_num
+                var credit = item[1].credit_due
+
+
+
+              switch (item[1].user_type){
+
+                case "student":
+                  color = "#FF9E54"
+                  break;
+
+                case "student18":
+                  color = "#7FDDE2"
+                  break;
+
+                case "parent":
+                  color = "#CE67AA"
+                  var isDisabled = "disabled"
+                  break;
+
+                  case "admin":
+                  color = "grey"
+                  var isDisabled = "disabled"
+                  break;
+
+                case "counselor":
+                  color = "#76F2BC"
+                  break;
               }
-              else{
-                var group = "N/A"
-                var cabin = "N/A"
-                var bus = "N/A"
-              }
+
+
 
               boxDiv.innerHTML = 
             `<th>
                 <a href=/admin_profile.php?name=${item[0]}>
-                  <button class='rounded user-button'>${item[1].first_name} ${item[1].last_name}</button>
+                  <button style="background-color: ${color};" class='rounded user-button'>${item[1].first_name} ${item[1].last_name}</button>
                 </a>
             </th>
             <th>
-              <input class='group-input' onchange='update_groupnum(event, "${item[0]}")' value=${group}>
+              <p>${item[1].user_type}</p>
             </th>
             <th>
-              <input class='group-input' onchange='update_cabinnum(event,"${item[0]}")' value=${cabin}>
+              <input class='group-input' onchange='update_groupnum(event, "${item[0]}")' value="${group}" ${isDisabled}>
             </th>
             <th>
-              <input class='group-input' onchange='update_busnum(event,"${item[0]}")' value=${bus}>
+              <input class='group-input' onchange='update_cabinnum(event,"${item[0]}")' value="${cabin}" ${isDisabled}>
+            </th>
+            <th>
+              <input class='group-input' onchange='update_busnum(event,"${item[0]}")' value=${bus} ${isDisabled}>
+            </th>
+            <th>
+              <input class='group-input' onchange='update_credit(event,"${item[0]}")' value=${credit} ${item[1].user_type === "student" || item[1].user_type === "admin" || item[1].user_type === "counselor" ? "disabled" : ""}>
             </th>
             <th>
               <a id='dlImg${index}'></a>
