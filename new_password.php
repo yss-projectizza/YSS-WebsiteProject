@@ -51,14 +51,14 @@ if(!isset($_SESSION))
             <div class="input-group-prepend">
                 <span class="input-group-text">New Password:<b style = "color: red;">*</b></span>
             </div>
-            <input id="new_password" type="password" name="new_password" class="form-control" required>
+            <input id="new_password" type="password" placeholder="Ex: abcde123 (8+ char, at least one number)" pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}" name="new_password" class="form-control" required>
         </div>
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">Retype New Password:<b style = "color: red;">*</b></span>
             </div>
-            <input id="new_password2" type="password" name="new_password2" class="form-control" required>
+            <input id="new_password2" type="password" placeholder="Ex: abcde123 (8+ char, at least one number)" pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}" name="new_password2" class="form-control" required>
         </div>
 
         <div class="row margin-data"
