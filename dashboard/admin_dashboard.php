@@ -19,7 +19,6 @@ if (!isset($_SESSION))
 
   // Get a reference to the storage service
   var storage = firebase.storage();
-
 </script>
 
 <html lang="en">
@@ -61,73 +60,74 @@ if (!isset($_SESSION))
   </script>
 </head>
 
-<body>
+<body onload="sortData('group_num')">
   <?php include('header_loggedin.php') ?>
   <main class="main">
     <h3>Admin Panel</h3>
     <div class="main-cards">
       <div class="card">
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Sort By:
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" onclick="sortData('group_num')">Group</a>
-              <a class="dropdown-item" onclick="sortData('cabin_num')">Cabin</a>
-              <a class="dropdown-item" onclick="sortData('bus_num')">Bus</a>
-              <a class="dropdown-item" onclick="sortData('first_name')">First Name</a>
-              <a class="dropdown-item" onclick="sortData('last_name')">Last Name</a>
-              <a class="dropdown-item" onclick="sortData('gender')">Gender</a>
-              <a class="dropdown-item" onclick="sortData('user_type')">User Type</a>
-              <a class="dropdown-item" onclick="sortData('credit_due')">Credit Due</a>
-
-            </div>
+        <div class="dropdown">
+          <button id="toggle-sort" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort By:
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" onclick="sortData('group_num')">Group</a>
+            <a class="dropdown-item" onclick="sortData('cabin_num')">Cabin</a>
+            <a class="dropdown-item" onclick="sortData('bus_num')">Bus</a>
+            <a class="dropdown-item" onclick="sortData('first_name')">First Name</a>
+            <a class="dropdown-item" onclick="sortData('last_name')">Last Name</a>
+            <a class="dropdown-item" onclick="sortData('gender')">Gender</a>
+            <a class="dropdown-item" onclick="sortData('user_type')">User Type</a>
+            <a class="dropdown-item" onclick="sortData('credit_due')">Credit Due</a>
           </div>
+        </div>
+        <br />
         <h2>All User Information</h2>
-          <tr id="headings">
-            <th> Name </th>
-            <th> Group # </th>
-            <th> Cabin # </th>
-            <th> Bus # </th>
-            <th> Image </th>
-            <th> Verified </th>
-          </tr>
-        <br/>
+        <br />
         <table id="data">
         </table>
         <script>
-
-          var sortData = (pattern="group_num") => {
+          var sortData = (pattern = "group_num") => {
 
             var div = document.getElementById('data');
-            while(div.firstChild){
-                div.removeChild(div.firstChild);
+            while (div.firstChild) {
+              div.removeChild(div.firstChild);
             }
 
+            firebase.database().ref('/').once('value').then(async function (snapshot) {
 
+              alldata = Object.entries(snapshot.val().users).sort((a, b) => {
+                return a[1][pattern] - b[1][pattern]
+              });
+              div.innerHTML =
+                `<tr id="headings">
+                <th> Name </th>
+                <th> User Type </th>
+                <th> Group # </th>
+                <th> Cabin # </th>
+                <th> Bus # </th>
+                <th> Credit </th>
+                <th> Image </th>
+                <th> Verified </th>
+              </tr>`
 
-          firebase.database().ref('/').once('value').then(async function (snapshot) {
-
-            alldata = Object.entries(snapshot.val().users).sort((a, b) => {return a[1][pattern] - b[1][pattern]});
-
-
-            for (let i = 0; i < alldata.length; i++) {
+              for (let i = 0; i < alldata.length; i++) {
                 buildUserDiv(alldata[i], i);
-            }
-
-            function verifyCheck(verified, id) {
-              if(verified) {
-                document.getElementById(id).checked = true;
               }
-              else {
-                document.getElementById(id).checked = false;
-              }
-            }
 
-            function buildUserDiv(item, index) {
-              const boxDiv = document.createElement('tr');
-              const boxID = item[1].first_name + "verified";
-              boxDiv.id = "alldataindiv"
+              function verifyCheck(verified, id) {
+                if (verified) {
+                  document.getElementById(id).checked = true;
+                } else {
+                  document.getElementById(id).checked = false;
+                }
+              }
+
+              function buildUserDiv(item, index) {
+                const boxDiv = document.createElement('tr');
+                const boxID = item[1].first_name + "verified";
+                boxDiv.id = "alldataindiv"
 
 
 
@@ -138,116 +138,115 @@ if (!isset($_SESSION))
 
 
 
-              switch (item[1].user_type){
+                switch (item[1].user_type) {
 
-                case "student":
-                  color = "#FF9E54"
-                  break;
+                  case "student":
+                    color = "#FF9E54"
+                    break;
 
-                case "student18":
-                  color = "#7FDDE2"
-                  break;
+                  case "student18":
+                    color = "#7FDDE2"
+                    break;
 
-                case "parent":
-                  color = "#CE67AA"
-                  var isDisabled = "disabled"
-                  break;
+                  case "parent":
+                    color = "#CE67AA"
+                    var isDisabled = "disabled"
+                    break;
 
                   case "admin":
-                  color = "grey"
-                  var isDisabled = "disabled"
-                  break;
+                    color = "grey"
+                    var isDisabled = "disabled"
+                    break;
 
-                case "counselor":
-                  color = "#76F2BC"
-                  break;
-              }
+                  case "counselor":
+                    color = "#76F2BC"
+                    break;
+                }
 
 
 
-              boxDiv.innerHTML = 
-            `<th>
-                <a href=/admin_profile.php?name=${item[0]}>
-                  <button style="background-color: ${color};" class='rounded user-button'>${item[1].first_name} ${item[1].last_name}</button>
-                </a>
-            </th>
-            <th>
-              <p>${item[1].user_type}</p>
-            </th>
-            <th>
+            boxDiv.innerHTML =
+            `<td>
+              <a href=/admin_profile.php?name=${item[0]}>
+                <button style="background-color: ${color};" class='rounded user-button'>${item[1].first_name} ${item[1].last_name}</button>
+              </a>
+            </td>
+            <td>
+              ${item[1].user_type}
+            </td>
+            <td>
               <input class='group-input' onchange='update_groupnum(event, "${item[0]}")' value="${group}" ${isDisabled}>
-            </th>
-            <th>
+            </td>
+            <td>
               <input class='group-input' onchange='update_cabinnum(event,"${item[0]}")' value="${cabin}" ${isDisabled}>
-            </th>
-            <th>
+            </td>
+            <td>
               <input class='group-input' onchange='update_busnum(event,"${item[0]}")' value=${bus} ${isDisabled}>
-            </th>
-            <th>
+            </td>
+            <td>
               <input class='group-input' onchange='update_credit(event,"${item[0]}")' value=${credit} ${item[1].user_type === "student" || item[1].user_type === "admin" || item[1].user_type === "counselor" ? "disabled" : ""}>
-            </th>
-            <th>
+            </td>
+            <td>
               <a id='dlImg${index}'></a>
-            </th>
-            <th>
+            </td>
+            <td>
               <input type='checkbox' id='verified'/>
-            </th>
+            </td>
             `
 
 
-              document.getElementById("data").appendChild(boxDiv);
-              if(item[1].account_verified)
-                verifyCheck(item[1].account_verified);
-            
+                document.getElementById("data").appendChild(boxDiv);
+                if (item[1].account_verified)
+                  verifyCheck(item[1].account_verified);
 
 
-            for(var index in alldata){
-              if( alldata[index][1].user_type == "parent" || alldata[index][1].user_type == "student18"){
-                let i = index;
-                var email = (alldata[index][1].email).replace(".",",");
-                var dlRef = firebase.storage().ref('dl/'+email);
-                dlRef.getDownloadURL().then(function(url){
-                  var modal_id = "modal" + i;
-                  var divID = "dlImg" + i;
-                  // console.log("divID=", divID)
-                  var dlElem = document.getElementById(divID);
-                  dlElem.innerHTML = "<button class='rounded user-button' data-toggle='modal' data-target='#"+
-                                      modal_id + "'>Show Authentication</button><div id='" +
-                                      modal_id + "' class='modal fade' role='dialog'>" +
-                                      `<div class="modal-dialog">
+
+                for (var index in alldata) {
+                  if (alldata[index][1].user_type == "parent" || alldata[index][1].user_type == "student18") {
+                    let i = index;
+                    var email = (alldata[index][1].email).replace(".", ",");
+                    var dlRef = firebase.storage().ref('dl/' + email);
+                    dlRef.getDownloadURL().then(function (url) {
+                      var modal_id = "modal" + i;
+                      var divID = "dlImg" + i;
+                      // console.log("divID=", divID)
+                      var dlElem = document.getElementById(divID);
+                      dlElem.innerHTML =
+                        "<button class='rounded user-button' data-toggle='modal' data-target='#" +
+                        modal_id + "'>Show Authentication</button><div id='" +
+                        modal_id + "' class='modal fade' role='dialog'>" +
+                        `<div class="modal-dialog">
                                         <div class="modal-content">
                                           <div class="modal-header">
                                             <h4> Image for Authentication </h4>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                           </div>
                                           <div class="modal-body">
-                                            <img class="auth-img" src="` + url +`"/>
+                                            <img class="auth-img" src="` + url + `"/>
                                           </div>
                                         </div>
                                       </div>`
-                }).catch(function(error){
-                  switch (error.code) {
-                    case 'storage/object-not-found': // File doesn't exist
-                      // console.log("file doesn't exist");
-                      break;
-                    case 'storage/unauthorized': // User doesn't have permission to access the object
-                      console.log("no permission");
-                      break;
-                    case 'storage/canceled': // User canceled the upload
-                      console.log("canceled");
-                      break;
-                    case 'storage/unknown': // Unknown error occurred, inspect the server response
-                      console.log("unknown error");
-                      break;
+                    }).catch(function (error) {
+                      switch (error.code) {
+                        case 'storage/object-not-found': // File doesn't exist
+                          // console.log("file doesn't exist");
+                          break;
+                        case 'storage/unauthorized': // User doesn't have permission to access the object
+                          console.log("no permission");
+                          break;
+                        case 'storage/canceled': // User canceled the upload
+                          console.log("canceled");
+                          break;
+                        case 'storage/unknown': // Unknown error occurred, inspect the server response
+                          console.log("unknown error");
+                          break;
+                      }
+                    });
                   }
-                });
+                }
               }
-            }
+            });
           }
-          });
-        }
-
-
         </script>
       </div>
 
