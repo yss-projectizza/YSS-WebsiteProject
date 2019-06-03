@@ -11,7 +11,7 @@ $username = str_replace(".",",",$underscoreUsername);
 $password = $_POST["passwd"];
 
 if ($username == "" || $password == ""){
-    header("Location: Login.php");
+    header("Location: login.php");
 }
 
 // This assumes that you have placed the Firebase credentials in the same directory
