@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+$parent_email = $_SESSION["queryData"]["email"];
 ?>
 
 
@@ -82,6 +84,19 @@ session_start();
     editButton.classList.add('rounded');
     editButton.id = 'edit-youth';
     editButton.innerHTML = "Edit Youth Participant";
+    editButton.onclick = () => {
+      firebase.database().ref('users').orderByChild('parent_email').equalTo(parent_email).on("value", function(snapshot) {
+        var children = Object.entries(snapshot.val());
+        console.log(children);
+        for (let i = 0; i < children.length; i++) {
+          if (children[i][1].first_name == youth.first_name && children[i][1].last_name == youth.last_name) {
+            console.log(children[i][0]);
+            var child_key = children[i][0];
+          }
+        }
+        location.href = "underage_profile.php?key=" + child_key
+      });
+    }
     buttonDiv.appendChild(editButton);
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('rounded');
