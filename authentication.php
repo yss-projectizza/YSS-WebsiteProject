@@ -3,6 +3,8 @@
     { 
         session_start(); 
     } 
+
+    echo "TEST";
 require __DIR__.'/vendor/autoload.php';
 
 $underscoreUsername = $_POST["user"];
