@@ -3,8 +3,12 @@
     { 
         session_start(); 
     } 
+    //This will display errors 
+    ini_set('display_errors', 1);
+
 require __DIR__.'/vendor/autoload.php';
 
+echo "TEST";
 $underscoreUsername = $_POST["user"];
 $username = str_replace(".",",",$underscoreUsername);
 
@@ -33,7 +37,7 @@ if (array_key_exists($username,$reference)){
     if ($reference[$username]["password"] == $password){
         $_SESSION["loggedin"] = true;
         $_SESSION["queryData"] = $reference[$username];
-        header("Location:Dashboard.php");
+        header("Location:dashboard.php");
     } else {
         include "login.php";
         echo "<script type='text/javascript'>alert('Incorrect Password. Please Try Again');</script>";
