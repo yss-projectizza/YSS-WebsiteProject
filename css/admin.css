@@ -1,17 +1,54 @@
-#dropdownMenuButton {
-  width: auto;
-  height: 4.4%;
-  background-color: #f5be6c;
-  color: black;
-  border: thin solid black;
-  border-radius: 5px;
+#schedule {
+  width: 90%;
 }
 
-#dropdownMenuButton:hover {
-  background-color: #8fd4d9;
-  cursor: pointer;
+label {
+  margin: 1%;
 }
 
 #schedule_buttons {
-  display: none;
+  margin-left: 1%;
+}
+
+.group-input {
+  margin-right: 1%;
+  width: 40%;
+  padding: 1%;
+}
+
+#headings {
+  font-size: 130%;
+}
+
+#data {
+  width: 95%;
+}
+
+.user-button{
+  padding-top: 2%;
+  padding-bottom: 2%;
+  width: 75%;
+  height: auto;
+}
+
+.delete-button{
+  margin-top: 45%;
+}
+
+th, td{
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+td {
+  width: 5%;
+}
+
+.auth-img {
+  width: 100%;
+  height: auto;
+}
+
+.dropdown-item {
+  cursor: pointer;
 }
