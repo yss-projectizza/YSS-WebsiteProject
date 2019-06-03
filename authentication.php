@@ -4,9 +4,10 @@
         session_start(); 
     } 
 
-    echo "TEST";
+
 require __DIR__.'/vendor/autoload.php';
 
+echo "TEST";
 $underscoreUsername = $_POST["user"];
 $username = str_replace(".",",",$underscoreUsername);
 
