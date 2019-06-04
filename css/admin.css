@@ -21,12 +21,14 @@ label {
 }
 
 #data {
-  width: 90%;
+  width: 95%;
 }
 
 .user-button{
   padding-top: 2%;
   padding-bottom: 2%;
+  width: 75%;
+  height: auto;
 }
 
 .delete-button{
@@ -38,7 +40,15 @@ th, td{
   padding-bottom: 1%;
 }
 
+td {
+  width: 5%;
+}
+
 .auth-img {
   width: 100%;
   height: auto;
+}
+
+.dropdown-item {
+  cursor: pointer;
 }
