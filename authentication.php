@@ -5,10 +5,7 @@
     } 
     //This will display errors 
     ini_set('display_errors', 1);
-
 require __DIR__.'/vendor/autoload.php';
-
-echo "TEST";
 $underscoreUsername = $_POST["user"];
 $username = str_replace(".",",",$underscoreUsername);
 
