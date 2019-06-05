@@ -153,7 +153,7 @@ session_start();
                             <span class="input-group-text">Retype Your Password:<b
                                     style="color: red;">*</b></span>
                         </div>
-                        <input type="password" placeholder="Ex: abcde123 (8+ char, at least one number)" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" name="password" id="password" class="form-control" required>
+                        <input type="password" placeholder="Ex: abcde123 (8+ char, at least one number)" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" name="password2" id="password2" class="form-control" required>
                     </div>
 
                     <div class="input-group mb-3">
