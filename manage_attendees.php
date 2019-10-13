@@ -1,4 +1,6 @@
 <?php
+/* This is the the page for Manage Youth Participate*/
+
 session_start();
 
 $parent_email = $_SESSION["queryData"]["email"];
@@ -73,9 +75,10 @@ $parent_email = $_SESSION["queryData"]["email"];
 
     const infoDiv = document.createElement('div');
     infoDiv.classList.add('left');
-    infoDiv.innerHTML = "<h3>"+youth.first_name + " " + youth.last_name + "</h3>" +
-                        "<h4>Amount Due: <span style='color: red;'>$299</span></h4>" +
-                        "<h4>Credit: <span style='color: green;'>$0</span></h4></br>"
+    infoDiv.innerHTML = "<h3>"+ youth.first_name + " " + youth.last_name + "</br>Group " + youth.group_num + ", Bus " + youth.bus_num + 
+						", Cabin " + youth.cabin_num + "</h3>" +
+                        "<h4>Amount Due: <span style='color: red;'>$299</span></h4>" + 
+                        "<h5>Credit: <span style='color: green;'>$0</span></h5></br>"	
                         
     
     const buttonDiv = document.createElement('div');

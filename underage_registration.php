@@ -44,7 +44,14 @@ $parent_email = $_SESSION["queryData"]["email"];
                     </div>
                     <input type="text" placeholder="Ex: Smith" name="lastname" id="lastname" class="form-control" required>
                 </div>
-
+                
+                <div class="input-group mb-3">
+                	<div class="input-group-preend">
+                		<span class="input-group-text">Student's Email:<b style = "color: red;"></b></span>
+                	</div>
+                	<input type="text" placeholder="Ex: abc@gmail.com" name="studentEmail" id="studentEmail" class="form-control" required>
+                </div>
+                
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Gender:<b style = "color: red;">*</b></span>
@@ -203,6 +210,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                     var database = firebase.database();
                     var fn = document.getElementById("firstname").value;
                     var ln = document.getElementById("lastname").value;
+                    var studentEmail = document.getElementById("studentEmail").value;
                     var gender = document.getElementById("gender").value;
                     var year = document.getElementById("schoolyear").value;
                     var age = document.getElementById("age").value;
@@ -233,6 +241,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                             user_type: "student",
                             first_name: fn,
                             last_name: ln,
+                            studentEmail: studentEmail,
                             gender: gender,
                             year: year,
                             age: age,
