@@ -57,18 +57,28 @@
       a.push(students[i][1].first_name + ' ' + students[i][1].last_name[0] + '.');
     }
 
-    let families = ["fam1", "fam2", "fam3", "fam4"];
+    firebase.database().ref('families').orderByChild('grade_level').equalTo("Junior").on("value", function(snapshot) {
 
-    const boxDiv = document.createElement('div');
-    boxDiv.classList.add('container', 'family-div');
-    boxDiv.style.paddingBottom = '13%';
+      var families = Object.entries(snapshot.val());
 
-    for(let i = 0; i < families.length; i++) 
-    {
-      createTable(a.length, 2, families[i] /* "Family " + students[0][1].group_num*/, a, boxDiv);
-    }
+      var fam_names = [];
 
-    document.getElementsByTagName("body")[0].appendChild(boxDiv);
+      for(var i = 0; i < families.length; i++)
+      {
+        fam_names.push(families[i][1].name);
+      }
+
+      const boxDiv = document.createElement('div');
+      boxDiv.classList.add('container', 'family-div');
+      boxDiv.style.paddingBottom = '13%';
+
+      for(let i = 0; i < fam_names.length; i++) 
+      {
+        createTable(a.length, 2, fam_names[i] /* "Family " + students[0][1].group_num*/, a, boxDiv);
+      }
+
+      document.getElementsByTagName("body")[0].appendChild(boxDiv);
+    });
   });
 
   // div for button
