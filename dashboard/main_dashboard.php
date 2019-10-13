@@ -56,7 +56,7 @@
                 Make Payment
                 <br>
                 <input class="check" type="checkbox" disabled="disabled" />
-                <a href="dashboard/main_users/test.php">Select Your Group</a>
+                <a href="dashboard/main_users/select_family.php">Select Your Group</a>
               <?php elseif($user_type == "counselor"): ?>
                 <input class="check" type="checkbox" disabled="disabled" />
                 Make a Donation 
