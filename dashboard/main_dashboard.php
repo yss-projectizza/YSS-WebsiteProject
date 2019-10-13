@@ -49,14 +49,14 @@
       <div class="col-md-6">
         <div class="row">
           <div class="card">
-            <h2>Your To Dos:</h2>
+          <h2>To Do:</h2>
             <div class="to_do">
               <?php if($user_type == "student"): ?>
                 <input class="check" type="checkbox" disabled="disabled" />
-                Fill out Personal Information and Interest Form in Profile
-              <?php elseif($user_type == "student18"): ?>
+                Make Payment
+                <br>
                 <input class="check" type="checkbox" disabled="disabled" />
-                Make Payment 
+                <a href="dashboard/main_users/test.php">Select Your Group</a>
               <?php elseif($user_type == "counselor"): ?>
                 <input class="check" type="checkbox" disabled="disabled" />
                 Make a Donation 
