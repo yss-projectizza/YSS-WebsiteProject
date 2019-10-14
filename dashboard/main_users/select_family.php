@@ -191,7 +191,7 @@
         }
         else
         {
-          warning("Join " + header + "? *****" + group_num, header, updated_size, fam_path);
+          warning("Join " + header, header, updated_size, fam_path);
         }
       });
       
