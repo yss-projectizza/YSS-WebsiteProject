@@ -45,6 +45,14 @@ $parent_email = $_SESSION["queryData"]["email"];
                     <input type="text" placeholder="Ex: Smith" name="lastname" id="lastname" class="form-control" required>
                 </div>
                 
+                <!--Sky: This block adds student's date of birth question-->
+                <div class="input-group mb-3">
+                	<div class="input-group-prepend">
+                		<span class="input-group-text">Date of Birth:<b style="color: red;">*</b></span>
+                	</div>
+                		<input type="date" name="studentDOB" id="studentDOB" class="form-control" required>
+                </div>
+                
                 <div class="input-group mb-3">
                 	<div class="input-group-preend">
                 		<span class="input-group-text">Student's Email:<b style = "color: red;"></b></span>
@@ -91,19 +99,20 @@ $parent_email = $_SESSION["queryData"]["email"];
                     </div>
                 </div>
 
+
                 <!-- SHOULD BE AUTOMATICALLY CALCULATED BASED OFF OF DOB -->
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
+<!--                 <div class="input-group mb-3"> -->
+<!--                     <div class="input-group-prepend"> -->
                     <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="age" id="age">
-                            <option>14</option>
-                            <option>15</option>
-                            <option>16</option>
-                            <option>17</option>
+<!--                         <select class="form-control form-control-md" name="age" id="age"> -->
+<!--                             <option>14</option> -->
+<!--                             <option>15</option> -->
+<!--                             <option>16</option> -->
+<!--                             <option>17</option> -->
                             <!-- <option>18</option> -->
-                        </select>
-                    </div>
-                </div>
+<!--                         </select> -->
+<!--                     </div> -->
+<!--                 </div> -->
 
                 <!-- STUDENT FILL THIS OUT ONCE THERE'S AN ACCOUNT
                 <div class="input-group mb-3">
@@ -211,9 +220,13 @@ $parent_email = $_SESSION["queryData"]["email"];
                     var fn = document.getElementById("firstname").value;
                     var ln = document.getElementById("lastname").value;
                     var studentEmail = document.getElementById("studentEmail").value;
+                    var emailwcharactersreplaced = studentEmail.replace(".",",");
                     var gender = document.getElementById("gender").value;
                     var year = document.getElementById("schoolyear").value;
-                    var age = document.getElementById("age").value;
+                    var dob = document.getElementById("studentDOB").value;
+                    var birthYear = dob.slice(0,4);
+                    var defaultPassword = ln + birthYear;
+                    
                     // var size = document.getElementById("size").value;
                     var file = document.getElementById("upload").value;
                     var allergies = document.getElementById("allergies").value;
@@ -237,14 +250,16 @@ $parent_email = $_SESSION["queryData"]["email"];
                     }
                     else {
                         let parent_email = "<?php echo $parent_email; ?>";
-                        var newPostRef = firebase.database().ref('/users/').push({
+                        var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
                             user_type: "student",
                             first_name: fn,
                             last_name: ln,
                             studentEmail: studentEmail,
                             gender: gender,
                             year: year,
-                            age: age,
+                            dob: dob,
+                            birthYear: birthYear,
+                            password: defaultPassword,
                             file: file,
                             alleriges: allergies,
                             meds: meds,

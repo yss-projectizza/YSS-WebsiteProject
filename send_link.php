@@ -38,11 +38,11 @@
         $mail = mail($email,$subject,$message,$headers);
 
         if($mail){
-            echo "success";
+            echo "success. Email sent";
         } else {
-            echo "failed."; 
+            echo "failed. No email sent."; 
         }
-
+   
         // go back to login.php
         include "login.php";
         exit;
