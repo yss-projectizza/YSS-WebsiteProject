@@ -170,27 +170,33 @@ if (!isset($_SESSION))
       let updated_size = temp[0][1].size + 1;
       let fam_path = 'families/' + data;
 
-      // let p = 12;
+      let studentEmail = "<?php echo $_SESSION["queryData"]["studentEmail"]; ?>";
 
-      joinButton.addEventListener("click", function()
+      firebase.database().ref('users').orderByChild('studentEmail').equalTo(studentEmail).once("value", function(snapshot) 
       {
-        document.write(group_num);
+        var student = Object.entries(snapshot.val());
 
-        if(group_num != "N/A")
+        let group_num = student[0][1].group_num;
+
+        joinButton.addEventListener("click", function()
         {
-          alert("You have already joined a family!");
-          // document.location.href ='/dashboard.php';
-        }
-        else if(items.length == temp[0][1].max_size)
-        {
-          alert("This family is full! Please join a different family.");
-        }
-        else
-        {
-          warning("Join " + header, header, updated_size, fam_path);
-        }
+          if(group_num != "N/A")
+          {
+            alert("You have already joined a family!");
+            // document.location.href ='/dashboard.php';
+          }
+          else if(items.length == temp[0][1].max_size)
+          {
+            alert("This family is full! Please join a different family.");
+          }
+          else
+          {
+            warning("Join " + header, header, updated_size, fam_path);
+          }
+        });
+
+      // let p = 12;
       });
-      
     });
     
     buttonDiv.appendChild(joinButton);

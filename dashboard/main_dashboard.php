@@ -22,6 +22,8 @@
     var credit_now = await parseInt(snapshot.val());
     document.getElementById("amount_owed").innerText = "$" + credit_now;
   });
+
+
 </script>
 
 
@@ -102,7 +104,28 @@
                 <div id=counselor-div> </div>
               <?php endif?>
               <b>Family:</b>
-              <p> <?php echo $group_num; ?></p>
+              <script type="text/javascript">
+                let studentEmail = "<?php echo $_SESSION["queryData"]["studentEmail"]; ?>";
+                
+                firebase.database().ref('users').orderByChild('studentEmail').equalTo(studentEmail).once("value", function(snapshot) 
+                {
+                  var student = Object.entries(snapshot.val());
+
+                  let group_num = student[0][1].group_num;
+
+                  document.cookie = "js_group_num = group_num";
+
+                  <p>
+                  <?php 
+                    $group_num =  $_COOKIE['js_group_num'];
+
+                    echo $group_num;
+                  ?>
+                  </p>
+
+                  // <p> <?php echo $group_num; ?></p>
+                });
+              </script>
               <b>Bus: </b>
               <p> <?php echo $bus_num; ?></p>
               <b>Cabin: </b>
