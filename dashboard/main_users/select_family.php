@@ -218,7 +218,7 @@ function warning(text, new_group, updated_size, fam_path)
 
     firebase.database().ref(fam_path).update({'size': updated_size});
 
-    document.location.href ='/dashboard/main_users/select_family.php';
+    document.location.href ='/dashboard/main_users/dashboard.php';
   }
 }
 </script>
