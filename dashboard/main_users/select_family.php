@@ -1,12 +1,8 @@
 <?php
-    if(!isset($_SESSION))
-    {
-        session_start();
-    }
-  $emailwcomma = $_SESSION["queryData"]["email"];
-  $email= str_replace(".",",",$emailwcomma);
-  $user=$_SESSION["queryData"]["user_type"];
+if (!isset($_SESSION))
+  session_start();
 ?>
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 
 <html lang="en">
   <head>
@@ -31,9 +27,6 @@
   </body>
 </html>
 
-<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
-
 <script>
   var config = 
   {
@@ -45,9 +38,12 @@
     messagingSenderId: "530416464878"
   };
 
+  let group_num = "<?php echo $_SESSION["queryData"]["group_num"]; ?>";
+  let year = "<?php echo $_SESSION["queryData"]["year"]; ?>";
+
   firebase.initializeApp(config);
   
-  firebase.database().ref('families').orderByChild('grade_level').equalTo("<?php echo $_SESSION["queryData"]["year"]; ?>").on("value", function(snapshot) 
+  firebase.database().ref('families').orderByChild('grade_level').equalTo(year).once("value", function(snapshot) 
   {
     // Stores family objects in the user's grade level
     var data = Object.entries(snapshot.val());
@@ -64,7 +60,7 @@
       // else creates an empty 6x6 table
       if(data[i][1].size > 0) 
       {
-        firebase.database().ref('users').orderByChild('group_num').equalTo(data[i][1].name).on("value", function(snapshot) 
+        firebase.database().ref('users').orderByChild('group_num').equalTo(data[i][1].name).once("value", function(snapshot) 
         {
           var student_data = Object.entries(snapshot.val());
           var student_names = [];
@@ -160,13 +156,13 @@
     buttonDiv.classList.add("button-div");
     buttonDiv.id = "divID";
 
-      // Adds button.
-      var joinButton = document.createElement("Button");
-      var textForButton = document.createTextNode("Join " + header);
-      joinButton.appendChild(textForButton);
-      joinButton.classList.add('rounded');
+    // Adds button.
+    var joinButton = document.createElement("Button");
+    var textForButton = document.createTextNode("Join " + header);
+    joinButton.appendChild(textForButton);
+    joinButton.classList.add('rounded');
 
-      firebase.database().ref('families').orderByChild('name').equalTo(header).on("value", function(snapshot) 
+    firebase.database().ref('families').orderByChild('name').equalTo(header).once("value", function(snapshot) 
     {
       var data = Object.keys(snapshot.val())[0]; // Returns parent of Object
       var temp = Object.entries(snapshot.val());
@@ -176,14 +172,14 @@
 
       // let p = 12;
 
-      let group_num = "<?php echo $_SESSION["queryData"]["group_num"]; ?>";
-
       joinButton.addEventListener("click", function()
       {
+        document.write(group_num);
+
         if(group_num != "N/A")
         {
           alert("You have already joined a family!");
-          document.location.href ='/dashboard.php';
+          // document.location.href ='/dashboard.php';
         }
         else if(items.length == temp[0][1].max_size)
         {
@@ -209,16 +205,17 @@ function warning(text, new_group, updated_size, fam_path)
 
   if(ok_clicked)
   {
-    // document.location.href ='/dashboard/main_users/campers.php';
+    document.location.href ='/dashboard/main_users/campers.php';
 
     let email = ("<?php echo $_SESSION["queryData"]["studentEmail"]; ?>");
     email = email.replace(".", ",");
 
-    firebase.database().ref('users/' + email).update({'group_num': new_group});
+    for(let i = 0; i < 1; i++) {
+      firebase.database().ref('users/' + email).update({'group_num': new_group});
 
-    firebase.database().ref(fam_path).update({'size': updated_size});
+      group_num = new_group;
 
-    document.location.href ='/dashboard.php';
+      firebase.database().ref(fam_path).update({'size': updated_size});}
   }
 }
 </script>
