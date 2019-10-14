@@ -73,7 +73,7 @@
           {
             if(student_data[j][1].user_type == "student")
             {
-              student_names.push(student_data[j][1].first_name + ' ' + student_data[j][1].first_name[0] + '.');
+              student_names.push(student_data[j][1].first_name + ' ' + student_data[j][1].last_name[0] + '.');
             }
           }
 
@@ -183,7 +183,7 @@
         if(group_num != "N/A")
         {
           alert("You have already joined a family!");
-          
+          document.location.href ='/dashboard.php';
         }
         else if(items.length == temp[0][1].max_size)
         {
@@ -218,7 +218,7 @@ function warning(text, new_group, updated_size, fam_path)
 
     firebase.database().ref(fam_path).update({'size': updated_size});
 
-    document.location.href ='/dashboard/main_users/dashboard.php';
+    document.location.href ='/dashboard.php';
   }
 }
 </script>
