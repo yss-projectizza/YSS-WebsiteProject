@@ -46,52 +46,56 @@
   };
 
   firebase.initializeApp(config);
+  
+  firebase.database().ref('families').orderByChild('grade_level').equalTo("<?php echo $_SESSION["queryData"]["year"]; ?>").on("value", function(snapshot) 
+  {
+    // Stores family objects in the user's grade level
+    var data = Object.entries(snapshot.val());
 
-  // Returns objects who are in group x
-  firebase.database().ref('users').orderByChild('user_type').equalTo("student").on("value", function(snapshot) {
-    var students = Object.entries(snapshot.val());
-    var a = [];
-
-    for(var i = 0; i < students.length; i++)
+    // Create box div containing tables
+    const boxDiv = document.createElement('div');
+    boxDiv.classList.add('container', 'family-div');
+    boxDiv.style.paddingBottom = '13%';
+  
+    // Creates tables of students in families in the specified grade.
+    for(let i = 0; i < data.length; i++)
     {
-      a.push(students[i][1].first_name + ' ' + students[i][1].last_name[0] + '.');
+      // Creates table containing student names in family x if it contains at least one student, 
+      // else creates an empty 6x6 table
+      if(data[i][1].size > 0) 
+      {
+        firebase.database().ref('users').orderByChild('group_num').equalTo(data[i][1].name).on("value", function(snapshot) 
+        {
+          var student_data = Object.entries(snapshot.val());
+          var student_names = [];
+
+          for(let j = 0; j < student_data.length; j++)
+          {
+            if(student_data[j][1].user_type == "student")
+            {
+              student_names.push(student_data[j][1].first_name + ' ' + student_data[j][1].first_name[0] + '.');
+            }
+          }
+
+          createTable(data[i][1].max_size, 2, data[i][1].name, student_names, boxDiv);
+        });
+      }
+      else
+      {
+        createTable(data[i][1].max_size, 2, data[i][1].name, [], boxDiv);
+      }
     }
 
-    firebase.database().ref('families').orderByChild('grade_level').equalTo("Junior").on("value", function(snapshot) {
-
-      var families = Object.entries(snapshot.val());
-
-      var fam_names = [];
-
-      for(var i = 0; i < families.length; i++)
-      {
-        fam_names.push(families[i][1].name);
-      }
-
-      const boxDiv = document.createElement('div');
-      boxDiv.classList.add('container', 'family-div');
-      boxDiv.style.paddingBottom = '13%';
-
-      for(let i = 0; i < fam_names.length; i++) 
-      {
-        createTable(a.length, 2, fam_names[i] /* "Family " + students[0][1].group_num*/, a, boxDiv);
-      }
-
-      document.getElementsByTagName("body")[0].appendChild(boxDiv);
-    });
+    document.getElementsByTagName("body")[0].appendChild(boxDiv);
   });
-
-  // div for button
 
 
   function createTable(numRows, numCols, header="placeholder", items, boxDiv) 
   {
-    /* get all students in x grade */
-
-    numRows *= 2;
-
-    (numRows < 12)
-        numRows = 12;
+    if(numRows < 12)
+    {
+      numRows = 12;
+    }
 
     let body = document.getElementsByTagName('body')[0];
     let tbl = document.createElement('table');
@@ -161,22 +165,50 @@
       var textForButton = document.createTextNode("Join " + header);
       joinButton.appendChild(textForButton);
       joinButton.classList.add('rounded');
+
+      firebase.database().ref('families').orderByChild('name').equalTo(header).on("value", function(snapshot) 
+    {
+      var data = Object.keys(snapshot.val())[0]; // Returns parent of Object
+      var temp = Object.entries(snapshot.val());
+
+      let updated_size = temp[0][1].size + 1;
+      let fam_path = 'families/' + data;
+
+      // let p = 12;
+
       joinButton.addEventListener("click", function(){
-          warning("Join " + header + "?"/*"Are you sure you want to join Family " + students[0][1].group_num + "?"*/);
+        if(items.length == temp[0][1].max_size)
+        {
+          alert("This family is full! Please join a different family.");
+        }
+        else
+        {
+          warning("Join " + header + "?", header, updated_size, fam_path);
+        }
       });
-      buttonDiv.appendChild(joinButton);
+      
+    });
+      
+    buttonDiv.appendChild(joinButton);
 
     boxDiv.appendChild(tbl);
     boxDiv.appendChild(buttonDiv);
-  }
+}
 
-  function warning(text)
+function warning(text, new_group, updated_size, fam_path)
+{ 
+  let ok_clicked = confirm(text);
+
+  if(ok_clicked)
   {
-    let ok_clicked = confirm(text);
+    // document.location.href ='/dashboard/main_users/campers.php';
 
-    if(ok_clicked == true)
-    {
-      document.location.href ='/dashboard/main_users/campers.php';
-    }
+    let email = ("<?php echo $_SESSION["queryData"]["studentEmail"]; ?>");
+    email = email.replace(".", ",");
+
+    firebase.database().ref('users/' + email).update({'group_num': new_group});
+
+    firebase.database().ref(fam_path).update({'size': updated_size});
   }
+}
 </script>
