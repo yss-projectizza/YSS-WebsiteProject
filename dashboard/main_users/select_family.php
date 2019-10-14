@@ -176,19 +176,27 @@
 
       // let p = 12;
 
-      joinButton.addEventListener("click", function(){
-        if(items.length == temp[0][1].max_size)
+      let group_num = "<?php echo $_SESSION["queryData"]["group_num"]; ?>";
+
+      joinButton.addEventListener("click", function()
+      {
+        if(group_num != "N/A")
+        {
+          alert("You have already joined a family!");
+          
+        }
+        else if(items.length == temp[0][1].max_size)
         {
           alert("This family is full! Please join a different family.");
         }
         else
         {
-          warning("Join " + header + "?", header, updated_size, fam_path);
+          warning("Join " + header + "? *****" + group_num, header, updated_size, fam_path);
         }
       });
       
     });
-      
+    
     buttonDiv.appendChild(joinButton);
 
     boxDiv.appendChild(tbl);
@@ -209,6 +217,8 @@ function warning(text, new_group, updated_size, fam_path)
     firebase.database().ref('users/' + email).update({'group_num': new_group});
 
     firebase.database().ref(fam_path).update({'size': updated_size});
+
+    document.location.href ='/dashboard/main_users/select_family.php';
   }
 }
 </script>
