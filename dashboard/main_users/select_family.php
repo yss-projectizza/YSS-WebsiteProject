@@ -63,22 +63,34 @@ if (!isset($_SESSION))
         firebase.database().ref('users').orderByChild('group_num').equalTo(data[i][1].name).once("value", function(snapshot) 
         {
           var student_data = Object.entries(snapshot.val());
-          var student_names = [];
+          var male_students = [];
+          var female_students = [];
+
 
           for(let j = 0; j < student_data.length; j++)
           {
+            var name = student_data[j][1].first_name + ' ' + student_data[j][1].last_name[0] + '.';
+            var gender = student_data[j][1].gender;
+
             if(student_data[j][1].user_type == "student")
             {
-              student_names.push(student_data[j][1].first_name + ' ' + student_data[j][1].last_name[0] + '.');
+              if(gender == "Male")
+              {
+                male_students.push(name);
+              }
+              else
+              {
+                female_students.push(name);
+              }
             }
           }
 
-          createTable(data[i][1].max_size, 2, data[i][1].name, student_names, boxDiv);
+          createTable(data[i][1].max_size, 2, data[i][1].name, male_students, female_students, boxDiv);
         });
       }
       else
       {
-        createTable(data[i][1].max_size, 2, data[i][1].name, [], boxDiv);
+        createTable(data[i][1].max_size, 2, data[i][1].name, [], [], boxDiv);
       }
     }
 
@@ -86,71 +98,69 @@ if (!isset($_SESSION))
   });
 
 
-  function createTable(numRows, numCols, header="placeholder", items, boxDiv) 
+  function createTable(numRows, numCols, header="placeholder", males, females,  boxDiv) 
   {
-    if(numRows < 12)
-    {
-      numRows = 12;
-    }
-
     let body = document.getElementsByTagName('body')[0];
     let tbl = document.createElement('table');
-    tbl.classList.add('student-table');
-
-    tbl.style.textAlign = 'center';
-
-    tbl.style.width = '100%';
-    tbl.height = 'auto';
-    /* change parameter 3 to change border color */
-    tbl.style.border = 'solid 5px #5b77a5';
-
-    tbl.style.color = 'black';
+    tbl.classList.add("name-table");
     
     let tbdy = document.createElement('tbody');
     let th = document.createElement('th');
-    th.style.border = 'solid 1px black';
-    th.style.backgroundColor = '#5b77a5';
-    th.style.color = 'white';
-    th.style.height = '40px';
-    th.style.verticalAlign = 'middle';
 
     /* Name of family */
     th.appendChild(document.createTextNode(header));
     th.colSpan = numCols;
 
     tbl.appendChild(th);
-    for (let i = 0; i < numRows; i++) 
-    {
-        let tr = document.createElement('tr');
-        tr.style.border = 'solid 1px black';
-        tr.style.height = '30px';
-        
 
-        tbl.style.marginTop = '20px';
-        
+    // Add student names that are already in the current group to the table
+    for (let i = 0; i < numRows; i += 2) 
+    {
+      // document.write("here 6 <br>");
+        let tr = document.createElement('tr');
+
         for (let j = 0; j < numCols; j++) 
         {
-            let td = document.createElement('td');
-            td.style.width = '50%';
-            td.style.border = 'solid 1px black';
-            if(items.length == 0 || i >= items.length)
+          // document.write("here 7 <br>");
+          let td = document.createElement('td');
+
+          if(j % 2 == 0)
+          {
+            // document.write("writing to left side <br>");
+            if(males.length != 0)
             {
-                td.appendChild(document.createTextNode("\u0020"));
+              td.appendChild(document.createTextNode(males[0]));
+              males.shift(); // removes the first male in the males array
             }
             else
             {
-              td.appendChild(document.createTextNode(items[i]));
+              td.appendChild(document.createTextNode("\u0020"));
             }
-
-            tr.appendChild(td);
-            tbdy.appendChild(tr);
-
-            i++;
+          }
+          else
+          {
+            // document.write("writing to right side <br>");
+            if(females.length != 0)
+            {
+              td.appendChild(document.createTextNode(females[0]));
+              females.shift(); // removes the first female in the females array
+            }
+            else
+            {
+              td.appendChild(document.createTextNode("\u0020"));
+            }
+          }
+            
+            
+          tr.appendChild(td);
+          tbdy.appendChild(tr);
         }
-          i--;
-            tbl.appendChild(tbdy);
-            body.appendChild(tbl);
+
+        tbl.appendChild(tbdy);
+        body.appendChild(tbl);
     }
+
+    // document.write("exited loop <br>");
 
     var buttonDiv = document.createElement('div');
     buttonDiv.classList.add("button-div");
@@ -158,8 +168,7 @@ if (!isset($_SESSION))
 
     // Adds button.
     var joinButton = document.createElement("Button");
-    var textForButton = document.createTextNode("Join " + header);
-    joinButton.appendChild(textForButton);
+    joinButton.appendChild(document.createTextNode("Join " + header));
     joinButton.classList.add('rounded');
 
     firebase.database().ref('families').orderByChild('name').equalTo(header).once("value", function(snapshot) 
@@ -168,7 +177,7 @@ if (!isset($_SESSION))
       var temp = Object.entries(snapshot.val());
 
       let updated_size = temp[0][1].size + 1;
-      let fam_path = 'families/' + data;
+      let fam_path = 'families/' + data; // Path to families object that will be updated
 
       let studentEmail = "<?php echo $_SESSION["queryData"]["studentEmail"]; ?>";
 
@@ -185,17 +194,15 @@ if (!isset($_SESSION))
             alert("You have already joined a family!");
             // document.location.href ='/dashboard.php';
           }
-          else if(items.length == temp[0][1].max_size)
+          else if(males.length + females.length == temp[0][1].max_size)
           {
             alert("This family is full! Please join a different family.");
           }
           else
           {
-            warning("Join " + header, header, updated_size, fam_path);
+            warning("Are you sure you want to join " + header + "?", header, updated_size, fam_path);
           }
         });
-
-      // let p = 12;
       });
     });
     

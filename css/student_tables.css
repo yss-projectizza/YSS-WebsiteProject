@@ -1,3 +1,34 @@
+.name-table
+{
+    text-align: center;
+    width: 100%;
+    height: auto;
+    border: solid 5px #5b77a5;
+    color: black;
+    margin-top: 20px;
+}
+
+.name-table th
+{
+    border: solid 1px black;
+    background-color: #5b77a5;
+    color: white;
+    height: 40px;
+    vertical-align: middle;
+}
+
+.name-table tr
+{
+    border: solid 1px black;
+    height: 30px;
+}
+
+.name-table td
+{
+    width: 50%;
+    border: solid 1px black;
+}
+
 .button-div
 {
     text-align: center;
