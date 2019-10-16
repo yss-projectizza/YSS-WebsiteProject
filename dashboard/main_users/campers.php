@@ -32,6 +32,7 @@
     <title>View Group Details</title>
       <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+       <link rel="stylesheet" href="/css/student_tables.css">
     <script src="/dashboard/main_users/campers.js"></script>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/campers.css">
@@ -40,6 +41,7 @@
   <body>
    
     <?php include('../../header_loggedin.php') ?>
+    <?php include('../../create_table.php') ?>
 
     <div class="tab">
       <button class="tablinks" onclick="openCity(event, 'Family')">Family</button>
@@ -48,38 +50,69 @@
     </div>
 
     <div id="Family" class="tabcontent">
-        <script>
-          firebase.database().ref('/users').once('value').then(item => {
+      <script>
+        // Create box div containing tables
+        const boxDiv = document.createElement('div');
+        boxDiv.classList.add('container', 'family-div');
+        boxDiv.style.paddingBottom = '13%';
 
-            let firebasedataArray = Object.entries(item.val());
+          firebase.database().ref('users').orderByChild('group_num').equalTo(group_num).once("value", function(snapshot) 
+          {
+            var student_data = Object.entries(snapshot.val());
 
-            for (let i = 0; i < firebasedataArray.length; ++i) {
-              console.log(firebasedataArray[i][1])
-              if (group_num == firebasedataArray[i][1].group_num && firebasedataArray[i][1] != email) {
-                var updiv = document.getElementById("group_data");
-                var newp = document.createElement("ul");
+            firebase.database().ref('families').orderByChild('name').equalTo(group_num).once("value", function(snapshot) 
+            {
+              var family = Object.entries(snapshot.val());
+              var current_fam_size = family[0][1].size;
 
-                if(user_type == "counselor"){
-                  if(firebasedataArray[i][1].user_type == "counselor"){
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " * " + firebasedataArray[i][1].phone;
-                  }else{
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " " + firebasedataArray[i][1].phone;
-                  }               
-                  updiv.appendChild(newp)
-                }else{
-                  if(firebasedataArray[i][1].user_type == "counselor"){
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " * " + firebasedataArray[i][1].email;
-                  }else{
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name;
-                  }            
-                }             
-                updiv.appendChild(newp)
+              if(current_fam_size > 0)
+              {
+                var male_students = [];
+                var female_students = [];
+                
+                for(let j = 0; j < student_data.length; j++)
+                {
+                  var name = student_data[j][1].first_name + ' ' + student_data[j][1].last_name[0] + '.';
+                  var gender = student_data[j][1].gender;
+
+                  if(student_data[j][1].user_type == "student")
+                  {
+                    if(gender == "Male")
+                    {
+                      male_students.push(name);
+                    }
+                    else
+                    {
+                      female_students.push(name);
+                    }
+                  }
+                }
+
+                switch(user_type)
+                {
+                  case "counselor": createTable(family[0][1].max_size, 2, group_num, male_students, female_students, "counselor", false, boxDiv);
+                    break;
+                  case "student": createTable(family[0][1].max_size, 2, group_num, male_students, female_students, "student", false, boxDiv);
+                }
               }
-            }
-          });
-        </script>
-        <h3>Family: <?php echo $_SESSION["queryData"]["group_num"]; ?> </h3>
-        <div id="group_data"></div>
+              else
+              {
+                const message = document.createElement('p');
+                if(user_type == "counselor")
+                {
+                  message.appendChild(document.createTextNode("You do not have any students yet."));
+                }
+                else
+                {
+                  message.appendChild(document.createTextNode("You do not have any students yet."));
+                }
+                boxDiv.appendChild(message);
+              }
+            });
+        });
+
+        document.getElementById("Family").appendChild(boxDiv);
+      </script>
     </div>
 
     <div id="Bus" class="tabcontent">

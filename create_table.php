@@ -1,7 +1,13 @@
-<!-- Use to generate table with a join button under it -->
+<!-- Use to generate table with a join button under it 
+     numRows-->
 <script>
-  function createTable(numRows, numCols, header="placeholder", males, females, user_type, boxDiv) 
+  function createTable(numCells, numCols, header="placeholder", males, females, user_type, show_button, boxDiv) 
   {
+    if(numCells % 2 != 0)
+    {
+        numCells++;
+    }
+
     let body = document.getElementsByTagName('body')[0];
     let tbl = document.createElement('table');
     tbl.classList.add("name-table");
@@ -15,7 +21,7 @@
     tbl.appendChild(th);
 
     // Add student names that are already in the current group to the table
-    for (let i = 0; i < numRows; i += 2) 
+    for (let i = 0; i < numCells; i += 2) 
     {
         let tr = document.createElement('tr');
 
@@ -27,8 +33,22 @@
           {
             if(males.length != 0)
             {
-              td.appendChild(document.createTextNode(males[0]));
-              males.shift(); // removes the first male in the males array
+                switch(user_type)
+                {
+                    case "counselor":
+                    {
+                        let info_link = document.createElement('a');
+                        info_link.appendChild(document.createTextNode(males[0]));
+                        info_link.href = 'https://www.google.com/';
+                        td.appendChild(info_link);
+                    }
+                    break;
+                    case "student":
+                    {
+                        td.appendChild(document.createTextNode(males[0]));
+                    }
+                }
+                males.shift(); // removes the first male in the males array
             }
             else
             {
@@ -39,8 +59,23 @@
           {
             if(females.length != 0)
             {
-              td.appendChild(document.createTextNode(females[0]));
-              females.shift(); // removes the first female in the females array
+                switch(user_type)
+                {
+                    case "counselor":
+                    {
+                        let info_link = document.createElement('a');
+                        info_link.appendChild(document.createTextNode(females[0]));
+                        info_link.href = 'https://www.google.com/';
+                        td.appendChild(info_link);
+                    }
+                    break;
+                    case "student":
+                    {
+                        td.appendChild(document.createTextNode(females[0]));
+                    }
+                }
+
+                females.shift(); // removes the first female in the females array
             }
             else
             {
@@ -60,7 +95,7 @@
     buttonDiv.classList.add("button-div");
     buttonDiv.id = "divID";
 
-    if(user_type == "student")
+    if(show_button)
     {
         // Adds button.
         var joinButton = document.createElement("Button");
