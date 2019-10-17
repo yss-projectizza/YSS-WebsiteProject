@@ -1,7 +1,7 @@
 <!-- Use to generate table with a join button under it 
-     numRows-->
+     -->
 <script>
-  function createTable(numCells, numCols, header="placeholder", males, females, user_type, show_button, boxDiv) 
+  function createTable(numCells, numCols, header="placeholder", table_type, males, females, user_type, show_button, gender_separated, boxDiv) 
   {
     if(numCells % 2 != 0)
     {
@@ -20,75 +20,119 @@
 
     tbl.appendChild(th);
 
-    // Add student names that are already in the current group to the table
-    for (let i = 0; i < numCells; i += 2) 
+    if(gender_separated)
     {
-        let tr = document.createElement('tr');
-
-        for (let j = 0; j < numCols; j++) 
+        for (let i = 0; i < numCells; i += 2) 
         {
-          let td = document.createElement('td');
+            let tr = document.createElement('tr');
 
-          if(j % 2 == 0)
-          {
-            if(males.length != 0)
+            for (let j = 0; j < numCols; j++) 
             {
-                switch(user_type)
+            let td = document.createElement('td');
+
+            if(j % 2 == 0)
+            {
+                if(males.length != 0)
                 {
-                    case "counselor":
+                    switch(user_type)
                     {
-                        let info_link = document.createElement('a');
-                        info_link.appendChild(document.createTextNode(males[0]));
-                        info_link.href = 'https://www.google.com/';
-                        td.appendChild(info_link);
+                        case "counselor":
+                        {
+                            let info_link = document.createElement('a');
+                            info_link.appendChild(document.createTextNode(males[0]));
+                            info_link.href = 'https://www.google.com/';
+                            td.appendChild(info_link);
+                        }
+                        break;
+                        case "student":
+                        {
+                            td.appendChild(document.createTextNode(males[0]));
+                        }
                     }
-                    break;
-                    case "student":
-                    {
-                        td.appendChild(document.createTextNode(males[0]));
-                    }
+                    males.shift(); // removes the first male in the males array
                 }
-                males.shift(); // removes the first male in the males array
+                else
+                {
+                td.appendChild(document.createTextNode("\u0020"));
+                }
             }
             else
             {
-              td.appendChild(document.createTextNode("\u0020"));
-            }
-          }
-          else
-          {
-            if(females.length != 0)
-            {
-                switch(user_type)
+                if(females.length != 0)
                 {
-                    case "counselor":
+                    switch(user_type)
                     {
-                        let info_link = document.createElement('a');
-                        info_link.appendChild(document.createTextNode(females[0]));
-                        info_link.href = 'https://www.google.com/';
-                        td.appendChild(info_link);
+                        case "counselor":
+                        {
+                            let info_link = document.createElement('a');
+                            info_link.appendChild(document.createTextNode(females[0]));
+                            info_link.href = 'https://www.google.com/'; // change this to a link to student info page!
+                            td.appendChild(info_link);
+                        }
+                        break;
+                        case "student":
+                        {
+                            td.appendChild(document.createTextNode(females[0]));
+                        }
                     }
-                    break;
-                    case "student":
-                    {
-                        td.appendChild(document.createTextNode(females[0]));
-                    }
-                }
 
-                females.shift(); // removes the first female in the females array
+                    females.shift(); // removes the first female in the females array
+                }
+                else
+                {
+                td.appendChild(document.createTextNode("\u0020"));
+                }
             }
-            else
-            {
-              td.appendChild(document.createTextNode("\u0020"));
+        
+            tr.appendChild(td);
+            tbdy.appendChild(tr);
             }
-          }
-     
-          tr.appendChild(td);
-          tbdy.appendChild(tr);
+
+            tbl.appendChild(tbdy);
+            body.appendChild(tbl);
         }
+    }
+    else
+    {
+        for (let i = 0; i < numCells; i += 2) 
+        {
+            let tr = document.createElement('tr');
 
-        tbl.appendChild(tbdy);
-        body.appendChild(tbl);
+            for (let j = 0; j < numCols; j++) 
+            {
+                let td = document.createElement('td');
+
+                if(males.length != 0)
+                {
+                    switch(user_type)
+                    {
+                        case "counselor":
+                        {
+                            let info_link = document.createElement('a');
+                            info_link.appendChild(document.createTextNode(males[0]));
+                            info_link.href = 'https://www.google.com/';
+                            td.appendChild(info_link);
+                        }
+                        break;
+                        case "student":
+                        {
+                            td.appendChild(document.createTextNode(males[0]));
+                        }
+                    }
+                    males.shift(); // removes the first male in the males array
+                }
+                else
+                {
+                td.appendChild(document.createTextNode("\u0020"));
+                }
+            
+                tr.appendChild(td);
+                tbdy.appendChild(tr);
+            }
+
+            tbl.appendChild(tbdy);
+            body.appendChild(tbl);
+        }
     }
 
     var buttonDiv = document.createElement('div');
@@ -102,13 +146,12 @@
         joinButton.appendChild(document.createTextNode("Join " + header));
         joinButton.classList.add('rounded');
 
-        firebase.database().ref('families').orderByChild('name').equalTo(header).once("value", function(snapshot) 
+        firebase.database().ref(table_type).orderByChild('name').equalTo(header).once("value", function(snapshot) 
         {
             var data = Object.keys(snapshot.val())[0]; // Returns parent of Object
             var temp = Object.entries(snapshot.val());
 
-            let updated_size = temp[0][1].size + 1;
-            let fam_path = 'families/' + data; // Path to families object that will be updated
+            let database_path = table_type + "/" + data; // Path to families object that will be updated
 
             let studentEmail = "<?php echo $_SESSION["queryData"]["studentEmail"]; ?>";
 
@@ -116,35 +159,63 @@
             {
                 var student = Object.entries(snapshot.val());
 
-                let group_num = student[0][1].group_num;
+                let type_num = "";
+
+                switch(table_type)
+                {
+                    case "families": type_num = student[0][1].group_num;
+                        break;
+                    case "cabins": type_num = student[0][1].cabin_num;
+                        break;
+                    case "buses": type_num = student[0][1].bus_num;
+                }
 
                 joinButton.addEventListener("click", function()
                 {
-                    if(group_num != "N/A")
+                    if(type_num != "N/A")
                     {
-                        alert("You have already joined a family!");
+                        let message = "You have already ";
+                        switch(table_type)
+                        {
+                            case "families": message += "joined a family!";
+                                break;
+                            case "cabins": message += "selected a cabin!";
+                                break;
+                            case "buses": message += "selected a bus!";
+                        }
+                        
+                        alert(message);
                     }
                     else if(males.length + females.length == temp[0][1].max_size)
                     {
-                        alert("This family is full! Please join a different family.");
+                        let message = "";
+                        switch(table_type)
+                        {
+                            case "families": message += "This family is full! Please join a different family!";
+                                break;
+                            case "cabins": message += "This cabin is full! Please select a different cabin!";
+                                break;
+                            case "buses": message += "This bus is full! Please select a different bus!";
+                        }
+                        
+                        alert(message);
                     }
                     else
                     {
-                        warning("Are you sure you want to join " + header + "?", header, updated_size, fam_path);
+                        warning("Are you sure you want to join " + header + "?", table_type, header, temp[0][1].size + 1, database_path);
                     }
                 });
             });
         });
         
-        buttonDiv.appendChild(joinButton);
-        
+        buttonDiv.appendChild(joinButton); 
     }
 
     boxDiv.appendChild(tbl);
     boxDiv.appendChild(buttonDiv);
 }
 
-function warning(text, new_group, updated_size, fam_path)
+function warning(text, table_type, new_value, updated_size, database_path)
 { 
   let ok_clicked = confirm(text);
 
@@ -154,12 +225,19 @@ function warning(text, new_group, updated_size, fam_path)
 
     let email = ("<?php echo $_SESSION["queryData"]["studentEmail"]; ?>");
     email = email.replace(".", ",");
-  
-    firebase.database().ref('users/' + email).update({'group_num': new_group});
+    
+    switch(table_type)
+    {
+        case "families": firebase.database().ref('users/' + email).update({'group_num': new_value});
+            break;
+        case "cabins": firebase.database().ref('users/' + email).update({'cabin_num': new_value});
+            break;
+        case "buses": firebase.database().ref('users/' + email).update({'bus_num': new_value});
+    }
 
-    group_num = new_group;
+    
 
-    firebase.database().ref(fam_path).update({'size': updated_size});
+    firebase.database().ref(database_path).update({'size': updated_size});
   }
 }
 </script>

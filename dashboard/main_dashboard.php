@@ -17,6 +17,7 @@
   ?>
   var email = "<?php echo $emailwithcomma; ?>"
   var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>"
+  var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>"
 
   firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot) {
     var credit_now = await parseInt(snapshot.val());
@@ -60,6 +61,10 @@
                 <?php if($group_num == "N/A"): ?>
                   <input class="check" type="checkbox" disabled="disabled" />
                   <a href="dashboard/main_users/select_family.php">Select Your Group</a>
+                <?php endif ?>
+                <?php if($cabin_num == "N/A"): ?>
+                  <input class="check" type="checkbox" disabled="disabled" />
+                  <a href="dashboard/main_users/select_cabin.php">Select Your Cabin</a>
                 <?php endif ?>
               <?php elseif($user_type == "counselor"): ?>
                 <input class="check" type="checkbox" disabled="disabled" />

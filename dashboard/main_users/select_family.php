@@ -47,7 +47,7 @@ if (!isset($_SESSION))
   firebase.database().ref('families').orderByChild('grade_level').equalTo(year).once("value", function(snapshot) 
   {
     // Stores family objects in the user's grade level
-    var data = Object.entries(snapshot.val());
+    var families = Object.entries(snapshot.val());
 
     // Create box div containing tables
     const boxDiv = document.createElement('div');
@@ -55,13 +55,13 @@ if (!isset($_SESSION))
     boxDiv.style.paddingBottom = '13%';
   
     // Creates tables of students in families in the specified grade.
-    for(let i = 0; i < data.length; i++)
+    for(let i = 0; i < families.length; i++)
     {
       // Creates table containing student names in family x if it contains at least one student, 
       // else creates an empty 6x6 table
-      if(data[i][1].size > 0) 
+      if(families[i][1].size > 0) 
       {
-        firebase.database().ref('users').orderByChild('group_num').equalTo(data[i][1].name).once("value", function(snapshot) 
+        firebase.database().ref('users').orderByChild('group_num').equalTo(families[i][1].name).once("value", function(snapshot) 
         {
           var student_data = Object.entries(snapshot.val());
           var male_students = [];
@@ -86,12 +86,12 @@ if (!isset($_SESSION))
             }
           }
 
-          createTable(data[i][1].max_size, 2, data[i][1].name, male_students, female_students, "student", true, boxDiv);
+          createTable(families[i][1].max_size, 2, families[i][1].name, "families", male_students, female_students, "student", true, true, boxDiv);
         });
       }
       else
       {
-        createTable(data[i][1].max_size, 2, data[i][1].name, [], [], "student", true, boxDiv);
+        createTable(families[i][1].max_size, 2, families[i][1].name, "families", [], [], "student", true, true, boxDiv);
       }
     }
 
