@@ -90,9 +90,9 @@
 
                 switch(user_type)
                 {
-                  case "counselor": createTable(family[0][1].max_size, 2, group_num, "families", male_students, female_students, "counselor", false, true, boxDiv);
+                  case "counselor": createTable(family[0][1].max_size, 2, group_num, "family", male_students, female_students, "counselor", false, true, boxDiv);
                     break;
-                  case "student": createTable(family[0][1].max_size, 2, group_num, "families", male_students, female_students, "student", false, true, boxDiv);
+                  case "student": createTable(family[0][1].max_size, 2, group_num, "family", male_students, female_students, "student", false, true, boxDiv);
                 }
               }
               else

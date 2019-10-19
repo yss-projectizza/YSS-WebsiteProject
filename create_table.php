@@ -1,33 +1,80 @@
-<!-- Use to generate table with a join button under it 
-     -->
+<!-- *******************************************************************************************************
+     * createTable
+     * -----------------------------------------------------------------------------------------------------
+     * This function creates a table of student names. Tables can be gender separated or 
+     * display names of students of the same gender. A join button can be appended under
+     * the table to allow students to join a family, cabin, or bus.
+     * -----------------------------------------------------------------------------------------------------
+     * PARAMETERS:
+     * numCells - the max number of students a family, cabin, or bus can hold 
+     * numCols - number of columns in the table (usually 2) 
+     * header - table header (i.e. family name, cabin number, bus) 
+     * table_type - "family", "cabin", or "bus" 
+     * males - array of male names (if gender_separated == false, pass in student names in this parameter)
+     * females - array of females names (if  gender_separated == false, pass in an empty array [] 
+     * user_type - "student" or "counselor" 
+     * show_button - true or false (whether a join button should be added under the table) 
+     * gender_separated - true or false (whether a co-ed list of students should be displayed or not) 
+     * boxDiv - div that will hold the table(s) - please create outside of this function 
+     ****************************************************************************************************** -->
 <script>
   function createTable(numCells, numCols, header="placeholder", table_type, males, females, user_type, show_button, gender_separated, boxDiv) 
   {
+    // Ensures that the table always has an even number of cells.
     if(numCells % 2 != 0)
     {
         numCells++;
     }
 
+    // Gets the current page's body
     let body = document.getElementsByTagName('body')[0];
+
+    // Creates the table element and applies the name-table style sheet
     let tbl = document.createElement('table');
     tbl.classList.add("name-table");
-    
-    let tbdy = document.createElement('tbody');
-    let th = document.createElement('th');
 
+    // Creates the table body element
+    let tbdy = document.createElement('tbody');
+
+    // Sets the header for the table header and appends it to the table.
+    let th = document.createElement('th');
     th.appendChild(document.createTextNode(header));
     th.colSpan = numCols;
-
     tbl.appendChild(th);
 
+    // Generates the appropriate table based on the gender_separated parameter
     if(gender_separated)
     {
-        for (let i = 0; i < numCells; i += 2) 
-        {
-            let tr = document.createElement('tr');
+       gender_separated_table(numCells, numCols, males, females, user_type, tbl, tbdy, body);
+    }
+    else
+    {
+        regular_table(numCells, numCols, males, females, user_type, tbl, tbdy, body);
+    }
 
-            for (let j = 0; j < numCols; j++) 
-            {
+    // Creates a div for the join button and applies the button-div style sheet.
+    var buttonDiv = document.createElement('div');
+    buttonDiv.classList.add("button-div");
+    buttonDiv.id = "divID";
+
+    // Adds a button under the table if the table is being used to let students join.
+    if(show_button)
+    {
+        create_join_button(header, table_type, males, females, buttonDiv);
+    }
+
+    boxDiv.appendChild(tbl);
+    boxDiv.appendChild(buttonDiv);
+} // end of createTable
+
+function gender_separated_table(numCells, numCols, males, females, user_type, tbl, tbdy, body)
+{
+    for (let i = 0; i < numCells; i += 2) 
+    {
+        let tr = document.createElement('tr');
+
+        for (let j = 0; j < numCols; j++) 
+        {   
             let td = document.createElement('td');
 
             if(j % 2 == 0)
@@ -46,6 +93,7 @@
                         break;
                         case "student":
                         {
+                            
                             td.appendChild(document.createTextNode(males[0]));
                         }
                     }
@@ -53,7 +101,8 @@
                 }
                 else
                 {
-                td.appendChild(document.createTextNode("\u0020"));
+                    
+                    td.appendChild(document.createTextNode("\u0020"));
                 }
             }
             else
@@ -81,138 +130,139 @@
                 else
                 {
                 td.appendChild(document.createTextNode("\u0020"));
+                }     
+            }
+            tr.appendChild(td);
+            tbdy.appendChild(tr);
+        }
+        tbl.appendChild(tbdy);
+        body.appendChild(tbl);
+    }
+}
+
+function regular_table(numCells, numCols, males, females, user_type, tbl, tbdy, body)
+{
+    for (let i = 0; i < numCells; i += 2) 
+    {
+        let tr = document.createElement('tr');
+
+        for (let j = 0; j < numCols; j++) 
+        {
+            let td = document.createElement('td');
+
+            if(males.length != 0)
+            {
+                switch(user_type)
+                {
+                    case "counselor":
+                    {
+                        let info_link = document.createElement('a');
+                        info_link.appendChild(document.createTextNode(males[0]));
+                        info_link.href = 'https://www.google.com/';
+                        td.appendChild(info_link);
+                    }
+                    break;
+                    case "student":
+                    {
+                        td.appendChild(document.createTextNode(males[0]));
+                    }
                 }
+                males.shift(); // removes the first male in the males array
+            }
+            else
+            {
+            td.appendChild(document.createTextNode("\u0020"));
             }
         
             tr.appendChild(td);
             tbdy.appendChild(tr);
+        }
+
+        tbl.appendChild(tbdy);
+        body.appendChild(tbl);
+    }
+}
+
+function create_join_button(header, table_type, males, females, buttonDiv)
+{
+    // Adds button.
+    var joinButton = document.createElement("Button");
+    joinButton.appendChild(document.createTextNode("Join " + header));
+    joinButton.classList.add('rounded');
+
+    var db_table = ""; // name of the database table that will be accessed based on the table_type
+
+    switch(table_type)
+        {
+            case "family": db_table = "families";
+                break;
+            case "cabin": db_table = "cabins";
+                break;
+            case "bus": db_table = "buses";
+        }
+
+    firebase.database().ref(db_table).orderByChild('name').equalTo(header).once("value", function(snapshot) 
+    {
+        var data = Object.keys(snapshot.val())[0]; // Returns parent of Object
+        var temp = Object.entries(snapshot.val());
+        
+        var database_path = db_table + "/" + data; // Path to object type that will be updated
+
+        let studentEmail = "<?php echo $_SESSION["queryData"]["studentEmail"]; ?>";
+
+        firebase.database().ref('users').orderByChild('studentEmail').equalTo(studentEmail).once("value", function(snapshot) 
+        {
+            var student = Object.entries(snapshot.val());
+
+            let type_num = "";
+
+            switch(table_type)
+            {
+                case "family": type_num = student[0][1].group_num;
+                    break;
+                case "cabin": type_num = student[0][1].cabin_num;
+                    break;
+                case "bus": type_num = student[0][1].bus_num;
             }
 
-            tbl.appendChild(tbdy);
-            body.appendChild(tbl);
-        }
-    }
-    else
-    {
-        for (let i = 0; i < numCells; i += 2) 
-        {
-            let tr = document.createElement('tr');
-
-            for (let j = 0; j < numCols; j++) 
+            joinButton.addEventListener("click", function()
             {
-                let td = document.createElement('td');
-
-                if(males.length != 0)
+                if(type_num != "N/A")
                 {
-                    switch(user_type)
+                    let message = "You have already ";
+                    switch(table_type)
                     {
-                        case "counselor":
-                        {
-                            let info_link = document.createElement('a');
-                            info_link.appendChild(document.createTextNode(males[0]));
-                            info_link.href = 'https://www.google.com/';
-                            td.appendChild(info_link);
-                        }
-                        break;
-                        case "student":
-                        {
-                            td.appendChild(document.createTextNode(males[0]));
-                        }
+                        case "family": message += "joined a family!";
+                            break;
+                        case "cabin": message += "selected a cabin!";
+                            break;
+                        case "bus": message += "selected a bus!";
                     }
-                    males.shift(); // removes the first male in the males array
+                    
+                    alert(message);
+                }
+                else if(males.length + females.length == temp[0][1].max_size)
+                {
+                    let message = "";
+
+                    switch(table_type)
+                    {
+                        case "family": alert("This family is full! Please join a different family!");
+                            break;
+                        case "cabin": alert("This cabin is full! Please select a different cabin!");
+                            break;
+                        case "bus": alert("This bus is full! Please select a different bus!");
+                    }
                 }
                 else
                 {
-                td.appendChild(document.createTextNode("\u0020"));
+                    warning("Are you sure you want to join " + header + "?", table_type, header, temp[0][1].size + 1, database_path);
                 }
-            
-                tr.appendChild(td);
-                tbdy.appendChild(tr);
-            }
-
-            tbl.appendChild(tbdy);
-            body.appendChild(tbl);
-        }
-    }
-
-    var buttonDiv = document.createElement('div');
-    buttonDiv.classList.add("button-div");
-    buttonDiv.id = "divID";
-
-    if(show_button)
-    {
-        // Adds button.
-        var joinButton = document.createElement("Button");
-        joinButton.appendChild(document.createTextNode("Join " + header));
-        joinButton.classList.add('rounded');
-
-        firebase.database().ref(table_type).orderByChild('name').equalTo(header).once("value", function(snapshot) 
-        {
-            var data = Object.keys(snapshot.val())[0]; // Returns parent of Object
-            var temp = Object.entries(snapshot.val());
-
-            let database_path = table_type + "/" + data; // Path to families object that will be updated
-
-            let studentEmail = "<?php echo $_SESSION["queryData"]["studentEmail"]; ?>";
-
-            firebase.database().ref('users').orderByChild('studentEmail').equalTo(studentEmail).once("value", function(snapshot) 
-            {
-                var student = Object.entries(snapshot.val());
-
-                let type_num = "";
-
-                switch(table_type)
-                {
-                    case "families": type_num = student[0][1].group_num;
-                        break;
-                    case "cabins": type_num = student[0][1].cabin_num;
-                        break;
-                    case "buses": type_num = student[0][1].bus_num;
-                }
-
-                joinButton.addEventListener("click", function()
-                {
-                    if(type_num != "N/A")
-                    {
-                        let message = "You have already ";
-                        switch(table_type)
-                        {
-                            case "families": message += "joined a family!";
-                                break;
-                            case "cabins": message += "selected a cabin!";
-                                break;
-                            case "buses": message += "selected a bus!";
-                        }
-                        
-                        alert(message);
-                    }
-                    else if(males.length + females.length == temp[0][1].max_size)
-                    {
-                        let message = "";
-                        switch(table_type)
-                        {
-                            case "families": message += "This family is full! Please join a different family!";
-                                break;
-                            case "cabins": message += "This cabin is full! Please select a different cabin!";
-                                break;
-                            case "buses": message += "This bus is full! Please select a different bus!";
-                        }
-                        
-                        alert(message);
-                    }
-                    else
-                    {
-                        warning("Are you sure you want to join " + header + "?", table_type, header, temp[0][1].size + 1, database_path);
-                    }
-                });
             });
         });
-        
-        buttonDiv.appendChild(joinButton); 
-    }
-
-    boxDiv.appendChild(tbl);
-    boxDiv.appendChild(buttonDiv);
+    });
+    
+    buttonDiv.appendChild(joinButton);
 }
 
 function warning(text, table_type, new_value, updated_size, database_path)
@@ -228,14 +278,12 @@ function warning(text, table_type, new_value, updated_size, database_path)
     
     switch(table_type)
     {
-        case "families": firebase.database().ref('users/' + email).update({'group_num': new_value});
+        case "family": firebase.database().ref('users/' + email).update({'group_num': new_value});
             break;
-        case "cabins": firebase.database().ref('users/' + email).update({'cabin_num': new_value});
+        case "cabin": firebase.database().ref('users/' + email).update({'cabin_num': new_value});
             break;
-        case "buses": firebase.database().ref('users/' + email).update({'bus_num': new_value});
+        case "bus": firebase.database().ref('users/' + email).update({'bus_num': new_value});
     }
-
-    
 
     firebase.database().ref(database_path).update({'size': updated_size});
   }

@@ -2,6 +2,7 @@
 if (!isset($_SESSION))
   session_start();
 ?>
+
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 
 <html lang="en">
@@ -57,34 +58,34 @@ if (!isset($_SESSION))
       // Creates tables of students in cabins in the same gender as the user.
       for(let i = 0; i < cabins.length; i++)
       {
-              // Creates table containing student names in family x if it contains at least one student, 
-      // else creates an empty 6x6 table
-      if(cabins.length > 0) 
-      {
-        firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot) 
-        {  
-          var student_data = Object.entries(snapshot.val());
-          var students = [];
+        // Creates table containing student names in family x if it contains at least one student, 
+        // else creates an empty 6x6 table
+        if(cabins.length > 0) 
+        {
+          firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot) 
+          {  
+            var student_data = Object.entries(snapshot.val());
+            var students = [];
 
-          for(let j = 0; j < student_data.length; j++)
-          {
-            var name = student_data[j][1].first_name + ' ' + student_data[j][1].last_name[0] + '.';
-            var current_gender = student_data[j][1].gender;
-            var current_cabin = student_data[j][1].cabin_num;
-
-            if(current_gender == gender && current_cabin == cabins[i][1].name)
+            for(let j = 0; j < student_data.length; j++)
             {
-                students.push(name);
-            }
-          }
+              var name = student_data[j][1].first_name + ' ' + student_data[j][1].last_name[0] + '.';
+              var current_gender = student_data[j][1].gender;
+              var current_cabin = student_data[j][1].cabin_num;
 
-          createTable(cabins[i][1].max_size, 2, cabins[i][1].name, "cabins", students, [], "student", true, false, boxDiv);
-        });
-      }
-      else
-      {
-        createTable(cabins[i][1].max_size, 2, cabins[i][1].name, "cabins", [], [], "student", true, false, boxDiv);
-      }
+              if(current_gender == gender && current_cabin == cabins[i][1].name)
+              {
+                  students.push(name);
+              }
+            }
+
+            createTable(cabins[i][1].max_size, 2, cabins[i][1].name, "cabin", students, [], "student", true, false, boxDiv);
+          });
+        }
+        else
+        {
+          createTable(cabins[i][1].max_size, 2, cabins[i][1].name, "cabin", [], [], "student", true, false, boxDiv);
+        }
       }
 
     document.getElementsByTagName("body")[0].appendChild(boxDiv);

@@ -86,12 +86,12 @@ if (!isset($_SESSION))
             }
           }
 
-          createTable(families[i][1].max_size, 2, families[i][1].name, "families", male_students, female_students, "student", true, true, boxDiv);
+          createTable(families[i][1].max_size, 2, families[i][1].name, "family", male_students, female_students, "student", true, true, boxDiv);
         });
       }
       else
       {
-        createTable(families[i][1].max_size, 2, families[i][1].name, "families", [], [], "student", true, true, boxDiv);
+        createTable(families[i][1].max_size, 2, families[i][1].name, "family", [], [], "student", true, true, boxDiv);
       }
     }
 
