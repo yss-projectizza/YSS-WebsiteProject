@@ -18,6 +18,7 @@
   var email = "<?php echo $emailwithcomma; ?>"
   var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>"
   var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>"
+  var credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>"
 
   firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot) {
     var credit_now = await parseInt(snapshot.val());
@@ -53,19 +54,40 @@
         <div class="row">
           <div class="card">
           <h2>To Do:</h2>
-            <div class="to_do">
-              <?php if($user_type == "student"): ?>
-                <input class="check" type="checkbox" disabled="disabled" />
-                Make Payment
-                <br>
-                <?php if($group_num == "N/A"): ?>
-                  <input class="check" type="checkbox" disabled="disabled" />
-                  <a href="dashboard/main_users/select_family.php">Select Your Group</a>
-                <?php endif ?>
-                <?php if($cabin_num == "N/A"): ?>
-                  <input class="check" type="checkbox" disabled="disabled" />
-                  <a href="dashboard/main_users/select_cabin.php">Select Your Cabin</a>
-                <?php endif ?>
+            <div class="to_do" id="to-do-div">
+              <?php if($user_type == "student"):?>
+                  <script>
+                    let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>"
+
+                    firebase.database().ref('users').orderByChild('studentEmail').equalTo(student_email).once("value", function(snapshot) {
+                      let student = Object.entries(snapshot.val());
+                      
+                      let to_do_div = document.getElementById('to-do-div');
+                      let to_do_list = document.createElement('ul');
+
+                      if(student[0][1].credit_due == "0")
+                      {
+                        display_todo_link("Pay Fees", "https://www.google.com/", to_do_list);
+                      }
+
+                      if(student[0][1].group_num == "N/A")
+                      {
+                        display_todo_link("Select Family", "dashboard/main_users/select_family.php", to_do_list);
+                      }
+
+                      if(student[0][1].cabin_num == "N/A")
+                      {
+                        display_todo_link("Select Cabin", "dashboard/main_users/select_cabin.php", to_do_list);
+                      }
+
+                      if(student[0][1].bus_num == "N/A")
+                      {
+                        display_todo_link("Select Bus", "dashboard/main_users/select_bus.php", to_do_list);
+                      }
+
+                      to_do_div.appendChild(to_do_list);
+                    });
+                  </script>
               <?php elseif($user_type == "counselor"): ?>
                 <input class="check" type="checkbox" disabled="disabled" />
                 Make a Donation 
@@ -176,8 +198,6 @@
 
                 var schedule_div = document.getElementById("schedule");
 
-
-
                 for (item of returndataArray) {
                   if (item[1].group.split(",").indexOf(group_num) >= 0 || item[1].group === "all"){
                   let newp = document.createElement("p");
@@ -203,3 +223,20 @@
 </body>
 
 </html>
+
+<script>
+function display_todo_link(item_name, link, ul)
+{ 
+  // Creates a link and line break.
+  let item_link = document.createElement('a');
+  let list_item = document.createElement('li');
+  let newline = document.createElement('br');
+  
+  item_link.appendChild(document.createTextNode(item_name));
+  item_link.href = link;
+  
+  // Adds the elements to the div
+  list_item.appendChild(item_link);
+  ul.appendChild(list_item);
+}
+</script>

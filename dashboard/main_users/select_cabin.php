@@ -52,7 +52,7 @@ if (!isset($_SESSION))
 
       // Create box div containing tables
       const boxDiv = document.createElement('div');
-      boxDiv.classList.add('container', 'family-div');
+      boxDiv.classList.add('container', 'cabin-div');
       boxDiv.style.paddingBottom = '13%';
 
       // Creates tables of students in cabins in the same gender as the user.
@@ -90,8 +90,5 @@ if (!isset($_SESSION))
 
     document.getElementsByTagName("body")[0].appendChild(boxDiv);
       
-  });
-  
-
-  
+  }); 
 </script>
