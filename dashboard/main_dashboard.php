@@ -12,7 +12,14 @@
   firebase.initializeApp(config);
 
   <?php
-  $emailwithperiod = $_SESSION["queryData"]["email"];
+  if($_SESSION["queryData"]["user_type"] == "student")
+  {
+    $emailwithperiod = $_SESSION["queryData"]["studentEmail"];
+  }
+  else
+  {
+    $emailwithperiod = $_SESSION["queryData"]["email"];
+  }
   $emailwithcomma = str_replace(".", ",", $emailwithperiod);
   ?>
   var email = "<?php echo $emailwithcomma; ?>"
@@ -232,7 +239,7 @@ function display_todo_link(item_name, link, ul)
   let list_item = document.createElement('li');
   let newline = document.createElement('br');
 
-  
+
   
   item_link.appendChild(document.createTextNode(item_name));
   item_link.href = link;
