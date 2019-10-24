@@ -15,7 +15,15 @@ if( !$_SESSION["loggedin"]){
   $user_type = $_SESSION["queryData"]["user_type"];
   
   if($user_type == "student" || $user_type == "student18" || $user_type == "counselor" || $user_type == "parent"){
-    $email = $_SESSION["queryData"]["email"];
+    if($user_type == "student") 
+    {
+      $email = $_SESSION["queryData"]["studentEmail"];
+    }
+    else
+    {
+      $email = $_SESSION["queryData"]["email"];
+    }
+    
     $first_name = $_SESSION["queryData"]["first_name"];
     $last_name = $_SESSION["queryData"]["last_name"];
     if ($user_type == "student" || $user_type == "student18" || $user_type == "counselor"){

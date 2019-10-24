@@ -15,7 +15,15 @@
   firebase.initializeApp(config);
 
   <?php
-  $emailwithperiod = $_SESSION["queryData"]["email"];
+  if($_SESSION["queryData"]["user_type"] == "student")
+  {
+    $emailwithperiod = $_SESSION["queryData"]["studentEmail"];
+  }
+  else
+  {
+    $emailwithperiod = $_SESSION["queryData"]["email"];
+  }
+  
   $emailwithcomma = str_replace(".", ",", $emailwithperiod);
   ?>
   
