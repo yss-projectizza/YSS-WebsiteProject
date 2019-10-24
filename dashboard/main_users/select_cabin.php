@@ -67,24 +67,21 @@ if (!isset($_SESSION))
             var student_data = Object.entries(snapshot.val());
             var students = [];
 
-            for(let j = 0; j < student_data.length; j++)
+            // Gets all students in the current cabin.
+            for(let j = 0; j < student_data.length; j++) 
             {
-              var name = student_data[j][1].first_name + ' ' + student_data[j][1].last_name[0] + '.';
-              var current_gender = student_data[j][1].gender;
-              var current_cabin = student_data[j][1].cabin_num;
-
-              if(current_gender == gender && current_cabin == cabins[i][1].name)
+              if(student_data[j][1].gender == gender && student_data[j][1].cabin_num == cabins[i][1].name)
               {
-                  students.push(name);
+                  students.push(student_data[j][1]);
               }
             }
-
-            createTable(cabins[i][1].max_size, 2, cabins[i][1].name, "cabin", students, [], "student", true, false, boxDiv);
+            
+             createTable(cabins[i][1].max_size, 2, cabins[i][1].name, "cabin", cabins[i][1].counselor, students, [], "student", true, false, boxDiv);
           });
         }
         else
         {
-          createTable(cabins[i][1].max_size, 2, cabins[i][1].name, "cabin", [], [], "student", true, false, boxDiv);
+          createTable(cabins[i][1].max_size, 2, cabins[i][1].name, "cabin", cabins[i][1].counselor, [], [], "student", true, false, boxDiv);
         }
       }
 

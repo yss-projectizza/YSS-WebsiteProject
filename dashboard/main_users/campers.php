@@ -51,138 +51,172 @@
 
     <div id="Family" class="tabcontent">
       <script>
-        // Create box div containing tables
-        const boxDiv = document.createElement('div');
-        boxDiv.classList.add('container', 'family-div');
-        boxDiv.style.paddingBottom = '13%';
+        const famTblDiv = document.createElement('div');
+        famTblDiv.classList.add('container', 'family-div');
+        famTblDiv.style.paddingBottom = '13%';
 
-          firebase.database().ref('users').orderByChild('group_num').equalTo(group_num).once("value", function(snapshot) 
+        firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot) 
+        {
+          var student_data = Object.entries(snapshot.val());
+
+          firebase.database().ref('families').orderByChild('name').equalTo(group_num).once("value", function(snapshot) 
           {
-            var student_data = Object.entries(snapshot.val());
+            var family = Object.entries(snapshot.val());
 
-            firebase.database().ref('families').orderByChild('name').equalTo(group_num).once("value", function(snapshot) 
+            // Creates arrays of male and female student objects.
+            if(family[0][1].size > 0)
             {
-              var family = Object.entries(snapshot.val());
-              var current_fam_size = family[0][1].size;
-
-              if(current_fam_size > 0)
+              var male_students = [];
+              var female_students = [];
+              
+              for(let j = 0; j < student_data.length; j++)
               {
-                var male_students = [];
-                var female_students = [];
-                
-                for(let j = 0; j < student_data.length; j++)
+                if(student_data[j][1].group_num == group_num)
                 {
-                  var name = student_data[j][1].first_name + ' ' + student_data[j][1].last_name[0] + '.';
-                  var gender = student_data[j][1].gender;
-
-                  if(student_data[j][1].user_type == "student")
+                  if(student_data[j][1].gender == "Male")
                   {
-                    if(gender == "Male")
-                    {
-                      male_students.push(name);
-                    }
-                    else
-                    {
-                      female_students.push(name);
-                    }
+                    male_students.push(student_data[j][1]);
+                  }
+                  else
+                  {
+                    female_students.push(student_data[j][1]);
                   }
                 }
+              }
 
-                switch(user_type)
-                {
-                  case "counselor": createTable(family[0][1].max_size, 2, group_num, "family", male_students, female_students, "counselor", false, true, boxDiv);
-                    break;
-                  case "student": createTable(family[0][1].max_size, 2, group_num, "family", male_students, female_students, "student", false, true, boxDiv);
-                }
+              switch(user_type)
+              {
+                case "counselor": createTable(family[0][1].max_size, 2, group_num, "family", family[0][1].counselor, male_students, female_students, "counselor", false, true, famTblDiv);
+                  break;
+                case "student": createTable(family[0][1].max_size, 2, group_num, "family", family[0][1].counselor, male_students, female_students, "student", false, true, famTblDiv);
+              }
+            }
+            else
+            {
+              const message = document.createElement('p');
+              
+              if(user_type == "counselor")
+              {
+                message.appendChild(document.createTextNode("You do not have any students yet."));
               }
               else
               {
-                const message = document.createElement('p');
-                if(user_type == "counselor")
-                {
-                  message.appendChild(document.createTextNode("You do not have any students yet."));
-                }
-                else
-                {
-                  message.appendChild(document.createTextNode("You do not have any students yet."));
-                }
-                boxDiv.appendChild(message);
+                message.appendChild(document.createTextNode("You do not have any students yet."));
               }
-            });
-        });
+              
+              famTblDiv.appendChild(message);
+            }
+          });
+      });
 
-        document.getElementById("Family").appendChild(boxDiv);
+      document.getElementById("Family").appendChild(famTblDiv);
       </script>
     </div>
 
     <div id="Bus" class="tabcontent">
-      <script>
-        firebase.database().ref('/users').once('value').then(item => {
+      <script> 
+        const busTblDiv = document.createElement('div');
+        busTblDiv.classList.add('container', 'bus-div');
+        busTblDiv.style.paddingBottom = '13%';
+        
+        firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot) 
+        {
+          var student_data = Object.entries(snapshot.val());
 
-          let firebasedataArray = Object.entries(item.val());
+          firebase.database().ref('buses').orderByChild('name').equalTo(bus_num).once("value", function(snapshot) 
+          {
+            var bus = Object.entries(snapshot.val());            
 
-          for (let i = 0; i < firebasedataArray.length; ++i) {
-            console.log(bus_num);
-            console.log(firebasedataArray[i][1].bus_num);
-            if (bus_num == firebasedataArray[i][1].bus_num && firebasedataArray[i][1] != email) {
-              var updiv = document.getElementById("bus_data");
-              var newp = document.createElement("ul");
+            if(bus[0][1].size > 0)
+            {
+              var students = [];
+              
+              for(let j = 0; j < student_data.length; j++)
+              {
+                if(student_data[j][1].bus_num == bus_num)
+                {
+                  students.push(student_data[j][1]);
+                }          
+              }
 
-              if(user_type == "counselor"){
-                  if(firebasedataArray[i][1].user_type == "counselor"){
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " * " + firebasedataArray[i][1].phone;
-                  }else{
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " " + firebasedataArray[i][1].phone;
-                  }               
-                  updiv.appendChild(newp)
-                }else{
-                  if(firebasedataArray[i][1].user_type == "counselor"){
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " * " + firebasedataArray[i][1].email;
-                  }else{
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name;
-                  }            
-                }
-              updiv.appendChild(newp)
+              switch(user_type)
+              {
+                case "counselor": createTable(bus[0][1].max_size, 2, bus_num, "bus", bus[0][1].counselor, students, [], "counselor", false, false, busTblDiv);
+                  break;
+                case "student": createTable(bus[0][1].max_size, 2, bus_num, "bus", bus[0][1].counselor, students, [], "student", false, false, busTblDiv);
+              }
             }
-          }
+            else
+            {
+              const message = document.createElement('p');
+              if(user_type == "counselor")
+              {
+                message.appendChild(document.createTextNode("You do not have any students yet."));
+              }
+              else
+              {
+                message.appendChild(document.createTextNode("You do not have any students yet."));
+              }
+              busTblDiv.appendChild(message);
+            }
+          });
         });
+
+        document.getElementById("Bus").appendChild(busTblDiv);
       </script>
-      <h3>Bus: <?php echo $_SESSION["queryData"]["bus_num"]; ?> </h3>
-      <div id=bus_data> </div>
     </div>
 
     <div id="Cabin" class="tabcontent">
-        <script>
-          firebase.database().ref('/users').once('value').then(item => {
+      <script>
+        const cabinTblDiv = document.createElement('div');
+        cabinTblDiv.classList.add('container', 'cabin-div');
+        cabinTblDiv.style.paddingBottom = '13%';
+        
+        firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot) 
+        {
+          var student_data = Object.entries(snapshot.val());
 
-            let firebasedataArray = Object.entries(item.val());
+          firebase.database().ref('cabins').orderByChild('name').equalTo(cabin_num).once("value", function(snapshot) 
+          {
+            var cabin = Object.entries(snapshot.val());
 
-            for (let i = 0; i < firebasedataArray.length; ++i) {
-              if (cabin_num == firebasedataArray[i][1].cabin_num && firebasedataArray[i][1] != email) {
-                var updiv = document.getElementById("cabin_data");
-                var newp = document.createElement("ul");
+            if(cabin[0][1].size > 0)
+            {
+              var students = [];
+              
+              for(let j = 0; j < student_data.length; j++)
+              {
+                if(student_data[j][1].cabin_num == cabin_num)
+                {
+                  students.push(student_data[j][1]);
+                }          
+              }
 
-                if(user_type == "counselor"){
-                  if(firebasedataArray[i][1].user_type == "counselor"){
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " * " + firebasedataArray[i][1].phone;
-                  }else{
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " " + firebasedataArray[i][1].phone;
-                  }               
-                  updiv.appendChild(newp)
-                }else{
-                  if(firebasedataArray[i][1].user_type == "counselor"){
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " * " + firebasedataArray[i][1].email;
-                  }else{
-                    newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name;
-                  }               
-                  updiv.appendChild(newp)
-                }
+              switch(user_type)
+              {
+                case "counselor": createTable(cabin[0][1].max_size, 2, cabin_num, "cabin", cabin[0][1].counselor, students, [], "counselor", false, false, cabinTblDiv);
+                  break;
+                case "student": createTable(cabin[0][1].max_size, 2, cabin_num, "cabin", cabin[0][1].counselor, students, [], "student", false, false, cabinTblDiv);
               }
             }
+            else
+            {
+              const message = document.createElement('p');
+              if(user_type == "counselor")
+              {
+                message.appendChild(document.createTextNode("You do not have any students yet."));
+              }
+              else
+              {
+                message.appendChild(document.createTextNode("You do not have any students yet."));
+              }
+              cabinTblDiv.appendChild(message);
+            }
           });
-        </script>
-        <h3 id="cabin_num">Cabin: <?php echo $_SESSION["queryData"]["cabin_num"]; ?></h3>
-        <div id="cabin_data"></div>
+        });
+
+        document.getElementById("Cabin").appendChild(cabinTblDiv);
+      </script>
     </div>
 
     <script>

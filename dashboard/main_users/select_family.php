@@ -22,7 +22,7 @@ if (!isset($_SESSION))
     <!-- Dashboard Title Registration Header -->
     <h1 align="center" style="font-size:50px;padding-top: 2%;">Select Family</h1>
     <br>
-    <p> Please select the family that you would like to join. </p>
+    <p> Please add your name to the family that you would like to join. </p>
     <hr/>
     </div>
   </body>
@@ -39,7 +39,6 @@ if (!isset($_SESSION))
     messagingSenderId: "530416464878"
   };
 
-  let group_num = "<?php echo $_SESSION["queryData"]["group_num"]; ?>";
   let year = "<?php echo $_SESSION["queryData"]["year"]; ?>";
 
   firebase.initializeApp(config);
@@ -67,31 +66,27 @@ if (!isset($_SESSION))
           var male_students = [];
           var female_students = [];
 
-
           for(let j = 0; j < student_data.length; j++)
           {
-            var name = student_data[j][1].first_name + ' ' + student_data[j][1].last_name[0] + '.';
-            var gender = student_data[j][1].gender;
-
             if(student_data[j][1].user_type == "student")
             {
-              if(gender == "Male")
+              if(student_data[j][1].gender == "Male")
               {
-                male_students.push(name);
+                male_students.push(student_data[j][1]);
               }
               else
               {
-                female_students.push(name);
+                female_students.push(student_data[j][1]);
               }
             }
           }
 
-          createTable(families[i][1].max_size, 2, families[i][1].name, "family", male_students, female_students, "student", true, true, boxDiv);
+          createTable(families[i][1].max_size, 2, families[i][1].name, "family", families[i][1].counselor, male_students, female_students, "student", true, true, boxDiv);
         });
       }
       else
       {
-        createTable(families[i][1].max_size, 2, families[i][1].name, "family", [], [], "student", true, true, boxDiv);
+        createTable(families[i][1].max_size, 2, families[i][1].name, "family", families[i][1].counselor, [], [], "student", true, true, boxDiv);
       }
     }
 

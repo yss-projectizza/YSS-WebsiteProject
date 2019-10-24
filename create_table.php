@@ -6,10 +6,11 @@
      * the table to allow students to join a family, cabin, or bus.
      * -----------------------------------------------------------------------------------------------------
      * PARAMETERS:
-     * numCells - the max number of students a family, cabin, or bus can hold 
+     * numCells - the max number of students a family, cabin, or bus can hold
      * numCols - number of columns in the table (usually 2) 
      * header - table header (i.e. family name, cabin number, bus) 
      * table_type - "family", "cabin", or "bus" 
+     * counselor - the name(s) of the counselors
      * males - array of male names (if gender_separated == false, pass in student names in this parameter)
      * females - array of females names (if  gender_separated == false, pass in an empty array [] 
      * user_type - "student" or "counselor" 
@@ -18,7 +19,7 @@
      * boxDiv - div that will hold the table(s) - please create outside of this function 
      ****************************************************************************************************** -->
 <script>
-  function createTable(numCells, numCols, header="placeholder", table_type, males, females, user_type, show_button, gender_separated, boxDiv) 
+  function createTable(numCells, numCols, header="placeholder", table_type, counselor, males, females, user_type, show_button, gender_separated, boxDiv) 
   {
     // Ensures that the table always has an even number of cells.
     if(numCells % 2 != 0)
@@ -37,10 +38,15 @@
     let tbdy = document.createElement('tbody');
 
     // Sets the header for the table header and appends it to the table.
-    let th = document.createElement('th');
-    th.appendChild(document.createTextNode(header));
-    th.colSpan = numCols;
-    tbl.appendChild(th);
+    let table_title = document.createElement('th');
+    table_title.appendChild(document.createTextNode(header));
+    table_title.colSpan = numCols;
+    tbl.appendChild(table_title);
+
+    if(user_type == "student")
+    {
+        create_counselor_heading(counselor, numCols, tbl);
+    }
 
     // Generates the appropriate table based on the gender_separated parameter
     if(gender_separated)
@@ -49,7 +55,7 @@
     }
     else
     {
-        regular_table(numCells, numCols, males, females, user_type, tbl, tbdy, body);
+        regular_table(numCells, numCols, males, user_type, tbl, tbdy, body);
     }
 
     // Creates a div for the join button and applies the button-div style sheet.
@@ -66,6 +72,42 @@
     boxDiv.appendChild(tbl);
     boxDiv.appendChild(buttonDiv);
 } // end of createTable
+
+function create_counselor_heading(counselor, numCols, tbl)
+{
+    let counselor_heading = document.createElement('tr');
+    let counselor_info = document.createElement('td');
+    counselor_info.colSpan = numCols;
+    counselor_info.style.backgroundColor = '#85C1E9';
+    counselor_info.style.fontWeight = 'bold';
+    counselor_info.style.color = 'white';
+
+    // Counselor row heading
+    let heading = "Counselor";
+
+
+    if(counselor == "N/A")
+    {
+        heading += "s: TBD";
+    }
+    else
+    {
+        if(counselor.includes(","))
+        {
+            counselor = counselor.split(",");
+
+            heading += "s: " + counselor[0] + " & " + counselor[1];
+        }
+        else
+        {
+            heading += ": " + counselor;
+        }
+    }
+
+    counselor_info.appendChild(document.createTextNode(heading));
+    counselor_heading.appendChild(counselor_info);
+    tbl.appendChild(counselor_heading);
+}
 
 function gender_separated_table(numCells, numCols, males, females, user_type, tbl, tbdy, body)
 {
@@ -86,15 +128,21 @@ function gender_separated_table(numCells, numCols, males, females, user_type, tb
                         case "counselor":
                         {
                             let info_link = document.createElement('a');
-                            info_link.appendChild(document.createTextNode(males[0]));
-                            info_link.href = 'https://www.google.com/';
+
+                            let name = males[0].first_name + " " + males[0].last_name;
+                            info_link.appendChild(document.createTextNode(name));
+
+                            let email = males[0].studentEmail;
+                            info_link.href ='/dashboard/main_users/detailed_student_info.php?email=' + email;
+                            
                             td.appendChild(info_link);
                         }
                         break;
                         case "student":
-                        {
-                            
-                            td.appendChild(document.createTextNode(males[0]));
+                        {   
+                            let name = males[0].first_name + " " + males[0].last_name[0] + ".";
+
+                            td.appendChild(document.createTextNode(name));
                         }
                     }
                     males.shift(); // removes the first male in the males array
@@ -114,14 +162,20 @@ function gender_separated_table(numCells, numCols, males, females, user_type, tb
                         case "counselor":
                         {
                             let info_link = document.createElement('a');
-                            info_link.appendChild(document.createTextNode(females[0]));
-                            info_link.href = 'https://www.google.com/'; // change this to a link to student info page!
+                            let name = females[0].first_name + " " + females[0].last_name;
+                            info_link.appendChild(document.createTextNode(name));                        
+
+                            let email = females[0].studentEmail;
+                            
+                            info_link.href ='/dashboard/main_users/detailed_student_info.php?email=' + email;
                             td.appendChild(info_link);
                         }
                         break;
                         case "student":
                         {
-                            td.appendChild(document.createTextNode(females[0]));
+                            let name = females[0].first_name + " " + females[0].last_name[0] + ".";
+
+                            td.appendChild(document.createTextNode(name));
                         }
                     }
 
@@ -140,7 +194,7 @@ function gender_separated_table(numCells, numCols, males, females, user_type, tb
     }
 }
 
-function regular_table(numCells, numCols, males, females, user_type, tbl, tbdy, body)
+function regular_table(numCells, numCols, students, user_type, tbl, tbdy, body)
 {
     for (let i = 0; i < numCells; i += 2) 
     {
@@ -150,24 +204,32 @@ function regular_table(numCells, numCols, males, females, user_type, tbl, tbdy, 
         {
             let td = document.createElement('td');
 
-            if(males.length != 0)
+            if(students.length != 0)
             {
                 switch(user_type)
                 {
                     case "counselor":
                     {
                         let info_link = document.createElement('a');
-                        info_link.appendChild(document.createTextNode(males[0]));
-                        info_link.href = 'https://www.google.com/';
+
+                        let name = students[0].first_name + " " + students[0].last_name;
+                        info_link.appendChild(document.createTextNode(name));
+
+                        let email = students[0].studentEmail;
+                            
+                        info_link.href ='/dashboard/main_users/detailed_student_info.php?email=' + email;
+
                         td.appendChild(info_link);
                     }
                     break;
                     case "student":
                     {
-                        td.appendChild(document.createTextNode(males[0]));
+                        let name = students[0].first_name + " " + students[0].last_name[0] + ".";
+
+                        td.appendChild(document.createTextNode(name));
                     }
                 }
-                males.shift(); // removes the first male in the males array
+                students.shift(); // removes the first male in the males array
             }
             else
             {
@@ -271,7 +333,7 @@ function warning(text, table_type, new_value, updated_size, database_path)
 
   if(ok_clicked)
   {
-    document.location.href ='/dashboard/main_users/campers.php';
+    document.location.href ='/dashboard.php';
 
     let email = ("<?php echo $_SESSION["queryData"]["studentEmail"]; ?>");
     email = email.replace(".", ",");
@@ -287,5 +349,12 @@ function warning(text, table_type, new_value, updated_size, database_path)
 
     firebase.database().ref(database_path).update({'size': updated_size});
   }
+}
+
+function student_name_clicked(name)
+{
+    let student_name = name;
+
+    document.location.href ='/dashboard/main_users/detailed_student_info.php?name=' + name;
 }
 </script>

@@ -73,15 +73,15 @@ if (!isset($_SESSION))
                     {
                         if(student_data[j][1].bus_num == buses[i][1].name)
                         {
-                            students.push(student_data[j][1].first_name + " " + student_data[j][1].last_name[0] + ".");
+                            students.push(student_data[j][1]);
                         }
                     }
 
-                    createTable(buses[i][1].max_size, 2, buses[i][1].name, "bus", students, [], "student", true, false, boxDiv);
+                    createTable(buses[i][1].max_size, 2, buses[i][1].name, "bus", buses[i][1].counselor, students, [], "student", true, false, boxDiv);
                 }
                 else
                 {
-                    createTable(buses[i][1].max_size, 2, buses[i][1].name, "bus", [], [], "student", true, false, boxDiv);
+                    createTable(buses[i][1].max_size, 2, buses[i][1].name, "bus", buses[i][1].counselor, [], [], "student", true, false, boxDiv);
                 }
             });
         }
