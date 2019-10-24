@@ -231,6 +231,8 @@ function display_todo_link(item_name, link, ul)
   let item_link = document.createElement('a');
   let list_item = document.createElement('li');
   let newline = document.createElement('br');
+
+  
   
   item_link.appendChild(document.createTextNode(item_name));
   item_link.href = link;
