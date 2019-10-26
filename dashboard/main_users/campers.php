@@ -28,8 +28,6 @@
   ?>
   
   var email = "<?php echo $emailwithperiod; ?>"
-  var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>"
-  var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>"
   var user_type = "<?php echo $_SESSION['queryData']['user_type']; ?>"
 
 </script>
@@ -66,7 +64,16 @@
         {
           var student_data = Object.entries(snapshot.val());
 
-          let group_num = get_user_num(student_data, email, "family");
+          let group_num = "";
+
+          if(user_type == "student")
+          {
+            group_num = get_user_num(student_data, email, "family");
+          }
+          else
+          {
+            group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
+          }
 
           if(group_num != "N/A")
           {
@@ -145,7 +152,16 @@
         {
           var student_data = Object.entries(snapshot.val());
 
-          let bus_num = get_user_num(student_data, email, "bus");
+          let bus_num = "";
+
+          if(user_type == "student")
+          {
+            bus_num = get_user_num(student_data, email, "bus");
+          }
+          else
+          {
+            bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>";
+          }
 
           if(bus_num != "N/A")
           {
@@ -218,7 +234,16 @@
         {
           var student_data = Object.entries(snapshot.val());
 
-          let cabin_num = get_user_num(student_data, email, "cabin");
+          let cabin_num = "";
+
+          if(user_type == "student")
+          {
+            cabin_num = get_user_num(student_data, email, "cabin");
+          }
+          else
+          {
+            cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>";
+          }
 
           if(cabin_num != "N/A")
           {

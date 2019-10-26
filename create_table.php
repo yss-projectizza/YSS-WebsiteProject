@@ -63,46 +63,46 @@
     buttonDiv.classList.add("button-div");
     buttonDiv.id = "divID";
 
-    // Leave button
-    firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot)
+    if(user_type == "student")
     {
-        let students = Object.entries(snapshot.val());
-        
-        
-        let i = 0;
-        let studentEmail = "<?php echo $_SESSION["queryData"]["studentEmail"]; ?>";
-
-        while(students[i][1].studentEmail != studentEmail)
+        firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot)
         {
-            i++;
-        }
+            let students = Object.entries(snapshot.val());
+            
+            
+            let i = 0;
+            let studentEmail = "<?php echo $_SESSION["queryData"]["studentEmail"]; ?>";
 
-        let num_type = "";
-
-        switch(table_type)
-        {
-            case "family": num_type = students[i][1].group_num;
-                break;
-            case "cabin": num_type = students[i][1].cabin_num;
-                break;
-            case "bus": num_type = students[i][1].bus_num;
-        }
-
-        if(num_type == header)
-        {
-            create_leave_button(header, table_type, males, females, buttonDiv);
-        }
-        else
-        {
-            // Adds a button under the table if the table is being used to let students join.
-            if(show_button)
+            while(students[i][1].studentEmail != studentEmail)
             {
-                create_join_button(header, table_type, males, females, buttonDiv);
+                i++;
             }
-        }
-    });
 
+            let num_type = "";
 
+            switch(table_type)
+            {
+                case "family": num_type = students[i][1].group_num;
+                    break;
+                case "cabin": num_type = students[i][1].cabin_num;
+                    break;
+                case "bus": num_type = students[i][1].bus_num;
+            }
+
+            if(num_type == header)
+            {
+                create_leave_button(header, table_type, males, females, buttonDiv);
+            }
+            else
+            {
+                // Adds a button under the table if the table is being used to let students join.
+                if(show_button)
+                {
+                    create_join_button(header, table_type, males, females, buttonDiv);
+                }
+            }
+        });
+    }
 
     boxDiv.appendChild(tbl);
     boxDiv.appendChild(buttonDiv);
