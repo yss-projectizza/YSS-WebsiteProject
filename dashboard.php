@@ -32,7 +32,7 @@ if( !$_SESSION["loggedin"]){
       $bus_num = $_SESSION["queryData"]["bus_num"];
       $cabin_num = $_SESSION["queryData"]["cabin_num"];
     }
-    if($user_type == "student" || $user_type == "parent"){
+    if($user_type == "parent"){
       $credit_due = $_SESSION["queryData"]["credit_due"];
     }
     
