@@ -14,10 +14,11 @@ if( !$_SESSION["loggedin"]){
 
   $user_type = $_SESSION["queryData"]["user_type"];
   
-  if($user_type == "student" || $user_type == "student18" || $user_type == "counselor" || $user_type == "parent"){
+  if($user_type == "student" || $user_type == "counselor" || $user_type == "parent"){
     if($user_type == "student") 
     {
       $email = $_SESSION["queryData"]["studentEmail"];
+      $year = $_SESSION["queryData"]["year"];
     }
     else
     {
@@ -26,13 +27,12 @@ if( !$_SESSION["loggedin"]){
     
     $first_name = $_SESSION["queryData"]["first_name"];
     $last_name = $_SESSION["queryData"]["last_name"];
-    if ($user_type == "student" || $user_type == "student18" || $user_type == "counselor"){
-      $year = $_SESSION["queryData"]["year"];
+    if ($user_type == "student" || $user_type == "counselor"){
       $group_num = $_SESSION["queryData"]["group_num"];
       $bus_num = $_SESSION["queryData"]["bus_num"];
       $cabin_num = $_SESSION["queryData"]["cabin_num"];
     }
-    if($user_type == "student18" || $user_type == "parent"){
+    if($user_type == "student" || $user_type == "parent"){
       $credit_due = $_SESSION["queryData"]["credit_due"];
     }
     
