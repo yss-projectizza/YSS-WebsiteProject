@@ -27,10 +27,9 @@
   $emailwithcomma = str_replace(".", ",", $emailwithperiod);
   ?>
   
-  var email = "<?php echo $emailwithcomma; ?>"
+  var email = "<?php echo $emailwithperiod; ?>"
   var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>"
   var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>"
-  var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>"
   var user_type = "<?php echo $_SESSION['queryData']['user_type']; ?>"
 
 </script>
@@ -67,41 +66,57 @@
         {
           var student_data = Object.entries(snapshot.val());
 
-          firebase.database().ref('families').orderByChild('name').equalTo(group_num).once("value", function(snapshot) 
-          {
-            var family = Object.entries(snapshot.val());
+          let group_num = get_user_num(student_data, email, "family");
 
-            // Creates arrays of male and female student objects.
-            if(family[0][1].size > 0)
+          if(group_num != "N/A")
+          {
+            firebase.database().ref('families').orderByChild('name').equalTo(group_num).once("value", function(snapshot) 
             {
-              var male_students = [];
-              var female_students = [];
-              
-              for(let j = 0; j < student_data.length; j++)
+              var family = Object.entries(snapshot.val());
+
+              // Creates arrays of male and female student objects.
+              if(family[0][1].size > 0)
               {
-                if(student_data[j][1].group_num == group_num)
+                var male_students = [];
+                var female_students = [];
+                
+                for(let j = 0; j < student_data.length; j++)
                 {
-                  if(student_data[j][1].gender == "Male")
+                  if(student_data[j][1].group_num == group_num)
                   {
-                    male_students.push(student_data[j][1]);
-                  }
-                  else
-                  {
-                    female_students.push(student_data[j][1]);
+                    if(student_data[j][1].gender == "Male")
+                    {
+                      male_students.push(student_data[j][1]);
+                    }
+                    else
+                    {
+                      female_students.push(student_data[j][1]);
+                    }
                   }
                 }
+                switch(user_type)
+                {
+                  case "counselor": createTable(family[0][1].max_size, 2, group_num, "family", family[0][1].counselor, male_students, female_students, "counselor", false, true, famTblDiv);
+                    break;
+                  case "student": createTable(family[0][1].max_size, 2, group_num, "family", family[0][1].counselor, male_students, female_students, "student", false, true, famTblDiv);
+                }
               }
-
-              switch(user_type)
+              else
               {
-                case "counselor": createTable(family[0][1].max_size, 2, group_num, "family", family[0][1].counselor, male_students, female_students, "counselor", false, true, famTblDiv);
-                  break;
-                case "student": createTable(family[0][1].max_size, 2, group_num, "family", family[0][1].counselor, male_students, female_students, "student", false, true, famTblDiv);
+                const message = document.createElement('p');
+                
+                if(user_type == "counselor")
+                {
+                  message.appendChild(document.createTextNode("You do not have any students yet."));
+                }
+                
+                famTblDiv.appendChild(message);
               }
-            }
-            else
-            {
-              const message = document.createElement('p');
+            });
+          }
+          else
+          {
+            const message = document.createElement('p');
               
               if(user_type == "counselor")
               {
@@ -109,12 +124,11 @@
               }
               else
               {
-                message.appendChild(document.createTextNode("You do not have any students yet."));
+                message.appendChild(document.createTextNode("You have not joined a family yet."));
               }
               
               famTblDiv.appendChild(message);
-            }
-          });
+          }
       });
 
       document.getElementById("Family").appendChild(famTblDiv);
@@ -131,43 +145,63 @@
         {
           var student_data = Object.entries(snapshot.val());
 
-          firebase.database().ref('buses').orderByChild('name').equalTo(bus_num).once("value", function(snapshot) 
+          let bus_num = get_user_num(student_data, email, "bus");
+
+          if(bus_num != "N/A")
           {
-            var bus = Object.entries(snapshot.val());            
-
-            if(bus[0][1].size > 0)
+            firebase.database().ref('buses').orderByChild('name').equalTo(bus_num).once("value", function(snapshot) 
             {
-              var students = [];
-              
-              for(let j = 0; j < student_data.length; j++)
+              var bus = Object.entries(snapshot.val());            
+
+              if(bus[0][1].size > 0)
               {
-                if(student_data[j][1].bus_num == bus_num)
+                var students = [];
+                
+                for(let j = 0; j < student_data.length; j++)
                 {
-                  students.push(student_data[j][1]);
-                }          
-              }
+                  if(student_data[j][1].bus_num == bus_num)
+                  {
+                    students.push(student_data[j][1]);
+                  }          
+                }
 
-              switch(user_type)
-              {
-                case "counselor": createTable(bus[0][1].max_size, 2, bus_num, "bus", bus[0][1].counselor, students, [], "counselor", false, false, busTblDiv);
-                  break;
-                case "student": createTable(bus[0][1].max_size, 2, bus_num, "bus", bus[0][1].counselor, students, [], "student", false, false, busTblDiv);
+                switch(user_type)
+                {
+                  case "counselor": createTable(bus[0][1].max_size, 2, bus_num, "bus", bus[0][1].counselor, students, [], "counselor", false, false, busTblDiv);
+                    break;
+                  case "student": createTable(bus[0][1].max_size, 2, bus_num, "bus", bus[0][1].counselor, students, [], "student", false, false, busTblDiv);
+                }
               }
-            }
-            else
-            {
-              const message = document.createElement('p');
+              else
+              {
+                const message = document.createElement('p');
+                if(user_type == "counselor")
+                {
+                  message.appendChild(document.createTextNode("You do not have any students yet."));
+                }
+                else
+                {
+                  message.appendChild(document.createTextNode("You have not selected a bus yet."));
+                }
+                busTblDiv.appendChild(message);
+              }
+            });
+          }
+          else
+          {
+            const message = document.createElement('p');
+              
               if(user_type == "counselor")
               {
                 message.appendChild(document.createTextNode("You do not have any students yet."));
               }
               else
               {
-                message.appendChild(document.createTextNode("You do not have any students yet."));
+                message.appendChild(document.createTextNode("You have not selected a bus yet."));
               }
+              
               busTblDiv.appendChild(message);
-            }
-          });
+          }
         });
 
         document.getElementById("Bus").appendChild(busTblDiv);
@@ -184,43 +218,63 @@
         {
           var student_data = Object.entries(snapshot.val());
 
-          firebase.database().ref('cabins').orderByChild('name').equalTo(cabin_num).once("value", function(snapshot) 
+          let cabin_num = get_user_num(student_data, email, "cabin");
+
+          if(cabin_num != "N/A")
           {
-            var cabin = Object.entries(snapshot.val());
-
-            if(cabin[0][1].size > 0)
+            firebase.database().ref('cabins').orderByChild('name').equalTo(cabin_num).once("value", function(snapshot) 
             {
-              var students = [];
-              
-              for(let j = 0; j < student_data.length; j++)
+              var cabin = Object.entries(snapshot.val());
+
+              if(cabin[0][1].size > 0)
               {
-                if(student_data[j][1].cabin_num == cabin_num)
+                var students = [];
+                
+                for(let j = 0; j < student_data.length; j++)
                 {
-                  students.push(student_data[j][1]);
-                }          
-              }
+                  if(student_data[j][1].cabin_num == cabin_num)
+                  {
+                    students.push(student_data[j][1]);
+                  }          
+                }
 
-              switch(user_type)
-              {
-                case "counselor": createTable(cabin[0][1].max_size, 2, cabin_num, "cabin", cabin[0][1].counselor, students, [], "counselor", false, false, cabinTblDiv);
-                  break;
-                case "student": createTable(cabin[0][1].max_size, 2, cabin_num, "cabin", cabin[0][1].counselor, students, [], "student", false, false, cabinTblDiv);
+                switch(user_type)
+                {
+                  case "counselor": createTable(cabin[0][1].max_size, 2, cabin_num, "cabin", cabin[0][1].counselor, students, [], "counselor", false, false, cabinTblDiv);
+                    break;
+                  case "student": createTable(cabin[0][1].max_size, 2, cabin_num, "cabin", cabin[0][1].counselor, students, [], "student", false, false, cabinTblDiv);
+                }
               }
-            }
-            else
-            {
-              const message = document.createElement('p');
+              else
+              {
+                const message = document.createElement('p');
+                if(user_type == "counselor")
+                {
+                  message.appendChild(document.createTextNode("You do not have any students yet."));
+                }
+                else
+                {
+                  message.appendChild(document.createTextNode("You have not selected a cabin."));
+                }
+                cabinTblDiv.appendChild(message);
+              }
+            });
+          }
+          else
+          {
+            const message = document.createElement('p');
+              
               if(user_type == "counselor")
               {
                 message.appendChild(document.createTextNode("You do not have any students yet."));
               }
               else
               {
-                message.appendChild(document.createTextNode("You do not have any students yet."));
+                message.appendChild(document.createTextNode("You have not selected a cabin yet."));
               }
+              
               cabinTblDiv.appendChild(message);
-            }
-          });
+          }
         });
 
         document.getElementById("Cabin").appendChild(cabinTblDiv);
@@ -247,3 +301,28 @@
     </div>
   </body>
 </html>
+
+<script>
+function get_user_num(student_data, email, data_type)
+{
+    let i = 0;
+
+    let return_val = "";
+
+    while(student_data[i][1].studentEmail != email)
+    {
+      i++;
+    }
+
+    switch(data_type)
+    {
+      case "family": return_val = student_data[i][1].group_num;
+        break;
+      case "cabin": return_val = student_data[i][1].cabin_num;
+        break;
+      case "bus": return_val = student_data[i][1].bus_num;
+    }
+
+  return return_val;
+}
+</script>

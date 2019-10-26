@@ -25,7 +25,10 @@
   var email = "<?php echo $emailwithcomma; ?>"
   var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>"
   var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>"
+  var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>"
   var credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>"
+  let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>"
+  let user_type = "<?php echo $user_type ?>"
 
   firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot) {
     var credit_now = await parseInt(snapshot.val());
@@ -43,6 +46,7 @@
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/student_tables.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
@@ -64,35 +68,26 @@
             <div class="to_do" id="to-do-div">
               <?php if($user_type == "student"):?>
                   <script>
-                    let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>"
-
-                    firebase.database().ref('users').orderByChild('studentEmail').equalTo(student_email).once("value", function(snapshot) {
+                    firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot) 
+                    {
                       let student = Object.entries(snapshot.val());
-                      
+
+                      let i = 0;
+
+                      while(student[i][1].studentEmail != student_email)
+                      {
+                        i++;
+                      }
+
                       let to_do_div = document.getElementById('to-do-div');
-                      let to_do_list = document.createElement('ul');
 
-                      if(student[0][1].credit_due == "0")
-                      {
-                        display_todo_link("Pay Fees", "https://www.google.com/", to_do_list);
-                      }
+                      display_todo_link("Pay Fees", "https://www.google.com/", (student[i][1].credit_due != "0"), to_do_div);
 
-                      if(student[0][1].group_num == "N/A")
-                      {
-                        display_todo_link("Select Family", "dashboard/main_users/select_family.php", to_do_list);
-                      }
-
-                      if(student[0][1].cabin_num == "N/A")
-                      {
-                        display_todo_link("Select Cabin", "dashboard/main_users/select_cabin.php", to_do_list);
-                      }
-
-                      if(student[0][1].bus_num == "N/A")
-                      {
-                        display_todo_link("Select Bus", "dashboard/main_users/select_bus.php", to_do_list);
-                      }
-
-                      to_do_div.appendChild(to_do_list);
+                      display_todo_link("Select Family", "dashboard/main_users/select_family.php", (student[i][1].group_num != "N/A"), to_do_div);
+                      
+                      display_todo_link("Select Cabin", "dashboard/main_users/select_cabin.php", (student[i][1].cabin_num != "N/A"), to_do_div);
+                      
+                      display_todo_link("Select Bus", "dashboard/main_users/select_bus.php", (student[i][1].bus_num != "N/A"), to_do_div);
                     });
                   </script>
               <?php elseif($user_type == "counselor"): ?>
@@ -112,42 +107,111 @@
             </div>
           </div>
           <?php if ($user_type != "parent") : ?>
-            <div class="card">
+            <div class="card", id = "camp-info">
               <h2>Camp Information</h2>
-              <div>
+              <div id="table-div">
                 <script>
-                  let counter = 0
-                  firebase.database().ref('/users').once('value').then(item => {
+                  let camp_info_div = document.getElementById("table-div");
+                  camp_info_div.classList.add("container");
+                  
+                  if(user_type == "student")
+                  {
+                    firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot)
+                    {
+                      let student = Object.entries(snapshot.val());
 
-                    let firebasedataArray = Object.entries(item.val());
+                      let i = 0;
 
-                    for (let i = 0; i < firebasedataArray.length; ++i) {
-                      if (group_num == firebasedataArray[i][1].group_num && firebasedataArray[i][1].user_type == "counselor") {
-                        var updiv = document.getElementById("counselor-div");
-                        var newp = document.createElement("ul");
-
-                        newp.innerHTML = firebasedataArray[i][1].first_name + " " + firebasedataArray[i][1].last_name + " *";
-                        updiv.appendChild(newp)
+                      while(student[i][1].studentEmail != student_email)
+                      {
+                        i++;
                       }
+
+                      if(student[i][1].group_num != "N/A" || student[i][1].cabin_num != "N/A" || student[i][1].bus_num != "N/A")
+                      {
+                        if(student[i][1].group_num != "N/A")
+                        {
+                          firebase.database().ref('families').orderByChild('name').equalTo(student[i][1].group_num).once("value", function(snapshot)
+                          {
+                            let family_info = Object.entries(snapshot.val());
+                        
+                            create_info_table("Family", student[i][1].group_num, get_counselors(family_info[0][1]), camp_info_div);
+                          });
+                        }
+
+                        if(student[i][1].cabin_num != "N/A")
+                        {
+                          firebase.database().ref('cabins').orderByChild('name').equalTo(student[i][1].cabin_num).once("value", function(snapshot)
+                          {
+                            let cabin_info = Object.entries(snapshot.val());
+                        
+                            create_info_table("Cabin", student[i][1].cabin_num, get_counselors(cabin_info[0][1]), camp_info_div);
+                          });
+                        }
+
+                        if(student[i][1].bus_num != "N/A")
+                        {
+                          firebase.database().ref('buses').orderByChild('name').equalTo(student[i][1].bus_num).once("value", function(snapshot)
+                          {
+                            let bus_info = Object.entries(snapshot.val());
+                        
+                            create_info_table("Bus", student[i][1].bus_num, get_counselors(bus_info[0][1]), camp_info_div);
+                          });
+                        }
+                      }
+                      else
+                      {
+                        let message = document.createElement('p');
+                        message.style.textAlign = 'center';
+                        message.appendChild(document.createTextNode("You have not joined anything!"));
+                        camp_info_div.appendChild(message);
+
+                        document.getElementById('group-details-button').style.display = 'none';
+                      }
+                    });
+                  }
+                  else if(user_type == "counselor")
+                  {
+                    // Headings and info for table
+                    let headings = ["Family", "Cabin", "Bus"];
+                    let info = [group_num, cabin_num, bus_num];
+
+                    let info_table = document.createElement('table');
+                    info_table.classList.add("counselor-info");
+
+                    let tbdy = document.createElement('tbody');
+
+                    let header_row = document.createElement('tr');
+
+                    for(let i = 0; i < headings.length; i++)
+                    {
+                      let header = document.createElement('th');
+                      header.appendChild(document.createTextNode(headings[i]));
+                      header_row.append(header);
                     }
-                  });
+
+                    let info_row = document.createElement('tr');
+                    for(let i = 0; i < info.length; i++)
+                    {
+                      let info_cell = document.createElement('td');
+                      info_cell.appendChild(document.createTextNode(info[i]));
+                      info_row.append(info_cell);
+                    }
+
+                    tbdy.appendChild(header_row);
+                    tbdy.appendChild(info_row);
+
+                    info_table.appendChild(tbdy);
+                    camp_info_div.appendChild(info_table);
+                  }
                 </script>
               </div>
-              <?php if($user_type != "counselor"): ?>
-                <b>Counselors: </b>
-                <div id=counselor-div> </div>
-              <?php endif?>
-              <b>Family:</b>
-              <p> <?php echo $group_num; ?></p>
-              <b>Bus: </b>
-              <p> <?php echo $bus_num; ?></p>
-              <b>Cabin: </b>
-              <p> <?php echo $cabin_num; ?></p>
-              <br />
-              <button type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">View Group Details
+             
+              <button id='group-details-button' type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">
+                View Group Details
               </button>
             </div>
-          <?php endif ?>
+              <?php endif ?>
           <?php if ($user_type != "counselor" && $user_type != "student") : ?>
             <div class="card">
               <h2>Payment</h2>
@@ -232,20 +296,104 @@
 </html>
 
 <script>
-function display_todo_link(item_name, link, ul)
+function display_todo_link(item_name, link, completed, to_do_div)
 { 
   // Creates a link and line break.
   let item_link = document.createElement('a');
-  let list_item = document.createElement('li');
   let newline = document.createElement('br');
 
-
-  
   item_link.appendChild(document.createTextNode(item_name));
   item_link.href = link;
+
+  let checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.id = "checkbox";
+  checkbox.disabled = true;
+
+  let l = document.createElement('label');
+  l.appendChild(item_link);
+  l.style.marginLeft = '10px';
+
+  to_do_div.appendChild(checkbox);
+  to_do_div.appendChild(l);
+
+  if(completed)
+  {
+    checkbox.checked = true;
+  }
   
-  // Adds the elements to the div
-  list_item.appendChild(item_link);
-  ul.appendChild(list_item);
+  to_do_div.append(newline);
+}
+
+function create_info_table(table_type, sub_heading, counselors, camp_info_div)
+{
+  // Create table and add class list
+  let info_table = document.createElement('table');
+  info_table.style.marginBottom = '20px';
+  info_table.style.marginTop = '10px';
+  info_table.classList.add("name-table");
+
+  let tbdy = document.createElement('tbody');
+
+  // Create table heading
+  let table_header = document.createElement('th');
+  table_header.appendChild(document.createTextNode(table_type));
+  table_header.appendChild(document.createElement('br'));
+  table_header.appendChild(document.createTextNode(sub_heading));
+
+  info_table.appendChild(table_header);
+  
+  if(user_type == "student")
+  {
+    let row = document.createElement('tr');
+    let counselor_info = document.createElement('td');
+    
+    if(counselors.length == 1)
+    {
+      if(counselors[0] == "TBD")
+      {
+        counselor_info.appendChild(document.createTextNode("Counselors: " + counselors[0]));
+      }
+      else
+      {
+        counselor_info.appendChild(document.createTextNode("Counselor: " + counselors[0]));
+      }
+    }
+    else if(counselors.length == 2)
+    {
+      counselor_info.appendChild(document.createTextNode("Counselors: " + counselors[0] + " & " + counselors[1]));
+    }
+
+    row.appendChild(counselor_info);
+    
+    tbdy.appendChild(row);
+
+    info_table.appendChild(tbdy);
+  }
+
+  camp_info_div.appendChild(info_table);
+}
+
+function get_counselors(object)
+{
+  let counselors = [];
+
+  if(object.counselor == "N/A")
+  {
+      counselors.push("TBD");
+  }
+  else
+  {
+      if((object.counselor).includes(","))
+      {
+          counselors = (object.counselor).split(",");
+      }
+      else
+      {
+          counselors.push(object.counselor);
+      }
+  }
+
+  return counselors;
 }
 </script>

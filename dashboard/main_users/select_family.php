@@ -40,6 +40,7 @@ if (!isset($_SESSION))
   };
 
   let year = "<?php echo $_SESSION["queryData"]["year"]; ?>";
+  let gender = "<?php echo $_SESSION["queryData"]["gender"]; ?>";
 
   firebase.initializeApp(config);
   
@@ -58,7 +59,7 @@ if (!isset($_SESSION))
     {
       // Creates table containing student names in family x if it contains at least one student, 
       // else creates an empty 6x6 table
-      if(families[i][1].size > 0) 
+      if(families[i][1].size > 0)
       {
         firebase.database().ref('users').orderByChild('group_num').equalTo(families[i][1].name).once("value", function(snapshot) 
         {
@@ -81,7 +82,16 @@ if (!isset($_SESSION))
             }
           }
 
-          createTable(families[i][1].max_size, 2, families[i][1].name, "family", families[i][1].counselor, male_students, female_students, "student", true, true, boxDiv);
+          let gender_capacity = families[i][1].max_size / 2;
+
+          // Ensures that families are not displayed if their maximum capacity for the gender that is the same
+          // as the user's has been reached.
+          if((gender == "Male" && male_students.length != gender_capacity) || 
+             (gender == "Female" && female_students.length != gender_capacity))
+             {
+              createTable(families[i][1].max_size, 2, families[i][1].name, "family", families[i][1].counselor, male_students, female_students,
+                          "student", true, true, boxDiv);
+             }
         });
       }
       else

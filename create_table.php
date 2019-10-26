@@ -63,11 +63,46 @@
     buttonDiv.classList.add("button-div");
     buttonDiv.id = "divID";
 
-    // Adds a button under the table if the table is being used to let students join.
-    if(show_button)
+    // Leave button
+    firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot)
     {
-        create_join_button(header, table_type, males, females, buttonDiv);
-    }
+        let students = Object.entries(snapshot.val());
+        
+        
+        let i = 0;
+        let studentEmail = "<?php echo $_SESSION["queryData"]["studentEmail"]; ?>";
+
+        while(students[i][1].studentEmail != studentEmail)
+        {
+            i++;
+        }
+
+        let num_type = "";
+
+        switch(table_type)
+        {
+            case "family": num_type = students[i][1].group_num;
+                break;
+            case "cabin": num_type = students[i][1].cabin_num;
+                break;
+            case "bus": num_type = students[i][1].bus_num;
+        }
+
+        if(num_type == header)
+        {
+            create_leave_button(header, table_type, males, females, buttonDiv);
+        }
+        else
+        {
+            // Adds a button under the table if the table is being used to let students join.
+            if(show_button)
+            {
+                create_join_button(header, table_type, males, females, buttonDiv);
+            }
+        }
+    });
+
+
 
     boxDiv.appendChild(tbl);
     boxDiv.appendChild(buttonDiv);
@@ -276,6 +311,7 @@ function create_join_button(header, table_type, males, females, buttonDiv)
         {
             var student = Object.entries(snapshot.val());
 
+            // student's current group, cabin, or bus num
             let type_num = "";
 
             switch(table_type)
@@ -350,6 +386,62 @@ function warning(text, table_type, new_value, updated_size, database_path)
     firebase.database().ref(database_path).update({'size': updated_size});
   }
 }
+
+function create_leave_button(header, table_type, males, females, buttonDiv)
+{
+    // Adds button.
+    var leaveButton = document.createElement("Button");
+    leaveButton.appendChild(document.createTextNode("Leave " + header));
+    leaveButton.classList.add('leave-button');
+
+    leaveButton.classList.add('rounded');
+
+    var db_table = ""; // name of the database table that will be accessed based on the table_type
+
+    switch(table_type)
+        {
+            case "family": db_table = "families";
+                break;
+            case "cabin": db_table = "cabins";
+                break;
+            case "bus": db_table = "buses";
+        }
+
+    firebase.database().ref(db_table).orderByChild('name').equalTo(header).once("value", function(snapshot) 
+    {
+        var data = Object.keys(snapshot.val())[0]; // Returns parent of Object
+        var temp = Object.entries(snapshot.val());
+        
+        var database_path = db_table + "/" + data; // Path to object type that will be updated
+
+        let studentEmail = "<?php echo $_SESSION["queryData"]["studentEmail"]; ?>";
+
+        firebase.database().ref('users').orderByChild('studentEmail').equalTo(studentEmail).once("value", function(snapshot) 
+        {
+            var student = Object.entries(snapshot.val());
+
+            // student's current group, cabin, or bus num
+            let type_num = "";
+
+            switch(table_type)
+            {
+                case "family": type_num = student[0][1].group_num;
+                    break;
+                case "cabin": type_num = student[0][1].cabin_num;
+                    break;
+                case "bus": type_num = student[0][1].bus_num;
+            }
+
+            leaveButton.addEventListener("click", function()
+            {
+                warning("Are you sure you want to leave " + header + "?", table_type, "N/A", temp[0][1].size - 1, database_path);    
+            });
+        });
+    });
+    
+    buttonDiv.appendChild(leaveButton);
+}
+
 
 function student_name_clicked(name)
 {
