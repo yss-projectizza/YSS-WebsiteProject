@@ -26,7 +26,13 @@
   var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>"
   var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>"
   var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>"
-  var credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>"
+  var credit_due = "";
+
+  if("<?php echo $_SESSION['queryData']['group_num'] ?>" == "parent")
+  {
+    credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>";
+  }
+  
   let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>"
   let user_type = "<?php echo $user_type ?>"
 
@@ -81,7 +87,7 @@
 
                       let to_do_div = document.getElementById('to-do-div');
 
-                      display_todo_link("Pay Fees", "https://www.google.com/", (student[i][1].credit_due != "0"), to_do_div);
+                      // display_todo_link("Pay Fees", "https://www.google.com/", (student[i][1].credit_due != "0"), to_do_div);
 
                       display_todo_link("Select Family", "dashboard/main_users/select_family.php", (student[i][1].group_num != "N/A"), to_do_div);
                       
