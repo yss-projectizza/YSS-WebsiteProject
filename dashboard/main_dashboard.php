@@ -74,8 +74,10 @@
             <div class="to_do" id="to-do-div">
               <?php if($user_type == "student"):?>
                   <script>
-                    firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot) 
+                    document.write("test");
+					firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot) 
                     {
+					  
                       let student = Object.entries(snapshot.val());
 
                       let i = 0;

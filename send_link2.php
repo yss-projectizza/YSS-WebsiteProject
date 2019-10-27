@@ -26,26 +26,48 @@
     $reference = $database->getReference('/users')->getValue();
 
     if ($_GET["email"] && $_GET["reset"]=="true"){
-        $mail->setFrom('boombychilly@gmail.com', 'boombychilly');
-		$mail->addAddress($_GET['email'];
-		
-		// 10/13/2019: To be continue by sky, using the example mailTest.php
-		
-		
-		$email = $_GET['email'];
-        $comma_email = str_replace(".",",",$email);
-        // get random token
-        $length = 5;
-        $token = bin2hex(random_bytes($length));
+		try {
+			
+			
+			$mail->setFrom('youthspiritualsummit@gmail.com', 'Youth Spiritual Summit');
+			$mail->addAddress('jxsanche@uci.edu', 'Jesus');
+			//$mail->addAddress($_GET['email']);
+			
+			// 10/13/2019: To be continue by sky, using the example C:\xampp\htdocs\tests
+			$email = $_GET['email'];
+			$comma_email = str_replace(".",",",$email);
+			// get random token
+			$length = 5;
+			$token = bin2hex(random_bytes($length));
 
-        // add token to database of email
-        $database->getReference("users/$comma_email/token")->set($token);
+			// add token to database of email
+			$database->getReference("users/$comma_email/token")->set($token);
 
-        // send email with token 
-        $subject = 'Youth Spiritual Summit: Password Reset';
-        $message = "password reset token: $token \n reset link: http://localhost:8000/new_password.php";
-        $headers = 'From: youthspiritualsummit@gmail.com';
-        $mail = mail($email,$subject,$message,$headers);
+			// send email with token 
+			$mail->Subject = 'Youth Spiritual Summit: Password Reset';
+			$mail->Body = "password reset token: $token \n reset link: http://localhost:8000/new_password.php";
+			$mail->Headers = 'From: youthspiritualsummit@gmail.com';
+			//$mail = mail($email,$subject,$message,$headers);
+						
+			$mail->isSMTP();
+			$mail->Host='smtp.gmail.com';
+			$mail->SMTPAuth = TRUE;
+			$mail->SMTPSecure = 'tls';
+			$mail->Username = 'youthspiritualsummit@gmail.com';
+			$mail->Password = '1Mu$limretre@t';
+			$mail->Port = 587;
+			$mail->send();
+		}
+		catch (Exception $e)
+		{
+			echo $e->errorMessage();
+		}
+		catch (\Exception $e)
+		{
+			echo $e->getMessage();
+		}
+		
+		
 
         if($mail){
             echo "success. Email sent";
