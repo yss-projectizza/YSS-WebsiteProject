@@ -30,8 +30,7 @@
 			
 			
 			$mail->setFrom('youthspiritualsummit@gmail.com', 'Youth Spiritual Summit');
-			$mail->addAddress('jxsanche@uci.edu', 'Jesus');
-			//$mail->addAddress($_GET['email']);
+			$mail->addAddress($_GET['email']);
 			
 			// 10/13/2019: To be continue by sky, using the example C:\xampp\htdocs\tests
 			$email = $_GET['email'];
