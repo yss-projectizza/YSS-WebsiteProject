@@ -131,7 +131,19 @@ function create_counselor_heading(counselor, numCols, tbl)
         {
             counselor = counselor.split(",");
 
-            heading += "s: " + counselor[0] + " & " + counselor[1];
+            heading += "s: ";
+            
+            for(let i = 0; i < counselor.length; i++)
+            {
+                if(i != counselor.length - 1)
+                {
+                    heading += counselor[i] + ((counselor.length > 2) ? ", " : " ");
+                }
+                else
+                {
+                    heading += "& " + counselor[i];
+                }
+            }
         }
         else
         {
@@ -284,7 +296,7 @@ function create_join_button(header, table_type, males, females, buttonDiv)
 {
     // Adds button.
     var joinButton = document.createElement("Button");
-    joinButton.appendChild(document.createTextNode("Join " + header));
+    joinButton.appendChild(document.createTextNode("Join"));
     joinButton.classList.add('rounded');
 
     var db_table = ""; // name of the database table that will be accessed based on the table_type
@@ -391,7 +403,7 @@ function create_leave_button(header, table_type, males, females, buttonDiv)
 {
     // Adds button.
     var leaveButton = document.createElement("Button");
-    leaveButton.appendChild(document.createTextNode("Leave " + header));
+    leaveButton.appendChild(document.createTextNode("Leave"));
     leaveButton.classList.add('leave-button');
 
     leaveButton.classList.add('rounded');

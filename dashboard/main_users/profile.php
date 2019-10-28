@@ -3,9 +3,20 @@
     {
         session_start();
     }
-  $emailwcomma = $_SESSION["queryData"]["email"];
-  $email= str_replace(".",",",$emailwcomma);
+
   $user=$_SESSION["queryData"]["user_type"];
+  
+  if($user == "parent")
+  {
+    $emailwcomma = $_SESSION["queryData"]["email"];
+  }
+  else if($user == "student")
+  {
+    $emailwcomma = $_SESSION["queryData"]["studentEmail"];
+  }
+  
+  $email= str_replace(".",",",$emailwcomma);
+  
 ?>
 <html lang="en">
 

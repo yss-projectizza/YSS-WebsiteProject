@@ -27,14 +27,14 @@
   var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>"
   var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>"
   var credit_due = "";
+  let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>"
+  let user_type = "<?php echo $user_type ?>"
 
-  if("<?php echo $_SESSION['queryData']['group_num'] ?>" == "parent")
+  if(user_type == "parent")
   {
     credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>";
   }
   
-  let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>"
-  let user_type = "<?php echo $user_type ?>"
 
   firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot) {
     var credit_now = await parseInt(snapshot.val());
@@ -74,7 +74,7 @@
             <div class="to_do" id="to-do-div">
               <?php if($user_type == "student"):?>
                   <script>
-                    firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot) 
+                    firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot) 
                     {
                       let student = Object.entries(snapshot.val());
 
@@ -213,9 +213,15 @@
                 </script>
               </div>
              
-              <button id='group-details-button' type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">
-                View Group Details
-              </button>
+              <?php if($user_type == "counselor"): ?>
+                <button id='group-details-button' type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">
+                  View Group Details
+                </button>
+              <?php else: ?>
+                <button id='group-details-button' type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">
+                    Manage
+                  </button>
+              <?php endif ?>
             </div>
               <?php endif ?>
           <?php if ($user_type != "counselor" && $user_type != "student") : ?>
@@ -353,8 +359,10 @@ function create_info_table(table_type, sub_heading, counselors, camp_info_div)
   {
     let row = document.createElement('tr');
     let counselor_info = document.createElement('td');
+
+
     
-    if(counselors.length == 1)
+    if(counselors.length < 2)
     {
       if(counselors[0] == "TBD")
       {
@@ -365,9 +373,23 @@ function create_info_table(table_type, sub_heading, counselors, camp_info_div)
         counselor_info.appendChild(document.createTextNode("Counselor: " + counselors[0]));
       }
     }
-    else if(counselors.length == 2)
+    else
     {
-      counselor_info.appendChild(document.createTextNode("Counselors: " + counselors[0] + " & " + counselors[1]));
+      let heading = "Counselors: ";
+
+      for(let i = 0; i < counselors.length; i++)
+      {
+          if(i != counselors.length - 1)
+          {
+              heading += counselors[i] + ((counselors.length > 2) ? ", " : " ");
+          }
+          else
+          {
+              heading += "& " + counselors[i];
+          }
+      }
+
+      counselor_info.appendChild(document.createTextNode(heading));
     }
 
     row.appendChild(counselor_info);

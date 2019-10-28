@@ -328,6 +328,7 @@
 </html>
 
 <script>
+// Used to get the current user's family, cabin, or bus number
 function get_user_num(student_data, email, data_type)
 {
     let i = 0;
