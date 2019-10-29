@@ -119,6 +119,45 @@
             camp_info_div.classList.add("container");
             
             let user_type = "<?php echo $user_type; ?>";
+            
+            if(user_type == "counselor")
+            {
+              var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
+              var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>";
+              var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>";
+              
+              // Headings and info for table
+              let headings = ["Family", "Cabin", "Bus"];
+              let info = [group_num, cabin_num, bus_num];
+
+              let info_table = document.createElement('table');
+              info_table.classList.add("counselor-info");
+
+              let tbdy = document.createElement('tbody');
+
+              let header_row = document.createElement('tr');
+
+              for(let i = 0; i < headings.length; i++)
+              {
+                let header = document.createElement('th');
+                header.appendChild(document.createTextNode(headings[i]));
+                header_row.append(header);
+              }
+
+              let info_row = document.createElement('tr');
+              for(let i = 0; i < info.length; i++)
+              {
+                let info_cell = document.createElement('td');
+                info_cell.appendChild(document.createTextNode(info[i]));
+                info_row.append(info_cell);
+              }
+
+              tbdy.appendChild(header_row);
+              tbdy.appendChild(info_row);
+
+              info_table.appendChild(tbdy);
+              camp_info_div.appendChild(info_table);
+            }
 
             if(user_type == "student")
             {
@@ -178,10 +217,7 @@
               });
             }
             
-            if(user_type == "counselor")
-            {
-              document.write("a");
-            }
+
           </script>
         </div>
 
