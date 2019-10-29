@@ -13,9 +13,6 @@
   $emailwithcomma = str_replace(".", ",", $emailwithperiod);
   ?>
   var email = "<?php echo $emailwithcomma; ?>"
-  var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>"
-  var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>"
-  var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>"
   var credit_due = "";
   
 
@@ -292,6 +289,10 @@
       </div>
 
       <script>
+          var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
+          var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>";
+          var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>";
+          
           firebase.database().ref("/schedule/").once('value').then(data => 
           {
             returndataArray = Object.entries(data.val())
