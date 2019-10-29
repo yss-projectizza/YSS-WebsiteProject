@@ -110,7 +110,7 @@
     </div>
 
     <!-- Camp Information Section -->
-    <?php if ($user_type != "parent") : ?>
+    <?php if ($user_type == "student" || $user_type == "counselor") : ?>
       <div class="card", id = "camp-info">
         <h2>Camp Information</h2>
         <div id="table-div">
@@ -119,7 +119,9 @@
             camp_info_div.classList.add("container");
             
             let user_type = "<?php echo $user_type; ?>";
-            
+
+            document.write(user_type);
+
             if(user_type == "counselor")
             {
               var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
@@ -145,6 +147,7 @@
               }
 
               let info_row = document.createElement('tr');
+
               for(let i = 0; i < info.length; i++)
               {
                 let info_cell = document.createElement('td');
