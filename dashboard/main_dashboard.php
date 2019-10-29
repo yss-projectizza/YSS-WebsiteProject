@@ -1,17 +1,5 @@
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
-
 <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-    authDomain: "yss-project-69ba2.firebaseapp.com",
-    databaseURL: "https://yss-project-69ba2.firebaseio.com",
-    projectId: "yss-project-69ba2",
-    storageBucket: "yss-project-69ba2.appspot.com",
-    messagingSenderId: "530416464878"
-  };
-  firebase.initializeApp(config);
-
   <?php
   if($_SESSION["queryData"]["user_type"] == "student")
   {
@@ -21,6 +9,7 @@
   {
     $emailwithperiod = $_SESSION["queryData"]["email"];
   }
+
   $emailwithcomma = str_replace(".", ",", $emailwithperiod);
   ?>
   var email = "<?php echo $emailwithcomma; ?>"
@@ -28,28 +17,20 @@
   var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>"
   var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>"
   var credit_due = "";
-  let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>"
-  let user_type = "<?php echo $user_type ?>"
+  
 
   if(user_type == "parent")
   {
     credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>";
   }
   
-<<<<<<< HEAD
-
-  let user_type = "<?php echo $user_type ?>"
-=======
->>>>>>> 4c7a97686c05d34a9071ad951c551e750b79128d
 
   firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot) {
     var credit_now = await parseInt(snapshot.val());
     document.getElementById("amount_owed").innerText = "$" + credit_now;
   });
 
-
 </script>
-
 
 <html lang="en">
 
@@ -67,50 +48,11 @@
   <?php include('header_loggedin.php') ?>
   <main class="main">
     <?php if ($user_type == "parent") : ?>
-	
       <form method="get" action="manage_attendees.php" style="margin-bottom: -3%;">
         <input type="hidden" name="email" value=<?php echo $email; ?> />
         <input class="rounded" type="submit" value="Manage Youth Participants" />
       </form>
     <?php endif ?>
-<<<<<<< HEAD
-    <div class="row">
-      <div class="col-md-6">
-        <div class="row">
-          <div class="card">
-          <h2>To Do:</h2>
-            <div class="to_do" id="to-do-div">
-              <?php if($user_type == "student"):?>
-                  <script>
-				  
-					  var config = {
-    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-    authDomain: "yss-project-69ba2.firebaseapp.com",
-    databaseURL: "https://yss-project-69ba2.firebaseio.com",
-    projectId: "yss-project-69ba2",
-    storageBucket: "yss-project-69ba2.appspot.com",
-    messagingSenderId: "530416464878"
-  };
-  firebase.initializeApp(config);
-
-					
-					firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot) 
-                    {
-						
-                      let student = Object.entries(snapshot.val());
-					  let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>";
-
-                      let i = 0;
-					  
-			
-
-                      while(student[i][1].studentEmail != student_email)
-                      {
-                        i++;
-                      }
-					  
-					  
-=======
   
     <!-- To-Do Section -->
     <div class="card">
@@ -118,10 +60,23 @@
       <div class="to_do" id="to-do-div">
         <?php if($user_type == "student"):?>
             <script>
+              // Initialize Firebase
+              var config = 
+              {
+                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                authDomain: "yss-project-69ba2.firebaseapp.com",
+                databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                projectId: "yss-project-69ba2",
+                storageBucket: "yss-project-69ba2.appspot.com",
+                messagingSenderId: "530416464878"
+              };
+              firebase.initializeApp(config);
+
               firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot) 
               {
       
                 let student = Object.entries(snapshot.val());
+                let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>";
 
                 let i = 0;
 
@@ -167,12 +122,14 @@
             let camp_info_div = document.getElementById("table-div");
             camp_info_div.classList.add("container");
             
+            let user_type = "<?php echo $user_type ?>";
+
             if(user_type == "student")
             {
               firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot)
               {
                 let student = Object.entries(snapshot.val());
->>>>>>> 4c7a97686c05d34a9071ad951c551e750b79128d
+                let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>";
 
                 let i = 0;
 
@@ -181,120 +138,6 @@
                   i++;
                 }
 
-<<<<<<< HEAD
-                      display_todo_link("Select Family", "dashboard/main_users/select_family.php", (student[i][1].group_num != "N/A"), to_do_div);
-                      
-                      display_todo_link("Select Cabin", "dashboard/main_users/select_cabin.php", (student[i][1].cabin_num != "N/A"), to_do_div);
-                      
-                      display_todo_link("Select Bus", "dashboard/main_users/select_bus.php", (student[i][1].bus_num != "N/A"), to_do_div);
-                    });
-                  </script>
-              <?php elseif($user_type == "counselor"): ?>
-                <input class="check" type="checkbox" disabled="disabled" />
-                Make a Donation 
-              <?php elseif($user_type == "parent"): ?>
-                <input class="check" type="checkbox" disabled="disabled" />
-                Add Participants  
-                <br>        
-                <input class="check" type="checkbox" disabled="disabled" />
-                Make Payment 
-                <br>        
-                <input class="check" type="checkbox" disabled="disabled" />
-                Activate Participants
-                <br>        
-              <?php endif ?> 
-            </div>
-          </div>
-          <?php if ($user_type != "parent") : ?>
-            <div class="card", id = "camp-info">
-              <h2>Camp Information</h2>
-              <div id="table-div">
-                <script>
-
-                  let camp_info_div = document.getElementById("table-div");
-                  camp_info_div.classList.add("container");
-      
-  let user_type = "<?php echo $_SESSION['queryData']['user_type']; ?>";
-  document.write(user_type);
-
-  
-  					
-                  if(user_type == "student")
-                  {
-
-                    firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot)
-                    {
-                      let student = Object.entries(snapshot.val());
-					  let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>";
-
-                      let i = 0;
-
-                      while(student[i][1].studentEmail != student_email)
-                      {
-                        i++;
-                      }
-					  
-					  
-
-                      if(student[i][1].group_num != "N/A" || student[i][1].cabin_num != "N/A" || student[i][1].bus_num != "N/A")
-                      {
-                        if(student[i][1].group_num != "N/A")
-                        {
-                          firebase.database().ref('families').orderByChild('name').equalTo(student[i][1].group_num).once("value", function(snapshot)
-                          {
-                            let family_info = Object.entries(snapshot.val());
-                        
-                            create_info_table("Family", student[i][1].group_num, get_counselors(family_info[0][1]), camp_info_div);
-                          });
-                        }
-
-                        if(student[i][1].cabin_num != "N/A")
-                        {
-                          firebase.database().ref('cabins').orderByChild('name').equalTo(student[i][1].cabin_num).once("value", function(snapshot)
-                          {
-                            let cabin_info = Object.entries(snapshot.val());
-                        
-                            create_info_table("Cabin", student[i][1].cabin_num, get_counselors(cabin_info[0][1]), camp_info_div);
-                          });
-                        }
-
-                        if(student[i][1].bus_num != "N/A")
-                        {
-                          firebase.database().ref('buses').orderByChild('name').equalTo(student[i][1].bus_num).once("value", function(snapshot)
-                          {
-                            let bus_info = Object.entries(snapshot.val());
-                        
-                            create_info_table("Bus", student[i][1].bus_num, get_counselors(bus_info[0][1]), camp_info_div);
-                          });
-                        }
-                      }
-                      else
-                      {
-                        let message = document.createElement('p');
-                        message.style.textAlign = 'center';
-                        message.appendChild(document.createTextNode("You have not joined anything!"));
-                        camp_info_div.appendChild(message);
-
-                        document.getElementById('group-details-button').style.display = 'none';
-                      }
-                    });
-                  }
-                  else if(user_type == "counselor")
-                  {
-					  document.write("a");
-					    var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
-  var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>";
-  var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>";
-  document.write(group_num);
-                    // Headings and info for table
-                    let headings = ["Family", "Cabin", "Bus"];
-                    let info = [group_num, cabin_num, bus_num];
-
-                    let info_table = document.createElement('table');
-                    info_table.classList.add("counselor-info");
-
-                    let tbdy = document.createElement('tbody');
-=======
                 if(student[i][1].group_num != "N/A" || student[i][1].cabin_num != "N/A" || student[i][1].bus_num != "N/A")
                 {
                   if(student[i][1].group_num != "N/A")
@@ -306,7 +149,6 @@
                       create_info_table("Family", student[i][1].group_num, get_counselors(family_info[0][1]), camp_info_div);
                     });
                   }
->>>>>>> 4c7a97686c05d34a9071ad951c551e750b79128d
 
                   if(student[i][1].cabin_num != "N/A")
                   {
@@ -448,7 +290,7 @@
       <div class="card" id="schedule">
         <h2>Schedule</h2>
       </div>
-      
+
       <script>
           firebase.database().ref("/schedule/").once('value').then(data => 
           {
@@ -531,7 +373,6 @@ function create_info_table(table_type, sub_heading, counselors, camp_info_div)
     let row = document.createElement('tr');
     let counselor_info = document.createElement('td');
 
-
     
     if(counselors.length < 2)
     {
@@ -596,3 +437,5 @@ function get_counselors(object)
   return counselors;
 }
 </script>
+
+
