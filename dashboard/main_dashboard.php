@@ -180,15 +180,17 @@
             }
             else if(user_type == "counselor")
             {
+              document.write("a");
               var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
               var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>";
               var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>";
+              document.write("a");
               
               // Headings and info for table
               let headings = ["Family", "Cabin", "Bus"];
               let info = [group_num, cabin_num, bus_num];
 
-              document.write(group_num + " | " + cabin_num + " | " + bus_num);
+              
 
               let info_table = document.createElement('table');
               info_table.classList.add("counselor-info");
