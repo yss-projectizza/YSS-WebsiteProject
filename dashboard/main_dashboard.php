@@ -118,9 +118,8 @@
             let camp_info_div = document.getElementById("table-div");
             camp_info_div.classList.add("container");
             
-            let user_type = "<?php echo $user_type; ?>";
-
-            document.write(user_type);
+            let user_type = "<?php echo $_SESSION['queryData']['user_type']; ?>";
+            document.write(user_type + "A");
 
             if(user_type == "counselor")
             {
@@ -219,8 +218,6 @@
                 }
               });
             }
-            
-
           </script>
         </div>
 
