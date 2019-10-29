@@ -178,7 +178,8 @@
                 }
               });
             }
-            else if(user_type == "counselor")
+            
+            if(user_type == "counselor")
             {
               var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
               var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>";
