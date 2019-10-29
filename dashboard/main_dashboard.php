@@ -1,4 +1,5 @@
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+
 <script>
   <?php
   if($_SESSION["queryData"]["user_type"] == "student")
@@ -15,13 +16,11 @@
   var email = "<?php echo $emailwithcomma; ?>"
   var credit_due = "";
   
-
   if(user_type == "parent")
   {
     credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>";
   }
   
-
   firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot) {
     var credit_now = await parseInt(snapshot.val());
     document.getElementById("amount_owed").innerText = "$" + credit_now;
@@ -119,7 +118,7 @@
             let camp_info_div = document.getElementById("table-div");
             camp_info_div.classList.add("container");
             
-            let user_type = "<?php echo $user_type ?>";
+            let user_type = "<?php echo $user_type; ?>";
             document.write(user_type);
 
             if(user_type == "student")
@@ -181,7 +180,6 @@
             }
             else if(user_type == "counselor")
             {
-              
               var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
               var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>";
               var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>";
