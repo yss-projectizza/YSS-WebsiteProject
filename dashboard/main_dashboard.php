@@ -188,6 +188,8 @@
               let headings = ["Family", "Cabin", "Bus"];
               let info = [group_num, cabin_num, bus_num];
 
+              document.write(group_num + " | " + cabin_num + " | " + bus_num);
+
               let info_table = document.createElement('table');
               info_table.classList.add("counselor-info");
 
@@ -291,15 +293,14 @@
       <div class="card" id="schedule">
         <h2>Schedule</h2>
       </div>
-
       <script>
-          var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
-          var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>";
-          var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>";
-
           firebase.database().ref("/schedule/").once('value').then(data => 
           {
-            returndataArray = Object.entries(data.val())
+            returndataArray = Object.entries(data.val());
+            
+            var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
+            var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>";
+            var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>";
 
             var schedule_div = document.getElementById("schedule");
 
@@ -313,12 +314,12 @@
               }
               else
               {
-              let newp = document.createElement("p");
-              newp.innerHTML = "Your schedule has not yet been assigned."
-              schedule_div.appendChild(newp);
+                let newp = document.createElement("p");
+                newp.innerHTML = "Your schedule has not yet been assigned."
+                schedule_div.appendChild(newp);
               }
             }
-          })
+          });
         </script>
     <?php endif ?>
   </main>
