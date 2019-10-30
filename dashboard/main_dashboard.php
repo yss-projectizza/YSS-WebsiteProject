@@ -1,3 +1,8 @@
+<?php
+if (!isset($_SESSION))
+  session_start();
+?>
+
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 
 <script>
@@ -66,6 +71,7 @@
                 storageBucket: "yss-project-69ba2.appspot.com",
                 messagingSenderId: "530416464878"
               };
+              
               firebase.initializeApp(config);
 
               firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot) 
@@ -119,9 +125,8 @@
             camp_info_div.classList.add("container");
             
             let user_type = "<?php echo $_SESSION['queryData']['user_type']; ?>";
-            document.write(user_type + "A");
 
-            if(user_type == "counselor")
+            if("<?php echo $user_type ?>" == "counselor")
             {
               var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
               var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>";
@@ -160,8 +165,7 @@
               info_table.appendChild(tbdy);
               camp_info_div.appendChild(info_table);
             }
-
-            if(user_type == "student")
+            else if(user_type == "student")
             {
               firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot)
               {
@@ -294,13 +298,28 @@
         <h2>Schedule</h2>
       </div>
       <script>
+          if("<?php echo $user_type?>" == "counselor")
+          {
+            // Initialize Firebase
+            var config = 
+            {
+              apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+              authDomain: "yss-project-69ba2.firebaseapp.com",
+              databaseURL: "https://yss-project-69ba2.firebaseio.com",
+              projectId: "yss-project-69ba2",
+              storageBucket: "yss-project-69ba2.appspot.com",
+              messagingSenderId: "530416464878"
+            };
+            
+            firebase.initializeApp(config);
+          }
+
           firebase.database().ref("/schedule/").once('value').then(data => 
           {
+            
             returndataArray = Object.entries(data.val());
             
             var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
-            var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>";
-            var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>";
 
             var schedule_div = document.getElementById("schedule");
 
