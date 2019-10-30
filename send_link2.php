@@ -44,7 +44,10 @@
 
 			// send email with token 
 			$mail->Subject = 'Youth Spiritual Summit: Password Reset';
-			$mail->Body = "password reset token: $token \n reset link: http://localhost:8000/new_password.php";
+			$mail->Body = "This is an automated email from Youth Spiritual Summit to reset your password. A personalized token has been generated for you. Please use it to reset your password by clicking on the included link.\n
+			
+	Password reset token: $token \n 
+	Reset link: http://localhost:8000/new_password.php";
 			$mail->Headers = 'From: youthspiritualsummit@gmail.com';
 			//$mail = mail($email,$subject,$message,$headers);
 						
