@@ -1,8 +1,8 @@
 <?php
-    if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
 
 if( !$_SESSION["loggedin"]){
 		header("Location: login.php");
@@ -13,9 +13,9 @@ if( !$_SESSION["loggedin"]){
 
 
   $user_type = $_SESSION["queryData"]["user_type"];
-  
+
   if($user_type == "student" || $user_type == "counselor" || $user_type == "parent"){
-    if($user_type == "student") 
+    if($user_type == "student")
     {
       $email = $_SESSION["queryData"]["studentEmail"];
       $year = $_SESSION["queryData"]["year"];
@@ -24,7 +24,7 @@ if( !$_SESSION["loggedin"]){
     {
       $email = $_SESSION["queryData"]["email"];
     }
-    
+
     $first_name = $_SESSION["queryData"]["first_name"];
     $last_name = $_SESSION["queryData"]["last_name"];
     if ($user_type == "student" || $user_type == "counselor"){
@@ -35,7 +35,7 @@ if( !$_SESSION["loggedin"]){
     if($user_type == "parent"){
       $credit_due = $_SESSION["queryData"]["credit_due"];
     }
-    
+
     include 'dashboard/main_dashboard.php';
   } else if ($user_type == "admin"){
     // add any needed data for admin

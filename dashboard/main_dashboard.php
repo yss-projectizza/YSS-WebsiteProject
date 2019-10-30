@@ -7,25 +7,16 @@ if (!isset($_SESSION))
 
 <script>
   <?php
-  if($_SESSION["queryData"]["user_type"] == "student")
-  {
-    $emailwithperiod = $_SESSION["queryData"]["studentEmail"];
-  }
-  else
-  {
-    $emailwithperiod = $_SESSION["queryData"]["email"];
-  }
-
-  $emailwithcomma = str_replace(".", ",", $emailwithperiod);
+  $emailwithcomma = str_replace(".", ",", $email);
   ?>
-  var email = "<?php echo $emailwithcomma; ?>"
+  var email = "<?php echo $email; ?>"
   var credit_due = "";
-  
+
   if(user_type == "parent")
   {
     credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>";
   }
-  
+
   firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot) {
     var credit_now = await parseInt(snapshot.val());
     document.getElementById("amount_owed").innerText = "$" + credit_now;
@@ -54,7 +45,7 @@ if (!isset($_SESSION))
         <input class="rounded" type="submit" value="Manage Youth Participants" />
       </form>
     <?php endif ?>
-  
+
     <!-- To-Do Section -->
     <div class="card">
     <h2>To Do:</h2>
@@ -62,7 +53,7 @@ if (!isset($_SESSION))
         <?php if($user_type == "student"):?>
             <script>
               // Initialize Firebase
-              var config = 
+              var config =
               {
                 apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
                 authDomain: "yss-project-69ba2.firebaseapp.com",
@@ -71,12 +62,12 @@ if (!isset($_SESSION))
                 storageBucket: "yss-project-69ba2.appspot.com",
                 messagingSenderId: "530416464878"
               };
-              
+
               firebase.initializeApp(config);
 
-              firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot) 
+              firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
               {
-      
+
                 let student = Object.entries(snapshot.val());
                 let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>";
 
@@ -92,47 +83,45 @@ if (!isset($_SESSION))
                 // display_todo_link("Pay Fees", "https://www.google.com/", (student[i][1].credit_due != "0"), to_do_div);
 
                 display_todo_link("Select Family", "dashboard/main_users/select_family.php", (student[i][1].group_num != "N/A"), to_do_div);
-                
+
                 display_todo_link("Select Cabin", "dashboard/main_users/select_cabin.php", (student[i][1].cabin_num != "N/A"), to_do_div);
-                
+
                 display_todo_link("Select Bus", "dashboard/main_users/select_bus.php", (student[i][1].bus_num != "N/A"), to_do_div);
               });
             </script>
         <?php elseif($user_type == "counselor"): ?>
           <input class="check" type="checkbox" disabled="disabled" />
-          Make a Donation 
+          Make a Donation
         <?php elseif($user_type == "parent"): ?>
           <input class="check" type="checkbox" disabled="disabled" />
-          Add Participants  
-          <br>        
+          Add Participants
+          <br>
           <input class="check" type="checkbox" disabled="disabled" />
-          Make Payment 
-          <br>        
+          Make Payment
+          <br>
           <input class="check" type="checkbox" disabled="disabled" />
           Activate Participants
-          <br>        
-        <?php endif ?> 
+          <br>
+        <?php endif ?>
       </div>
     </div>
 
     <!-- Camp Information Section -->
-    <?php if ($user_type == "student" || $user_type == "counselor") : ?>
+    <?php if ($user_type == "student" || $user_type == "counselor"): ?>
       <div class="card", id = "camp-info">
         <h2>Camp Information</h2>
         <div id="table-div">
+          <!-- Counselor Camp Information-->
           <script>
-            let camp_info_div = document.getElementById("table-div");
-            camp_info_div.classList.add("container");
-            
-            let user_type = "<?php echo $_SESSION['queryData']['user_type']; ?>";
-
             if("<?php echo $user_type ?>" == "counselor")
             {
+              let camp_info_div = document.getElementById("table-div");
+              camp_info_div.classList.add("container");
+
               var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
               var cabin_num = "<?php echo $_SESSION['queryData']['cabin_num']; ?>";
               var bus_num = "<?php echo $_SESSION['queryData']['bus_num']; ?>";
-              
-              // Headings and info for table
+
               let headings = ["Family", "Cabin", "Bus"];
               let info = [group_num, cabin_num, bus_num];
 
@@ -161,70 +150,80 @@ if (!isset($_SESSION))
 
               tbdy.appendChild(header_row);
               tbdy.appendChild(info_row);
-
               info_table.appendChild(tbdy);
               camp_info_div.appendChild(info_table);
             }
-            else if(user_type == "student")
+          </script>
+
+          <!-- Student Camp Information-->
+          <script type="text/javascript">
+            if("<?php echo $user_type ?>" == "student")
             {
-              firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot)
+            let camp_info_div = document.getElementById("table-div");
+            camp_info_div.classList.add("container");
+
+            firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot)
+            {
+
+              let student = Object.entries(snapshot.val());
+              let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>";
+
+              let i = 0;
+
+              while(student[i][1].studentEmail != student_email)
               {
-                let student = Object.entries(snapshot.val());
-                let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>";
+                i++;
+              }
 
-                let i = 0;
+              if(student[i][1].group_num != "N/A" || student[i][1].cabin_num != "N/A" || student[i][1].bus_num != "N/A")
+              {
 
-                while(student[i][1].studentEmail != student_email)
+                if(student[i][1].group_num != "N/A")
                 {
-                  i++;
+
+                  firebase.database().ref('families').orderByChild('name').equalTo(student[i][1].group_num).once("value", function(snapshot)
+                  {
+                    let family_info = Object.entries(snapshot.val());
+
+                    create_info_table("Family", student[i][1].group_num, get_counselors(family_info[0][1]), camp_info_div);
+                  });
                 }
 
-                if(student[i][1].group_num != "N/A" || student[i][1].cabin_num != "N/A" || student[i][1].bus_num != "N/A")
+                if(student[i][1].cabin_num != "N/A")
                 {
-                  if(student[i][1].group_num != "N/A")
+                  alert(student[i][1].cabin_num)
+                  firebase.database().ref('cabins').orderByChild('name').equalTo(student[i][1].cabin_num).once("value", function(snapshot)
                   {
-                    firebase.database().ref('families').orderByChild('name').equalTo(student[i][1].group_num).once("value", function(snapshot)
-                    {
-                      let family_info = Object.entries(snapshot.val());
-                  
-                      create_info_table("Family", student[i][1].group_num, get_counselors(family_info[0][1]), camp_info_div);
-                    });
-                  }
+                    let cabin_info = Object.entries(snapshot.val());
 
-                  if(student[i][1].cabin_num != "N/A")
-                  {
-                    firebase.database().ref('cabins').orderByChild('name').equalTo(student[i][1].cabin_num).once("value", function(snapshot)
-                    {
-                      let cabin_info = Object.entries(snapshot.val());
-                  
-                      create_info_table("Cabin", student[i][1].cabin_num, get_counselors(cabin_info[0][1]), camp_info_div);
-                    });
-                  }
-
-                  if(student[i][1].bus_num != "N/A")
-                  {
-                    firebase.database().ref('buses').orderByChild('name').equalTo(student[i][1].bus_num).once("value", function(snapshot)
-                    {
-                      let bus_info = Object.entries(snapshot.val());
-                  
-                      create_info_table("Bus", student[i][1].bus_num, get_counselors(bus_info[0][1]), camp_info_div);
-                    });
-                  }
+                    create_info_table("Cabin", student[i][1].cabin_num, get_counselors(cabin_info[0][1]), camp_info_div);
+                  });
                 }
-                else
+
+                if(student[i][1].bus_num != "N/A")
                 {
-                  let message = document.createElement('p');
-                  message.style.textAlign = 'center';
-                  message.appendChild(document.createTextNode("You have not joined anything!"));
-                  camp_info_div.appendChild(message);
+                  firebase.database().ref('buses').orderByChild('name').equalTo(student[i][1].bus_num).once("value", function(snapshot)
+                  {
+                    let bus_info = Object.entries(snapshot.val());
 
-                  document.getElementById('group-details-button').style.display = 'none';
+                    create_info_table("Bus", student[i][1].bus_num, get_counselors(bus_info[0][1]), camp_info_div);
+                  });
                 }
-              });
+              }
+              else
+              {
+                let message = document.createElement('p');
+                message.style.textAlign = 'center';
+                message.appendChild(document.createTextNode("You have not joined anything!"));
+                camp_info_div.appendChild(message);
+
+                document.getElementById('group-details-button').style.display = 'none';
+              }
+            });
             }
           </script>
         </div>
-
+      <?php endif ?>
           <?php if($user_type == "counselor"): ?>
             <button id='group-details-button' type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">
               View Group Details
@@ -235,7 +234,7 @@ if (!isset($_SESSION))
             </button>
           <?php endif ?>
         </div>
-      <?php endif ?>
+
 
       <!-- Payment Section -->
       <?php if ($user_type != "counselor" && $user_type != "student") : ?>
@@ -247,23 +246,23 @@ if (!isset($_SESSION))
         <div id="paypal-button-container"></div>
         <script>
           paypal.Buttons({
-            createOrder: function(data, actions) 
+            createOrder: function(data, actions)
             {
               return actions.order.create(
               {
                 purchase_units: [
                 {
-                  amount: 
+                  amount:
                   {
                     value: <?php echo $credit_due; ?>
                   }
                 }]
               });
             },
-            onApprove: function(data, actions) 
+            onApprove: function(data, actions)
             {
               // Capture the funds from the transaction
-              return actions.order.capture().then(function(details) 
+              return actions.order.capture().then(function(details)
               {
               // Show a success message to your buyer
                 let amount_payed = details.purchase_units[0].amount.value;
@@ -271,7 +270,7 @@ if (!isset($_SESSION))
                 let payed_dollar = parseInt(amount_payed[0]);
                 let payed_cents = parseInt(amount_payed[1]);
 
-                firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot) 
+                firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot)
                 {
                     var credit_now = await parseInt(snapshot.val());
 
@@ -279,7 +278,7 @@ if (!isset($_SESSION))
                     {
                       credit_due: credit_now - payed_dollar
                     });
-                    
+
                     location.reload();
                   });
               });
@@ -301,7 +300,7 @@ if (!isset($_SESSION))
           if("<?php echo $user_type?>" == "counselor")
           {
             // Initialize Firebase
-            var config = 
+            var config =
             {
               apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
               authDomain: "yss-project-69ba2.firebaseapp.com",
@@ -310,20 +309,20 @@ if (!isset($_SESSION))
               storageBucket: "yss-project-69ba2.appspot.com",
               messagingSenderId: "530416464878"
             };
-            
+
             firebase.initializeApp(config);
           }
 
-          firebase.database().ref("/schedule/").once('value').then(data => 
+          firebase.database().ref("/schedule/").once('value').then(data =>
           {
-            
+
             returndataArray = Object.entries(data.val());
-            
+
             var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
 
             var schedule_div = document.getElementById("schedule");
 
-            for (item of returndataArray) 
+            for (item of returndataArray)
             {
               if (item[1].group.split(",").indexOf(group_num) >= 0 || item[1].group === "all")
               {
@@ -347,7 +346,7 @@ if (!isset($_SESSION))
 
 <script>
 function display_todo_link(item_name, link, completed, to_do_div)
-{ 
+{
   // Creates a link and line break.
   let item_link = document.createElement('a');
   let newline = document.createElement('br');
@@ -371,7 +370,7 @@ function display_todo_link(item_name, link, completed, to_do_div)
   {
     checkbox.checked = true;
   }
-  
+
   to_do_div.append(newline);
 }
 
@@ -384,7 +383,7 @@ function create_info_table(table_type, sub_heading, counselors, camp_info_div)
   info_table.classList.add("name-table");
 
   let tbdy = document.createElement('tbody');
-
+  
   // Create table heading
   let table_header = document.createElement('th');
   table_header.appendChild(document.createTextNode(table_type));
@@ -392,49 +391,45 @@ function create_info_table(table_type, sub_heading, counselors, camp_info_div)
   table_header.appendChild(document.createTextNode(sub_heading));
 
   info_table.appendChild(table_header);
-  
-  if(user_type == "student")
-  {
-    let row = document.createElement('tr');
-    let counselor_info = document.createElement('td');
 
-    
-    if(counselors.length < 2)
+  let row = document.createElement('tr');
+  let counselor_info = document.createElement('td');
+
+  if(counselors.length < 2)
+  {
+    if(counselors[0] == "TBD")
     {
-      if(counselors[0] == "TBD")
-      {
-        counselor_info.appendChild(document.createTextNode("Counselors: " + counselors[0]));
-      }
-      else
-      {
-        counselor_info.appendChild(document.createTextNode("Counselor: " + counselors[0]));
-      }
+      counselor_info.appendChild(document.createTextNode("Counselors: " + counselors[0]));
     }
     else
     {
-      let heading = "Counselors: ";
+      counselor_info.appendChild(document.createTextNode("Counselor: " + counselors[0]));
+    }
+  }
+  else
+  {
+    let heading = "Counselors: ";
 
-      for(let i = 0; i < counselors.length; i++)
-      {
-          if(i != counselors.length - 1)
-          {
-              heading += counselors[i] + ((counselors.length > 2) ? ", " : " ");
-          }
-          else
-          {
-              heading += "& " + counselors[i];
-          }
-      }
-
-      counselor_info.appendChild(document.createTextNode(heading));
+    for(let i = 0; i < counselors.length; i++)
+    {
+        if(i != counselors.length - 1)
+        {
+            heading += counselors[i] + ((counselors.length > 2) ? ", " : " ");
+        }
+        else
+        {
+            heading += "& " + counselors[i];
+        }
     }
 
-    row.appendChild(counselor_info);
-    
-    tbdy.appendChild(row);
-
-    info_table.appendChild(tbdy);
+    counselor_info.appendChild(document.createTextNode(heading));
   }
+
+  row.appendChild(counselor_info);
+
+  tbdy.appendChild(row);
+
+  info_table.appendChild(tbdy);
 
   camp_info_div.appendChild(info_table);
 }
@@ -462,5 +457,3 @@ function get_counselors(object)
   return counselors;
 }
 </script>
-
-
