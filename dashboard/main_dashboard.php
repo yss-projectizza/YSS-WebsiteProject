@@ -191,7 +191,6 @@ if (!isset($_SESSION))
 
                 if(student[i][1].cabin_num != "N/A")
                 {
-                  alert(student[i][1].cabin_num)
                   firebase.database().ref('cabins').orderByChild('name').equalTo(student[i][1].cabin_num).once("value", function(snapshot)
                   {
                     let cabin_info = Object.entries(snapshot.val());
@@ -383,7 +382,7 @@ function create_info_table(table_type, sub_heading, counselors, camp_info_div)
   info_table.classList.add("name-table");
 
   let tbdy = document.createElement('tbody');
-  
+
   // Create table heading
   let table_header = document.createElement('th');
   table_header.appendChild(document.createTextNode(table_type));

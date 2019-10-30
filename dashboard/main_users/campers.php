@@ -5,9 +5,9 @@ if (!isset($_SESSION))
 
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 
-<script> 
+<script>
 // Initialize Firebase
-  var config = 
+  var config =
   {
       apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
       authDomain: "yss-project-69ba2.firebaseapp.com",
@@ -28,10 +28,10 @@ if (!isset($_SESSION))
   {
     $emailwithperiod = $_SESSION["queryData"]["email"];
   }
-  
+
   $emailwithcomma = str_replace(".", ",", $emailwithperiod);
   ?>
-  
+
   var email = "<?php echo $emailwithperiod; ?>"
   var user_type = "<?php echo $_SESSION['queryData']['user_type']; ?>"
 </script>
@@ -48,7 +48,7 @@ if (!isset($_SESSION))
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
   <body>
-   
+
     <?php include('../../header_loggedin.php') ?>
     <?php include('../../create_table.php') ?>
 
@@ -64,7 +64,7 @@ if (!isset($_SESSION))
         famTblDiv.classList.add('container', 'family-div');
         famTblDiv.style.paddingBottom = '13%';
 
-        firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot) 
+        firebase.database().ref('users').orderByChild('user_type').equalTo("student").once("value", function(snapshot)
         {
           var student_data = Object.entries(snapshot.val());
 
@@ -81,7 +81,7 @@ if (!isset($_SESSION))
 
           if(group_num != "N/A")
           {
-            firebase.database().ref('families').orderByChild('name').equalTo(group_num).once("value", function(snapshot) 
+            firebase.database().ref('families').orderByChild('name').equalTo(group_num).once("value", function(snapshot)
             {
               var family = Object.entries(snapshot.val());
 
@@ -90,7 +90,7 @@ if (!isset($_SESSION))
               {
                 var male_students = [];
                 var female_students = [];
-                
+
                 for(let j = 0; j < student_data.length; j++)
                 {
                   if(student_data[j][1].group_num == group_num)
@@ -115,12 +115,12 @@ if (!isset($_SESSION))
               else
               {
                 const message = document.createElement('p');
-                
+
                 if(user_type == "counselor")
                 {
                   message.appendChild(document.createTextNode("You do not have any students yet."));
                 }
-                
+
                 famTblDiv.appendChild(message);
               }
             });
@@ -128,7 +128,7 @@ if (!isset($_SESSION))
           else
           {
             const message = document.createElement('p');
-              
+
               if(user_type == "counselor")
               {
                 message.appendChild(document.createTextNode("You do not have any students yet."));
@@ -137,7 +137,7 @@ if (!isset($_SESSION))
               {
                 message.appendChild(document.createTextNode("You have not joined a family yet."));
               }
-              
+
               famTblDiv.appendChild(message);
           }
       });
@@ -147,12 +147,12 @@ if (!isset($_SESSION))
     </div>
 
     <div id="Bus" class="tabcontent">
-      <script> 
+      <script>
         const busTblDiv = document.createElement('div');
         busTblDiv.classList.add('container', 'bus-div');
         busTblDiv.style.paddingBottom = '13%';
-        
-        firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot) 
+
+        firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
         {
           var student_data = Object.entries(snapshot.val());
 
@@ -169,20 +169,20 @@ if (!isset($_SESSION))
 
           if(bus_num != "N/A")
           {
-            firebase.database().ref('buses').orderByChild('name').equalTo(bus_num).once("value", function(snapshot) 
+            firebase.database().ref('buses').orderByChild('name').equalTo(bus_num).once("value", function(snapshot)
             {
-              var bus = Object.entries(snapshot.val());            
+              var bus = Object.entries(snapshot.val());
 
               if(bus[0][1].size > 0)
               {
                 var students = [];
-                
+
                 for(let j = 0; j < student_data.length; j++)
                 {
                   if(student_data[j][1].bus_num == bus_num)
                   {
                     students.push(student_data[j][1]);
-                  }          
+                  }
                 }
 
                 switch(user_type)
@@ -210,7 +210,7 @@ if (!isset($_SESSION))
           else
           {
             const message = document.createElement('p');
-              
+
               if(user_type == "counselor")
               {
                 message.appendChild(document.createTextNode("You do not have any students yet."));
@@ -219,7 +219,7 @@ if (!isset($_SESSION))
               {
                 message.appendChild(document.createTextNode("You have not selected a bus yet."));
               }
-              
+
               busTblDiv.appendChild(message);
           }
         });
@@ -233,8 +233,8 @@ if (!isset($_SESSION))
         const cabinTblDiv = document.createElement('div');
         cabinTblDiv.classList.add('container', 'cabin-div');
         cabinTblDiv.style.paddingBottom = '13%';
-        
-        firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot) 
+
+        firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
         {
           var student_data = Object.entries(snapshot.val());
 
@@ -251,20 +251,20 @@ if (!isset($_SESSION))
 
           if(cabin_num != "N/A")
           {
-            firebase.database().ref('cabins').orderByChild('name').equalTo(cabin_num).once("value", function(snapshot) 
+            firebase.database().ref('cabins').orderByChild('name').equalTo(cabin_num).once("value", function(snapshot)
             {
               var cabin = Object.entries(snapshot.val());
 
               if(cabin[0][1].size > 0)
               {
                 var students = [];
-                
+
                 for(let j = 0; j < student_data.length; j++)
                 {
                   if(student_data[j][1].cabin_num == cabin_num)
                   {
                     students.push(student_data[j][1]);
-                  }          
+                  }
                 }
 
                 switch(user_type)
@@ -292,7 +292,7 @@ if (!isset($_SESSION))
           else
           {
             const message = document.createElement('p');
-              
+
               if(user_type == "counselor")
               {
                 message.appendChild(document.createTextNode("You do not have any students yet."));
@@ -301,7 +301,7 @@ if (!isset($_SESSION))
               {
                 message.appendChild(document.createTextNode("You have not selected a cabin yet."));
               }
-              
+
               cabinTblDiv.appendChild(message);
           }
         });
@@ -325,7 +325,7 @@ if (!isset($_SESSION))
       evt.currentTarget.className += " active";
     }
     </script>
-             
+
       </div>
     </div>
   </body>
