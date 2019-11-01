@@ -39,13 +39,11 @@ if (!isset($_SESSION))
 <html lang="en">
   <head>
     <title>View Group Details</title>
-      <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
-       <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
-       <link rel="stylesheet" href="/css/student_tables.css">
-    <script src="/dashboard/main_users/campers.js"></script>
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/campers.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/student_tables.css">
+      <script src="/dashboard/main_users/campers.js"></script>
+      <link rel="stylesheet" href="/css/main.css">
+      <link rel="stylesheet" href="/css/campers.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   </head>
   <body>
 

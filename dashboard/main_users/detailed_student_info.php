@@ -63,26 +63,31 @@ function display_student_info(student)
   heading.appendChild(document.createTextNode(student.first_name + " " + student.last_name + "'s Information"));
   heading.classList.add("section-heading");
 
-  // Dictionaries of info to be displayed under each heading
-  let student_contact_info = {"Phone" : "123-456-7890", "E-mail": student.studentEmail};
-  let student_camp_info = {"Family": student.group_num, "Cabin": student.cabin_num, "Bus": student.bus_num};
-  let parent_contact_info = {"Parent #1 Name" : "Parent 1", "Parent #1 Phone": "123-324-5343", "Parent #1 E-mail" : "par1@gmail.com",
-                             "Parent #2 Name" : "Parent 2", "Parent #2 Phone": "123-343-5343", "Parent #2 E-mail" : "par1@gmail.com"};
-  let emergency_contact_info = {"EC #1 Name": "EC 1", "EC #1 Phone": "134-545-4343", "EC #1 E-mail": "ec1@gmail.com",
-                                "EC #2 Name": "EC 2", "EC #2 Phone": "134-545-4323", "EC #2 E-mail": "ecfdfsdfdfsdfdfdsf1@gmail.com"};
-  let health_info = {"Allergies": "N/A", "Medications": "N/A", "Dietary Restrictions": "N/A", "Activity Restrictions": "N/A"}
-  
-  info_div.appendChild(heading);
-  
-  let section_headings = ["Contact Information", "Camp Information", "Parent Contact Information", "Emergency Contact Information", "Health Information"];
+  firebase.database().ref('users').orderByChild('email').equalTo(student.parent_email).once("value", function(snapshot)
+  {
+    let parent = Object.entries(snapshot.val())[0][1];
 
-  createSection(section_headings[0], student_contact_info, "student", info_div);
-  createSection(section_headings[1], student_camp_info, "student", info_div);
-  createSection(section_headings[2], parent_contact_info, "contact", info_div);
-  createSection(section_headings[3], emergency_contact_info, "contact", info_div);
-  createSection(section_headings[4], health_info, "student", info_div);
+    // Dictionaries of info to be displayed under each heading
+    let student_contact_info = {"Phone" : "123-456-7890", "E-mail": student.studentEmail};
+    let student_camp_info = {"Family": student.group_num, "Cabin": student.cabin_num, "Bus": student.bus_num};
+    let parent_contact_info = {"Parent #1 Name" : parent.first_name + " " + parent.last_name, "Parent #1 Phone": parent.phone, "Parent #1 E-mail" : parent.email,
+                              "Parent #2 Name" : "Parent 2", "Parent #2 Phone": "123-343-5343", "Parent #2 E-mail" : "par1@gmail.com"};
+    let emergency_contact_info = {"EC #1 Name": "EC 1", "EC #1 Phone": "134-545-4343", "EC #1 E-mail": "ec1@gmail.com",
+                                  "EC #2 Name": "EC 2", "EC #2 Phone": "134-545-4323", "EC #2 E-mail": "ecfdfsdfdfsdfdfdsf1@gmail.com"};
+    let health_info = {"Allergies": "N/A", "Medications": "N/A", "Dietary Restrictions": "N/A", "Activity Restrictions": "N/A"}
+    
+    info_div.appendChild(heading);
+    
+    let section_headings = ["Contact Information", "Camp Information", "Parent Contact Information", "Emergency Contact Information", "Health Information"];
 
-  body.appendChild(info_div);
+    createSection(section_headings[0], student_contact_info, "student", info_div);
+    createSection(section_headings[1], student_camp_info, "student", info_div);
+    createSection(section_headings[2], parent_contact_info, "contact", info_div);
+    createSection(section_headings[3], emergency_contact_info, "contact", info_div);
+    createSection(section_headings[4], health_info, "student", info_div);
+
+    body.appendChild(info_div);
+  });
 }
 
 function createSection(section_title, info_dictionary, section_type, info_div)
