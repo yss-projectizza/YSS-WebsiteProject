@@ -36,7 +36,7 @@ if(!isset($_SESSION))
                             ">
                                 <option value="parentRegistration.php">I am a Parent/Guardian.</option>
                                 <option value="counselor_registration.php">I am a Counselor.</option>
-                                <option value="overage_registration.php">I am a Youth Participant over the age of 18.</option>
+                                <!-- <option value="overage_registration.php">I am a Youth Participant over the age of 18.</option> -->
                             </select>
                     </div>
             </div>
