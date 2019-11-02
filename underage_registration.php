@@ -278,7 +278,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                         } else {
                             alert("The form was submitted.");
                             var postID = newPostRef.key;
-                            window.location.replace("dashboard.php")
+                            window.location.href = "email_student.php?studentEmail=" + studentEmail + "&reset=true";	
                         }
                         }
                         );
