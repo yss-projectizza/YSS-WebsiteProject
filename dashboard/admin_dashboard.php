@@ -64,6 +64,12 @@ if (!isset($_SESSION))
   <?php include('header_loggedin.php') ?>
   <main class="main">
     <h3>Admin Panel</h3>
+    
+    <!-- Button that links to Manage Groups page -->
+    <div class="card">
+      <button type="button" onclick="window.location.href='/dashboard/manage_groups.php'"> Manage Groups </button>
+    </div>
+
     <div class="main-cards">
       <div class="card">
         <div class="dropdown">
