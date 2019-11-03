@@ -62,9 +62,8 @@ if (!isset($_SESSION))
         </div>
         <div class="container" id="group-list" style="text-align:center">
             <table style="table-layout:fixed; width:100%; text-align:center; margin-top:20px">
-                <tr id="heading-row">
-                    
-                </tr>
+                <tr id="heading-row"></tr>
+                <tbody id="group-table-body"></tbody>
             </table>
         </div>
     </div>
@@ -78,7 +77,6 @@ function displayGroups(type)
     {
         let items = Object.entries(snapshot.val());
 
-        let html = "";
         let heading_html = "<th>Name</th>"+"<th>Current Size</th>"+"<th>Maximum Capacity</th>";
 
         if(type == 'families')
@@ -93,14 +91,65 @@ function displayGroups(type)
         heading_html += "<th>Counselors</th>";
 
         document.getElementById("heading-row").innerHTML = heading_html;
+        
+        let body_html = "<tr>";
+        
+        for(let i = 0; i < items.length; i++)
+        {
+            body_html += "<td>" + items[i][1].name + "</td>"+
+                         "<td>" + items[i][1].size + "</td>"+
+                         "<td>" + items[i][1].max_size + "</td>";
 
+            if(type == 'families')
+            {
+                body_html += "<td>" + items[i][1].grade_level + "</td>";
+            }
+            else if(type == 'cabins')
+            {
+                body_html += "<td>" + items[i][1].gender + "</td>";
+            }
+            
+            body_html += "<td>" + get_counselors(items[i][1].counselor) + "</td>";
+            
+            body_html += "</tr>";
+        }
 
-        // for(var i = 0; i < items.length;i++)
-        // {
-        //     html += "<p>" + items[i][1].name + "</p>";
-        // }
-
-        // document.getElementById("group-list").innerHTML = html;
+        document.getElementById("group-table-body").innerHTML = body_html;
     });
+}
+
+function get_counselors(counselor_list)
+{
+    let counselors = "";
+
+    if(counselor_list == "N/A")
+    {
+        counselors += "TBD";
+    }
+    else
+    {
+        if(counselor_list.includes(","))
+        {
+            counselor_list = counselor_list.split(",");
+            
+            for(let i = 0; i < counselor_list.length; i++)
+            {
+                if(i != counselor_list.length - 1)
+                {
+                    counselors += counselor_list[i] + ((counselor_list.length > 2) ? ", " : " ");
+                }
+                else
+                {
+                    counselors += "& " + counselor_list[i];
+                }
+            }
+        }
+        else
+        {
+            counselors += counselor_list;
+        }
+    }
+
+    return counselors;
 }
 </script>
