@@ -61,12 +61,15 @@ if (!isset($_SESSION))
                 </div>
             </div>
         </div>
-        <div class="container" id="group-list" style="text-align:center">
+        
+        <div class="container" id="group-list" style="text-align:center; margin-bottom:13%">
             <div class='card rounded' id="table-card" style='margin-top: 20px; display:none'>
-            <table class="manage-groups-table">
-                <tr id="heading-row"></tr>
-                <tbody id="group-table-body"></tbody>
-            </table>
+                <table class="manage-groups-table">
+                    <tr id="heading-row"></tr>
+                    <tbody id="group-table-body"></tbody>
+                </table>
+                <div id="add-btn" class="container" style="margin:1%">
+                </div>
             </div>
         </div>
     </div>
@@ -81,7 +84,7 @@ function displayGroups(type)
 
     firebase.database().ref(type).once("value", function(snapshot)
     {
-        let items = Object.entries(snapshot.val());
+        let groups = Object.entries(snapshot.val());
 
         let heading_html = "<th>Name</th>"+"<th>Current Size</th>"+"<th>Max Capacity</th>";
 
@@ -94,34 +97,145 @@ function displayGroups(type)
             heading_html += "<th>Gender</th>";
         }
 
-        heading_html += "<th>Counselors</th>";
+        heading_html += "<th>Counselors</th>" + "<th> </th>";
 
         document.getElementById("heading-row").innerHTML = heading_html;
         
         let body_html = "<tr>";
         
-        for(let i = 0; i < items.length; i++)
+        for(let i = 0; i < groups.length; i++)
         {
-            body_html += "<td><div class='rounded name-cell'>" + items[i][1].name + "</div></td>"+
-                         "<td>" + items[i][1].size + "</td>"+
-                         "<td>" + items[i][1].max_size + "</td>";
+            let key = groups[i][0];
+
+            body_html += "<td><div class='rounded name-cell'>" + groups[i][1].name + "</div></td>"+
+                         "<td>" + groups[i][1].size + "</td>"+
+                         "<td>" + groups[i][1].max_size + "</td>";
 
             if(type == 'families')
             {
-                body_html += "<td>" + items[i][1].grade_level + "</td>";
+                body_html += "<td>" + groups[i][1].grade_level + "</td>";
             }
             else if(type == 'cabins')
             {
-                body_html += "<td>" + items[i][1].gender + "</td>";
+                body_html += "<td>" + groups[i][1].gender + "</td>";
             }
             
-            body_html += "<td>" + get_counselors(items[i][1].counselor) + "</td>";
-            
+            body_html += "<td>" + get_counselors(groups[i][1].counselor) + "</td>";
+
+            body_html += `<td><button id='delete-btn' class='rounded' onclick="delete_group('${key}', '${type}')">Delete</button></td>`;
+
             body_html += "</tr>";
         }
 
         document.getElementById("group-table-body").innerHTML = body_html;
+        document.getElementById("add-btn").innerHTML = `<button id="add-group-btn" class="rounded" style="margin-right:1%"                                                            onclick="addGroup('${type}')">Add</button>`;
     });
+}
+
+function addGroup(type)
+{
+    let new_group_dict = {};
+
+    let table_body = document.getElementById("group-table-body");
+    let new_row = table_body.insertRow(0);    
+
+    let name_cell = new_row.insertCell();
+    var name_input = document.createElement("input");
+    name_input.type = "text";
+    name_input.id = "name-input";
+    name_input.style.width="95%";
+    name_cell.appendChild(name_input);
+
+    let size_cell = new_row.insertCell();
+    size_cell.appendChild(document.createTextNode("0"));
+
+    let max_size_cell = new_row.insertCell();
+    var max_size_input = document.createElement("input");
+    max_size_input.type = "number";
+    max_size_input.id = "max-size-input";
+    max_size_input.style.width="50%";
+    max_size_cell.appendChild(max_size_input);
+
+    if(type == "families")
+    {
+        let grade_cell = new_row.insertCell();
+        var grade_input = document.createElement("input");
+        grade_input.type = "text";
+        grade_input.id = "grade-input";
+        grade_input.style.width="80%";
+        grade_cell.appendChild(grade_input);
+    }
+    else if(type == "cabins")
+    {
+        let gender_cell = new_row.insertCell();
+        var gender_input = document.createElement("input");
+        gender_input.type = "text";
+        gender_input.id = "gender-input";
+        gender_input.style.width="70%";
+        gender_cell.appendChild(gender_input);
+    }
+
+    let counselor_cell = new_row.insertCell();
+    var counselor_input = document.createElement("input");
+    counselor_input.type = "text";
+    counselor_input.id = "counselor-input";
+    counselor_input.style.width="90%";
+    counselor_cell.appendChild(counselor_input);
+
+    document.getElementById("add-btn").innerHTML = `<button id="sumbit-change-btn" class="rounded" onclick="submit_new_group('${type}')">Submit</button>`;
+}
+
+function submit_new_group(type)
+{
+    let new_group_dict = {};
+    
+    let name = document.getElementById("name-input").value;
+    let max_size = document.getElementById("max-size-input").value;
+    let counselor = document.getElementById("counselor-input").value;
+
+    if(name != "" && max_size != "" && counselor != "")
+    {
+        new_group_dict["name"] = name;
+        new_group_dict["size"] = 0;
+        new_group_dict["max_size"] = max_size;
+
+        if(type == "families")
+        {
+            let grade_level = document.getElementById("grade-input").value;
+            
+            if(grade_level != "")
+            {
+                new_group_dict["grade_level"] = grade_level;
+            }
+            else
+            {
+                alert("Please fill out all fields!");
+            }
+        }
+        else if(type == "cabins")
+        {
+            let gender = document.getElementById("gender-input").value;
+
+            if(gender != "")
+            {
+                new_group_dict["gender"] = gender;
+            }
+            else
+            {
+                alert("Please fill out all fields!");
+            }
+        }
+
+        new_group_dict["counselor"] = counselor;
+
+        firebase.database().ref('/' + type + '/').push(new_group_dict);
+        
+        window.location.href='/dashboard/manage_groups.php';
+    }
+    else
+    {
+        alert("Please fill out all fields!");
+    }
 }
 
 function get_counselors(counselor_list)
@@ -157,5 +271,21 @@ function get_counselors(counselor_list)
     }
 
     return counselors;
+}
+
+function delete_group(id, type)
+{
+    warning(id, type);
+}
+
+function warning(id, type)
+{
+    let ok_clicked = confirm("Remove " + id + "?");
+
+    if(ok_clicked)
+    {
+        alert("Removing " + id + " from " + type);
+        // firebase.database().ref('/' + type + '/' + id).remove();
+    }
 }
 </script>

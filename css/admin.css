@@ -82,3 +82,32 @@ td {
   background-color:#5b77a5;
   color:white;
 }
+
+#manage-btn-div
+{
+  display:none;
+  text-align:center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#add-group-btn
+{
+  background-color: rgb(161, 238, 171);
+}
+
+#add-group-btn:hover
+{
+  background-color: rgb(121, 240, 174);
+}
+
+#delete-btn
+{
+  background-color:red;
+  color:white;
+}
+
+#delete-btn:hover
+{
+  background-color:rgb(160, 0, 0);
+}
