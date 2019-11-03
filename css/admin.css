@@ -52,3 +52,33 @@ td {
 .dropdown-item {
   cursor: pointer;
 }
+
+/* manage_groups.php style sheets */
+.manage-groups-table
+{
+  table-layout: fixed;
+  width:100%;
+  text-align:left;
+  border-collapse: separate;
+  border-radius: 10px;
+}
+
+.manage-groups-table th, td
+{
+  padding:10px;
+}
+
+.manage-groups-table th
+{
+  font-size: 130%;
+}
+
+.name-cell
+{
+  padding-top:1%;
+  padding-bottom:1%;
+  text-align:center;
+  width:80%;
+  background-color:#5b77a5;
+  color:white;
+}

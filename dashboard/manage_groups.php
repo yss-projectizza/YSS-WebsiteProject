@@ -38,12 +38,13 @@ if (!isset($_SESSION))
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
   </head>
-  <body> 
+
+  <body style="background-color:rgb(233, 231, 231)"> 
     <?php include('../header_loggedin.php') ?>
 
     <div class="container">
         <!-- Dashboard Title Registration Header -->
-        <h1 align="center" style="font-size:50px;padding-top: 2%;">Manage Groups</h1>
+        <h1 style="text-align:center; font-size:50px;padding-top: 2%;">Manage Groups</h1>
         <br>
         <p> Add or delete families, cabins, and buses.</p>
         <hr/>
@@ -61,10 +62,12 @@ if (!isset($_SESSION))
             </div>
         </div>
         <div class="container" id="group-list" style="text-align:center">
-            <table style="table-layout:fixed; width:100%; text-align:center; margin-top:20px">
+            <div class='card rounded' id="table-card" style='margin-top: 20px; display:none'>
+            <table class="manage-groups-table">
                 <tr id="heading-row"></tr>
                 <tbody id="group-table-body"></tbody>
             </table>
+            </div>
         </div>
     </div>
   </body>
@@ -73,11 +76,14 @@ if (!isset($_SESSION))
 <script>
 function displayGroups(type)
 {
+    document.getElementById("table-card").style.display = 'block';
+    document.getElementById("table-card").style.border = '1px solid black';
+
     firebase.database().ref(type).once("value", function(snapshot)
     {
         let items = Object.entries(snapshot.val());
 
-        let heading_html = "<th>Name</th>"+"<th>Current Size</th>"+"<th>Maximum Capacity</th>";
+        let heading_html = "<th>Name</th>"+"<th>Current Size</th>"+"<th>Max Capacity</th>";
 
         if(type == 'families')
         {
@@ -96,7 +102,7 @@ function displayGroups(type)
         
         for(let i = 0; i < items.length; i++)
         {
-            body_html += "<td>" + items[i][1].name + "</td>"+
+            body_html += "<td><div class='rounded name-cell'>" + items[i][1].name + "</div></td>"+
                          "<td>" + items[i][1].size + "</td>"+
                          "<td>" + items[i][1].max_size + "</td>";
 
