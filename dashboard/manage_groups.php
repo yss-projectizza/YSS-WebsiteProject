@@ -60,8 +60,12 @@ if (!isset($_SESSION))
                 </div>
             </div>
         </div>
-        <div class="container" id="group-list">
-            
+        <div class="container" id="group-list" style="text-align:center">
+            <table style="table-layout:fixed; width:100%; text-align:center; margin-top:20px">
+                <tr id="heading-row">
+                    
+                </tr>
+            </table>
         </div>
     </div>
   </body>
@@ -75,13 +79,28 @@ function displayGroups(type)
         let items = Object.entries(snapshot.val());
 
         let html = "";
+        let heading_html = "<th>Name</th>"+"<th>Current Size</th>"+"<th>Maximum Capacity</th>";
 
-        for(var i = 0; i < items.length;i++)
+        if(type == 'families')
         {
-            html += "<p>" + items[i][1].name + "</p>";
+            heading_html += "<th>Grade Level</th>";
+        }
+        else if(type == 'cabins')
+        {
+            heading_html += "<th>Gender</th>";
         }
 
-        document.getElementById("group-list").innerHTML = html;
+        heading_html += "<th>Counselors</th>";
+
+        document.getElementById("heading-row").innerHTML = heading_html;
+
+
+        // for(var i = 0; i < items.length;i++)
+        // {
+        //     html += "<p>" + items[i][1].name + "</p>";
+        // }
+
+        // document.getElementById("group-list").innerHTML = html;
     });
 }
 </script>
