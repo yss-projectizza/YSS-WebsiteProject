@@ -55,9 +55,9 @@ if (!isset($_SESSION))
                     Group Type:
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" onclick="displayGroups('families')">Families</a>
-                    <a class="dropdown-item" onclick="displayGroups('cabins')">Cabins</a>
-                    <a class="dropdown-item"onclick="displayGroups('buses')">Buses</a>
+                    <a class="dropdown-item" id="family-option" onclick="displayGroups('families')">Families</a>
+                    <a class="dropdown-item" id="cabin-option" onclick="displayGroups('cabins')">Cabins</a>
+                    <a class="dropdown-item" id="bus-option" onclick="displayGroups('buses')">Buses</a>
                 </div>
             </div>
         </div>
@@ -122,7 +122,7 @@ function displayGroups(type)
             
             body_html += "<td>" + get_counselors(groups[i][1].counselor) + "</td>";
 
-            body_html += `<td><button id='delete-btn' class='rounded' onclick="delete_group('${key}', '${type}')">Delete</button></td>`;
+            body_html += `<td><button id='delete-btn' class='rounded' onclick="delete_group('${key}', '${groups[i][1].name}', '${type}')">Delete</button></td>`;
 
             body_html += "</tr>";
         }
@@ -182,7 +182,8 @@ function addGroup(type)
     counselor_input.style.width="90%";
     counselor_cell.appendChild(counselor_input);
 
-    document.getElementById("add-btn").innerHTML = `<button id="sumbit-change-btn" class="rounded" onclick="submit_new_group('${type}')">Submit</button>`;
+    document.getElementById("add-btn").innerHTML = `<button id="sumbit-change-btn" class="rounded" style="margin:1%" onclick="submit_new_group('${type}')">Submit</button>` +
+                                                   `<button id="sumbit-change-btn" class="rounded" onclick="cancel('${type}')">Cancel</button>`;
 }
 
 function submit_new_group(type)
@@ -192,6 +193,17 @@ function submit_new_group(type)
     let name = document.getElementById("name-input").value;
     let max_size = document.getElementById("max-size-input").value;
     let counselor = document.getElementById("counselor-input").value;
+
+    let drowdown_id = "";
+
+    switch(type)
+    {
+        case 'families': dropdown_id = "family-option";
+            break;
+        case 'cabins': dropdown_id = "cabin-option"
+            break;
+        case 'buses': dropdown_id = "bus-option"
+    }
 
     if(name != "" && max_size != "" && counselor != "")
     {
@@ -230,7 +242,7 @@ function submit_new_group(type)
 
         firebase.database().ref('/' + type + '/').push(new_group_dict);
         
-        window.location.href='/dashboard/manage_groups.php';
+        document.getElementById(dropdown_id).click();
     }
     else
     {
@@ -273,19 +285,106 @@ function get_counselors(counselor_list)
     return counselors;
 }
 
-function delete_group(id, type)
+function delete_group(id, group_name, type)
 {
-    warning(id, type);
+    warning(id, group_name, type);
 }
 
-function warning(id, type)
+function warning(id, group_name, type)
 {
-    let ok_clicked = confirm("Remove " + id + "?");
+    let ok_clicked = confirm("Are you sure you want to remove " + group_name + "?");
 
     if(ok_clicked)
     {
-        alert("Removing " + id + " from " + type);
-        // firebase.database().ref('/' + type + '/' + id).remove();
+        let group = "";
+        let dropdown_id = "";
+
+        switch(type)
+        {
+            case 'families': dropdown_id = "family-option";
+                break;
+            case 'cabins': dropdown_id = "cabin-option"
+                break;
+            case 'buses': dropdown_id = "bus-option"
+        }
+        
+        // Set group to N/A of all counselors in the selected group
+        firebase.database().ref('users').orderByChild('user_type').equalTo('counselor').once("value", function(snapshot)
+        {
+            let users = Object.entries(snapshot.val());
+
+            for(let i = 0; i < users.length; i++)
+            {
+                switch(type)
+                {
+                    case 'families': group = users[i][1].group_num;
+                        break;
+                    case 'cabins': group = users[i][1].cabin_num;
+                        break;
+                    case 'buses': group = users[i][1].bus_num;
+                }
+
+                if(group == group_name)
+                {
+                    switch(type)
+                    {
+                        case "families": firebase.database().ref('users/' + users[i][0]).update({'group_num': "N/A"});
+                            break;
+                        case "cabins": firebase.database().ref('users/' + users[i][0]).update({'cabin_num': "N/A"});
+                            break;
+                        case "buses": firebase.database().ref('users/' + users[i][0]).update({'bus_num': "N/A"});
+                    }
+                }
+            }
+        });
+
+        firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
+        {
+            let users = Object.entries(snapshot.val());
+
+            for(let i = 0; i < users.length; i++)
+            {
+                switch(type)
+                {
+                    case 'families': group = users[i][1].group_num;
+                        break;
+                    case 'cabins': group = users[i][1].cabin_num;
+                        break;
+                    case 'buses': group = users[i][1].bus_num;
+                }
+
+                if(group == group_name)
+                {
+                    switch(type)
+                    {
+                        case "families": firebase.database().ref('users/' + users[i][0]).update({'group_num': "N/A"});
+                            break;
+                        case "cabins": firebase.database().ref('users/' + users[i][0]).update({'cabin_num': "N/A"});
+                            break;
+                        case "buses": firebase.database().ref('users/' + users[i][0]).update({'bus_num': "N/A"});
+                    }
+                }
+            }
+        });
+
+        firebase.database().ref('/' + type + '/' + id).remove();
+
+        
+        document.getElementById(dropdown_id).click();
+    }   
+}
+
+function cancel(type)
+{
+    switch(type)
+    {
+        case 'families': dropdown_id = "family-option";
+            break;
+        case 'cabins': dropdown_id = "cabin-option"
+            break;
+        case 'buses': dropdown_id = "bus-option"
     }
+
+    document.getElementById(dropdown_id).click();
 }
 </script>
