@@ -50,7 +50,7 @@ if (!isset($_SESSION))
         <hr/>
         <div style="text-align:center">
             <div class="dropdown">
-                <button id="toggle-sort" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                <button id="toggle-group-type" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Group Type:
                 </button>
@@ -158,32 +158,133 @@ function addGroup(type)
 
     if(type == "families")
     {
+        // Grade Level drop-down
         let grade_cell = new_row.insertCell();
-        var grade_input = document.createElement("input");
-        grade_input.type = "text";
-        grade_input.id = "grade-input";
-        grade_input.style.width="80%";
-        grade_cell.appendChild(grade_input);
+
+        let grade_dropdown = `<div class="dropdown">
+            <button id="toggle-grade" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Grade Level:
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" onclick="changeGradeLevel('Freshman')">Freshman</a>
+                <a class="dropdown-item" onclick="changeGradeLevel('Sophomore')">Sophomore</a>
+                <a class="dropdown-item" onclick="changeGradeLevel('Junior')">Junior</a>
+                <a class="dropdown-item" onclick="changeGradeLevel('Senior')">Senior</a>
+            </div>
+        </div>`;
+
+        grade_cell.innerHTML = grade_dropdown;
     }
     else if(type == "cabins")
     {
+        // Gender drop-down
         let gender_cell = new_row.insertCell();
-        var gender_input = document.createElement("input");
-        gender_input.type = "text";
-        gender_input.id = "gender-input";
-        gender_input.style.width="70%";
-        gender_cell.appendChild(gender_input);
+ 
+        let gender_dropdown = `<div class="dropdown">
+            <button id="toggle-gender" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Gender:
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" onclick="changeGender('Male')">Male</a>
+                <a class="dropdown-item" onclick="changeGender('Female')">Female</a>
+            </div>
+        </div>`;
+
+        gender_cell.innerHTML = gender_dropdown;
     }
 
-    let counselor_cell = new_row.insertCell();
-    var counselor_input = document.createElement("input");
-    counselor_input.type = "text";
-    counselor_input.id = "counselor-input";
-    counselor_input.style.width="90%";
-    counselor_cell.appendChild(counselor_input);
+    // Counselor drop-down
+    firebase.database().ref('users').orderByChild('user_type').equalTo('counselor').once("value", function(snapshot)
+    {
+        let counselor_cell = new_row.insertCell();
+
+        let counselor_list_cell = new_row.insertCell();
+        counselor_list_cell.id = "counselor-list";
+
+        let counselor_dropdown = `<div class="dropdown">
+        <button id="toggle-counselors" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Counselors:
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">`;
+
+        let counselors = Object.entries(snapshot.val());
+        let group = "";
+        
+        for(let i = 0; i < counselors.length; i++)
+        {
+            switch(type)
+            {
+                case 'families': group = counselors[i][1].group_num;
+                    break;
+                case 'cabins': group = counselors[i][1].cabin_num;
+                    break;
+                case 'buses': group = counselors[i][1].bus_num;
+            }
+
+            if(group == "N/A")
+            {
+                let name = counselors[i][1].first_name + " " + counselors[i][1].last_name;
+                counselor_dropdown += `<a class="dropdown-item" onclick="addCounselorName('${name}')"> ` + name +  `</a>`;
+            }
+        }
+
+        counselor_dropdown += `</div>
+        </div>`;
+
+        counselor_cell.innerHTML = counselor_dropdown;
+    });
 
     document.getElementById("add-btn").innerHTML = `<button id="sumbit-change-btn" class="rounded" style="margin:1%" onclick="submit_new_group('${type}')">Submit</button>` +
                                                    `<button id="sumbit-change-btn" class="rounded" onclick="cancel('${type}')">Cancel</button>`;
+}
+
+function changeGradeLevel(grade)
+{
+    document.getElementById("toggle-grade").innerHTML = grade;
+}
+
+function changeGender(gender)
+{
+    document.getElementById("toggle-gender").innerHTML = gender;
+}
+
+function addCounselorName(name)
+{
+    let counselor_list = document.getElementById("counselor-list").innerHTML;
+    
+    // Adds counselor to the list the first time their name is clicked, else removes them from the list.
+    if(!counselor_list.includes(name))
+    {
+        if(document.getElementById("counselor-list").innerHTML != "")
+        {
+            document.getElementById("counselor-list").appendChild(document.createElement("br"));
+        }
+
+        document.getElementById("counselor-list").appendChild(document.createTextNode(name));
+    }
+    else
+    {
+        if((document.getElementById("counselor-list").innerHTML).includes("<br>"))
+        {
+            if((document.getElementById("counselor-list").innerHTML).includes("<br>" + name))
+            {
+                counselor_list = counselor_list.replace("<br>" + name, "");
+            }
+            else if((document.getElementById("counselor-list").innerHTML).includes(name + "<br>"))
+            {
+                counselor_list = counselor_list.replace(name + "<br>", "");
+            }
+        }
+        else
+        {
+            counselor_list = counselor_list.replace(name, "");
+        }
+
+        document.getElementById("counselor-list").innerHTML = counselor_list;
+    }
 }
 
 function submit_new_group(type)
@@ -192,8 +293,22 @@ function submit_new_group(type)
     
     let name = document.getElementById("name-input").value;
     let max_size = document.getElementById("max-size-input").value;
-    let counselor = document.getElementById("counselor-input").value;
+    let counselor = "";
+    let counselor_list = document.getElementById("counselor-list").innerHTML;
 
+    if(counselor_list.includes("<br>"))
+    {
+        counselor = format_counselor_list(counselor_list.split("<br>"));
+    }
+    else if(counselor_list == "")
+    {
+        counselor = format_counselor_list([]);
+    }
+    else
+    {
+        counselor = format_counselor_list([counselor_list]);
+    }
+    
     let drowdown_id = "";
 
     switch(type)
@@ -213,11 +328,17 @@ function submit_new_group(type)
 
         if(type == "families")
         {
-            let grade_level = document.getElementById("grade-input").value;
+            let grade_level = document.getElementById("toggle-grade").innerHTML;
             
-            if(grade_level != "")
+            if(!grade_level.includes("Grade Level"))
             {
                 new_group_dict["grade_level"] = grade_level;
+
+                new_group_dict["counselor"] = counselor;
+
+                firebase.database().ref('/' + type + '/').push(new_group_dict);
+
+                document.getElementById(dropdown_id).click();
             }
             else
             {
@@ -226,23 +347,31 @@ function submit_new_group(type)
         }
         else if(type == "cabins")
         {
-            let gender = document.getElementById("gender-input").value;
+            let gender = document.getElementById("toggle-gender").innerHTML;
 
-            if(gender != "")
+            if(!gender.includes("Gender"))
             {
                 new_group_dict["gender"] = gender;
+
+                new_group_dict["counselor"] = counselor;
+
+                firebase.database().ref('/' + type + '/').push(new_group_dict);
+
+                document.getElementById(dropdown_id).click();
             }
             else
             {
                 alert("Please fill out all fields!");
             }
         }
+        else
+        {
+            new_group_dict["counselor"] = counselor;
 
-        new_group_dict["counselor"] = counselor;
+            firebase.database().ref('/' + type + '/').push(new_group_dict);
 
-        firebase.database().ref('/' + type + '/').push(new_group_dict);
-        
-        document.getElementById(dropdown_id).click();
+            document.getElementById(dropdown_id).click();
+        }
     }
     else
     {
@@ -283,6 +412,42 @@ function get_counselors(counselor_list)
     }
 
     return counselors;
+}
+
+function format_counselor_list(counselors)
+{
+    alert(counselors.length);
+
+    let formatted_counselor_list = "";
+
+    if(counselors.length == 0)
+    {
+        formatted_counselor_list += "TBD";
+    }
+    else
+    {
+        if(counselors.length == 1)
+        {
+            formatted_counselor_list += counselors;
+        } 
+        else if(counselors.length >= 2)
+        {
+            for(let i = 0; i < counselors.length; i++)
+            {
+                if(i != counselors.length - 1)
+                {
+                    formatted_counselor_list += counselors[i] + ",";
+                }
+                else
+                {
+                    formatted_counselor_list += counselors[i];
+                }
+            }
+        }
+    }
+
+    alert(formatted_counselor_list);
+    return formatted_counselor_list;
 }
 
 function delete_group(id, group_name, type)
