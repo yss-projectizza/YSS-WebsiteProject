@@ -227,6 +227,7 @@ function addGroup(type)
             if(group == "N/A")
             {
                 let name = counselors[i][1].first_name + " " + counselors[i][1].last_name;
+                
                 counselor_dropdown += `<a class="dropdown-item" onclick="addCounselorName('${name}')"> ` + name +  `</a>`;
             }
         }
@@ -249,6 +250,47 @@ function changeGradeLevel(grade)
 function changeGender(gender)
 {
     document.getElementById("toggle-gender").innerHTML = gender;
+}
+
+function change_counselor_group(names, group_name, type)
+{
+    firebase.database().ref('users').orderByChild('user_type').equalTo('counselor').once("value", function(snapshot)
+    {
+        let users = Object.entries(snapshot.val());
+        let group = "";
+
+        for(let i = 0; i < names.length; i++)
+        {   
+            for(let j = 0; j < users.length; j++)
+            {
+                switch(type)
+                {
+                    case 'families': group = users[j][1].group_num;
+                        break;
+                    case 'cabins': group = users[j][1].cabin_num;
+                        break;
+                    case 'buses': group = users[j][1].bus_num;
+                }
+
+                if(group == "N/A")
+                {
+                    let current_name = users[j][1].first_name + " " + users[j][1].last_name;
+
+                    if(current_name == names[i])
+                    {
+                        switch(type)
+                        {
+                            case "families": firebase.database().ref('users/' + users[j][0]).update({'group_num': group_name});
+                                break;
+                            case "cabins": firebase.database().ref('users/' + users[j][0]).update({'cabin_num': group_name});
+                                break;
+                            case "buses": firebase.database().ref('users/' + users[j][0]).update({'bus_num': group_name});
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 function addCounselorName(name)
@@ -296,6 +338,8 @@ function submit_new_group(type)
     let counselor = "";
     let counselor_list = document.getElementById("counselor-list").innerHTML;
 
+    change_counselor_group(counselor_list.split("<br>"), type);
+
     if(counselor_list.includes("<br>"))
     {
         counselor = format_counselor_list(counselor_list.split("<br>"));
@@ -336,6 +380,8 @@ function submit_new_group(type)
 
                 new_group_dict["counselor"] = counselor;
 
+                change_counselor_group((document.getElementById("counselor-list").innerHTML).split("<br>"), name, type);
+
                 firebase.database().ref('/' + type + '/').push(new_group_dict);
 
                 document.getElementById(dropdown_id).click();
@@ -354,6 +400,8 @@ function submit_new_group(type)
                 new_group_dict["gender"] = gender;
 
                 new_group_dict["counselor"] = counselor;
+                
+                change_counselor_group((document.getElementById("counselor-list").innerHTML).split("<br>"), name, type);
 
                 firebase.database().ref('/' + type + '/').push(new_group_dict);
 
@@ -367,6 +415,8 @@ function submit_new_group(type)
         else
         {
             new_group_dict["counselor"] = counselor;
+
+            change_counselor_group((document.getElementById("counselor-list").innerHTML).split("<br>"), name, type);
 
             firebase.database().ref('/' + type + '/').push(new_group_dict);
 
@@ -416,8 +466,6 @@ function get_counselors(counselor_list)
 
 function format_counselor_list(counselors)
 {
-    alert(counselors.length);
-
     let formatted_counselor_list = "";
 
     if(counselors.length == 0)
@@ -445,8 +493,7 @@ function format_counselor_list(counselors)
             }
         }
     }
-
-    alert(formatted_counselor_list);
+    
     return formatted_counselor_list;
 }
 
