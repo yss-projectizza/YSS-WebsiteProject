@@ -133,14 +133,14 @@ if (!isset($_SESSION))
               function buildUserDiv(item, index) {
                 const boxDiv = document.createElement('tr');
                 const boxID = item[1].first_name + "verified";
-                boxDiv.id = "alldataindiv"
+                boxDiv.id = "alldataindiv";
 
 
 
-                var group = item[1].group_num
-                var cabin = item[1].cabin_num
-                var bus = item[1].bus_num
-                var credit = item[1].credit_due
+                var group = item[1].group_num;
+                var cabin = item[1].cabin_num;
+                var bus = item[1].bus_num;
+                var credit = item[1].credit_due;
 
 
 
@@ -168,7 +168,7 @@ if (!isset($_SESSION))
                     color = "#76F2BC"
                     break;
                 }
-
+			
 
 
             boxDiv.innerHTML =
@@ -202,8 +202,8 @@ if (!isset($_SESSION))
 
 
                 document.getElementById("data").appendChild(boxDiv);
-                if (item[1].account_verified)
-                  verifyCheck(item[1].account_verified);
+ //               if (item[1].account_verified)
+  //                verifyCheck(item[1].account_verified);
 
 
 
