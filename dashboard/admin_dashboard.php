@@ -71,7 +71,7 @@ if (!isset($_SESSION))
     </div>
 
     <div class="main-cards">
-      <div class="card">
+      <div class="card" style="overflow: scroll; height:50%">
         <div class="dropdown">
           <button id="toggle-sort" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -202,8 +202,11 @@ if (!isset($_SESSION))
 
 
                 document.getElementById("data").appendChild(boxDiv);
- //               if (item[1].account_verified)
-  //                verifyCheck(item[1].account_verified);
+                // if(alldata[index][1].user_type == "counselor" || alldata[index][1].user_type == "parent" && item[1].account_verified)
+                // {  
+                //   alert("a");
+                //   verifyCheck(item[1].account_verified);
+                // }
 
 
 

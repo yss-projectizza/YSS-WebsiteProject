@@ -43,7 +43,6 @@ if (!isset($_SESSION))
     <?php include('../header_loggedin.php') ?>
 
     <div class="container">
-        <!-- Dashboard Title Registration Header -->
         <h1 style="text-align:center; font-size:50px;padding-top: 2%;">Manage Groups</h1>
         <br>
         <p> Add or delete families, cabins, and buses.</p>
@@ -123,7 +122,7 @@ function displayGroups(type)
             body_html += "<td>" + get_counselors(groups[i][1].counselor) + "</td>";
 
             body_html += `<td><button id='delete-btn' class='rounded' onclick="delete_group('${key}', '${groups[i][1].name}', '${type}')">Delete</button></td>`;
-
+            
             body_html += "</tr>";
         }
 
@@ -493,7 +492,7 @@ function format_counselor_list(counselors)
             }
         }
     }
-    
+
     return formatted_counselor_list;
 }
 
