@@ -72,8 +72,8 @@ and personal information immediately. Thank you.\n
             echo "failed. No email sent."; 
         }
    
-        // go back to login.php
-        include "login.php";
+		echo "<script> window.location.replace('dashboard.php') </script>";
+
         exit;
     }
 ?>
