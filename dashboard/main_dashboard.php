@@ -368,6 +368,7 @@ function display_todo_link(item_name, link, completed, to_do_div)
   if(completed)
   {
     checkbox.checked = true;
+    l.innerHTML = item_name;
   }
 
   to_do_div.append(newline);

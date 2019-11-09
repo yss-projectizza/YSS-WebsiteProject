@@ -101,13 +101,25 @@ td {
   background-color: rgb(121, 240, 174);
 }
 
-#delete-btn
+.delete-btn
 {
   background-color:red;
   color:white;
 }
 
-#delete-btn:hover
+.delete-btn:hover
 {
   background-color:rgb(160, 0, 0);
+}
+
+.edit-btn
+{
+  background-color:gold;
+  color:black;
+}
+
+.edit-btn:hover
+{
+  background-color:lightblue;
+  color:black;
 }

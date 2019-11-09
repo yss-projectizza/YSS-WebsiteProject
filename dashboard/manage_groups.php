@@ -80,6 +80,7 @@ function displayGroups(type)
 {
     document.getElementById("table-card").style.display = 'block';
     document.getElementById("table-card").style.border = '1px solid black';
+    document.getElementById("add-btn").style.display= "block";
 
     firebase.database().ref(type).once("value", function(snapshot)
     {
@@ -106,33 +107,128 @@ function displayGroups(type)
         {
             let key = groups[i][0];
 
-            body_html += "<td><div class='rounded name-cell'>" + groups[i][1].name + "</div></td>"+
-                         "<td>" + groups[i][1].size + "</td>"+
-                         "<td>" + groups[i][1].max_size + "</td>";
+            body_html += `<td id='name-` + i +`'><div class='rounded name-cell'>${groups[i][1].name}</div></td>
+                         <td>${groups[i][1].size}</td>
+                         <td id='max-size-` + i + `'>${groups[i][1].max_size}</td>`;
 
             if(type == 'families')
             {
-                body_html += "<td>" + groups[i][1].grade_level + "</td>";
+                body_html += `<td id='grade-` + i + `'>${groups[i][1].grade_level}</td>`;
             }
             else if(type == 'cabins')
             {
-                body_html += "<td>" + groups[i][1].gender + "</td>";
+                body_html += `<td id='gender-` + i + `'>${groups[i][1].gender}</td>`;
             }
             
-            body_html += "<td>" + get_counselors(groups[i][1].counselor) + "</td>";
+            body_html += `<td id='counselors-` + i + `'>${get_counselors(groups[i][1].counselor)}</td>`;
 
-            body_html += `<td><button id='delete-btn' class='rounded' onclick="delete_group('${key}', '${groups[i][1].name}', '${type}')">Delete</button></td>`;
+            body_html += `<td><button id='edit-btn-` + i + `' class='rounded' onclick="edit_group('${key}', ${i}, ${groups.length}, '${groups[i][1].name}', '${type}')">Edit</button>
+                              <button id='delete-btn-` + i + `' class='rounded delete-btn' onclick="delete_group('${key}', '${groups[i][1].name}', '${type}')">Delete</button></td>`;
             
             body_html += "</tr>";
         }
 
         document.getElementById("group-table-body").innerHTML = body_html;
-        document.getElementById("add-btn").innerHTML = `<button id="add-group-btn" class="rounded" style="margin-right:1%"                                                            onclick="addGroup('${type}')">Add</button>`;
+        document.getElementById("add-btn").innerHTML = `<button id="add-group-btn" class="rounded" style="margin-right:1%" onclick="addGroup('${type}', ${groups.length})">Add</button>`;
     });
 }
 
-function addGroup(type)
+function edit_group(key, index, num_groups, group_name, type)
 {
+    for(let i = 0; i < num_groups; i++)
+    {
+        if(i != index)
+        {
+            document.getElementById("edit-btn-" + i).style.display= "none";
+        }
+    }
+
+    document.getElementById("add-btn").style.display= "none";
+
+    document.getElementById("name-" + index).innerHTML = `<input id='new-name-input' style="margin-right:1%"></input>`;
+    document.getElementById("max-size-" + index).innerHTML = `<input id='new-max-size-input' type="number" style="margin-right:1%; width:50%"></input>`;
+
+    if(type == "families")
+    {
+        document.getElementById("grade-" + index).innerHTML = create_grade_dropdown();
+    }
+    else if(type == "cabins")
+    {
+        document.getElementById("gender-" + index).innerHTML = create_gender_dropdown();
+    }
+
+    // Converts Edit button to Submit button and changes its function to submit changes
+    document.getElementById("edit-btn-" + index).innerHTML = "Submit";
+    document.getElementById("edit-btn-" + index).onclick = function()
+    {
+        let db_path = type + "/" + key;
+
+        let name = document.getElementById("new-name-input").value;
+        let max_size = document.getElementById("new-max-size-input").value;
+        
+        if(type == "families")
+        {
+            let grade = document.getElementById("toggle-grade").innerHTML;
+        }
+        else if(type == "cabins")
+        {
+            let gender = document.getElementById("toggle-gender").innerHTML;
+        }
+
+        firebase.database().ref(db_path).update({'name':name, 'max_size': max_size});
+
+        // check if family grade level was changed, kick out all students
+        // check if cabin gender was changed, kick out all students
+
+        cancel(type);
+    }
+
+    // Converts Delete button to a Cancel button
+    document.getElementById("delete-btn-" + index).innerHTML = "Cancel";
+    document.getElementById("delete-btn-" + index).classList.remove("delete-btn");
+    document.getElementById("delete-btn-" + index).onclick = function()
+    {
+        cancel(type);
+    }
+}
+
+function create_grade_dropdown()
+{
+    return `<div class="dropdown">
+            <button id="toggle-grade" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Grade Level:
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" onclick="changeGradeLevel('Freshman')">Freshman</a>
+                <a class="dropdown-item" onclick="changeGradeLevel('Sophomore')">Sophomore</a>
+                <a class="dropdown-item" onclick="changeGradeLevel('Junior')">Junior</a>
+                <a class="dropdown-item" onclick="changeGradeLevel('Senior')">Senior</a>
+            </div>
+        </div>`;
+}
+
+function create_gender_dropdown()
+{
+    return `<div class="dropdown">
+            <button id="toggle-gender" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Gender:
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" onclick="changeGender('Male')">Male</a>
+                <a class="dropdown-item" onclick="changeGender('Female')">Female</a>
+            </div>
+        </div>`;
+}
+
+function addGroup(type, num_groups)
+{
+    for(let i = 0; i < num_groups; i++)
+    {
+        document.getElementById("edit-btn-" + i).style.display= "none";
+    }
+
     let new_group_dict = {};
 
     let table_body = document.getElementById("group-table-body");
@@ -160,18 +256,7 @@ function addGroup(type)
         // Grade Level drop-down
         let grade_cell = new_row.insertCell();
 
-        let grade_dropdown = `<div class="dropdown">
-            <button id="toggle-grade" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Grade Level:
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" onclick="changeGradeLevel('Freshman')">Freshman</a>
-                <a class="dropdown-item" onclick="changeGradeLevel('Sophomore')">Sophomore</a>
-                <a class="dropdown-item" onclick="changeGradeLevel('Junior')">Junior</a>
-                <a class="dropdown-item" onclick="changeGradeLevel('Senior')">Senior</a>
-            </div>
-        </div>`;
+        let grade_dropdown = create_grade_dropdown();
 
         grade_cell.innerHTML = grade_dropdown;
     }
@@ -180,16 +265,7 @@ function addGroup(type)
         // Gender drop-down
         let gender_cell = new_row.insertCell();
  
-        let gender_dropdown = `<div class="dropdown">
-            <button id="toggle-gender" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Gender:
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" onclick="changeGender('Male')">Male</a>
-                <a class="dropdown-item" onclick="changeGender('Female')">Female</a>
-            </div>
-        </div>`;
+        let gender_dropdown = create_gender_dropdown();
 
         gender_cell.innerHTML = gender_dropdown;
     }
@@ -200,6 +276,7 @@ function addGroup(type)
         let counselor_cell = new_row.insertCell();
 
         let counselor_list_cell = new_row.insertCell();
+        
         counselor_list_cell.id = "counselor-list";
 
         let counselor_dropdown = `<div class="dropdown">
