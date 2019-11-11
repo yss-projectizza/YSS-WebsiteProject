@@ -98,7 +98,8 @@ td {
 
 #add-group-btn:hover
 {
-  background-color: rgb(121, 240, 174);
+  background-color: rgb(31, 201, 127);
+  color:white;
 }
 
 .delete-btn
@@ -120,6 +121,18 @@ td {
 
 .edit-btn:hover
 {
-  background-color:lightblue;
+  background-color:#8FD5D9;
+  color:black;
+}
+
+#submit-change-btn
+{
+  background-color:#B7A5F7;
+  color:black;
+}
+
+#submit-change-btn:hover
+{
+  background-color:#8FD5D9;
   color:black;
 }

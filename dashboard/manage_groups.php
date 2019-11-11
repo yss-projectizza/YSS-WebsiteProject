@@ -107,7 +107,7 @@ function displayGroups(type)
         {
             let key = groups[i][0];
 
-            body_html += `<td id='name-` + i +`'><div class='rounded name-cell'>${groups[i][1].name}</div></td>
+            body_html += `<td id='name-` + i +`'><div id="name-div-` + i +`" class='rounded name-cell'>${groups[i][1].name}</div></td>
                          <td>${groups[i][1].size}</td>
                          <td id='max-size-` + i + `'>${groups[i][1].max_size}</td>`;
 
@@ -122,7 +122,7 @@ function displayGroups(type)
             
             body_html += `<td id='counselors-` + i + `'>${get_counselors(groups[i][1].counselor)}</td>`;
 
-            body_html += `<td><button id='edit-btn-` + i + `' class='rounded' onclick="edit_group('${key}', ${i}, ${groups.length}, '${groups[i][1].name}', '${type}')">Edit</button>
+            body_html += `<td><button id='edit-btn-` + i + `' class='rounded' onclick="edit_group('${key}', ${i}, ${groups.length}, '${groups[i][1].name}', '${groups[i][1].counselor}', '${type}')">Edit</button>
                               <button id='delete-btn-` + i + `' class='rounded delete-btn' onclick="delete_group('${key}', '${groups[i][1].name}', '${type}')">Delete</button></td>`;
             
             body_html += "</tr>";
@@ -133,8 +133,9 @@ function displayGroups(type)
     });
 }
 
-function edit_group(key, index, num_groups, group_name, type)
+function edit_group(key, index, num_groups, group_name, counselors, type)
 {
+    // hides all other edit buttons so that only one group can be changed at a time.
     for(let i = 0; i < num_groups; i++)
     {
         if(i != index)
@@ -143,6 +144,10 @@ function edit_group(key, index, num_groups, group_name, type)
         }
     }
 
+    let old_group_name = document.getElementById("name-div-" + index).innerHTML;
+    let old_grade = "";
+    let old_gender = "";
+
     document.getElementById("add-btn").style.display= "none";
 
     document.getElementById("name-" + index).innerHTML = `<input id='new-name-input' style="margin-right:1%"></input>`;
@@ -150,37 +155,139 @@ function edit_group(key, index, num_groups, group_name, type)
 
     if(type == "families")
     {
+        old_grade = document.getElementById("grade-" + index).innerHTML;
+
         document.getElementById("grade-" + index).innerHTML = create_grade_dropdown();
     }
     else if(type == "cabins")
     {
+        old_gender = document.getElementById("gender-" + index).innerHTML;
+        
         document.getElementById("gender-" + index).innerHTML = create_gender_dropdown();
     }
 
+    // Holds the string of counselors to be updated in the database
+    let counselor_string = "";
+
+    firebase.database().ref('users').orderByChild('user_type').equalTo('counselor').once("value", function(snapshot)
+    {
+        let counselor_dropdown = `<div class="dropdown">
+        <button id="toggle-counselors" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Counselors:
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">`;
+
+        let counselor_list = counselors;
+
+        let counselors_from_db = Object.entries(snapshot.val());
+
+        if(counselor_list.includes(","))
+        {
+            counselor_string = "sdflskfsjfs";
+            counselor_list = counselor_list.split(",");
+
+            // alert(counselor_list.length);
+
+            for(let i = 0; i < counselor_list.length; i++)
+            {
+                counselor_dropdown += `<a class="dropdown-item" id="counselor-` + i + 
+                                      `" onclick="toggleSelect('${counselor_list[i]}', '${counselor_string}', ${i})">\u2713` + counselor_list[i] +  `</a>`;
+            }
+        }
+        else if(counselor_list == "TBD")
+        {
+            for(let i = 0; i < counselors_from_db.length; i++)
+            {
+                let group = get_group_name(counselors_from_db[i][1], type);
+
+                if(group == "N/A")
+                {
+                    let counselor_name = counselors_from_db[i][1].first_name + " " + counselors_from_db[i][1].last_name;
+                    
+                    counselor_dropdown += `<a class="dropdown-item" id="counselor-` + i + 
+                                        `" onclick="toggleSelect('${counselor_name}', '${counselor_string}', ${i})">` + counselor_name +  `</a>`;
+                }
+            }
+        }
+        else
+        {
+            let i = 0;
+
+            counselor_dropdown += `<a class="dropdown-item" id="counselor-` + i + 
+                                  `" onclick="toggleSelect('${counselor_list}', '${counselor_string}', ${i})">\u2713` + counselor_list + `</a>`;
+        }
+
+        document.getElementById("counselors-" + index).innerHTML = counselor_dropdown;
+    });
+
     // Converts Edit button to Submit button and changes its function to submit changes
     document.getElementById("edit-btn-" + index).innerHTML = "Submit";
-    document.getElementById("edit-btn-" + index).onclick = function()
+    document.getElementById("edit-btn-" + index).id = "submit-change-btn";
+    
+    // Submits the changes to the database.
+    document.getElementById("submit-change-btn").onclick = function()
     {
+        // alert(counselor_string);
+
         let db_path = type + "/" + key;
 
         let name = document.getElementById("new-name-input").value;
         let max_size = document.getElementById("new-max-size-input").value;
-        
-        if(type == "families")
+
+        if(name != "" && max_size != "")
         {
-            let grade = document.getElementById("toggle-grade").innerHTML;
+            if(type == "families")
+            {
+                let grade = document.getElementById("toggle-grade").innerHTML;
+
+                if(grade != "Grade Level:")
+                {
+                    if(old_grade != grade)
+                    {
+                        if(confirm("Changing this family's grade will remove all of the students in it. Would you like to continue?"))
+                        {
+                            remove_students_from_group(type, old_group_name);
+
+                            firebase.database().ref(db_path).update({'name':name, 'max_size': max_size, 'grade_level': grade, 'size': 0});
+                    
+                            cancel(type);
+                        }
+                    }
+                }
+                else
+                {
+                    alert("Please select a grade!");
+                }
+            }
+            else if(type == "cabins")
+            {
+                let gender = document.getElementById("toggle-gender").innerHTML;
+
+                if(gender != "Gender:")
+                {
+                    if(old_gender != gender)
+                    {
+                        if(confirm("Changing this cabin's gender will remove all of the students in it. Would you like to continue?"))
+                        {
+                            remove_students_from_group(type, old_group_name);
+
+                            firebase.database().ref(db_path).update({'name':name, 'max_size': max_size, 'gender': gender, 'size': 0});
+                    
+                            cancel(type);
+                        }
+                    }
+                }
+                else
+                {
+                    alert("Please select a gender!");
+                }
+            }
         }
-        else if(type == "cabins")
+        else
         {
-            let gender = document.getElementById("toggle-gender").innerHTML;
+            alert("Please fill in all fields!");
         }
-
-        firebase.database().ref(db_path).update({'name':name, 'max_size': max_size});
-
-        // check if family grade level was changed, kick out all students
-        // check if cabin gender was changed, kick out all students
-
-        cancel(type);
     }
 
     // Converts Delete button to a Cancel button
@@ -192,13 +299,57 @@ function edit_group(key, index, num_groups, group_name, type)
     }
 }
 
+function remove_students_from_group(type, group_name)
+{
+    firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
+    {
+        let student_list = Object.entries(snapshot.val());
+
+        for(let i = 0; i < student_list.length; i++)
+        {
+            let group = get_group_name(student_list[i][1], type);
+
+            if(group == group_name)
+            {
+                switch(type)
+                {
+                    case 'families': firebase.database().ref('users/' + student_list[i][0]).update({'group_num': "N/A"});
+                        break;
+                    case 'cabins': firebase.database().ref('users/' + student_list[i][0]).update({'cabin_num': "N/A"});
+                }
+            }
+        }
+    });
+}
+
+function toggleSelect(name, counselor_string, index)
+{
+    // alert(counselor_string);
+    let contents = document.getElementById("counselor-" + index).innerHTML;
+
+    if(contents.includes("\u2713"))
+    {
+        // remove check
+        contents = contents.replace("\u2713", "");
+
+        // counselor_string = counselor_string.replace(name + ",", "");
+    }
+    else
+    {
+        // check name
+        contents = "\u2713" + contents;
+
+        // counselor_string += name + ",";
+    }
+
+    document.getElementById("counselor-" + index).innerHTML = contents;
+}
+
 function create_grade_dropdown()
 {
     return `<div class="dropdown">
             <button id="toggle-grade" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Grade Level:
-            </button>
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Grade Level:</button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" onclick="changeGradeLevel('Freshman')">Freshman</a>
                 <a class="dropdown-item" onclick="changeGradeLevel('Sophomore')">Sophomore</a>
@@ -212,9 +363,7 @@ function create_gender_dropdown()
 {
     return `<div class="dropdown">
             <button id="toggle-gender" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Gender:
-            </button>
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gender:</button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" onclick="changeGender('Male')">Male</a>
                 <a class="dropdown-item" onclick="changeGender('Female')">Female</a>
@@ -288,6 +437,8 @@ function addGroup(type, num_groups)
 
         let counselors = Object.entries(snapshot.val());
         let group = "";
+
+        let num_unassigned = 0;
         
         for(let i = 0; i < counselors.length; i++)
         {
@@ -305,7 +456,14 @@ function addGroup(type, num_groups)
                 let name = counselors[i][1].first_name + " " + counselors[i][1].last_name;
                 
                 counselor_dropdown += `<a class="dropdown-item" onclick="addCounselorName('${name}')"> ` + name +  `</a>`;
+
+                num_unassigned++;
             }
+        }
+
+        if(num_unassigned == 0)
+        {
+            counselor_dropdown += `<a class="dropdown-item">All counselors have been assigned!</a>`;
         }
 
         counselor_dropdown += `</div>
@@ -314,8 +472,8 @@ function addGroup(type, num_groups)
         counselor_cell.innerHTML = counselor_dropdown;
     });
 
-    document.getElementById("add-btn").innerHTML = `<button id="sumbit-change-btn" class="rounded" style="margin:1%" onclick="submit_new_group('${type}')">Submit</button>` +
-                                                   `<button id="sumbit-change-btn" class="rounded" onclick="cancel('${type}')">Cancel</button>`;
+    document.getElementById("add-btn").innerHTML = `<button id="submit-change-btn" class="rounded" style="margin:1%" onclick="submit_new_group('${type}')">Submit</button>` +
+                                                   `<button class="rounded" onclick="cancel('${type}')">Cancel</button>`;
 }
 
 function changeGradeLevel(grade)
@@ -674,5 +832,22 @@ function cancel(type)
     }
 
     document.getElementById(dropdown_id).click();
+}
+
+// Must be used within a firebase snapshot function
+function get_group_name(object, type)
+{
+    let group_name = "";
+
+    switch(type)
+    {
+        case 'families': group_name = object.group_num;
+            break;
+        case 'cabins': group_name = object.cabin_num;
+            break;
+        case 'buses': group_name = object.bus_num;
+    }
+
+    return group_name;
 }
 </script>
