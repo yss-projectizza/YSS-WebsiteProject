@@ -29,6 +29,8 @@
           "email" => $_SESSION["newuserinfo"]["email"],
           "account_verified" => true);
 
+        if($redirectpagename == "parentRegistration.php") {
+			$userInfo["group_num"] = "N/A";
           $userInfo["user_type"] = "parent";
           $userInfo["credit_due"] = "299";
     }

@@ -291,12 +291,12 @@ if (!isset($_SESSION))
     <?php endif ?>
 
     <!-- Schedule Section -->
-    <?php if ($user_type != "parent") : ?>
+
       <div class="card" id="schedule">
         <h2>Schedule</h2>
       </div>
       <script>
-          if("<?php echo $user_type?>" == "counselor")
+          if("<?php echo $user_type?>" == "counselor" || "<?php echo $user_type?>" == "parent")
           {
             // Initialize Firebase
             var config =
@@ -314,31 +314,39 @@ if (!isset($_SESSION))
 
           firebase.database().ref("/schedule/").once('value').then(data =>
           {
-
             returndataArray = Object.entries(data.val());
-
+						
             var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
-
             var schedule_div = document.getElementById("schedule");
 
-            for (item of returndataArray)
-            {
-              if (item[1].group.split(",").indexOf(group_num) >= 0 || item[1].group === "all")
-              {
-                let newp = document.createElement("p");
-                newp.innerHTML = "Event: " + item[1].event + " Date: " + item[1].date +  " Time: " + item[1].time;
-                schedule_div.appendChild(newp);
-              }
-              else
-              {
-                let newp = document.createElement("p");
+			if (returndataArray.length == 0 || group_num == "N/A"){
+				let newp = document.createElement("p");
                 newp.innerHTML = "Your schedule has not yet been assigned."
                 schedule_div.appendChild(newp);
-              }
-            }
+			}
+			else if ("<?php echo $user_type?>" == "counselor" || "<?php echo $user_type?>" == "student")
+			{
+				for (item of returndataArray)
+				{
+				  if (item[1].group.split(",").indexOf(group_num) >= 0 || item[1].group == "all")
+				  {
+					let newp = document.createElement("p");
+					newp.innerHTML = "Event: " + item[1].event + " Date: " + item[1].date +  " Time: " + item[1].time;
+					schedule_div.appendChild(newp);
+				  }
+				}						
+			}
+			else
+			{
+				for (item of returndataArray)
+				{				 
+					let newp = document.createElement("p");
+					newp.innerHTML = "Event: " + item[1].event + " Date: " + item[1].date +  " Time: " + item[1].time;
+					schedule_div.appendChild(newp);
+				}
+			}
           });
         </script>
-    <?php endif ?>
   </main>
 </body>
 </html>
