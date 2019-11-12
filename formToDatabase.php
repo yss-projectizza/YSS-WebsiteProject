@@ -29,21 +29,22 @@
           "email" => $_SESSION["newuserinfo"]["email"],
           "account_verified" => true);
 
-        if($redirectpagename == "parentRegistration.php") {
-			$userInfo["group_num"] = "N/A";
+        if($redirectpagename == "parentRegistration.php") 
+        {
+			    $userInfo["group_num"] = "N/A";
           $userInfo["user_type"] = "parent";
           $userInfo["credit_due"] = "299";
+        }
     }
-
-    if($_POST["password"] != $_POST["password2"]) {
-        //header("refresh:5; url=localhost:8000/overage_registration.php");
+    
+    if($_POST["password"] != $_POST["password2"]) 
+    {
         alertRedirect("$redirectpagename", "Retyped password must match password");
     }
-    else {
+    else 
+    {
       $updateFirebase($emailwcomma, $userInfo, $_POST);
-        //header("refresh:5; url=localhost:8000/login.php");
       alertRedirect("login.php",
       "Your account has been created successfully. Please log in to view your dashboard.");
     }
-  ?>
-
+?>
