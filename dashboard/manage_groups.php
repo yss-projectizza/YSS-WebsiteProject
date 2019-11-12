@@ -45,7 +45,7 @@ if (!isset($_SESSION))
     <div class="container">
         <h1 style="text-align:center; font-size:50px;padding-top: 2%;">Manage Groups</h1>
         <br>
-        <p> Add or delete families, cabins, and buses.</p>
+        <p> Add, edit, or delete families, cabins, and buses.</p>
         <hr/>
         <div style="text-align:center">
             <div class="dropdown">
@@ -313,7 +313,6 @@ function edit_group(key, index, num_groups, group_name, counselors, type)
                             counselor = format_counselor_list([counselor_array[0]]);
                         }
 
-                        alert("group size is "  + group_size);
                         firebase.database().ref(db_path).update({'name':name, 'max_size': max_size, 'grade_level': grade, 'size': group_size, 'counselor' : counselor});
 
                         cancel(type);
