@@ -125,7 +125,7 @@ function displayGroups(type)
             body_html += `<td id="edit-delete-cell-` + i + `"><button id='edit-btn-` + i + `' class='rounded' onclick="edit_group('${key}', ${i}, ${groups.length}, '${groups[i][1].name}', '${groups[i][1].counselor}', '${type}')">Edit</button>
                               <button id='delete-btn-` + i + `' class='rounded delete-btn' onclick="delete_group('${key}', '${groups[i][1].name}', '${type}')">Delete</button></td>`;
             
-            body_html += "</tr>";
+            body_html += "</tr><tr>";
         }
 
         document.getElementById("group-table-body").innerHTML = body_html;
@@ -185,15 +185,6 @@ function edit_group(key, index, num_groups, group_name, counselors, type)
         if(counselor_list.includes(","))
         {
             counselor_list = counselor_list.split(",");
-
-            // let counselor_display = "";
-
-            // for(let i = 0; i < counselor_list.length; i++)
-            // {
-            //     counselor_display += counselor_list[i] + `<br>`;   
-            // }
-
-            // document.getElementById("edit-delete-cell-" + index).innerHTML = counselor_display;
 
             for(let i = 0; i < counselors_from_db.length; i++)
             {
@@ -313,7 +304,7 @@ function edit_group(key, index, num_groups, group_name, counselors, type)
                             counselor = format_counselor_list([counselor_array[0]]);
                         }
 
-                        firebase.database().ref(db_path).update({'name':name, 'max_size': max_size, 'grade_level': grade, 'size': group_size, 'counselor' : counselor});
+                        firebase.database().ref(db_path).update({'name':name, 'max_size': max_size, 'grade_level': grade, 'size': parseInt(group_size), 'counselor' : counselor});
 
                         cancel(type);
                     }
@@ -369,8 +360,7 @@ function edit_group(key, index, num_groups, group_name, counselors, type)
                             counselor = format_counselor_list([counselor_array[0]]);
                         }
 
-                        alert("group size is "  + group_size);
-                        firebase.database().ref(db_path).update({'name':name, 'max_size': max_size, 'gender': gender, 'size': group_size, 'counselor' : counselor});
+                        firebase.database().ref(db_path).update({'name':name, 'max_size': max_size, 'gender': gender, 'size': parseInt(group_size), 'counselor' : counselor});
                         
                         cancel(type);
 
@@ -409,7 +399,7 @@ function edit_group(key, index, num_groups, group_name, counselors, type)
                         counselor = format_counselor_list([counselor_array[0]]);
                     }
 
-                    let size = document.getElementById("size-" + index).innerHTML;
+                    let size = parseInt(document.getElementById("size-" + index).innerHTML);
 
                     firebase.database().ref(db_path).update({'name':name, 'max_size': max_size, 'size': size, 'counselor' : counselor});
 
