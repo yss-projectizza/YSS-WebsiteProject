@@ -19,6 +19,8 @@ if( !$_SESSION["loggedin"]){
     {
       $email = $_SESSION["queryData"]["studentEmail"];
       $year = $_SESSION["queryData"]["year"];
+	  $defaultPassword = $_SESSION["queryData"]["defaultPassword"];
+	  $password = $_SESSION["queryData"]["password"];
     }
     else
     {
@@ -35,8 +37,15 @@ if( !$_SESSION["loggedin"]){
     if($user_type == "parent"){
       $credit_due = $_SESSION["queryData"]["credit_due"];
     }
-
-    include 'dashboard/main_dashboard.php';
+	
+	if ($user_type == "student" && $password == $defaultPassword){
+		
+		//include 'dashboard/main_dashboard.php';
+	    include "dashboard/main_users/profile.php";
+	}
+	else {
+		include 'dashboard/main_dashboard.php';
+	}
   } else if ($user_type == "admin"){
     // add any needed data for admin
     $name = "Admin";

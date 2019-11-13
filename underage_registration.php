@@ -226,6 +226,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                     var dob = document.getElementById("studentDOB").value;
                     var birthYear = dob.slice(0,4);
                     var defaultPassword = ln + birthYear;
+					var password = defaultPassword;
                     
                     // var size = document.getElementById("size").value;
                     var file = document.getElementById("upload").value;
@@ -259,7 +260,8 @@ $parent_email = $_SESSION["queryData"]["email"];
                             year: year,
                             dob: dob,
                             birthYear: birthYear,
-                            password: defaultPassword,
+							defaultPassword: defaultPassword,
+                            password: password,
                             file: file,
                             alleriges: allergies,
                             meds: meds,
