@@ -67,7 +67,8 @@ if (!isset($_SESSION))
     
     <!-- Button that links to Manage Groups page -->
     <div class="card">
-      <button type="button" onclick="window.location.href='/dashboard/manage_groups.php'"> Manage Groups </button>
+      <button class="rounded" style="margin-bottom: 10px" type="button" onclick="window.location.href='/dashboard/manage_groups.php'"> Manage Groups </button>
+      <button class="rounded" type="button" onclick="window.location.href='/dashboard/assign_counselors.php'"> Assign Counselors </button>
     </div>
 
     <div class="main-cards">
@@ -327,6 +328,9 @@ if (!isset($_SESSION))
                 th3.appendChild(label);
                 th3.appendChild(input);
 
+                var th5 = document.createElement("th");
+                th5.innerHTML = `hello!!!`;
+
                 var th4 = document.createElement("th");
                 var label = document.createElement("label");
                 var input = document.createElement("input");
@@ -337,6 +341,7 @@ if (!isset($_SESSION))
                 input.value = firebasedataArray[i][1]["group"];
                 th4.appendChild(label);
                 th4.appendChild(input);
+                
 
                 function delete_event(id) {
                   firebase.database().ref('/schedule/' + id).remove();
@@ -355,6 +360,7 @@ if (!isset($_SESSION))
                 eventDiv.appendChild(th1);
                 eventDiv.appendChild(th2);
                 eventDiv.appendChild(th3);
+                eventDiv.appendChild(th5);
                 eventDiv.appendChild(th4);
                 delete_th.appendChild(deletebutton);
                 eventDiv.appendChild(delete_th);
