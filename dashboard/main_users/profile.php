@@ -4,6 +4,12 @@
         session_start();
     }
 
+// This assumes that you have placed the Firebase credentials in the same directory
+// as this PHP file.
+require __DIR__. '/../../vendor/autoload.php';
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
+
   $user=$_SESSION["queryData"]["user_type"];
   
   if($user == "parent")
@@ -13,11 +19,42 @@
   else if($user == "student")
   {
     $emailwcomma = $_SESSION["queryData"]["studentEmail"];
+	$defaultPassword = $_SESSION["queryData"]["defaultPassword"];
+	$password = $_SESSION["queryData"]["password"];
   }
   
   $email= str_replace(".",",",$emailwcomma);
   
 ?>
+
+<!-- This block checks if student's password is still the default password. If yes, display a pop up
+message to prompt the student to change password. 
+ -->
+<?php
+if ($user == "student" and $password == $defaultPassword){
+	//echo "<script type='text/javascript'>alert('$email');</script>";
+	$username = str_replace(".", ",", $email);
+	$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/../../yss-project-69ba2-firebase-adminsdk-qpgd1-772443326e.json');
+	$firebase = (new Factory)
+		->withServiceAccount($serviceAccount)
+		->create();
+	$database = $firebase->getDatabase();
+	$reference = $database->getReference('/users')->getValue();
+	
+	if (array_key_exists($username,$reference)){
+		$_SESSION["queryData"] = $reference[$username];
+	}
+	$defaultPassword = $_SESSION["queryData"]["defaultPassword"];
+	$password = $_SESSION["queryData"]["password"];
+}
+
+// Check student's password again after updating data. If student's password is still default password,
+// redirect student to profile page.
+if ($user == "student" and $password == $defaultPassword){	
+	echo "<script type='text/javascript'>alert('Your password is still the default password. Please update your password.');</script>";		
+}
+?> 
+
 <html lang="en">
 
 <head>
@@ -424,6 +461,7 @@
                         alert("Your information has been saved successfully.")
                         var postID = newPostRef.key;
                         console.log("went to firebase");
+						window.location.href = "/dashboard.php";
                     }
                 });
 
