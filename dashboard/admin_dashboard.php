@@ -123,10 +123,13 @@ if (!isset($_SESSION))
                 buildUserDiv(alldata[i], i);
               }
 
-              function verifyCheck(verified, id) {
+              function verifyCheck(verified, id, key) {
+                // alert(key);
                 if (verified) {
                   document.getElementById(id).checked = true;
+                  firebase.database().ref('users/' + key).update({'account_verified': "true"});
                 } else {
+                  firebase.database().ref('users/' + key).update({'account_verified': "false"});
                   document.getElementById(id).checked = false;
                 }
               }
@@ -203,11 +206,11 @@ if (!isset($_SESSION))
 
 
                 document.getElementById("data").appendChild(boxDiv);
-                // if(alldata[index][1].user_type == "counselor" || alldata[index][1].user_type == "parent" && item[1].account_verified)
-                // {  
-                //   alert("a");
-                //   verifyCheck(item[1].account_verified);
-                // }
+                if(item[1].hasOwnProperty("account_verified"))
+                {  
+                  // alert("a");
+                  verifyCheck(item[1].account_verified, "verified", item[0]);
+                }
 
 
 
@@ -265,14 +268,10 @@ if (!isset($_SESSION))
         <h2>Schedule</h2>
         <div id="schedule">
           <div id="schedule_buttons">
-            <button id="addEvent" class="rounded">
-              Add an event
-            </button>
-            <button id="submit" class="rounded">
-              Submit
-            </button>
-            <br />
-            <br />
+            <button id="addEvent" class="rounded">Add an event</button>
+            <button id="submit" class="rounded">Submit</button>
+            <br/>
+            <br/>
           </div>
           <table id="inside-div">
           </table>
@@ -329,7 +328,13 @@ if (!isset($_SESSION))
                 th3.appendChild(input);
 
                 var th5 = document.createElement("th");
-                th5.innerHTML = `hello!!!`;
+                th5.id = "family-list-" + counter;
+                th5.innerHTML = `</button>
+                <div class="dropdown-menu" id = 'family-dropdown-` + counter + `' aria-labelledby="dropdownMenuButton"></div></div></td>
+                                    <td id='max-size-` + counter + `'>
+                                    <div class="dropdown">
+                <button id="toggle-cabins-` + counter + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">`;
 
                 var th4 = document.createElement("th");
                 var label = document.createElement("label");
@@ -360,8 +365,8 @@ if (!isset($_SESSION))
                 eventDiv.appendChild(th1);
                 eventDiv.appendChild(th2);
                 eventDiv.appendChild(th3);
-                eventDiv.appendChild(th5);
                 eventDiv.appendChild(th4);
+                eventDiv.appendChild(th5);
                 delete_th.appendChild(deletebutton);
                 eventDiv.appendChild(delete_th);
 
@@ -403,6 +408,9 @@ if (!isset($_SESSION))
               th3.appendChild(label);
               th3.appendChild(input);
 
+              var th5 = document.createElement("th");
+              th5.innerHTML = `hello!!!`;
+
               var th4 = document.createElement("th");
               var label = document.createElement("label");
               var input = document.createElement("input");
@@ -416,6 +424,7 @@ if (!isset($_SESSION))
               eventDiv.appendChild(th2);
               eventDiv.appendChild(th3);
               eventDiv.appendChild(th4);
+              eventDiv.appendChild(th5);
               updiv.appendChild(eventDiv);
 
             });

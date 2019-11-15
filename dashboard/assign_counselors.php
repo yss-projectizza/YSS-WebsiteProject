@@ -47,18 +47,6 @@ if (!isset($_SESSION))
         <p> Assign the counselors</p>
         <hr/>
         <div style="text-align:center">
-            <!-- <div class="dropdown">
-                <button id="toggle-group-type" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Group Type:
-                </button>
-                FOR REFERENCE DELETE LATER
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" id="family-option" onclick="displayGroups('families')">Families</a>
-                    <a class="dropdown-item" id="cabin-option" onclick="displayGroups('cabins')">Cabins</a>
-                    <a class="dropdown-item" id="bus-option" onclick="displayGroups('buses')">Buses</a> -->
-                <!-- </div>
-            </div> -->
         </div>
         
         <div class="container" id="group-list" style="text-align:center; margin-bottom:13%">
@@ -78,103 +66,182 @@ if (!isset($_SESSION))
 </html>
 
 <script>
-    displayCounselors();
+displayCounselors();
 
-    function displayCounselors()
-    {
-        firebase.database().ref('users').orderByChild('user_type').equalTo('counselor').once("value", function(snapshot)
+function displayCounselors()
+{
+    firebase.database().ref('users').orderByChild('user_type').equalTo('counselor').once("value", function(snapshot)
     {
         let counselors = Object.entries(snapshot.val());
 
-        let heading_html = "<th>Counselor Name</th><th>Family</th><th>Cabin</th><th>Bus</th> <th> </th>";
+        let heading_html = "<th>Counselor Name</th><th>Family</th><th>Cabin</th><th>Bus</th><th> </th>";
 
         document.getElementById("heading-row").innerHTML = heading_html;
 
-        let table_rows = "<tr>";
+        let table_rows = "";
 
 
         for (let i = 0; i < counselors.length; ++i)
         {
+            table_rows += "<tr>";
             let counselor_name = counselors[i][1].first_name + " " + counselors[i][1].last_name;
-            table_rows += `<td id='name-` + i +`'><div id="name-div-` + i +`" class='rounded name-cell'>${counselor_name}</div></td>
-                         <td id='size-` + i + `'>
-                         <div class="dropdown">
-        <button id="toggle-families-` + i +`"  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Families:
-        </button>
-        <div class="dropdown-menu" id = 'family-dropdown-` + i + `' aria-labelledby="dropdownMenuButton"></div></div></td>
-                         <td id='max-size-` + i + `'>
-                         <div class="dropdown">
-        <button id="toggle-cabins-` + i + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Cabins:
-        </button>
-        <div class="dropdown-menu" id = 'cabin-dropdown-` + i + `' aria-labelledby="dropdownMenuButton"></div></div></td>
-                         <td id='max-size-` + i + `'>
-                         <div class="dropdown">
-        <button id="toggle-buses-` + i + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Buses:
-        </button>
-        <div class="dropdown-menu" id = 'bus-dropdown-` + i + `' aria-labelledby="dropdownMenuButton"></div></div></td>
-        <td><button id = "submit-` + i + `" onclick = "temp_alert('${i}')">Submit</button></td>`;
+            let key = counselors[i][0];
 
-            table_rows += "</tr><tr>";
+            table_rows += `<td id='name-` + i +`'><div id="name-div-` + i +`" class='rounded name-cell'>${counselor_name}</div></td>
+                            <td id='size-` + i + `'>
+                            <div class="dropdown">
+        <button id="toggle-families-` + i +`"  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">`;
+            
+            if(counselors[i][1].group_num != "N/A")
+            {
+                table_rows += counselors[i][1].group_num;
+            }
+            else
+            {
+                table_rows += "Families:";
+            }
+               
+            // Creates dropdown of group names
+            table_rows += `</button>
+                <div class="dropdown-menu" id = 'family-dropdown-` + i + `' aria-labelledby="dropdownMenuButton"></div></div></td>
+                                    <td id='max-size-` + i + `'>
+                                    <div class="dropdown">
+                <button id="toggle-cabins-` + i + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">`;
+
+            if(counselors[i][1].cabin_num != "N/A")
+            {
+                table_rows += counselors[i][1].cabin_num;
+            }
+            else
+            {
+                table_rows += "Cabins:";
+            }
+                
+            table_rows += `</button>
+                <div class="dropdown-menu" id = 'cabin-dropdown-` + i + `' aria-labelledby="dropdownMenuButton"></div></div></td>
+                                    <td id='max-size-` + i + `'>
+                                    <div class="dropdown">
+                <button id="toggle-buses-` + i + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">`;
+            
+                if(counselors[i][1].bus_num != "N/A")
+            {
+                table_rows += counselors[i][1].bus_num;
+            }
+            else
+            {
+                table_rows += "Buses:";
+            }
+                
+            table_rows += `</button>
+                <div class="dropdown-menu" id = 'bus-dropdown-` + i + `' aria-labelledby="dropdownMenuButton"></div></div></td>
+                <td><button id = "submit-` + i + `" onclick = "submit_changes('${key}', '${i}')">Submit</button></td>`;
+
+            table_rows += "</tr>";
+
             group_dropdown("families", i);
             group_dropdown("cabins", i);
             group_dropdown("buses", i);
         }
+        
         document.getElementById("group-table-body").innerHTML = table_rows;
     });
-    }
+}
 
-    function group_dropdown(type, index)
+function group_dropdown(type, index)
+{
+    firebase.database().ref(type).once("value", function(snapshot)
     {
-        firebase.database().ref(type).once("value", function(snapshot)
+        let groups = Object.entries(snapshot.val());
+        let group_names = "";
+
+        for (let i = 0; i < groups.length; ++i)
         {
-            let groups = Object.entries(snapshot.val());
-            let group_names = "";
-
-            for (let i = 0; i < groups.length; ++i)
-            {
-                group_names += `<a class="dropdown-item" onclick = "update_dropdown_value('${type}','${groups[i][1].name}', ${index})">${groups[i][1].name} </a>`;
-            }
-            
-            switch(type)
-            {
-                case 'families': document.getElementById("family-dropdown-" + index).innerHTML = group_names;
-                    break;
-                
-                case 'cabins': document.getElementById("cabin-dropdown-" + index).innerHTML = group_names;
-                    break;
-
-                case 'buses': document.getElementById("bus-dropdown-" + index).innerHTML = group_names;
-
-            }
-        });
-    }
-
-    function update_dropdown_value(type, name, index)
-    {
+            group_names += `<a class="dropdown-item" onclick="update_dropdown_value('${type}','${groups[i][1].name}', ${index})">${groups[i][1].name} </a>`;
+        }
+        
         switch(type)
-            {
-                case 'families': document.getElementById("toggle-families-" + index).innerHTML = name;
-                    break;
-                
-                case 'cabins': document.getElementById("toggle-cabins-" + index).innerHTML = name;
-                    break;
+        {
+            case 'families': document.getElementById("family-dropdown-" + index).innerHTML = group_names;
+                break;
+            
+            case 'cabins': document.getElementById("cabin-dropdown-" + index).innerHTML = group_names;
+                break;
 
-                case 'buses': document.getElementById("toggle-buses-" + index).innerHTML = name;
+            case 'buses': document.getElementById("bus-dropdown-" + index).innerHTML = group_names;
 
-            }
-    }
+        }
+    });
+}
 
-    function temp_alert(index)
+function update_dropdown_value(type, name, index)
+{
+    switch(type)
+        {
+            case 'families': document.getElementById("toggle-families-" + index).innerHTML = name;
+                break;
+            
+            case 'cabins': document.getElementById("toggle-cabins-" + index).innerHTML = name;
+                break;
+
+            case 'buses': document.getElementById("toggle-buses-" + index).innerHTML = name;
+
+        }
+}
+
+function submit_changes(key, index)
+{
+    let fam_update = document.getElementById("toggle-families-" + index).innerHTML;
+    let cabin_update = document.getElementById("toggle-cabins-" + index).innerHTML;
+    let bus_update = document.getElementById("toggle-buses-" + index).innerHTML;
+
+    // update counselor strings of all selected groups function update_group_counselors(type, update_name, counselor_name)
+
+    // update the selected counselor's groups (need counselor key)
+
+    firebase.database().ref("users/" + key).once("value", function(snapshot)
     {
-        alert(document.getElementById("toggle-families-" + index).innerHTML);
-        alert(document.getElementById("toggle-cabins-" + index).innerHTML);
-        alert(document.getElementById("toggle-buses-" + index).innerHTML);
-    }
+        let counselor = snapshot.val();
+
+        update_counselor_group(key, "families", counselor.group_num, fam_update);
+        update_counselor_group(key, "cabins", counselor.cabin_num, cabin_update);
+        update_counselor_group(key, "buses", counselor.bus_num, bus_update);
+    });
+}
+
+function update_counselor_group(key, type, current_group_name, selected_group_name)
+{
+    firebase.database().ref(type).orderByChild("name").equalTo(current_group_name).once("value", function(snapshot)
+    {
+        let group = Object.entries(snapshot.val());
+
+        alert(group.length);
+
+        if(current_group_name != "N/A")
+        {
+            if(current_group_name == selected_group_name)
+            {
+                alert("group was not changed");
+            }
+            else
+            {
+                alert("group is being changed.");
+            }
+        }
+        else
+        {
+            if(selected_group_name.includes(":"))
+            {
+                alert("no group chosen");
+            }
+            else
+            {
+                alert("currently N/A, assigning to " + selected_group_name);
+            }
+        }
+    });
+}
 
 </script>
