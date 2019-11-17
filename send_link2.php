@@ -1,4 +1,5 @@
 <?php
+	//Testing new branch: beginSprint4
 	// Sky: This method will try to use PHPMailer to send mail
 	if(!isset($_SESSION))
     {
