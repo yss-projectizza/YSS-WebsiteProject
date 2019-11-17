@@ -11,24 +11,24 @@ use Kreait\Firebase\Factory;
 use Kreait\Firebase\ServiceAccount;
 
   $user=$_SESSION["queryData"]["user_type"];
-  
+  $emailwcomma ="";
   if($user == "parent")
   {
     $emailwcomma = $_SESSION["queryData"]["email"];
   }
   else if($user == "student")
   {
-    $emailwcomma = $_SESSION["queryData"]["studentEmail"];
+  $emailwcomma = $_SESSION["queryData"]["studentEmail"];
 	$defaultPassword = $_SESSION["queryData"]["defaultPassword"];
 	$password = $_SESSION["queryData"]["password"];
   }
-  
+
   $email= str_replace(".",",",$emailwcomma);
-  
+
 ?>
 
 <!-- This block checks if student's password is still the default password. If yes, display a pop up
-message to prompt the student to change password. 
+message to prompt the student to change password.
  -->
 <?php
 if ($user == "student" and $password == $defaultPassword){
@@ -40,7 +40,7 @@ if ($user == "student" and $password == $defaultPassword){
 		->create();
 	$database = $firebase->getDatabase();
 	$reference = $database->getReference('/users')->getValue();
-	
+
 	if (array_key_exists($username,$reference)){
 		$_SESSION["queryData"] = $reference[$username];
 	}
@@ -50,10 +50,10 @@ if ($user == "student" and $password == $defaultPassword){
 
 // Check student's password again after updating data. If student's password is still default password,
 // redirect student to profile page.
-if ($user == "student" and $password == $defaultPassword){	
-	echo "<script type='text/javascript'>alert('Your password is still the default password. Please update your password.');</script>";		
+if ($user == "student" and $password == $defaultPassword){
+	echo "<script type='text/javascript'>alert('Your password is still the default password. Please update your password.');</script>";
 }
-?> 
+?>
 
 <html lang="en">
 
@@ -108,6 +108,117 @@ if ($user == "student" and $password == $defaultPassword){
             </div>
         </div>
 
+<!-- Personal Info adding picture 11/2/2019 -->
+        <div class="row initial-task-padding"></div>
+          <form method="post" enctype ="multipart/form-data">Photos<b></b>
+              <input id ="iconUpload" type="file" name="icon_file" value="upload" times-label="file" required>
+              <button type="submit" name="submit">UPLOAD</button>
+
+            </form>
+
+
+
+
+        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-storage.js"></script>
+
+        <script>
+            var iconImage;
+
+            function uploadImage(evt){
+                iconUpload = document.getElementById('iconUpload');
+                iconImage = new File([iconUpload.files[0]], emailwcharactersreplaced);
+            }
+            document.getElementById('iconUpload').addEventListener('change', uploadImage, false);
+
+            function validateImgProcess(){
+
+                    var config = {
+                        apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                        authDomain: "yss-project-69ba2.firebaseapp.com",
+                        databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                        projectId: "yss-project-69ba2",
+                        storageBucket: "yss-project-69ba2.appspot.com",
+                        messagingSenderId: "530416464878"
+                    };
+                    firebase.initializeApp(config);
+                    var storageRef = firebase.storage().ref();
+                    var database = firebase.database();
+                    var storageRef = firebase.storage().ref('icon/' + iconImage.name);
+                      alert("here! image name: " + iconImage.name);
+                    var metadata = {
+                        contentType: 'image/jpeg'
+                    };
+                    storageRef.put(iconImage, metadata).then(function(snapshot) {
+                        console.log("Uploaded an array!");
+                    });
+                    return true;
+
+            }
+
+          </script>
+
+
+<!--  /*      <script>
+        			 firebase.database().ref('/').once('value').then(async function (snapshot) {
+        			  alldata = Object.entries(snapshot.val().users)
+
+        			  for (var index in alldata) {
+
+                            let i = index;
+                            var email = (alldata[index][1].email).replace(".", ",");
+                            var iconRef = firebase.storage().ref('icon/' + email);
+                            iconRef.getDownloadURL().then(function (url) {
+                              var modal_id = "modal" + i;
+                              var iconID = "icon" + i;
+                               console.log("iconID=", iconID)
+                              var iconElem = document.getElementById(iconID);
+                              iconElem.innerHTML =
+                                "<button class='rounded user-button' data-toggle='modal' data-target='#" +
+                                modal_id + "'>Show icon</button><div id='" +
+                                modal_id + "' class='modal fade' role='dialog'>" +
+                                `<div class="modal-dialog">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h4> Image for icon </h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    <img class="auth-img" src="` + url + `"/>
+                                                  </div>
+                                                </div>
+                                              </div>`
+                            }).catch(function (error) {
+                              switch (error.code) {
+                                case 'storage/object-not-found': // File doesn't exist
+                                  // console.log("file doesn't exist");
+                                  break;
+                                case 'storage/unauthorized': // User doesn't have permission to access the object
+                                  console.log("no permission");
+                                  break;
+                                case 'storage/canceled': // User canceled the upload
+                                  console.log("canceled");
+                                  break;
+                                case 'storage/unknown': // Unknown error occurred, inspect the server response
+                                  console.log("unknown error");
+                                  break;
+                              }
+                            });
+                          }
+                          });
+
+
+        	 </script>
+
+-->
+
+
+
+
+
+
+
         <?php if($user == "student" || $user == "student18" || $user == "counselor"): ?>
 
         <div class="input-group mb-3">
@@ -122,7 +233,7 @@ if ($user == "student" and $password == $defaultPassword){
                 </select>
             </div>
         </div>
-        
+
         <?php endif?>
 
         <!-- Personal Information -->
