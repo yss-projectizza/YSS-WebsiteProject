@@ -65,10 +65,11 @@ if (!isset($_SESSION))
   <main class="main">
     <h3>Admin Panel</h3>
     
-    <!-- Button that links to Manage Groups page -->
+    <!-- Buttons to Manage Groups, Assign Counselors, and View All User Info pages -->
     <div class="card">
       <button class="rounded" style="margin-bottom: 10px" type="button" onclick="window.location.href='/dashboard/manage_groups.php'"> Manage Groups </button>
-      <button class="rounded" type="button" onclick="window.location.href='/dashboard/assign_counselors.php'"> Assign Counselors </button>
+      <button class="rounded" style="margin-bottom: 10px" type="button" onclick="window.location.href='/dashboard/assign_counselors.php'"> Assign Counselors </button>
+      <button class="rounded" style="margin-bottom: 10px" type="button" onclick="window.location.href='/dashboard/view_all_user_info.php'"> View All User Information </button>
     </div>
 
     <div class="main-cards">
@@ -231,7 +232,6 @@ if (!isset($_SESSION))
                         `<div class="modal-dialog">
                                         <div class="modal-content">
                                           <div class="modal-header">
-                                            <h4> Image for Authentication </h4>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                           </div>
                                           <div class="modal-body">

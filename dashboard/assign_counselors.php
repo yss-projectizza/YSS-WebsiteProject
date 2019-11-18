@@ -61,8 +61,6 @@ if (!isset($_SESSION))
         </div>
     </div>
   </body>
-
-  </body>
 </html>
 
 <script>
@@ -142,7 +140,7 @@ function displayCounselors()
             table_rows += "</tr>";
 
             group_dropdown("families", i);
-            group_dropdown("cabins", i);
+            group_dropdown("cabins", i, counselors[i][1].gender);
             group_dropdown("buses", i);
         }
         
@@ -150,7 +148,7 @@ function displayCounselors()
     });
 }
 
-function group_dropdown(type, index)
+function group_dropdown(type, index, gender="")
 {
     firebase.database().ref(type).once("value", function(snapshot)
     {
@@ -159,7 +157,17 @@ function group_dropdown(type, index)
 
         for (let i = 0; i < groups.length; ++i)
         {
-            group_names += `<a class="dropdown-item" onclick="update_dropdown_value('${type}','${groups[i][1].name}', ${index})">${groups[i][1].name} </a>`;
+            if(gender == "")
+            {
+                group_names += `<a class="dropdown-item" onclick="update_dropdown_value('${type}','${groups[i][1].name}', ${index})">${groups[i][1].name} </a>`;
+            }
+            else
+            {
+                if(gender == groups[i][1].gender)
+                {
+                    group_names += `<a class="dropdown-item" onclick="update_dropdown_value('${type}','${groups[i][1].name}', ${index})">${groups[i][1].name} </a>`;
+                }
+            }
         }
         
         switch(type)
