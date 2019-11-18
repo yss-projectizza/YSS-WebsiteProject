@@ -61,6 +61,7 @@ td {
   text-align:left;
   border-collapse: separate;
   border-radius: 10px;
+  margin:10px;
 }
 
 .manage-groups-table th, td

@@ -137,7 +137,7 @@ function displayCounselors()
                 
             table_rows += `</button>
                 <div class="dropdown-menu" id = 'bus-dropdown-` + i + `' aria-labelledby="dropdownMenuButton"></div></div></td>
-                <td><button id = "submit-` + i + `" onclick = "submit_changes('${key}', '${i}')">Submit</button></td>`;
+                <td><button class="rounded" id = "submit-` + i + `" onclick = "submit_changes('${key}', '${i}')">Submit</button></td>`;
 
             table_rows += "</tr>";
 
@@ -197,51 +197,110 @@ function submit_changes(key, index)
     let cabin_update = document.getElementById("toggle-cabins-" + index).innerHTML;
     let bus_update = document.getElementById("toggle-buses-" + index).innerHTML;
 
-    // update counselor strings of all selected groups function update_group_counselors(type, update_name, counselor_name)
-
-    // update the selected counselor's groups (need counselor key)
-
     firebase.database().ref("users/" + key).once("value", function(snapshot)
     {
         let counselor = snapshot.val();
 
-        update_counselor_group(key, "families", counselor.group_num, fam_update);
-        update_counselor_group(key, "cabins", counselor.cabin_num, cabin_update);
-        update_counselor_group(key, "buses", counselor.bus_num, bus_update);
+        update_counselor_group(index, key, "families", counselor.group_num, fam_update);
+        update_counselor_group(index, key, "cabins", counselor.cabin_num, cabin_update);
+        update_counselor_group(index, key, "buses", counselor.bus_num, bus_update);
     });
 }
 
-function update_counselor_group(key, type, current_group_name, selected_group_name)
+function update_counselor_group(index, key, type, current_group_name, selected_group_name)
 {
-    firebase.database().ref(type).orderByChild("name").equalTo(current_group_name).once("value", function(snapshot)
-    {
-        let group = Object.entries(snapshot.val());
-
-        alert(group.length);
-
         if(current_group_name != "N/A")
         {
-            if(current_group_name == selected_group_name)
+            if(current_group_name != selected_group_name)
             {
-                alert("group was not changed");
-            }
-            else
-            {
-                alert("group is being changed.");
+                firebase.database().ref(type).orderByChild("name").equalTo(current_group_name).once("value", function(snapshot)
+                {
+                    let current_group = Object.entries(snapshot.val());
+
+                    firebase.database().ref(type).orderByChild("name").equalTo(selected_group_name).once("value", function(snapshot)
+                    {
+                        let selected_group = Object.entries(snapshot.val());
+                        
+                        let updated_old_group_counselor_list = remove_counselor_from_list(document.getElementById("name-div-"+index).innerHTML, current_group[0][1].counselor);
+                        let updated_new_group_counselor_list = add_counselor_to_list(document.getElementById("name-div-"+index).innerHTML, selected_group[0][1].counselor);
+
+                        firebase.database().ref(type + "/" + current_group[0][0]).update({'counselor': updated_old_group_counselor_list});
+                        firebase.database().ref(type + "/" + selected_group[0][0]).update({'counselor': updated_new_group_counselor_list});
+
+                        switch(type)
+                        {
+                            case "families": firebase.database().ref('users/' + key).update({'group_num': selected_group_name});
+                                break;
+                            case "cabins": firebase.database().ref('users/' + key).update({'cabin_num': selected_group_name});
+                                break;
+                            case "buses": firebase.database().ref('users/' + key).update({'bus_num': selected_group_name});
+                        }
+                    });
+                });
+
+                alert("Changes were saved successfully!");
             }
         }
         else
         {
-            if(selected_group_name.includes(":"))
+            if(!selected_group_name.includes(":"))
             {
-                alert("no group chosen");
-            }
-            else
-            {
-                alert("currently N/A, assigning to " + selected_group_name);
+                firebase.database().ref(type).orderByChild("name").equalTo(selected_group_name).once("value", function(snapshot)
+                {
+                    let selected_group = Object.entries(snapshot.val());
+                    
+                    let updated_new_group_counselor_list = add_counselor_to_list(document.getElementById("name-div-" + index).innerHTML, selected_group[0][1].counselor);
+                    
+                    firebase.database().ref(type + "/" + selected_group[0][0]).update({'counselor': updated_new_group_counselor_list});
+
+                    switch(type)
+                    {
+                        case "families": firebase.database().ref('users/' + key).update({'group_num': selected_group_name});
+                            break;
+                        case "cabins": firebase.database().ref('users/' + key).update({'cabin_num': selected_group_name});
+                            break;
+                        case "buses": firebase.database().ref('users/' + key).update({'bus_num': selected_group_name});
+                    }
+                });
+
+                alert("Changes were saved successfully!");
             }
         }
-    });
+}
+
+function remove_counselor_from_list(counselor_name, counselor_string)
+{
+    if(counselor_string.includes(",")) // 2 or more
+    {
+        if(counselor_string.includes("," + counselor_name)) // counselor is not in the first position
+        {
+            counselor_string = counselor_string.replace("," + counselor_name, "");
+        }
+        else if(counselor_string.includes(counselor_name + ",")) // counselor is first in list
+        {
+            counselor_string = counselor_string.replace(counselor_name + ",", "");
+        }
+    }
+    else // 1 counselor
+    {
+        counselor_string = "TBD";
+    }
+
+    return counselor_string;
+}
+
+function add_counselor_to_list(counselor_name, counselor_string)
+{
+    if(counselor_string == "TBD") // no counselors assigned
+    {
+        counselor_string = counselor_name;
+    }
+    else // one or more
+    {
+        counselor_string += "," + counselor_name;
+    }
+
+    return counselor_string;
 }
 
 </script>
