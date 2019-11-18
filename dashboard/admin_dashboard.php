@@ -186,7 +186,7 @@ if (!isset($_SESSION))
               ${item[1].user_type}
             </td>
             <td>
-              <input class='group-input' onchange='update_groupnum(event, "${item[0]}")' value="${group}" ${isDisabled}>
+              <input disabled="disabled" class='group-input' onchange='update_groupnum(event, "${item[0]}")' value="${group}" ${isDisabled}>
             </td>
             <td>
               <input class='group-input' onchange='update_cabinnum(event,"${item[0]}")' value="${cabin}" ${isDisabled}>

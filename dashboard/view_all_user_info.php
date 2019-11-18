@@ -163,8 +163,7 @@ function displayUsers(user_type)
                 }
                     
                 table_rows += `</button>
-                    <div class="dropdown-menu" id = 'bus-dropdown-` + i + `' aria-labelledby="dropdownMenuButton"></div></div></td>
-                    <td><button class="rounded" id = "submit-` + i + `" onclick = "submit_changes('${key}', '${i}')">Submit</button></td>`;
+                    <div class="dropdown-menu" id = 'bus-dropdown-` + i + `' aria-labelledby="dropdownMenuButton"></div></div></td>`;
 
                 table_rows += "</tr>";
 
