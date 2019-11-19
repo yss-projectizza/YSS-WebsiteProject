@@ -101,7 +101,10 @@ function displayUsers(user_type)
         }
 
         // empty cell for edit button
-        heading_html += "<th> </th>";
+        if(user_type == "counselor" || user_type == "student")
+        {
+            heading_html += "<th> </th>";
+        }
 
         let table_rows = "";
 
@@ -165,6 +168,22 @@ function displayUsers(user_type)
                 table_rows += `</button>
                     <div class="dropdown-menu" id = 'bus-dropdown-` + i + `' aria-labelledby="dropdownMenuButton"></div></div></td>`;
 
+
+                
+                if(user_type == "counselor")
+                {
+                    table_rows += `<td><input type='checkbox' id='verified${i}' `;
+                    
+                    if(users[i][1].account_verified == "true")
+                    {
+                        table_rows += ` checked='true' `;
+                    }
+
+                    table_rows += `onchange="verifyAccount('${key}', ${i}, 'counselor-option')"`;
+
+                    table_rows += `></input></td>`;
+                }
+
                 table_rows += "</tr>";
 
                 if(user_type != "student")
@@ -184,7 +203,7 @@ function displayUsers(user_type)
         {
             for(let i = 0; i < users.length; i++)
             {
-                var email = (users[i][1].email).replace(".", ",");
+                var email = (users[i][1].email).replace(".", ","); // current user's email 
                 
                 // grabs image from storage
                 firebase.storage().ref('dl/' + email).getDownloadURL().then(function (url)
@@ -211,7 +230,18 @@ function displayUsers(user_type)
                                                 </div>
                                             </div>
                                         </div>
-                                </td>`; 
+                                </td>`;
+
+                    table_rows += `<td><input type='checkbox' id='verified${i}' `;
+
+                    if(users[i][1].account_verified == "true")
+                    {
+                        table_rows += ` checked='true' `;
+                    }
+                    
+                    table_rows += `onchange="verifyAccount('${key}', ${i}, 'parent-option')"`;
+
+                    table_rows += `></input></td>`;
                     
                     table_rows += "</tr>";
                     
@@ -219,22 +249,24 @@ function displayUsers(user_type)
                 });
             }
         }
-
-        if(user_type == "counselor" || user_type == "parent")
-        {
-            
-        }
-
+        
         document.getElementById("heading-row").innerHTML = heading_html;
         document.getElementById("user-table-body").innerHTML = table_rows;
     });
 }
 
-function show_authenticaion(email, index, modal_id)
+function verifyAccount(email, index, refresh_path)
 {
-    // alert(email);
+    if(document.getElementById("verified" + index).checked == true)
+    {
+        firebase.database().ref('users/' + email).update({'account_verified': "true"});
+    }
+    else
+    {
+        firebase.database().ref('users/' + email).update({'account_verified': "false"});
+    }
 
-    
+    document.getElementById(refresh_path).click();
 }
 
 function group_dropdown(type, index, grade="", gender="", user_type)
