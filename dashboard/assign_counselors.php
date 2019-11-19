@@ -276,6 +276,11 @@ function update_counselor_group(index, key, type, current_group_name, selected_g
         }
 }
 
+function a()
+{
+    alert("in assign_counselors.php");
+}
+
 function remove_counselor_from_list(counselor_name, counselor_string)
 {
     if(counselor_string.includes(",")) // 2 or more

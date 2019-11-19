@@ -41,6 +41,7 @@ if (!isset($_SESSION))
 
   <body style="background-color:rgb(233, 231, 231)"> 
     <?php include('../header_loggedin.php') ?>
+    
     <div class="container">
         <h1 style="text-align:center; font-size:50px;padding-top: 2%;">All User Information</h1>
         <br>
@@ -184,6 +185,15 @@ function displayUsers(user_type)
                     table_rows += `></input></td>`;
                 }
 
+                if(user_type == "counselor")
+                {
+                    table_rows += `<td><button class="rounded" id = "submit-` + i + `" onclick = "submit_changes('${key}', '${i}')">Submit</button></td>`;
+                }
+                else
+                {
+                    table_rows += `<td><button class="rounded" id = "submit-` + i + `" onclick = "submit_student_changes('${key}', '${i}')">Submit</button></td>`;
+                }
+
                 table_rows += "</tr>";
 
                 if(user_type != "student")
@@ -253,6 +263,88 @@ function displayUsers(user_type)
         document.getElementById("heading-row").innerHTML = heading_html;
         document.getElementById("user-table-body").innerHTML = table_rows;
     });
+}
+
+function submit_student_changes(key, index)
+{
+    let fam_update = document.getElementById("toggle-families-" + index).innerHTML;
+    let cabin_update = document.getElementById("toggle-cabins-" + index).innerHTML;
+    let bus_update = document.getElementById("toggle-buses-" + index).innerHTML;
+
+    firebase.database().ref("users/" + key).once("value", function(snapshot)
+    {
+        let student = snapshot.val();
+
+        update_student_group(index, key, "families", student.group_num, fam_update);
+        update_student_group(index, key, "cabins", student.cabin_num, cabin_update);
+        update_student_group(index, key, "buses", student.bus_num, bus_update);
+    });
+}
+
+function update_student_group(index, key, type, current_group_name, selected_group_name)
+{
+    if(current_group_name != "N/A") // group is already assigned
+    {
+        if(current_group_name != selected_group_name) // group is changed
+        {
+            firebase.database().ref(type).orderByChild("name").equalTo(current_group_name).once("value", function(snapshot)
+            {
+                let current_group = Object.entries(snapshot.val());
+
+                firebase.database().ref(type).orderByChild("name").equalTo(selected_group_name).once("value", function(snapshot)
+                {
+                    let selected_group = Object.entries(snapshot.val());
+
+                    let old_group_size = parseInt(current_group[0][1].size);
+                    let new_group_size = parseInt(selected_group[0][1].size);
+
+                    old_group_size--;
+                    new_group_size++;
+
+                    firebase.database().ref(type + "/" + current_group[0][0]).update({'size': parseInt(old_group_size)});
+                    firebase.database().ref(type + "/" + selected_group[0][0]).update({'size': parseInt(new_group_size)});
+
+                    switch(type)
+                    {
+                        case "families": firebase.database().ref('users/' + key).update({'group_num': selected_group_name});
+                            break;
+                        case "cabins": firebase.database().ref('users/' + key).update({'cabin_num': selected_group_name});
+                            break;
+                        case "buses": firebase.database().ref('users/' + key).update({'bus_num': selected_group_name});
+                    }
+                });
+            });
+
+            alert("Changes were saved successfully!");
+        }
+    }
+    else // group is not assigned
+    {
+        if(!selected_group_name.includes(":")) // group is assigned
+        {
+            firebase.database().ref(type).orderByChild("name").equalTo(selected_group_name).once("value", function(snapshot)
+            {
+                let selected_group = Object.entries(snapshot.val());
+
+                let new_group_size = parseInt(selected_group[0][1].size);
+
+                new_group_size++;
+                
+                firebase.database().ref(type + "/" + selected_group[0][0]).update({'size': parseInt(new_group_size)});
+
+                switch(type)
+                {
+                    case "families": firebase.database().ref('users/' + key).update({'group_num': selected_group_name});
+                        break;
+                    case "cabins": firebase.database().ref('users/' + key).update({'cabin_num': selected_group_name});
+                        break;
+                    case "buses": firebase.database().ref('users/' + key).update({'bus_num': selected_group_name});
+                }
+            });
+
+            alert("Changes were saved successfully!");
+        }
+    }
 }
 
 function verifyAccount(email, index, refresh_path)
@@ -327,6 +419,118 @@ function update_dropdown_value(type, name, index)
             case 'buses': document.getElementById("toggle-buses-" + index).innerHTML = name;
 
         }
+}
+
+function submit_changes(key, index)
+{
+    let fam_update = document.getElementById("toggle-families-" + index).innerHTML;
+    let cabin_update = document.getElementById("toggle-cabins-" + index).innerHTML;
+    let bus_update = document.getElementById("toggle-buses-" + index).innerHTML;
+
+    firebase.database().ref("users/" + key).once("value", function(snapshot)
+    {
+        let counselor = snapshot.val();
+
+        update_counselor_group(index, key, "families", counselor.group_num, fam_update);
+        update_counselor_group(index, key, "cabins", counselor.cabin_num, cabin_update);
+        update_counselor_group(index, key, "buses", counselor.bus_num, bus_update);
+    });
+}
+
+function update_counselor_group(index, key, type, current_group_name, selected_group_name)
+{
+    if(current_group_name != "N/A")
+    {
+        if(current_group_name != selected_group_name)
+        {
+            firebase.database().ref(type).orderByChild("name").equalTo(current_group_name).once("value", function(snapshot)
+            {
+                let current_group = Object.entries(snapshot.val());
+
+                firebase.database().ref(type).orderByChild("name").equalTo(selected_group_name).once("value", function(snapshot)
+                {
+                    let selected_group = Object.entries(snapshot.val());
+                    
+                    let updated_old_group_counselor_list = remove_counselor_from_list(document.getElementById("name-div-"+index).innerHTML, current_group[0][1].counselor);
+                    let updated_new_group_counselor_list = add_counselor_to_list(document.getElementById("name-div-"+index).innerHTML, selected_group[0][1].counselor);
+
+                    firebase.database().ref(type + "/" + current_group[0][0]).update({'counselor': updated_old_group_counselor_list});
+                    firebase.database().ref(type + "/" + selected_group[0][0]).update({'counselor': updated_new_group_counselor_list});
+
+                    switch(type)
+                    {
+                        case "families": firebase.database().ref('users/' + key).update({'group_num': selected_group_name});
+                            break;
+                        case "cabins": firebase.database().ref('users/' + key).update({'cabin_num': selected_group_name});
+                            break;
+                        case "buses": firebase.database().ref('users/' + key).update({'bus_num': selected_group_name});
+                    }
+                });
+            });
+
+            alert("Changes were saved successfully!");
+        }
+    }
+    else
+    {
+        if(!selected_group_name.includes(":"))
+        {
+            firebase.database().ref(type).orderByChild("name").equalTo(selected_group_name).once("value", function(snapshot)
+            {
+                let selected_group = Object.entries(snapshot.val());
+                
+                let updated_new_group_counselor_list = add_counselor_to_list(document.getElementById("name-div-" + index).innerHTML, selected_group[0][1].counselor);
+                
+                firebase.database().ref(type + "/" + selected_group[0][0]).update({'counselor': updated_new_group_counselor_list});
+
+                switch(type)
+                {
+                    case "families": firebase.database().ref('users/' + key).update({'group_num': selected_group_name});
+                        break;
+                    case "cabins": firebase.database().ref('users/' + key).update({'cabin_num': selected_group_name});
+                        break;
+                    case "buses": firebase.database().ref('users/' + key).update({'bus_num': selected_group_name});
+                }
+            });
+
+            alert("Changes were saved successfully!");
+        }
+    }
+}
+
+function remove_counselor_from_list(counselor_name, counselor_string)
+{
+    if(counselor_string.includes(",")) // 2 or more
+    {
+        if(counselor_string.includes("," + counselor_name)) // counselor is not in the first position
+        {
+            counselor_string = counselor_string.replace("," + counselor_name, "");
+        }
+        else if(counselor_string.includes(counselor_name + ",")) // counselor is first in list
+        {
+            counselor_string = counselor_string.replace(counselor_name + ",", "");
+        }
+    }
+    else // 1 counselor
+    {
+        counselor_string = "TBD";
+    }
+
+    return counselor_string;
+}
+
+function add_counselor_to_list(counselor_name, counselor_string)
+{
+    if(counselor_string == "TBD") // no counselors assigned
+    {
+        counselor_string = counselor_name;
+    }
+    else // one or more
+    {
+        counselor_string += "," + counselor_name;
+    }
+
+    return counselor_string;
 }
 
 </script>
