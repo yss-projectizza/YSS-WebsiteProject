@@ -40,24 +40,6 @@ if (!isset($_SESSION))
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
-
-  <script>
-    function update_groupnum(event, id) {
-      firebase.database().ref('/users/' + id + '/group_num').set(event.target.value);
-    }
-
-    function update_cabinnum(event, id) {
-      firebase.database().ref('/users/' + id + '/cabin_num').set(event.target.value);
-    }
-
-    function update_busnum(event, id) {
-      firebase.database().ref('/users/' + id + '/bus_num').set(event.target.value);
-    }
-
-    function update_credit(event, id) {
-      firebase.database().ref('/users/' + id + '/credit_due').set(event.target.value);
-    }
-  </script>
 </head>
 
 <body onload="sortData('group_num')">
@@ -149,11 +131,7 @@ if (!isset($_SESSION))
                   </button>
                 </th>
                 <th>
-                  <label>
-                    Group(s)
-                    <input class="input" disabled="true" type="text" id="group-list-${counter}" value="${firebasedataArray[i][1]["group"]}">
-                    </input>
-                  </label>
+                  <div style="padding:15px" id="group-list-${counter}">${firebasedataArray[i][1]["group"]}</div>
                 </th>
                 <th>
                   <button id="delete-btn" class="rounded delete-button" onclick="delete_event('${key}')">Delete</button>
@@ -209,16 +187,12 @@ if (!isset($_SESSION))
                   </button>
                 </th>
                 <th>
-                  <label>
-                    Groups
-                    <input class="input" disabled="false" type="text" id="group-list-${counter}">
-                    </input>
-                  </label>
+                  <div style="padding:15px" id="group-list-${counter}">all</div>
                 </th>
               </tr>`;
 
               add_family_dropdown_items(counter);
-              
+
               updiv.innerHTML = updiv.innerHTML + row;
 
   });
@@ -235,7 +209,7 @@ if (!isset($_SESSION))
       newdict["event"] = document.getElementById("eventinput" + i).value;
       newdict["time"] = document.getElementById("timeinput" + i).value;
       newdict["date"] = document.getElementById("dateinput" + i).value;
-      newdict["group"] = document.getElementById("group-list-" + i).value;
+      newdict["group"] = document.getElementById("group-list-" + i).innerHTML;
       firebase.database().ref('/schedule/').push(newdict);
     }
 
@@ -259,10 +233,67 @@ function add_family_dropdown_items(index)
 
     for(let i = 0; i < families.length; ++i)
     {
-      family_names += `<a class="dropdown-item">${families[i][1].name}</a>`;
+      if(i == 0)
+      {
+        family_names += `<a class="dropdown-item" onclick="editNameList('all', '${index}')">all</a>`;
+      }
+      else
+      {
+        family_names += `<a class="dropdown-item" onclick="editNameList('${families[i][1].name}', ${index})">${families[i][1].name}</a>`;
+      }
     }
 
     document.getElementById("family-list-" + index).innerHTML = family_names;
   });
+}
+
+function editNameList(name, index)
+{
+  let group_list_ref = document.getElementById("group-list-" + index);
+  let group_list = group_list_ref.innerHTML;
+  
+  if(name == "all")
+  {
+    group_list_ref.innerHTML = "all";
+  }
+  else
+  {
+    if(group_list == "all")
+    {
+      group_list_ref.innerHTML = name;
+    }
+    else
+    {
+      if(!group_list.includes(name))
+      {
+        if(group_list != "")
+        {
+          group_list += ",";
+        }
+
+        group_list += name;
+      }
+      else
+      {
+        if(group_list.includes(","))
+        {
+          if(group_list.includes("," + name))
+          {
+            group_list = group_list.replace("," + name, "");
+          }
+          else if(group_list.includes(name + ","))
+          {
+            group_list = group_list.replace(name + ",", "");
+          }
+        }
+        else
+        {
+          group_list = group_list.replace(name, "");
+        }
+      }
+
+      group_list_ref.innerHTML = group_list;
+    }
+  }
 }
 </script>
