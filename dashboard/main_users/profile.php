@@ -159,8 +159,7 @@ if ($user == "student" and $password == $defaultPassword){
 
           </script>
 
-
-<!--  /*      <script>
+<!--  /    <script>
         			 firebase.database().ref('/').once('value').then(async function (snapshot) {
         			  alldata = Object.entries(snapshot.val().users)
 
@@ -212,6 +211,7 @@ if ($user == "student" and $password == $defaultPassword){
         	 </script>
 
 -->
+
 
 
 
@@ -517,6 +517,7 @@ if ($user == "student" and $password == $defaultPassword){
             var last_name = document.getElementById("last_name").value;
             var phone = document.getElementById("phone").value;
             var password = document.getElementById("password").value;
+            var h_password = "<?php echo password_hash("${password}", PASSWORD_BCRYPT); ?>"
             var size = document.getElementById("size").value;
             var spiritual = document.getElementById("spiritual").value;
             var knowledge = document.getElementById("knowledge").value;
