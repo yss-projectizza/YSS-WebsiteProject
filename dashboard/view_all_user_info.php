@@ -278,6 +278,8 @@ function submit_student_changes(key, index)
         update_student_group(index, key, "families", student.group_num, fam_update);
         update_student_group(index, key, "cabins", student.cabin_num, cabin_update);
         update_student_group(index, key, "buses", student.bus_num, bus_update);
+
+        alert("Changes were saved successfully!");
     });
 }
 
@@ -314,8 +316,6 @@ function update_student_group(index, key, type, current_group_name, selected_gro
                     }
                 });
             });
-
-            alert("Changes were saved successfully!");
         }
     }
     else // group is not assigned
@@ -341,8 +341,6 @@ function update_student_group(index, key, type, current_group_name, selected_gro
                     case "buses": firebase.database().ref('users/' + key).update({'bus_num': selected_group_name});
                 }
             });
-
-            alert("Changes were saved successfully!");
         }
     }
 }
@@ -357,8 +355,6 @@ function verifyAccount(email, index, refresh_path)
     {
         firebase.database().ref('users/' + email).update({'account_verified': "false"});
     }
-
-    document.getElementById(refresh_path).click();
 }
 
 function group_dropdown(type, index, grade="", gender="", user_type)
@@ -434,6 +430,8 @@ function submit_changes(key, index)
         update_counselor_group(index, key, "families", counselor.group_num, fam_update);
         update_counselor_group(index, key, "cabins", counselor.cabin_num, cabin_update);
         update_counselor_group(index, key, "buses", counselor.bus_num, bus_update);
+
+        alert("Changes were saved successfully!");
     });
 }
 
@@ -467,8 +465,6 @@ function update_counselor_group(index, key, type, current_group_name, selected_g
                     }
                 });
             });
-
-            alert("Changes were saved successfully!");
         }
     }
     else
@@ -492,8 +488,6 @@ function update_counselor_group(index, key, type, current_group_name, selected_g
                     case "buses": firebase.database().ref('users/' + key).update({'bus_num': selected_group_name});
                 }
             });
-
-            alert("Changes were saved successfully!");
         }
     }
 }
