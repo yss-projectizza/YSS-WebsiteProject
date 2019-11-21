@@ -325,27 +325,43 @@ if (!isset($_SESSION))
                 input.id = "dateinput" + counter;
                 input.value = firebasedataArray[i][1]["date"];
                 th3.appendChild(label);
-                th3.appendChild(input);
+                th3.appendChild(input);	
 
-                var th5 = document.createElement("th");
-                th5.id = "family-list-" + counter;
-                th5.innerHTML = `</button>
-                <div class="dropdown-menu" id = 'family-dropdown-` + counter + `' aria-labelledby="dropdownMenuButton"></div></div></td>
-                                    <td id='max-size-` + counter + `'>
-                                    <div class="dropdown">
-                <button id="toggle-cabins-` + counter + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">`;
+			//	<div class="card" style="overflow: scroll; height:50%">
+     //   <div class="dropdown">
+   //       <button id="toggle-sort" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+     //       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     //       Sort By:
+     //     </button>
+    //      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    //        <a class="dropdown-item" onclick="sortData('group_num')">Group</a>
+     //       <a class="dropdown-item" onclick="sortData('cabin_num')">Cabin</a>
+     //       <a class="dropdown-item" onclick="sortData('bus_num')">Bus</a>
+     //       <a class="dropdown-item" onclick="sortData('first_name')">First Name</a>
+     //       <a class="dropdown-item" onclick="sortData('last_name')">Last Name</a>
+    //        <a class="dropdown-item" onclick="sortData('gender')">Gender</a>
+     //       <a class="dropdown-item" onclick="sortData('user_type')">User Type</a>
+    //        <a class="dropdown-item" onclick="sortData('credit_due')">Credit Due</a>
+  //        </div>
+ //       </div> 
+
+ // <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  //                  <a class="dropdown-item" id="family-option" onclick="displayGroups('families')">Families</a> 
 
                 var th4 = document.createElement("th");
-                var label = document.createElement("label");
-                var input = document.createElement("input");
-                input.classList.add('input');
-                label.innerHTML = "Group(s)";
-                input.type = "text";
-                input.id = "groupinput" + counter;
-                input.value = firebasedataArray[i][1]["group"];
-                th4.appendChild(label);
-                th4.appendChild(input);
+                th4.id = "family-list-" + counter;
+                th4.innerHTML = `<div class="dropdown">
+                <button id="toggle-cabins-` + counter + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Group(s)</button>
+						<div class="dropdown-menu" id = 'family-dropdown-` + counter + `' aria-labelledby="dropdownMenuButton"></div></div></td>
+                                    <td id='max-size-` + counter + `'>`;
+					
+
+                var th5 = document.createElement("th");
+                var currentGroups = document.createElement("label");
+                currentGroups.id = "groupinput" + counter;
+                currentGroups.innerHTML= firebasedataArray[i][1]["group"];
+                th5.appendChild(currentGroups);
                 
 
                 function delete_event(id) {
@@ -408,17 +424,19 @@ if (!isset($_SESSION))
               th3.appendChild(label);
               th3.appendChild(input);
 
-              var th5 = document.createElement("th");
-              th5.innerHTML = `hello!!!`;
+			  var th4 = document.createElement("th");
+              th4.id = "family-list-" + counter;
+              th4.innerHTML = `<div class="dropdown">
+              <button id="toggle-cabins-` + counter + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Group(s)</button>
+						<div class="dropdown-menu" id = 'family-dropdown-` + counter + `' aria-labelledby="dropdownMenuButton"></div></div></td>
+                                    <td id='max-size-` + counter + `'>`;
 
-              var th4 = document.createElement("th");
-              var label = document.createElement("label");
-              var input = document.createElement("input");
-              label.innerHTML = "Group(s)";
-              input.type = "text";
-              input.id = "groupinput" + counter;
-              th4.appendChild(label);
-              th4.appendChild(input);
+              var th5 = document.createElement("th");
+              var currentGroups = document.createElement("label");
+              currentGroups.id = "groupinput" + counter;
+              currentGroups.innerHTML= "None";
+              th5.appendChild(currentGroups);
 
               eventDiv.appendChild(th1);
               eventDiv.appendChild(th2);
@@ -446,6 +464,70 @@ if (!isset($_SESSION))
 
             });
           </script>
+		  <script>
+		  function submit_group()
+{
+    let new_group_dict = {};
+    
+    let name = document.getElementById("name-input").value;
+    let max_size = document.getElementById("max-size-input").value;
+    let counselor = "";
+    let counselor_list = document.getElementById("counselor-list").innerHTML;
+
+    change_counselor_group(counselor_list.split("<br>"), name, name, type);
+
+    if(counselor_list.includes("<br>"))
+    {
+        counselor = format_counselor_list(counselor_list.split("<br>"));
+    }
+    else if(counselor_list == "")
+    {
+        counselor = format_counselor_list([]);
+    }
+    else
+    {
+        counselor = format_counselor_list([counselor_list]);
+    }
+    
+    let drowdown_id = "";
+
+    switch(type)
+    {
+        case 'families': dropdown_id = "family-option";
+            break;
+        case 'cabins': dropdown_id = "cabin-option"
+            break;
+        case 'buses': dropdown_id = "bus-option"
+    }
+
+    if(name != "" && max_size != "" && counselor != "")
+    {
+        new_group_dict["name"] = name;
+        new_group_dict["size"] = 0;
+        new_group_dict["max_size"] = max_size;
+
+        if(type == "families")
+        {
+            let grade_level = document.getElementById("toggle-grade").innerHTML;
+            
+            if(!grade_level.includes("Grade Level"))
+            {
+                new_group_dict["grade_level"] = grade_level;
+
+                new_group_dict["counselor"] = counselor;
+
+                change_counselor_group((document.getElementById("counselor-list").innerHTML).split("<br>"), name, name, type);
+
+                firebase.database().ref('/' + type + '/').push(new_group_dict);
+
+                document.getElementById(dropdown_id).click();
+            }
+            else
+            {
+                alert("Please fill out all fields!");
+            }
+        }
+		</script>
         </div>
       </div>
   </main>
