@@ -349,11 +349,11 @@ if (!isset($_SESSION))
   //                  <a class="dropdown-item" id="family-option" onclick="displayGroups('families')">Families</a> 
 
                 var th4 = document.createElement("th");
-                th4.id = "family-list-" + counter;
+                th4.id = "group-list-" + counter;
                 th4.innerHTML = `<div class="dropdown">
-                <button id="toggle-cabins-` + counter + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                <button id="toggle-group-` + counter + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Group(s)</button>
-						<div class="dropdown-menu" id = 'family-dropdown-` + counter + `' aria-labelledby="dropdownMenuButton"></div></div></td>
+						<div class="dropdown-menu" id = 'group-dropdown-` + counter + `' aria-labelledby="dropdownMenuButton"></div></div></td>
                                     <td id='max-size-` + counter + `'>`;
 					
 
@@ -425,11 +425,11 @@ if (!isset($_SESSION))
               th3.appendChild(input);
 
 			  var th4 = document.createElement("th");
-              th4.id = "family-list-" + counter;
+              th4.id = "group-list-" + counter;
               th4.innerHTML = `<div class="dropdown">
-              <button id="toggle-cabins-` + counter + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+              <button id="toggle-group-` + counter + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Group(s)</button>
-						<div class="dropdown-menu" id = 'family-dropdown-` + counter + `' aria-labelledby="dropdownMenuButton"></div></div></td>
+						<div class="dropdown-menu" id = 'group-dropdown-` + counter + `' aria-labelledby="dropdownMenuButton"></div></div></td>
                                     <td id='max-size-` + counter + `'>`;
 
               var th5 = document.createElement("th");
@@ -464,70 +464,6 @@ if (!isset($_SESSION))
 
             });
           </script>
-		  <script>
-		  function submit_group()
-{
-    let new_group_dict = {};
-    
-    let name = document.getElementById("name-input").value;
-    let max_size = document.getElementById("max-size-input").value;
-    let counselor = "";
-    let counselor_list = document.getElementById("counselor-list").innerHTML;
-
-    change_counselor_group(counselor_list.split("<br>"), name, name, type);
-
-    if(counselor_list.includes("<br>"))
-    {
-        counselor = format_counselor_list(counselor_list.split("<br>"));
-    }
-    else if(counselor_list == "")
-    {
-        counselor = format_counselor_list([]);
-    }
-    else
-    {
-        counselor = format_counselor_list([counselor_list]);
-    }
-    
-    let drowdown_id = "";
-
-    switch(type)
-    {
-        case 'families': dropdown_id = "family-option";
-            break;
-        case 'cabins': dropdown_id = "cabin-option"
-            break;
-        case 'buses': dropdown_id = "bus-option"
-    }
-
-    if(name != "" && max_size != "" && counselor != "")
-    {
-        new_group_dict["name"] = name;
-        new_group_dict["size"] = 0;
-        new_group_dict["max_size"] = max_size;
-
-        if(type == "families")
-        {
-            let grade_level = document.getElementById("toggle-grade").innerHTML;
-            
-            if(!grade_level.includes("Grade Level"))
-            {
-                new_group_dict["grade_level"] = grade_level;
-
-                new_group_dict["counselor"] = counselor;
-
-                change_counselor_group((document.getElementById("counselor-list").innerHTML).split("<br>"), name, name, type);
-
-                firebase.database().ref('/' + type + '/').push(new_group_dict);
-
-                document.getElementById(dropdown_id).click();
-            }
-            else
-            {
-                alert("Please fill out all fields!");
-            }
-        }
-		</script>
         </div>
       </div>
   </main>
