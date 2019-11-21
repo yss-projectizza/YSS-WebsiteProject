@@ -213,6 +213,8 @@ $parent_email = $_SESSION["queryData"]["email"];
                 messagingSenderId: "530416464878"
             };
             firebase.initializeApp(config);
+						
+						
 
             document.getElementById("submitContact").addEventListener("click", functSubmit);
                 function functSubmit(event){
@@ -226,8 +228,10 @@ $parent_email = $_SESSION["queryData"]["email"];
                     var dob = document.getElementById("studentDOB").value;
                     var birthYear = dob.slice(0,4);
                     var defaultPassword = ln + birthYear;
-					var password = defaultPassword;
-                    
+										var password = defaultPassword;
+										var balance = "";
+										var accountStatus = "Activated";
+										
                     // var size = document.getElementById("size").value;
                     var file = document.getElementById("upload").value;
                     var allergies = document.getElementById("allergies").value;
@@ -253,6 +257,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                         let parent_email = "<?php echo $parent_email; ?>";
                         var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
                             user_type: "student",
+														accountStatus: accountStatus,
                             first_name: fn,
                             last_name: ln,
                             studentEmail: studentEmail,
@@ -261,7 +266,8 @@ $parent_email = $_SESSION["queryData"]["email"];
                             dob: dob,
                             birthYear: birthYear,
                             password: password,
-							defaultPassword: defaultPassword,
+														defaultPassword: defaultPassword,
+														balance: balance,
                             file: file,
                             alleriges: allergies,
                             meds: meds,
@@ -280,10 +286,20 @@ $parent_email = $_SESSION["queryData"]["email"];
                         } else {
                             alert("The form was submitted.");
                             var postID = newPostRef.key;
-                            window.location.href = "email_student.php?studentEmail=" + studentEmail + "&reset=true";	
                         }
                         }
                         );
+												
+												// Trying to update balance
+												firebase.database().ref('/currentProgram/price').once('value').then(async function(snapshot){
+															var programPrice = await snapshot.val();
+															firebase.database().ref('/users/' + emailwcharactersreplaced).update({
+																balance: programPrice
+															});
+															//balance = programPrice;
+												});
+												window.location.href = "email_student.php?studentEmail=" + studentEmail + "&reset=true";
+												
                     }
 
                 };

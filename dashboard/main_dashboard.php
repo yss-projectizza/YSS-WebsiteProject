@@ -5,13 +5,17 @@ if (!isset($_SESSION))
 
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 
+<!--add code to update parent's credit_due here -->
+
+
 <script>
   <?php
   $emailwithcomma = str_replace(".", ",", $email);
   ?>
   var email = "<?php echo $email; ?>"
-  var credit_due = "";
-
+  
+	// Not sure what this block does. Might want to delete it.
+	var credit_due = "";
   if(user_type == "parent")
   {
     credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>";
@@ -19,7 +23,7 @@ if (!isset($_SESSION))
 
   firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot) {
     var credit_now = await parseInt(snapshot.val());
-    document.getElementById("amount_owed").innerText = "$" + credit_now;
+    document.getElementById("amount_owed").innerText = "$77tt" + credit_due;
   });
 
 </script>
@@ -240,6 +244,11 @@ if (!isset($_SESSION))
       <div class="card">
         <h2>Payment</h2>
         <label>You owe: <label id="amount_owed" style='font-size:22;color:red;'>$</label></label>
+				<script>
+				credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>";
+				document.getElementById("amount_owed").innerText = "$" + credit_due;
+				</script>
+				
         <script src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk">
         </script>
         <div id="paypal-button-container"></div>
