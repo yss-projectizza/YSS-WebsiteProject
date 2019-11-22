@@ -118,7 +118,7 @@ function displayUsers(user_type)
                 let name = users[i][1].first_name + " " + users[i][1].last_name;
                 let key = users[i][0];
 
-                table_rows += `<td id='name-` + i +`'><div id="name-div-` + i +`" class='rounded name-cell'>${name}</div></td>
+                table_rows += `<td id='name-` + i +`'>${name}</td>
                             <td id='size-` + i + `'>
                             <div class="dropdown">
                                 <button id="toggle-families-` + i +`"  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -449,8 +449,8 @@ function update_counselor_group(index, key, type, current_group_name, selected_g
                 {
                     let selected_group = Object.entries(snapshot.val());
                     
-                    let updated_old_group_counselor_list = remove_counselor_from_list(document.getElementById("name-div-"+index).innerHTML, current_group[0][1].counselor);
-                    let updated_new_group_counselor_list = add_counselor_to_list(document.getElementById("name-div-"+index).innerHTML, selected_group[0][1].counselor);
+                    let updated_old_group_counselor_list = remove_counselor_from_list(document.getElementById("name-"+index).innerHTML, current_group[0][1].counselor);
+                    let updated_new_group_counselor_list = add_counselor_to_list(document.getElementById("name-"+index).innerHTML, selected_group[0][1].counselor);
 
                     firebase.database().ref(type + "/" + current_group[0][0]).update({'counselor': updated_old_group_counselor_list});
                     firebase.database().ref(type + "/" + selected_group[0][0]).update({'counselor': updated_new_group_counselor_list});
@@ -475,7 +475,7 @@ function update_counselor_group(index, key, type, current_group_name, selected_g
             {
                 let selected_group = Object.entries(snapshot.val());
                 
-                let updated_new_group_counselor_list = add_counselor_to_list(document.getElementById("name-div-" + index).innerHTML, selected_group[0][1].counselor);
+                let updated_new_group_counselor_list = add_counselor_to_list(document.getElementById("name-" + index).innerHTML, selected_group[0][1].counselor);
                 
                 firebase.database().ref(type + "/" + selected_group[0][0]).update({'counselor': updated_new_group_counselor_list});
 

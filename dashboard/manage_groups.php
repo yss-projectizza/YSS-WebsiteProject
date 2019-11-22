@@ -107,7 +107,7 @@ function displayGroups(type)
         {
             let key = groups[i][0];
 
-            body_html += `<td id='name-` + i +`'><div id="name-div-` + i +`" class='rounded name-cell'>${groups[i][1].name}</div></td>
+            body_html += `<td id='name-` + i +`'>${groups[i][1].name}</td>
                          <td id='size-` + i + `'>${groups[i][1].size}</td>
                          <td id='max-size-` + i + `'>${groups[i][1].max_size}</td>`;
 
@@ -146,7 +146,7 @@ function edit_group(key, index, num_groups, group_name, counselors, type)
 
     document.getElementById("add-group-btn").style.display = "none";
 
-    let old_group_name = document.getElementById("name-div-" + index).innerHTML;
+    let old_group_name = document.getElementById("name-" + index).innerHTML;
     let old_grade = "";
     let old_gender = "";
 
