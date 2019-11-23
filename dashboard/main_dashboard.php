@@ -231,7 +231,7 @@ if (!isset($_SESSION))
             <button id='group-details-button' type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">
               View Group Details
             </button>
-          <?php else: ?>
+          <?php elseif($user_type == "student"): ?>
             <button id='group-details-button' type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">
                 Manage
             </button>
