@@ -4,7 +4,30 @@
 session_start();
 
 $parent_email = $_SESSION["queryData"]["email"];
+
+// This assumes that you have placed the Firebase credentials in the same directory
+// as this PHP file.
+require __DIR__. '/vendor/autoload.php';
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
+
+// Refreshing session's database to make sure parent's balance is correct
+$username = str_replace(".", ",", $parent_email);
+$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/yss-project-69ba2-firebase-adminsdk-qpgd1-772443326e.json');
+$firebase = (new Factory)
+	->withServiceAccount($serviceAccount)
+	->create();
+$database = $firebase->getDatabase();
+$reference = $database->getReference('/users')->getValue();
+
+if (array_key_exists($username, $reference)){
+	$_SESSION["queryData"] = $reference[$username];
+}
+
+$parentBal = $_SESSION["queryData"]["credit_due"];
+$parentBal = intval($parentBal);
 ?>
+
 
 
 <html lang="en">
@@ -112,26 +135,59 @@ $parent_email = $_SESSION["queryData"]["email"];
     deleteButton.classList.add('rounded');
     deleteButton.id = 'delete-youth';
     deleteButton.innerHTML = "Delete";
-    deleteButton.onclick = () => {var delete_user = confirm("Are you sure you would like to delete this youth participant?"); if (delete_user) {deleteYouth(key);alert("Deleted youth participant successfully.")}}
+    deleteButton.onclick = () => {var delete_user = confirm("Are you sure you would like to delete this youth participant?"); if (delete_user) {
+			var credit_now = parseInt("<?php echo $parentBal; ?>");
+			credit_now -= parseInt(youth.balance);
+			firebase.database().ref('/users/' + parentEmail_key).update({
+				credit_due: credit_now
+			});						
+			deleteYouth(key);alert("Deleted youth participant successfully.")}}
    	
 		// The Deactivate button
+		var parentEmail_key = parent_email.replace(".",",");
+
 		const deactivateButton = document.createElement('button');
 		deactivateButton.classList.add('rounded');
 		deactivateButton.id = 'activate_youth';
 		deactivateButton.innerHTML = "Deactivate";
+		
+		// Switch student's status to deactivated and subtract balance from parent's balance
 		deactivateButton.onclick = () => {
+			var credit_now = parseInt("<?php echo $parentBal; ?>");
+			credit_now -= parseInt(youth.balance);
+			firebase.database().ref('/users/' + parentEmail_key).update({
+				credit_due: credit_now
+			});
+			
+			/* For some reason, this function doesn't work
+			firebase.database().ref('/users/' + parentEmail_key + '/credit_due').once("value", function(snapshot){	
+ 				var credit_now = parseFloat(snapshot.val());
+				credit_now = youth.balance;
+				firebase.database().ref('/users/' + parentEmail_key).update({
+					credit_due: youth.balance
+				});
+			}); */
+			
 			firebase.database().ref('/users/' + key).update({
 				accountStatus: "Deactivated"
-			});
+			});	
 			location.reload();
 		};
-		
+				
 		// The Activate button
 		const activateButton = document.createElement('button');
 		activateButton.classList.add('rounded');
 		activateButton.id = 'activate_youth';
 		activateButton.innerHTML = "Activate";
+		
+		// Switch student's status to deactivated and subtract balance from parent's balance
 		activateButton.onclick = () => {
+			var credit_now = parseInt("<?php echo $parentBal; ?>");
+			
+			credit_now += parseInt(youth.balance);
+			firebase.database().ref('/users/' + parentEmail_key).update({
+				credit_due: credit_now
+			});
 			firebase.database().ref('/users/' + key).update({
 				accountStatus: "Activated"
 			});
@@ -156,3 +212,7 @@ $parent_email = $_SESSION["queryData"]["email"];
   }
 
 </script>
+
+
+
+

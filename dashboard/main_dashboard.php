@@ -1,6 +1,33 @@
 <?php
 if (!isset($_SESSION))
   session_start();
+
+
+
+// This assumes that you have placed the Firebase credentials in the same directory
+// as this PHP file.
+require __DIR__. '/../vendor/autoload.php';
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
+$userType = $_SESSION["queryData"]["user_type"];
+$email = $_SESSION["queryData"]["email"];
+$emailwithcomma = str_replace(".", ",", $email);
+
+if ($userType == "parent"){
+	// Updating parent's account balance
+	// Refreshing session's database to make sure parent's balance is correct
+	$username = $emailwithcomma;
+	$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/../yss-project-69ba2-firebase-adminsdk-qpgd1-772443326e.json');
+	$firebase = (new Factory)
+		->withServiceAccount($serviceAccount)
+		->create();
+	$database = $firebase->getDatabase();
+	$reference = $database->getReference('/users')->getValue();
+
+	if (array_key_exists($username, $reference)){
+		$_SESSION["queryData"] = $reference[$username];
+	}
+}
 ?>
 
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
@@ -9,11 +36,9 @@ if (!isset($_SESSION))
 
 
 <script>
-  <?php
-  $emailwithcomma = str_replace(".", ",", $email);
-  ?>
   var email = "<?php echo $email; ?>"
   
+	/*
 	// Not sure what this block does. Might want to delete it.
 	var credit_due = "";
   if(user_type == "parent")
@@ -25,7 +50,7 @@ if (!isset($_SESSION))
     var credit_now = await parseInt(snapshot.val());
     document.getElementById("amount_owed").innerText = "$77tt" + credit_due;
   });
-
+	*/
 </script>
 
 <html lang="en">
@@ -245,7 +270,7 @@ if (!isset($_SESSION))
         <h2>Payment</h2>
         <label>You owe: <label id="amount_owed" style='font-size:22;color:red;'>$</label></label>
 				<script>
-				credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>";
+				var credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>";
 				document.getElementById("amount_owed").innerText = "$" + credit_due;
 				</script>
 				
@@ -300,7 +325,6 @@ if (!isset($_SESSION))
     <?php endif ?>
 
     <!-- Schedule Section -->
-
       <div class="card" id="schedule">
         <h2>Schedule</h2>
       </div>

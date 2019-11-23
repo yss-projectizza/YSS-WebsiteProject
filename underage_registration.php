@@ -3,6 +3,29 @@
 session_start();
 
 $parent_email = $_SESSION["queryData"]["email"];
+
+// Updating parent's account balance
+// This assumes that you have placed the Firebase credentials in the same directory
+// as this PHP file.
+require __DIR__. '/vendor/autoload.php';
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
+
+// Refreshing session's database to make sure parent's balance is correct
+$username = str_replace(".", ",", $parent_email);
+$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/yss-project-69ba2-firebase-adminsdk-qpgd1-772443326e.json');
+$firebase = (new Factory)
+	->withServiceAccount($serviceAccount)
+	->create();
+$database = $firebase->getDatabase();
+$reference = $database->getReference('/users')->getValue();
+
+if (array_key_exists($username, $reference)){
+	$_SESSION["queryData"] = $reference[$username];
+}
+
+$parentBal = $_SESSION["queryData"]["credit_due"];
+$parentBal = intval($parentBal);
 ?>
 
 <!doctype html>
@@ -199,7 +222,6 @@ $parent_email = $_SESSION["queryData"]["email"];
         </div>
     </form>
 
-
 	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
         <!--<script src="counselor_app.js"></script>-->
@@ -213,9 +235,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                 messagingSenderId: "530416464878"
             };
             firebase.initializeApp(config);
-						
-						
-
+																	
             document.getElementById("submitContact").addEventListener("click", functSubmit);
                 function functSubmit(event){
                     var database = firebase.database();
@@ -290,21 +310,42 @@ $parent_email = $_SESSION["queryData"]["email"];
                         }
                         );
 												
-												// Trying to update balance
-												firebase.database().ref('/currentProgram/price').once('value').then(async function(snapshot){
-															var programPrice = await snapshot.val();
+												// Update student's balance and add new student's balance to parent's balance
+												firebase.database().ref('/currentProgram/price').once('value', function(snapshot){
+															var programPrice = parseInt(snapshot.val());
+															
+															// Update student's account balance
 															firebase.database().ref('/users/' + emailwcharactersreplaced).update({
 																balance: programPrice
 															});
-															//balance = programPrice;
+															
+															var credit_now = parseInt("<?php echo $parentBal; ?>");
+															credit_now += programPrice;
+															var parentEmail = "<?php echo $parent_email; ?>";
+															var parentEmailKey = parentEmail.replace(".",",");
+															
+															firebase.database().ref('/users/' + parentEmailKey).update({
+																credit_due: credit_now
+															});
+															
+															// This block stops working for some reason. Replacing it with pulling value from php session database.
+															/* // Add student's balance to parent's total balance
+															var parentEmail = "<?php echo $parent_email; ?>";
+															var parentEmailKey = parentEmail.replace(".",",");
+															alert(parentEmailKey);
+															firebase.database().ref('/users/' + parentEmailKey + '/credit_due').once('value', function(snapshot){
+																alert("The proram price is " + programPrice);
+																var credit_now = parseFloat(snapshot.val());
+																alert("inside parent, credit_now = " + credit_now);
+																var newAmount = credit_now + programPrice;
+																firebase.database().ref('/users/' + parentEmailKey).update({
+																	credit_due: newAmount		
+																});															
+															}); */														
 												});
-												window.location.href = "email_student.php?studentEmail=" + studentEmail + "&reset=true";
-												
-                    }
-
+												window.location.href = "email_student.php?studentEmail=" + studentEmail + "&reset=true";												
+                    }																														
                 };
-
         </script>
-
 </body>
 </html>
