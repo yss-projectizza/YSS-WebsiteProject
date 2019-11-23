@@ -55,23 +55,23 @@ if (!isset($_SESSION))
     <h2>To Do:</h2>
       <div class="to_do" id="to-do-div">
         <?php if($user_type == "student"):?>
-            <script>
+          <script>
               // Initialize Firebase
-              var config =
-              {
-                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-                authDomain: "yss-project-69ba2.firebaseapp.com",
-                databaseURL: "https://yss-project-69ba2.firebaseio.com",
-                projectId: "yss-project-69ba2",
-                storageBucket: "yss-project-69ba2.appspot.com",
-                messagingSenderId: "530416464878"
-              };
+              // var config =
+              // {
+              //   apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+              //   authDomain: "yss-project-69ba2.firebaseapp.com",
+              //   databaseURL: "https://yss-project-69ba2.firebaseio.com",
+              //   projectId: "yss-project-69ba2",
+              //   storageBucket: "yss-project-69ba2.appspot.com",
+              //   messagingSenderId: "530416464878"
+              // };
 
-              firebase.initializeApp(config);
+              // firebase.initializeApp(config);
 
               firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
               {
-
+                
                 let student = Object.entries(snapshot.val());
                 let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>";
 

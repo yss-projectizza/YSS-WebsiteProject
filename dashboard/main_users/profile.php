@@ -12,7 +12,7 @@ use Kreait\Firebase\ServiceAccount;
 
   $user=$_SESSION["queryData"]["user_type"];
   $emailwcomma ="";
-  if($user == "parent")
+  if($user == "parent" || $user == "counselor" || $user == "admin")
   {
     $emailwcomma = $_SESSION["queryData"]["email"];
   }
@@ -474,7 +474,7 @@ if ($user == "student" and $password == $defaultPassword){
 
         firebase.database().ref('/users/' + "<?php echo $email?>").once("value").then(async function (snapshot) {
             let profiledata = snapshot.val();
-            console.log(profiledata)
+            
             document.getElementById("first_name").value = profiledata.first_name;
             document.getElementById("last_name").value = profiledata.last_name;
             document.getElementById("phone").value = profiledata.phone;
@@ -517,15 +517,26 @@ if ($user == "student" and $password == $defaultPassword){
             var last_name = document.getElementById("last_name").value;
             var phone = document.getElementById("phone").value;
             var password = document.getElementById("password").value;
-            var h_password = "<?php echo password_hash("${password}", PASSWORD_BCRYPT); ?>"
-            var size = document.getElementById("size").value;
-            var spiritual = document.getElementById("spiritual").value;
-            var knowledge = document.getElementById("knowledge").value;
-            var improvement = document.getElementById("improvement").value;
-            var community = document.getElementById("community").value;
-            var hopes = document.getElementById("hopes").value;
-            var activities = document.getElementById("activities").value;
-            var question = document.getElementById("question").value;
+            var h_password = "<?php echo password_hash('a', PASSWORD_BCRYPT); ?>";
+            
+            if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
+            {
+                var size = document.getElementById("size").value;
+                var spiritual = document.getElementById("spiritual").value;
+                var knowledge = document.getElementById("knowledge").value;
+                var improvement = document.getElementById("improvement").value;
+                var community = document.getElementById("community").value;
+                var hopes = document.getElementById("hopes").value;
+                var activities = document.getElementById("activities").value;
+                var question = document.getElementById("question").value;
+                var allergies = document.getElementById("allergies").value;
+                var meds = document.getElementById("meds").value;
+                var activity_r = document.getElementById("activity_restrictions").value;
+                var dietary_r = document.getElementById("dietary_restrictions").value;
+                var other = document.getElementById("other").value;
+                var insurance = document.getElementById("insurance").value;
+                var policy_holder = document.getElementById("policy_holder").value;
+            }
 
             if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "parent")
             {
@@ -537,43 +548,23 @@ if ($user == "student" and $password == $defaultPassword){
                 var ec_relationship2 = document.getElementById("ec_relationship2").value;
             }
 
-            var allergies = document.getElementById("allergies").value;
-            var meds = document.getElementById("meds").value;
-            var activity_r = document.getElementById("activity_restrictions").value;
-            var dietary_r = document.getElementById("dietary_restrictions").value;
-            var other = document.getElementById("other").value;
-            var insurance = document.getElementById("insurance").value;
-            var policy_holder = document.getElementById("policy_holder").value;
-
             var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
                     first_name: first_name,
                     last_name: last_name,
                     phone: phone,
                     password: password,
-                    size: size,
-                    spiritual: spiritual,
-                    knowledge: knowledge,
-                    improvement: improvement,
-                    community: community,
-                    hopes: hopes,
-                    activities: activities,
-                    question: question,
-                    allergies: allergies,
-                    meds: meds,
-                    activity_restrictions: activity_r,
-                    dietary_restrictions: dietary_r,
-                    other: other,
-                    insurance: insurance,
-                    policy_holder: policy_holder,
                 },
                 function (error) {
                     if (error) {
                         alert("didn't go through")
                     } else {
-                        alert("Your information has been saved successfully.")
                         var postID = newPostRef.key;
+                        if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "counselor" || "<?php echo $_SESSION["queryData"]["user_type"] ?>" == "admin")
+                        {
+                            alert("Your information has been saved successfully.");
+                            window.location.href = "/dashboard.php";
+                        }
                         console.log("went to firebase");
-						window.location.href = "/dashboard.php";
                     }
                 });
 
@@ -591,11 +582,43 @@ if ($user == "student" and $password == $defaultPassword){
                     if (error) {
                         alert("didn't go through")
                     } else {
-                        alert("Your information has been saved successfully.")
+                        alert("Your information has been saved successfully.");
                         var postID = newPostRef.key;
                         console.log("went to firebase");
+                        window.location.href = "/dashboard.php";
                     }
                 });
+            }
+
+            if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
+            {
+                var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
+                        size: size,
+                        spiritual: spiritual,
+                        knowledge: knowledge,
+                        improvement: improvement,
+                        community: community,
+                        hopes: hopes,
+                        activities: activities,
+                        question: question,
+                        allergies: allergies,
+                        meds: meds,
+                        activity_restrictions: activity_r,
+                        dietary_restrictions: dietary_r,
+                        other: other,
+                        insurance: insurance,
+                        policy_holder: policy_holder,
+                    },
+                    function (error) {
+                        if (error) {
+                            alert("didn't go through")
+                        } else {
+                            alert("Your information has been saved successfully.");
+                            var postID = newPostRef.key;
+                            console.log("went to firebase");
+                            window.location.href = "/dashboard.php";
+                        }
+                    });
             }
         });
     </script>
