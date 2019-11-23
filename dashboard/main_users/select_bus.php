@@ -30,19 +30,9 @@ if (!isset($_SESSION))
 </html>
 
 <script>
-  var config = 
-  {
-    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-    authDomain: "yss-project-69ba2.firebaseapp.com",
-    databaseURL: "https://yss-project-69ba2.firebaseio.com",
-    projectId: "yss-project-69ba2",
-    storageBucket: "yss-project-69ba2.appspot.com",
-    messagingSenderId: "530416464878"
-  };
-
   let bus_num = "<?php echo $_SESSION["queryData"]["bus_num"]; ?>";
 
-  firebase.initializeApp(config);
+  
 
     firebase.database().ref('buses').orderByChild('name').once("value", function(snapshot) 
     {
