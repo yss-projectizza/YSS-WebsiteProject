@@ -68,7 +68,6 @@ $parent_email = $_SESSION["queryData"]["email"];
 
   function deleteYouth(key){
     firebase.database().ref("/users/"+key).remove();
-		location.reload();
   }
 
   function buildYouthDiv(youth,key){
@@ -77,23 +76,18 @@ $parent_email = $_SESSION["queryData"]["email"];
 
     const infoDiv = document.createElement('div');
     infoDiv.classList.add('left');
-    infoDiv.innerHTML = "<h3>"+ youth.first_name + " " + youth.last_name +
-		"<span style ='color: orange;'>   (" + youth.accountStatus + ")</span>" +
-			
-			"</br>Group " + 
-			youth.group_num + ", Bus " + youth.bus_num + ", Cabin " + youth.cabin_num + "</h3>" +
-      "<h4>Amount Due: <span style='color: red;'>$" + youth.balance + "</span></h4>" + 
-      "<h5>Credit: <span style='color: green;'>$0</span></h5></br>";
+    infoDiv.innerHTML = "<h3>"+ youth.first_name + " " + youth.last_name + "</br>Group " + youth.group_num + ", Bus " + youth.bus_num + 
+						", Cabin " + youth.cabin_num + "</h3>" +
+                        "<h4>Amount Due: <span style='color: red;'>$299</span></h4>" + 
+                        "<h5>Credit: <span style='color: green;'>$0</span></h5></br>"	
                         
-    // Buttons Group
+    
     const buttonDiv = document.createElement('div');
     buttonDiv.classList.add('right');
-		
-		// The Edit Youth Participant
     const editButton = document.createElement('button');
     editButton.classList.add('rounded');
     editButton.id = 'edit-youth';
-    editButton.innerHTML = "Edit";
+    editButton.innerHTML = "Edit Youth Participant";
     editButton.onclick = () => {
       firebase.database().ref('users').orderByChild('parent_email').equalTo(parent_email).on("value", function(snapshot) {
         var children = Object.entries(snapshot.val());
@@ -107,49 +101,14 @@ $parent_email = $_SESSION["queryData"]["email"];
         location.href = "underage_profile.php?key=" + child_key
       });
     }
-    	
-		// The Delete Youth button
+    buttonDiv.appendChild(editButton);
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('rounded');
     deleteButton.id = 'delete-youth';
-    deleteButton.innerHTML = "Delete";
+    deleteButton.innerHTML = "Delete Youth Participant";
     deleteButton.onclick = () => {var delete_user = confirm("Are you sure you would like to delete this youth participant?"); if (delete_user) {deleteYouth(key);alert("Deleted youth participant successfully.")}}
-   	
-		// The Deactivate button
-		const deactivateButton = document.createElement('button');
-		deactivateButton.classList.add('rounded');
-		deactivateButton.id = 'activate_youth';
-		deactivateButton.innerHTML = "Deactivate";
-		deactivateButton.onclick = () => {
-			firebase.database().ref('/users/' + key).update({
-				accountStatus: "Deactivated"
-			});
-			location.reload();
-		};
-		
-		// The Activate button
-		const activateButton = document.createElement('button');
-		activateButton.classList.add('rounded');
-		activateButton.id = 'activate_youth';
-		activateButton.innerHTML = "Activate";
-		activateButton.onclick = () => {
-			firebase.database().ref('/users/' + key).update({
-				accountStatus: "Activated"
-			});
-			location.reload();
-		};
-		
-		if (youth.accountStatus == "Activated"){
-			buttonDiv.appendChild(deactivateButton);
-		}
-		else{
-			buttonDiv.appendChild(activateButton);
-		}
-		
-		// Adding the delete and edit button:
-		buttonDiv.appendChild(editButton);
-		buttonDiv.appendChild(deleteButton);
-		
+    buttonDiv.appendChild(deleteButton);
+
     boxDiv.appendChild(infoDiv);
     boxDiv.appendChild(buttonDiv);
 
