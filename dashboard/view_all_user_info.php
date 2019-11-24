@@ -3,6 +3,22 @@ if (!isset($_SESSION))
   session_start();
 ?>
 
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+  var config = 
+  {
+    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+    authDomain: "yss-project-69ba2.firebaseapp.com",
+    databaseURL: "https://yss-project-69ba2.firebaseio.com",
+    projectId: "yss-project-69ba2",
+    storageBucket: "yss-project-69ba2.appspot.com",
+    messagingSenderId: "530416464878"
+  };
+
+  firebase.initializeApp(config);
+</script>
+
 <html lang="en">
   <head>
     <title>All User Information | Youth Spiritual Summit</title>

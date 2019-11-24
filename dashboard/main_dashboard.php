@@ -3,7 +3,10 @@ if (!isset($_SESSION))
   session_start();
 ?>
 
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+
 <!--add code to update parent's credit_due here -->
+
 
 <script>
   <?php
@@ -17,6 +20,7 @@ if (!isset($_SESSION))
   {
     credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>";
   }
+
 
   firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot) {
     var credit_now = await parseInt(snapshot.val());
@@ -53,18 +57,17 @@ if (!isset($_SESSION))
       <div class="to_do" id="to-do-div">
         <?php if($user_type == "student"):?>
           <script>
-              // Initialize Firebase
-              // var config =
-              // {
-              //   apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-              //   authDomain: "yss-project-69ba2.firebaseapp.com",
-              //   databaseURL: "https://yss-project-69ba2.firebaseio.com",
-              //   projectId: "yss-project-69ba2",
-              //   storageBucket: "yss-project-69ba2.appspot.com",
-              //   messagingSenderId: "530416464878"
-              // };
+              var config =
+              {
+                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                authDomain: "yss-project-69ba2.firebaseapp.com",
+                databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                projectId: "yss-project-69ba2",
+                storageBucket: "yss-project-69ba2.appspot.com",
+                messagingSenderId: "530416464878"
+              };
 
-              // firebase.initializeApp(config);
+              firebase.initializeApp(config);
 
               firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
               {
@@ -302,6 +305,22 @@ if (!isset($_SESSION))
         <h2>Schedule</h2>
       </div>
       <script>
+          if("<?php echo $user_type?>" == "counselor" || "<?php echo $user_type?>" == "parent")
+          {
+            // Initialize Firebase
+            var config =
+            {
+              apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+              authDomain: "yss-project-69ba2.firebaseapp.com",
+              databaseURL: "https://yss-project-69ba2.firebaseio.com",
+              projectId: "yss-project-69ba2",
+              storageBucket: "yss-project-69ba2.appspot.com",
+              messagingSenderId: "530416464878"
+            };
+
+            firebase.initializeApp(config);
+          }
+
           firebase.database().ref("/schedule/").once('value').then(data =>
           {
             returndataArray = Object.entries(data.val());
