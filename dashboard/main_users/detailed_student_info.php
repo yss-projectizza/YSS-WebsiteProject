@@ -23,19 +23,8 @@ if (!isset($_SESSION))
 </html>
 
 <script>
-    var config = 
-    {
-    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-    authDomain: "yss-project-69ba2.firebaseapp.com",
-    databaseURL: "https://yss-project-69ba2.firebaseio.com",
-    projectId: "yss-project-69ba2",
-    storageBucket: "yss-project-69ba2.appspot.com",
-    messagingSenderId: "530416464878"
-    };
-
     let student_email = "<?php echo $student_email ?>";
-
-    firebase.initializeApp(config);
+    
     firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
     {
       let students = Object.entries(snapshot.val());
