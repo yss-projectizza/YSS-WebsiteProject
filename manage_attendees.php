@@ -25,7 +25,7 @@ if (array_key_exists($username, $reference)){
 }
 
 $parentBal = $_SESSION["queryData"]["credit_due"];
-$parentBal = intval($parentBal);
+$parentBal = floatval($parentBal);
 ?>
 
 
@@ -136,11 +136,11 @@ $parentBal = intval($parentBal);
     deleteButton.id = 'delete-youth';
     deleteButton.innerHTML = "Delete";
     deleteButton.onclick = () => {var delete_user = confirm("Are you sure you would like to delete this youth participant?"); if (delete_user) {
-      var credit_now = parseInt("<?php echo $parentBal; ?>");
+      var credit_now = parseFloat("<?php echo $parentBal; ?>");
       
       if(youth.accountStatus == "Activated")
       {
-        credit_now -= parseInt(youth.balance);
+        credit_now -= parseFloat(youth.balance);
         firebase.database().ref('/users/' + parentEmail_key).update({
           credit_due: credit_now
         });			
@@ -157,8 +157,8 @@ $parentBal = intval($parentBal);
 		
 		// Switch student's status to deactivated and subtract balance from parent's balance
 		deactivateButton.onclick = () => {
-			var credit_now = parseInt("<?php echo $parentBal; ?>");
-			credit_now -= parseInt(youth.balance);
+			var credit_now = parseFloat("<?php echo $parentBal; ?>");
+			credit_now -= parseFloat(youth.balance);
 			firebase.database().ref('/users/' + parentEmail_key).update({
 				credit_due: credit_now
 			});
@@ -186,9 +186,9 @@ $parentBal = intval($parentBal);
 		
 		// Switch student's status to deactivated and subtract balance from parent's balance
 		activateButton.onclick = () => {
-			var credit_now = parseInt("<?php echo $parentBal; ?>");
+			var credit_now = parseFloat("<?php echo $parentBal; ?>");
 			
-			credit_now += parseInt(youth.balance);
+			credit_now += parseFloat(youth.balance);
 			firebase.database().ref('/users/' + parentEmail_key).update({
 				credit_due: credit_now
 			});
