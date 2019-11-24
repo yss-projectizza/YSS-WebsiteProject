@@ -19,7 +19,7 @@
           <a href="/dashboard.php" class="navlinks" style="margin-right: 20px;">Dashboard</a>
           <a href="/logout.php" class="navlinks">Logout</a>
           <div id="profile">
-              <span id="name-span" style="color: white;">Hello <?php echo $_SESSION["queryData"]["first_name"]; ?> </span>
+              <span id="name-span" style="color: white;">Hello <?php echo $_SESSION["queryData"]["first_name"]; ?>! </span>
               <br/>
               <img title="Edit your profile information"
                 src="/profile_placeholder.jpg" onClick="document.location.href = '/dashboard/main_users/profile.php';"/>
