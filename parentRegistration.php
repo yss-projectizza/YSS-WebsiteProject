@@ -200,9 +200,9 @@ session_start();
 Javascript Segment
 -->
 
-    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-storage.js"></script> -->
 
     <script>
         var dlImage;
@@ -222,15 +222,15 @@ Javascript Segment
                 return false;
             }
             else {
-                var config = {
-                    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-                    authDomain: "yss-project-69ba2.firebaseapp.com",
-                    databaseURL: "https://yss-project-69ba2.firebaseio.com",
-                    projectId: "yss-project-69ba2",
-                    storageBucket: "yss-project-69ba2.appspot.com",
-                    messagingSenderId: "530416464878"
-                };
-                firebase.initializeApp(config);
+                // var config = {
+                //     apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+                //     authDomain: "yss-project-69ba2.firebaseapp.com",
+                //     databaseURL: "https://yss-project-69ba2.firebaseio.com",
+                //     projectId: "yss-project-69ba2",
+                //     storageBucket: "yss-project-69ba2.appspot.com",
+                //     messagingSenderId: "530416464878"
+                // };
+                // firebase.initializeApp(config);
                 var storageRef = firebase.storage().ref();
                 var database = firebase.database();
                 var storageRef = firebase.storage().ref('dl/' + dlImage.name);

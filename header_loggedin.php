@@ -84,11 +84,12 @@
   });
 
   // grabs icon from storage.
-  firebase.storage().ref('icons/' + key).getDownloadURL().then(function(url)
+  firebase.storage().ref('icon/' + key).getDownloadURL().then(function(url)
   {
     let profile_pic = document.getElementById("profile-pic");
 
     profile_pic.src = url;
+    
   }).catch(function(error) // sets profile pic to default if no picture found.
   {
     let profile_pic = document.getElementById("profile-pic");
