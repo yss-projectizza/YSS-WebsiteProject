@@ -1,13 +1,13 @@
 .left{
     position: absolute;
-    left: 5%;
-    top: 10%;
+    left: 2%;
+    top: 2%;
 }
 
 .right{
     position: absolute;
-    right: 10%;
-    top: 15%;
+    right: 2%;
+    top: 2%;
 }
 
 #add-youth-btn{
