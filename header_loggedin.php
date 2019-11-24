@@ -20,7 +20,7 @@
           <a href="/dashboard.php" class="navlinks" style="margin-right: 20px;">Dashboard</a>
           <a href="/logout.php" class="navlinks">Logout</a>
           <div id="profile">
-              <span id="name-span" style="color: white;"></span>
+              <span style="color: white;"> Hello <?php echo $_SESSION["queryData"]["first_name"];?>!</span>
               <br/>
               <img id="profile-pic" title="Edit your profile information"
                  onClick="document.location.href = '/dashboard/main_users/profile.php';" style="size:auto;"/>
@@ -77,11 +77,6 @@
   }
 
   key = key.replace(".", ",");
-
-  firebase.database().ref('users/' + key).once("value", function(snapshot)
-  {
-    document.getElementById("name-span").innerHTML = "Hello " + snapshot.val()["first_name"] + "!";
-  });
 
   // grabs icon from storage.
   firebase.storage().ref('icons/' + key).getDownloadURL().then(function(url)
