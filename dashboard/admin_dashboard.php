@@ -40,18 +40,44 @@ if (!isset($_SESSION))
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
+
+  <script>
+    function update_groupnum(event, id) {
+      firebase.database().ref('/users/' + id + '/group_num').set(event.target.value);
+    }
+
+    function update_cabinnum(event, id) {
+      firebase.database().ref('/users/' + id + '/cabin_num').set(event.target.value);
+    }
+
+    function update_busnum(event, id) {
+      firebase.database().ref('/users/' + id + '/bus_num').set(event.target.value);
+    }
+
+    function update_credit(event, id) {
+      firebase.database().ref('/users/' + id + '/credit_due').set(event.target.value);
+    }
+  </script>
 </head>
 
 <body onload="sortData('group_num')">
   <?php include('header_loggedin.php') ?>
   <main class="main">
     <h3>Admin Panel</h3>
+
+    <div class="card">
+        <h2>Camp Information</h2>
+        <input id="program-name" type="text"></input>
+        <input id="program-price" type="number" step="0.01"></input>
+        <button id="submit-camp-info" class="rounded" style="margin:10px" onclick="saveCampInfoChanges()">Submit</button>
+    </div>
     
     <!-- Buttons to Manage Groups, Assign Counselors, and View All User Info pages -->
     <div class="card">
       <button class="rounded" style="margin-bottom: 10px" type="button" onclick="window.location.href='/dashboard/manage_groups.php'"> Manage Groups </button>
       <button class="rounded" style="margin-bottom: 10px" type="button" onclick="window.location.href='/dashboard/assign_counselors.php'"> Assign Counselors </button>
       <button class="rounded" style="margin-bottom: 10px" type="button" onclick="window.location.href='/dashboard/view_all_user_info.php'"> View All User Information </button>
+      <button class="rounded" style="margin-bottom: 10px" type="button" onclick="auto-pump-students()"> Push to Next Year </button>
     </div>
 
 
@@ -65,235 +91,239 @@ if (!isset($_SESSION))
             <br/>
           </div>
           <table id="inside-div">
-            <tbody id="schedule-table-body"></tbody>
           </table>
+          <script>
+            var counter = 0
+            let schedule_buttons = document.getElementById("schedule_buttons");
+            schedule_buttons.style.display = "block";
+
+            firebase.database().ref('/schedule/').once('value').then(item => {
+
+              if (!item.val()) {
+                var firebasedataArray = [];
+              } else {
+                var firebasedataArray = Object.entries(item.val());
+              }
+
+              for (let i = 0; i < firebasedataArray.length; ++i) {
+                let key = firebasedataArray[i][0];
+                counter++;
+                var updiv = document.getElementById("inside-div");
+                const eventDiv = document.createElement('tr');
+
+                var th1 = document.createElement("th");
+                var label = document.createElement("label");
+                var input = document.createElement("input");
+                input.classList.add('input');
+                label.innerHTML = "Event " + counter;
+                input.type = "text";
+                input.id = "eventinput" + counter;
+                input.value = firebasedataArray[i][1]["event"];
+                th1.appendChild(label);
+                th1.appendChild(input);
+
+                var th2 = document.createElement("th");
+                var label = document.createElement("label");
+                var input = document.createElement("input");
+                input.classList.add('input');
+                label.innerHTML = "Time " + counter;
+                input.type = "text";
+                input.id = "timeinput" + counter;
+                input.value = firebasedataArray[i][1]["time"];
+                th2.appendChild(label);
+                th2.appendChild(input);
+
+                var th3 = document.createElement("th");
+                var label = document.createElement("label");
+                var input = document.createElement("input");
+                input.classList.add('input');
+                label.innerHTML = "Date " + counter;
+                input.type = "text";
+                input.id = "dateinput" + counter;
+                input.value = firebasedataArray[i][1]["date"];
+                th3.appendChild(label);
+                th3.appendChild(input);
+
+                var th5 = document.createElement("th");
+                th5.id = "family-list-" + counter;
+                th5.innerHTML = `</button>
+                <div class="dropdown-menu" id = 'family-dropdown-` + counter + `' aria-labelledby="dropdownMenuButton"></div></div></td>
+                                    <td id='max-size-` + counter + `'>
+                                    <div class="dropdown">
+                <button id="toggle-cabins-` + counter + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">`;
+
+                var th4 = document.createElement("th");
+                var label = document.createElement("label");
+                var input = document.createElement("input");
+                input.classList.add('input');
+                label.innerHTML = "Group(s)";
+                input.type = "text";
+                input.id = "groupinput" + counter;
+                input.value = firebasedataArray[i][1]["group"];
+                th4.appendChild(label);
+                th4.appendChild(input);
+                
+
+                function delete_event(id) {
+                  firebase.database().ref('/schedule/' + id).remove();
+                }
+
+                var delete_th = document.createElement("th");
+                var deletebutton = document.createElement("button");
+                deletebutton.classList.add('rounded', 'delete-button');
+                deletebutton.innerHTML = "Delete"
+                deletebutton.onclick = () => {
+                  delete_event(key);
+                  alert("deleted successfully.");
+                  location.reload();
+                }
+
+                eventDiv.appendChild(th1);
+                eventDiv.appendChild(th2);
+                eventDiv.appendChild(th3);
+                eventDiv.appendChild(th4);
+                eventDiv.appendChild(th5);
+                delete_th.appendChild(deletebutton);
+                eventDiv.appendChild(delete_th);
+
+
+                updiv.appendChild(eventDiv);
+              }
+            });
+
+            addEventButton = document.getElementById("addEvent");
+            addEventButton.addEventListener("click", function () {
+              var updiv = document.getElementById("inside-div");
+              const eventDiv = document.createElement('tr');
+              counter++;
+
+              var th1 = document.createElement("th");
+              var label = document.createElement("label");
+              var input = document.createElement("input");
+              label.innerHTML = "Event " + counter;
+              input.type = "text";
+              input.id = "eventinput" + counter;
+              th1.appendChild(label);
+              th1.appendChild(input);
+
+              var th2 = document.createElement("th");
+              var label = document.createElement("label");
+              var input = document.createElement("input");
+              label.innerHTML = "Time " + counter;
+              input.type = "text";
+              input.id = "timeinput" + counter;
+              th2.appendChild(label);
+              th2.appendChild(input);
+
+              var th3 = document.createElement("th");
+              var label = document.createElement("label");
+              var input = document.createElement("input");
+              label.innerHTML = "Date " + counter;
+              input.type = "text";
+              input.id = "dateinput" + counter;
+              th3.appendChild(label);
+              th3.appendChild(input);
+
+              var th5 = document.createElement("th");
+              th5.innerHTML = `hello!!!`;
+
+              var th4 = document.createElement("th");
+              var label = document.createElement("label");
+              var input = document.createElement("input");
+              label.innerHTML = "Group(s)";
+              input.type = "text";
+              input.id = "groupinput" + counter;
+              th4.appendChild(label);
+              th4.appendChild(input);
+
+              eventDiv.appendChild(th1);
+              eventDiv.appendChild(th2);
+              eventDiv.appendChild(th3);
+              eventDiv.appendChild(th4);
+              eventDiv.appendChild(th5);
+              updiv.appendChild(eventDiv);
+
+            });
+            newdict = {}
+
+            document.getElementById("submit").addEventListener("click", function () {
+              newdict = {}
+              firebase.database().ref('/schedule/').set(null);
+
+              for (let i = 1; i <= counter; ++i) {
+
+                newdict["event"] = document.getElementById("eventinput" + i).value;
+                newdict["time"] = document.getElementById("timeinput" + i).value;
+                newdict["date"] = document.getElementById("dateinput" + i).value;
+                newdict["group"] = document.getElementById("groupinput" + i).value;
+                firebase.database().ref('/schedule/').push(newdict);
+              }
+
+
+            });
+          </script>
         </div>
       </div>
   </main>
 </body>
+
 </html>
 
 <script>
-  var counter = 0
-  let schedule_buttons = document.getElementById("schedule_buttons");
-  schedule_buttons.style.display = "block";
-
-  firebase.database().ref('/schedule/').once('value').then(item => 
+  firebase.database().ref('currentProgram').once("value", function(snapshot)
   {
-    if (!item.val()) 
-    {
-      var firebasedataArray = [];
-    } 
-    else
-    {
-      var firebasedataArray = Object.entries(item.val());
-    }
+    let programObj = snapshot.val();
 
-    let row = "";
-
-    for (let i = 0; i < firebasedataArray.length; ++i) 
-    {
-      let key = firebasedataArray[i][0];
-
-      counter++;
-      
-      var updiv = document.getElementById("inside-div");
-
-      row += `<tr id="event${counter}">
-                <th>
-                  <label>
-                    Event ${counter}
-                      <input class="input" type="text" id="eventinput${counter}" value="${firebasedataArray[i][1]["event"]}">
-                      </input>
-                  </label>
-                </th>
-                <th>
-                  <label>
-                    Time ${counter}
-                    <input class="input" type="text" id="timeinput${counter}" value="${firebasedataArray[i][1]["time"]}">
-                    </input>
-                  </label>
-                </th>
-                <th>
-                  <label>
-                    Date ${counter}
-                    <input class="input" type="text" id="dateinput${counter}" value="${firebasedataArray[i][1]["date"]}">
-                    </input>
-                  </label>
-                </th>
-                <th>
-                  <div class="dropdown">
-                  <button id="toggle-group-type" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     Groups:
-                     <div class="dropdown-menu" id="family-list-${counter}"aria-labelledby="dropdownMenuButton">
-                     </div>
-                  </button>
-                </th>
-                <th>
-                  <div style="padding:15px" id="group-list-${counter}">${firebasedataArray[i][1]["group"]}</div>
-                </th>
-                <th>
-                  <button id="delete-btn" class="rounded delete-button" onclick="delete_event('${key}')">Delete</button>
-                </th>
-              </tr>`;    
-
-        add_family_dropdown_items(counter);
-    }
-    
-    updiv.innerHTML = row;
+    document.getElementById("program-name").value = programObj.eventName;
+    document.getElementById("program-price").value = parseFloat(programObj.price);
   });
 
-  addEventButton = document.getElementById("addEvent");
-  addEventButton.addEventListener("click", function () 
-  {
-    window.location.href = "#event"+ counter; // jumps to the new event being added
-
-    let row = "";
-    
-    counter++;
-    
-    var updiv = document.getElementById("inside-div");
-    
-    row += `<tr id="event${counter}">
-                <th>
-                  <label>
-                    Event ${counter}
-                      <input class="input" type="text" id="eventinput${counter}">
-                      </input>
-                  </label>
-                </th>
-                <th>
-                  <label>
-                    Time ${counter}
-                    <input class="input" type="text" id="timeinput${counter}">
-                    </input>
-                  </label>
-                </th>
-                <th>
-                  <label>
-                    Date ${counter}
-                    <input class="input" type="text" id="dateinput${counter}">
-                    </input>
-                  </label>
-                </th>
-                <th>
-                  <div class="dropdown">
-                  <button id="toggle-group-type" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     Groups:
-                     <div class="dropdown-menu" id="family-list-${counter}"aria-labelledby="dropdownMenuButton">
-                     </div>
-                  </button>
-                </th>
-                <th>
-                  <div style="padding:15px" id="group-list-${counter}">all</div>
-                </th>
-              </tr>`;
-
-              add_family_dropdown_items(counter);
-
-              updiv.innerHTML = updiv.innerHTML + row;
-
-  });
-  newdict = {}
-
-  document.getElementById("submit").addEventListener("click", function () 
-  {
-    newdict = {}
-    
-    firebase.database().ref('/schedule/').set(null);
-
-    for (let i = 1; i <= counter; ++i) 
-    {
-      newdict["event"] = document.getElementById("eventinput" + i).value;
-      newdict["time"] = document.getElementById("timeinput" + i).value;
-      newdict["date"] = document.getElementById("dateinput" + i).value;
-      newdict["group"] = document.getElementById("group-list-" + i).innerHTML;
-      firebase.database().ref('/schedule/').push(newdict);
-    }
-
-    location.reload();
-  });
-
-function delete_event(id) 
+function saveCampInfoChanges()
 {
-  firebase.database().ref('/schedule/' + id).remove();
-  alert("deleted successfully");
-  location.reload();
-}
+  let eventName = document.getElementById("program-name").value;
+  let price = parseFloat(document.getElementById("program-price").value);
 
-function add_family_dropdown_items(index)
-{
-  firebase.database().ref("families").once("value", function(snapshot)
+  firebase.database().ref('currentProgram').update({'eventName' : eventName, 'price': price});
+
+  firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
   {
-    let families = Object.entries(snapshot.val());
+    let students = Object.entries(snapshot.val());
 
-    let family_names = "";
-
-    for(let i = 0; i < families.length; ++i)
+    for(let i = 0; i < students.length; i++)
     {
-      if(i == 0)
-      {
-        family_names += `<a class="dropdown-item" onclick="editNameList('all', '${index}')">all</a>`;
-      }
-      else
-      {
-        family_names += `<a class="dropdown-item" onclick="editNameList('${families[i][1].name}', ${index})">${families[i][1].name}</a>`;
-      }
-    }
+      let key = students[i][0];
 
-    document.getElementById("family-list-" + index).innerHTML = family_names;
+      firebase.database().ref('users/' + key).update({'balance' : price});
+    }
   });
 }
 
-function editNameList(name, index)
+function auto-pump-users()
 {
-  let group_list_ref = document.getElementById("group-list-" + index);
-  let group_list = group_list_ref.innerHTML;
+  let ok_clicked = confirm("Are you sure you want to push all students up a grade level and delete current seniors?")
+
+  if (ok_clicked)
+  {
+    firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value, function(snapshot)
+    {
+      let students = Object.entries(snapshot.val());
+    
+      for (let i = 0; i < students.length; ++i)
+      {
+         let key = students[i][0];
+         switch(grade_level)
+         {
+           case "Freshman": firebase.database().ref('users/' + key).update({'grade_level' : 'Sophomore', 'group_num' : 'N/A', 'cabin_num' : 'N/A', 'bus_num' : 'N/A'});
+               break;
+           case "Sophomore": firebase.database().ref('users/' + key).update({'grade_level' : 'Junior', 'group_num' : 'N/A', 'cabin_num' : 'N/A', 'bus_num' : 'N/A'});
+               break;
+           case "Junior" : firebase.database().ref('users/' + key).update({'grade_level : 'Senior', 'group_num' : 'N/A', 'cabin_num' : 'N/A', 'bus_num' : 'N/A'});
+               break;
+         }
+      }
+    }
+  }  
+}
   
-  if(name == "all")
-  {
-    group_list_ref.innerHTML = "all";
-  }
-  else
-  {
-    if(group_list == "all")
-    {
-      group_list_ref.innerHTML = name;
-    }
-    else
-    {
-      if(!group_list.includes(name))
-      {
-        if(group_list != "")
-        {
-          group_list += ",";
-        }
-
-        group_list += name;
-      }
-      else
-      {
-        if(group_list.includes(","))
-        {
-          if(group_list.includes("," + name))
-          {
-            group_list = group_list.replace("," + name, "");
-          }
-          else if(group_list.includes(name + ","))
-          {
-            group_list = group_list.replace(name + ",", "");
-          }
-        }
-        else
-        {
-          group_list = group_list.replace(name, "");
-        }
-      }
-
-      group_list_ref.innerHTML = group_list;
-    }
-  }
-}
-</script>
+</script> 
