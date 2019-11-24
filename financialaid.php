@@ -112,7 +112,7 @@
 				</div>
 		</form>
 
-		<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+		<!-- <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script> -->
 
 
 <!-- <script>
