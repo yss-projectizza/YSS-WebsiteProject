@@ -314,11 +314,11 @@ function auto-pump-users()
          let key = students[i][0];
          switch(grade_level)
          {
-           case "Freshman": firebase.database().ref('users/' + key).update({'grade_level' : 'Sophomore', 'group_num' : 'N/A', 'cabin_num' : 'N/A', 'bus_num' : 'N/A'});
+           case "Freshman": firebase.database().ref('users/' + key).update({'grade_level' : 'Sophomore'});
                break;
-           case "Sophomore": firebase.database().ref('users/' + key).update({'grade_level' : 'Junior', 'group_num' : 'N/A', 'cabin_num' : 'N/A', 'bus_num' : 'N/A'});
+           case "Sophomore": firebase.database().ref('users/' + key).update({'grade_level' : 'Junior'});
                break;
-           case "Junior" : firebase.database().ref('users/' + key).update({'grade_level : 'Senior', 'group_num' : 'N/A', 'cabin_num' : 'N/A', 'bus_num' : 'N/A'});
+           case "Junior" : firebase.database().ref('users/' + key).update({'grade_level : 'Senior'});
                break;
          }
       }
