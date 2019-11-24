@@ -157,20 +157,15 @@ $parentBal = floatval($parentBal);
 		
 		// Switch student's status to deactivated and subtract balance from parent's balance
 		deactivateButton.onclick = () => {
-			var credit_now = parseFloat("<?php echo $parentBal; ?>");
-			credit_now -= parseFloat(youth.balance);
+      var credit_now = parseFloat("<?php echo $parentBal; ?>");
+      
+      credit_now -= parseFloat(youth.balance);
+
+      credit_now = credit_now.toFixed(2);
+
 			firebase.database().ref('/users/' + parentEmail_key).update({
-				credit_due: credit_now
+				credit_due: parseFloat(credit_now)
 			});
-			
-			/* For some reason, this function doesn't work
-			firebase.database().ref('/users/' + parentEmail_key + '/credit_due').once("value", function(snapshot){	
- 				var credit_now = parseFloat(snapshot.val());
-				credit_now = youth.balance;
-				firebase.database().ref('/users/' + parentEmail_key).update({
-					credit_due: youth.balance
-				});
-			}); */
 			
 			firebase.database().ref('/users/' + key).update({
 				accountStatus: "Deactivated"
@@ -190,7 +185,7 @@ $parentBal = floatval($parentBal);
 			
 			credit_now += parseFloat(youth.balance);
 			firebase.database().ref('/users/' + parentEmail_key).update({
-				credit_due: credit_now
+				credit_due: parseFloat(credit_now)
 			});
 			firebase.database().ref('/users/' + key).update({
 				accountStatus: "Activated"

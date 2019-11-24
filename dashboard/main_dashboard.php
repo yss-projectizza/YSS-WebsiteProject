@@ -37,8 +37,6 @@ if ($userType == "parent"){
 
 <script>
   var email = "<?php echo $email; ?>";
-
-  alert("hi " + email);
   
 	/*
 	// Not sure what this block does. Might want to delete it.
@@ -305,19 +303,13 @@ if ($userType == "parent"){
                 // let payed_dollar = parseInt(amount_payed[0]);
                 // let payed_cents = parseInt(amount_payed[1]);
 
-                alert("You payed: $" + amount_payed);
-
                 let parentKey = email.replace(".", ",");
 
                 firebase.database().ref('users/' + parentKey + '/credit_due').once('value').then(async function(snapshot)
                 {
                     var credit_now = await parseFloat(snapshot.val());
 
-                    alert("Credit now: $" + credit_now);
-
                     let updated_credit_due = credit_now - parseFloat(amount_payed);
-
-                    alert("New credit due is: " +  updated_credit_due);
 
                     firebase.database().ref('users/' + parentKey).update(
                     {
@@ -338,6 +330,8 @@ if ($userType == "parent"){
                         }
                       }
                     });
+
+                    alert("Your payment was successful!");
 
                     location.reload();
                   });

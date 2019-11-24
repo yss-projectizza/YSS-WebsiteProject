@@ -288,13 +288,50 @@ function saveCampInfoChanges()
   firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
   {
     let students = Object.entries(snapshot.val());
-
+    
     for(let i = 0; i < students.length; i++)
     {
       let key = students[i][0];
 
-      firebase.database().ref('users/' + key).update({'balance' : price});
+      if(parseFloat(students[i][1].balance) != 0)
+      {
+        firebase.database().ref('users/' + key).update({'balance' : price});
+      }
     }
+
+    // update parent's balance
+    firebase.database().ref('users').orderByChild('user_type').equalTo('parent').once("value", function(snapshot)
+    {
+      let parents = Object.entries(snapshot.val());
+
+      for(let i = 0; i < parents.length; i++)
+      {
+        let parentEmail = parents[i][1].email;
+        
+        firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
+        {
+          let students = Object.entries(snapshot.val());
+
+          let updated_parent_balance = 0.0;
+
+          for(let j = 0; j < students.length; j++)
+          {
+            if(students[j][1].parent_email == parentEmail && students[j][1].accountStatus == "Activated")
+            {
+              updated_parent_balance += parseFloat(students[j][1].balance);
+            }
+          }
+
+          let parentKey = parentEmail.replace(".", ",");
+
+          alert("parentkey = " + parentKey + " new bal " + updated_parent_balance);
+
+          // alert("parentKey = " + parentKey);
+
+          firebase.database().ref('users/' + parentKey).update({'credit_due': parseFloat(updated_parent_balance)});
+        });
+      }
+    });
   });
 }
   
