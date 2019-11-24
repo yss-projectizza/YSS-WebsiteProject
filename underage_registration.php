@@ -25,7 +25,7 @@ if (array_key_exists($username, $reference)){
 }
 
 $parentBal = $_SESSION["queryData"]["credit_due"];
-$parentBal = intval($parentBal);
+$parentBal = floatval($parentBal);
 ?>
 
 <!doctype html>
@@ -274,7 +274,21 @@ $parentBal = intval($parentBal);
                         alert("please add any medication or type N/A");
                     }
                     else {
-                        let parent_email = "<?php echo $parent_email; ?>";
+                        // let parent_email = "<?php echo $parent_email; ?>";
+
+                        // let parent_key = parent_email.replace(".", ",");
+
+                        // firebase.database().ref('/users/' + parent_key).once("value", function(snapshot)
+                        // {
+                        //     let parent = snapshot.val();
+
+                        //     alert("Parent currently owes: " + parent.credit_due + "Now they will owe: " + (parseFloat(parent.credit_due) + balance));
+
+                        //     let updated_credit_due = parseFloat(parent.credit_due) + balance;
+
+                        //     firebase.database().ref('/users/' + parent_key).update({credit_due: updated_credit_due});
+                        // });
+
                         var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
                             user_type: "student",
 														accountStatus: accountStatus,
@@ -310,40 +324,26 @@ $parentBal = intval($parentBal);
                         }
                         );
 												
-												// Update student's balance and add new student's balance to parent's balance
-												firebase.database().ref('/currentProgram/price').once('value', function(snapshot){
-															var programPrice = parseInt(snapshot.val());
-															
-															// Update student's account balance
-															firebase.database().ref('/users/' + emailwcharactersreplaced).update({
-																balance: programPrice
-															});
-															
-															var credit_now = parseInt("<?php echo $parentBal; ?>");
-															credit_now += programPrice;
-															var parentEmail = "<?php echo $parent_email; ?>";
-															var parentEmailKey = parentEmail.replace(".",",");
-															
-															firebase.database().ref('/users/' + parentEmailKey).update({
-																credit_due: credit_now
-															});
-															
-															// This block stops working for some reason. Replacing it with pulling value from php session database.
-															/* // Add student's balance to parent's total balance
-															var parentEmail = "<?php echo $parent_email; ?>";
-															var parentEmailKey = parentEmail.replace(".",",");
-															alert(parentEmailKey);
-															firebase.database().ref('/users/' + parentEmailKey + '/credit_due').once('value', function(snapshot){
-																alert("The proram price is " + programPrice);
-																var credit_now = parseFloat(snapshot.val());
-																alert("inside parent, credit_now = " + credit_now);
-																var newAmount = credit_now + programPrice;
-																firebase.database().ref('/users/' + parentEmailKey).update({
-																	credit_due: newAmount		
-																});															
-															}); */														
-												});
-												window.location.href = "email_student.php?studentEmail=" + studentEmail + "&reset=true";												
+                        // Update student's balance and add new student's balance to parent's balance
+                        firebase.database().ref('/currentProgram/price').once('value', function(snapshot){
+                                    var programPrice = parseFloat(snapshot.val());
+
+                                    // Update student's account balance
+                                    firebase.database().ref('/users/' + emailwcharactersreplaced).update({
+                                        balance: programPrice
+                                    });
+                                    
+                                    var credit_now = parseFloat("<?php echo $parentBal; ?>");
+                                    credit_now += programPrice;
+
+                                    var parentEmail = "<?php echo $parent_email; ?>";
+                                    var parentEmailKey = parentEmail.replace(".",",");
+                                    
+                                    firebase.database().ref('/users/' + parentEmailKey).update({
+                                        credit_due: parseFloat(credit_now)
+                                    });													
+                        });
+                        window.location.href = "email_student.php?studentEmail=" + studentEmail + "&reset=true";												
                     }																														
                 };
         </script>

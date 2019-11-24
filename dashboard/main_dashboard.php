@@ -36,7 +36,9 @@ if ($userType == "parent"){
 
 
 <script>
-  var email = "<?php echo $email; ?>"
+  var email = "<?php echo $email; ?>";
+
+  alert("hi " + email);
   
 	/*
 	// Not sure what this block does. Might want to delete it.
@@ -270,9 +272,9 @@ if ($userType == "parent"){
         <h2>Payment</h2>
         <label>You owe: <label id="amount_owed" style='font-size:22;color:red;'>$</label></label>
 				<script>
-				var credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>";
+				var credit_due = parseFloat("<?php echo $_SESSION['queryData']['credit_due']; ?>");
 				document.getElementById("amount_owed").innerText = "$" + credit_due;
-				</script>
+        </script>
 				
         <script src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk">
         </script>
@@ -287,7 +289,7 @@ if ($userType == "parent"){
                 {
                   amount:
                   {
-                    value: <?php echo $credit_due; ?>
+                    value: credit_due
                   }
                 }]
               });
@@ -299,22 +301,51 @@ if ($userType == "parent"){
               {
               // Show a success message to your buyer
                 let amount_payed = details.purchase_units[0].amount.value;
-                amount_payed = amount_payed.split(".");
-                let payed_dollar = parseInt(amount_payed[0]);
-                let payed_cents = parseInt(amount_payed[1]);
+                // amount_payed = amount_payed.split(".");
+                // let payed_dollar = parseInt(amount_payed[0]);
+                // let payed_cents = parseInt(amount_payed[1]);
 
-                firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot)
+                alert("You payed: $" + amount_payed);
+
+                let parentKey = email.replace(".", ",");
+
+                firebase.database().ref('users/' + parentKey + '/credit_due').once('value').then(async function(snapshot)
                 {
-                    var credit_now = await parseInt(snapshot.val());
+                    var credit_now = await parseFloat(snapshot.val());
 
-                    firebase.database().ref('/users/' + email).update(
+                    alert("Credit now: $" + credit_now);
+
+                    let updated_credit_due = credit_now - parseFloat(amount_payed);
+
+                    alert("New credit due is: " +  updated_credit_due);
+
+                    firebase.database().ref('users/' + parentKey).update(
                     {
-                      credit_due: credit_now - payed_dollar
+                      'credit_due': updated_credit_due
+                    });
+
+                    firebase.database().ref('users').orderByChild('parent_email').equalTo(email).on("value", function(snapshot)
+                    {
+                      var children = Object.entries(snapshot.val());
+
+                      for(let i = 0; i < children.length; i++)
+                      {
+                        if(children[i][1].accountStatus == "Activated")
+                        {
+                          let childKey = children[i][0];
+
+                          firebase.database().ref('users/' + childKey).update({'balance': 0});
+                        }
+                      }
                     });
 
                     location.reload();
                   });
               });
+            },
+            onError: function(err)
+            {
+              alert("Payment failed");
             }
           }).render('#paypal-button-container');
         </script>
