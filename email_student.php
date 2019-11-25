@@ -67,9 +67,9 @@ and personal information immediately. Thank you.\n
 		
 
         if($mail){
-            echo "<script> alert('Success! Email was sent!'); </script>";
+            echo "success. Email sent";
         } else {
-            echo "<script> alert('Failed. Email was not sent!'); </script>"; 
+            echo "failed. No email sent."; 
         }
    
 		echo "<script> window.location.replace('dashboard.php') </script>";

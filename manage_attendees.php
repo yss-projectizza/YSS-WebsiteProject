@@ -141,6 +141,9 @@ $parentBal = floatval($parentBal);
       if(youth.accountStatus == "Activated")
       {
         credit_now -= parseFloat(youth.balance);
+
+        credit_now = credit_now.toFixed(2);
+
         firebase.database().ref('/users/' + parentEmail_key).update({
           credit_due: credit_now
         });			
@@ -183,7 +186,9 @@ $parentBal = floatval($parentBal);
 		activateButton.onclick = () => {
 			var credit_now = parseFloat("<?php echo $parentBal; ?>");
 			
-			credit_now += parseFloat(youth.balance);
+      credit_now += parseFloat(youth.balance);
+      
+      credit_now = credit_now.toFixed(2);
 			firebase.database().ref('/users/' + parentEmail_key).update({
 				credit_due: parseFloat(credit_now)
 			});
