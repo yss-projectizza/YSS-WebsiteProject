@@ -33,7 +33,7 @@
         {
 			    $userInfo["group_num"] = "N/A";
           $userInfo["user_type"] = "parent";
-          $userInfo["credit_due"] = "299";
+          $userInfo["credit_due"] = "0";
         }
     }
     

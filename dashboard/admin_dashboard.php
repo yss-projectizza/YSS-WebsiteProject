@@ -244,10 +244,8 @@ function add_family_dropdown_items(index)
       {
         family_names += `<a class="dropdown-item" onclick="editNameList('all', '${index}')">all</a>`;
       }
-      else
-      {
-        family_names += `<a class="dropdown-item" onclick="editNameList('${families[i][1].name}', ${index})">${families[i][1].name}</a>`;
-      }
+
+      family_names += `<a class="dropdown-item" onclick="editNameList('${families[i][1].name}', ${index})">${families[i][1].name}</a>`;
     }
 
     document.getElementById("family-list-" + index).innerHTML = family_names;

@@ -13,7 +13,7 @@ if(!isset($_SESSION))
     var bus_num = "N/A";
     var group_num = "N/A";
     var cabin_num = "N/A";
-    var credit_due = "299";
+    var credit_due = 0;
 </script>
 
 
