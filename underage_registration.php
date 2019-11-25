@@ -247,7 +247,6 @@ $parentBal = floatval($parentBal);
                     var birthYear = dob.slice(0,4);
                     var defaultPassword = ln + birthYear;
 										var password = defaultPassword;
-										var balance = "";
 										var accountStatus = "Activated";
 										
                     // var size = document.getElementById("size").value;
@@ -298,8 +297,7 @@ $parentBal = floatval($parentBal);
                             dob: dob,
                             birthYear: birthYear,
                             password: password,
-														defaultPassword: defaultPassword,
-														balance: balance,
+                            defaultPassword: defaultPassword,
                             file: file,
                             alleriges: allergies,
                             meds: meds,
@@ -323,12 +321,12 @@ $parentBal = floatval($parentBal);
                         );
 												
                         // Update student's balance and add new student's balance to parent's balance
-                        firebase.database().ref('/currentProgram/price').once('value', function(snapshot){
+                        firebase.database().ref('currentProgram/price').once('value', function(snapshot){
                                     var programPrice = parseFloat(snapshot.val());
 
                                     // Update student's account balance
                                     firebase.database().ref('/users/' + emailwcharactersreplaced).update({
-                                        balance: programPrice
+                                        'balance': parseFloat(programPrice)
                                     });
                                     
                                     var credit_now = parseFloat("<?php echo $parentBal; ?>");
@@ -341,6 +339,7 @@ $parentBal = floatval($parentBal);
                                         credit_due: parseFloat(credit_now)
                                     });													
                         });
+                        
                         window.location.href = "email_student.php?studentEmail=" + studentEmail + "&reset=true";												
                     }																														
                 };
