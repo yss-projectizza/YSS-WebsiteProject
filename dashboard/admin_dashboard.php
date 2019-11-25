@@ -362,6 +362,8 @@ function saveCampInfoChanges()
         });
       }
     });
+
+    alert("Your changes were successfully saved!");
   });
 }
 
