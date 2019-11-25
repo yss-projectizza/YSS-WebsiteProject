@@ -324,10 +324,6 @@ function saveCampInfoChanges()
 
           let parentKey = parentEmail.replace(".", ",");
 
-          alert("parentkey = " + parentKey + " new bal " + updated_parent_balance);
-
-          // alert("parentKey = " + parentKey);
-
           firebase.database().ref('users/' + parentKey).update({'credit_due': parseFloat(updated_parent_balance)});
         });
       }
