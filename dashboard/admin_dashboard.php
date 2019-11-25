@@ -77,7 +77,7 @@ if (!isset($_SESSION))
       <button class="rounded" style="margin-bottom: 10px" type="button" onclick="window.location.href='/dashboard/manage_groups.php'"> Manage Groups </button>
       <button class="rounded" style="margin-bottom: 10px" type="button" onclick="window.location.href='/dashboard/assign_counselors.php'"> Assign Counselors </button>
       <button class="rounded" style="margin-bottom: 10px" type="button" onclick="window.location.href='/dashboard/view_all_user_info.php'"> View All User Information </button>
-      <button class="rounded" style="margin-bottom: 10px" type="button" onclick="auto-pump-students()"> Push to Next Year </button>
+      <button class="rounded" style="margin-bottom: 10px" type="button" onclick="auto-pump-students()"> Push Students to Next Year </button>
     </div>
 
 
