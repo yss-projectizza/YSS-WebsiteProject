@@ -1,6 +1,33 @@
 <?php
 if (!isset($_SESSION))
   session_start();
+
+
+
+// This assumes that you have placed the Firebase credentials in the same directory
+// as this PHP file.
+require __DIR__. '/../vendor/autoload.php';
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
+$userType = $_SESSION["queryData"]["user_type"];
+$email = $_SESSION["queryData"]["email"];
+$emailwithcomma = str_replace(".", ",", $email);
+
+if ($userType == "parent"){
+	// Updating parent's account balance
+	// Refreshing session's database to make sure parent's balance is correct
+	$username = $emailwithcomma;
+	$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/../yss-project-69ba2-firebase-adminsdk-qpgd1-772443326e.json');
+	$firebase = (new Factory)
+		->withServiceAccount($serviceAccount)
+		->create();
+	$database = $firebase->getDatabase();
+	$reference = $database->getReference('/users')->getValue();
+
+	if (array_key_exists($username, $reference)){
+		$_SESSION["queryData"] = $reference[$username];
+	}
+}
 ?>
 
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
@@ -9,11 +36,9 @@ if (!isset($_SESSION))
 
 
 <script>
-  <?php
-  $emailwithcomma = str_replace(".", ",", $email);
-  ?>
-  var email = "<?php echo $email; ?>"
+  var email = "<?php echo $email; ?>";
   
+	/*
 	// Not sure what this block does. Might want to delete it.
 	var credit_due = "";
   if(user_type == "parent")
@@ -21,12 +46,11 @@ if (!isset($_SESSION))
     credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>";
   }
 
-
   firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot) {
     var credit_now = await parseInt(snapshot.val());
     document.getElementById("amount_owed").innerText = "$77tt" + credit_due;
   });
-
+	*/
 </script>
 
 <html lang="en">
@@ -56,7 +80,8 @@ if (!isset($_SESSION))
     <h2>To Do:</h2>
       <div class="to_do" id="to-do-div">
         <?php if($user_type == "student"):?>
-          <script>
+            <script>
+              // Initialize Firebase
               var config =
               {
                 apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
@@ -71,7 +96,7 @@ if (!isset($_SESSION))
 
               firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
               {
-                
+
                 let student = Object.entries(snapshot.val());
                 let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>";
 
@@ -231,7 +256,7 @@ if (!isset($_SESSION))
             <button id='group-details-button' type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">
               View Group Details
             </button>
-          <?php elseif($user_type == "student"): ?>
+          <?php else: ?>
             <button id='group-details-button' type="button" class="rounded" onclick="document.location.href = '/dashboard/main_users/campers.php';">
                 Manage
             </button>
@@ -245,9 +270,9 @@ if (!isset($_SESSION))
         <h2>Payment</h2>
         <label>You owe: <label id="amount_owed" style='font-size:22;color:red;'>$</label></label>
 				<script>
-				credit_due = "<?php echo $_SESSION['queryData']['credit_due']; ?>";
+				var credit_due = parseFloat("<?php echo $_SESSION['queryData']['credit_due']; ?>");
 				document.getElementById("amount_owed").innerText = "$" + credit_due;
-				</script>
+        </script>
 				
         <script src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk">
         </script>
@@ -262,7 +287,7 @@ if (!isset($_SESSION))
                 {
                   amount:
                   {
-                    value: <?php echo $credit_due; ?>
+                    value: credit_due
                   }
                 }]
               });
@@ -274,22 +299,47 @@ if (!isset($_SESSION))
               {
               // Show a success message to your buyer
                 let amount_payed = details.purchase_units[0].amount.value;
-                amount_payed = amount_payed.split(".");
-                let payed_dollar = parseInt(amount_payed[0]);
-                let payed_cents = parseInt(amount_payed[1]);
+                // amount_payed = amount_payed.split(".");
+                // let payed_dollar = parseInt(amount_payed[0]);
+                // let payed_cents = parseInt(amount_payed[1]);
 
-                firebase.database().ref('/users/' + email + '/credit_due').once('value').then(async function(snapshot)
+                let parentKey = email.replace(".", ",");
+
+                firebase.database().ref('users/' + parentKey + '/credit_due').once('value').then(async function(snapshot)
                 {
-                    var credit_now = await parseInt(snapshot.val());
+                    var credit_now = await parseFloat(snapshot.val());
 
-                    firebase.database().ref('/users/' + email).update(
+                    let updated_credit_due = credit_now - parseFloat(amount_payed);
+
+                    firebase.database().ref('users/' + parentKey).update(
                     {
-                      credit_due: credit_now - payed_dollar
+                      'credit_due': updated_credit_due
                     });
+
+                    firebase.database().ref('users').orderByChild('parent_email').equalTo(email).on("value", function(snapshot)
+                    {
+                      var children = Object.entries(snapshot.val());
+
+                      for(let i = 0; i < children.length; i++)
+                      {
+                        if(children[i][1].accountStatus == "Activated")
+                        {
+                          let childKey = children[i][0];
+
+                          firebase.database().ref('users/' + childKey).update({'balance': 0});
+                        }
+                      }
+                    });
+
+                    alert("Your payment was successful!");
 
                     location.reload();
                   });
               });
+            },
+            onError: function(err)
+            {
+              alert("Payment failed");
             }
           }).render('#paypal-button-container');
         </script>
@@ -300,7 +350,6 @@ if (!isset($_SESSION))
     <?php endif ?>
 
     <!-- Schedule Section -->
-
       <div class="card" id="schedule">
         <h2>Schedule</h2>
       </div>
