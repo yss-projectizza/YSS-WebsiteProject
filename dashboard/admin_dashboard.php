@@ -46,6 +46,13 @@ if (!isset($_SESSION))
   <?php include('header_loggedin.php') ?>
   <main class="main">
     <h3>Admin Panel</h3>
+
+    <div class="card">
+        <h2>Camp Information</h2>
+        <input id="program-name" type="text"></input>
+        <input id="program-price" type="number" step="0.01"></input>
+        <button id="submit-camp-info" class="rounded" style="margin:10px" onclick="saveCampInfoChanges()">Submit</button>
+    </div>
     
     <!-- Buttons to Manage Groups, Assign Counselors, and View All User Info pages -->
     <div class="card">
@@ -143,7 +150,7 @@ if (!isset($_SESSION))
     
     updiv.innerHTML = row;
   });
-
+  
   addEventButton = document.getElementById("addEvent");
   addEventButton.addEventListener("click", function () 
   {
@@ -296,4 +303,68 @@ function editNameList(name, index)
     }
   }
 }
+
+firebase.database().ref('currentProgram').once("value", function(snapshot)
+  {
+    let programObj = snapshot.val();
+
+    document.getElementById("program-name").value = programObj.eventName;
+    document.getElementById("program-price").value = parseFloat(programObj.price);
+  });
+
+function saveCampInfoChanges()
+{
+  let eventName = document.getElementById("program-name").value;
+  let price = parseFloat(document.getElementById("program-price").value);
+
+  firebase.database().ref('currentProgram').update({'eventName' : eventName, 'price': price});
+
+  firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
+  {
+    let students = Object.entries(snapshot.val());
+    
+    for(let i = 0; i < students.length; i++)
+    {
+      let key = students[i][0];
+
+      if(parseFloat(students[i][1].balance) != 0)
+      {
+        firebase.database().ref('users/' + key).update({'balance' : price});
+      }
+    }
+
+    // update parent's balance
+    firebase.database().ref('users').orderByChild('user_type').equalTo('parent').once("value", function(snapshot)
+    {
+      let parents = Object.entries(snapshot.val());
+
+      for(let i = 0; i < parents.length; i++)
+      {
+        let parentEmail = parents[i][1].email;
+        
+        firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
+        {
+          let students = Object.entries(snapshot.val());
+
+          let updated_parent_balance = 0.0;
+
+          for(let j = 0; j < students.length; j++)
+          {
+            if(students[j][1].parent_email == parentEmail && students[j][1].accountStatus == "Activated")
+            {
+              updated_parent_balance += parseFloat(students[j][1].balance);
+            }
+          }
+
+          let parentKey = parentEmail.replace(".", ",");
+
+          firebase.database().ref('users/' + parentKey).update({'credit_due': parseFloat(updated_parent_balance)});
+        });
+      }
+    });
+  });
+}
+
 </script>
+</html>
+
