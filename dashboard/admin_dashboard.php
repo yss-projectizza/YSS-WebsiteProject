@@ -49,8 +49,8 @@ if (!isset($_SESSION))
 
     <div class="card">
         <h2>Camp Information</h2>
-        <input id="program-name" type="text"></input>
-        <input id="program-price" type="number" step="0.01"></input>
+        <label><strong>Program Name</strong><br><input id="program-name" type="text"></input></label>
+        <label><strong>Program Price</strong><br><input id="program-price" type="number" step="0.01"></input></label>
         <button id="submit-camp-info" class="rounded" style="margin:10px" onclick="saveCampInfoChanges()">Submit</button>
     </div>
     

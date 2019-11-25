@@ -116,8 +116,6 @@ $parentBal = floatval($parentBal);
                             <option>Sophomore</option>
                             <option>Junior</option>
                             <option>Senior</option>
-                            <option>Early College</option>
-                            <option>Home School</option>
                         </select>
                     </div>
                 </div>
