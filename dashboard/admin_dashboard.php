@@ -42,8 +42,9 @@ if (!isset($_SESSION))
   </script>
 </head>
 
-<body onload="sortData('group_num')">
+<body>
   <?php include('header_loggedin.php') ?>
+  <?php include('display_profile_pic.php') ?>
   <main class="main">
     <h3>Admin Panel</h3>
 
@@ -81,7 +82,7 @@ if (!isset($_SESSION))
 </html>
 
 <script>
-  var counter = 0
+  var counter = 0;
   let schedule_buttons = document.getElementById("schedule_buttons");
   schedule_buttons.style.display = "block";
 

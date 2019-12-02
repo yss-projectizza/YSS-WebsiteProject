@@ -16,6 +16,7 @@
 
 	<body>
 		<?php include('header_loggedin.php') ?>
+		<?php include('display_profile_pic.php') ?>
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 			<div class="container" style="background: white; margin-top: 20px;">
 				<!-- Financial Aid Header -->

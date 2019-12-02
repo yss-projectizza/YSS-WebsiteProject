@@ -5,6 +5,20 @@ if (!isset($_SESSION))
 
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 
+<script>
+    var config = 
+  {
+    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+    authDomain: "yss-project-69ba2.firebaseapp.com",
+    databaseURL: "https://yss-project-69ba2.firebaseio.com",
+    projectId: "yss-project-69ba2",
+    storageBucket: "yss-project-69ba2.appspot.com",
+    messagingSenderId: "530416464878"
+  };
+
+  firebase.initializeApp(config);
+</script>
+
 <html lang="en">
   <head>
     <title>Select Family | Youth Spiritual Summit</title>
@@ -18,6 +32,7 @@ if (!isset($_SESSION))
   <body> 
     <?php include('../../header_loggedin.php') ?>
     <?php include('../../create_table.php') ?>
+    <?php include('../../display_profile_pic.php') ?>
 
     <div class="container">
     <!-- Dashboard Title Registration Header -->
@@ -32,23 +47,13 @@ if (!isset($_SESSION))
 <script>
   let year = "<?php echo $_SESSION["queryData"]["year"]; ?>";
   let gender = "<?php echo $_SESSION["queryData"]["gender"]; ?>";
-
-  var config = 
-  {
-    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-    authDomain: "yss-project-69ba2.firebaseapp.com",
-    databaseURL: "https://yss-project-69ba2.firebaseio.com",
-    projectId: "yss-project-69ba2",
-    storageBucket: "yss-project-69ba2.appspot.com",
-    messagingSenderId: "530416464878"
-  };
-
-  firebase.initializeApp(config);
   
   firebase.database().ref('families').orderByChild('grade_level').equalTo(year).once("value", function(snapshot) 
   {
     // Stores family objects in the user's grade level
     var families = Object.entries(snapshot.val());
+
+    alert(families.length);
 
     // Create box div containing tables
     const boxDiv = document.createElement('div');

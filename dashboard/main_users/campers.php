@@ -49,6 +49,7 @@ if (!isset($_SESSION))
 
     <?php include('../../header_loggedin.php') ?>
     <?php include('../../create_table.php') ?>
+    <?php include('../../display_profile_pic.php') ?>
 
     <div class="tab">
       <button class="tablinks" onclick="openCity(event, 'Family')">Family</button>

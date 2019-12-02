@@ -41,6 +41,7 @@ if (!isset($_SESSION))
 
   <body style="background-color:rgb(233, 231, 231)"> 
     <?php include('../header_loggedin.php') ?>
+    <?php include('../display_profile_pic.php') ?>
     <div class="container">
         <h1 style="text-align:center; font-size:50px;padding-top: 2%;">Assign Counselors</h1>
         <br>

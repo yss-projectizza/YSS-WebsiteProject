@@ -5,6 +5,20 @@ if (!isset($_SESSION))
 
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 
+<script>
+  var config = 
+    {
+    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+    authDomain: "yss-project-69ba2.firebaseapp.com",
+    databaseURL: "https://yss-project-69ba2.firebaseio.com",
+    projectId: "yss-project-69ba2",
+    storageBucket: "yss-project-69ba2.appspot.com",
+    messagingSenderId: "530416464878"
+    };
+
+    firebase.initializeApp(config);
+</script>
+
 <html lang="en">
   <head>
     <?php $student_email=$_GET['email']; ?>
@@ -19,23 +33,12 @@ if (!isset($_SESSION))
   </head>
   <body> 
     <?php include('../../header_loggedin.php') ?>
+    <?php include('../../display_profile_pic.php') ?>
   </body>
 </html>
 
 <script>
-    var config = 
-    {
-    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-    authDomain: "yss-project-69ba2.firebaseapp.com",
-    databaseURL: "https://yss-project-69ba2.firebaseio.com",
-    projectId: "yss-project-69ba2",
-    storageBucket: "yss-project-69ba2.appspot.com",
-    messagingSenderId: "530416464878"
-    };
-
     let student_email = "<?php echo $student_email ?>";
-
-    firebase.initializeApp(config);
     
     firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
     {
