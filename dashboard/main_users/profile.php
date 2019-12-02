@@ -55,6 +55,23 @@ if ($user == "student" and $password == $defaultPassword){
 }
 ?>
 
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-storage.js"></script>
+
+<script>
+    var config = {
+        apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+        authDomain: "yss-project-69ba2.firebaseapp.com",
+        databaseURL: "https://yss-project-69ba2.firebaseio.com",
+        projectId: "yss-project-69ba2",
+        storageBucket: "yss-project-69ba2.appspot.com",
+        messagingSenderId: "530416464878"
+    };
+
+    firebase.initializeApp(config);
+</script>
+
 <html lang="en">
 
 <head>
@@ -67,6 +84,7 @@ if ($user == "student" and $password == $defaultPassword){
 
 <body>
     <?php include('../../header_loggedin.php') ?>
+
     <div class="container profile-box">
 
         <!-- Profile Information -->
@@ -112,112 +130,8 @@ if ($user == "student" and $password == $defaultPassword){
         <div class="row initial-task-padding"></div>
           <form method="post" enctype ="multipart/form-data">Photos<b></b>
               <input id ="iconUpload" type="file" name="icon_file" value="upload" times-label="file" required>
-              <button type="submit" name="submit">UPLOAD</button>
-
+              <button type="button" class="rounded" onclick="validateImgProcess()">UPLOAD</button>
             </form>
-
-
-
-
-        <!-- <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-storage.js"></script> -->
-
-        <script>
-            var iconImage;
-
-            function uploadImage(evt){
-                iconUpload = document.getElementById('iconUpload');
-                iconImage = new File([iconUpload.files[0]], emailwcharactersreplaced);
-            }
-            document.getElementById('iconUpload').addEventListener('change', uploadImage, false);
-
-            function validateImgProcess(){
-
-                    // var config = {
-                    //     apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-                    //     authDomain: "yss-project-69ba2.firebaseapp.com",
-                    //     databaseURL: "https://yss-project-69ba2.firebaseio.com",
-                    //     projectId: "yss-project-69ba2",
-                    //     storageBucket: "yss-project-69ba2.appspot.com",
-                    //     messagingSenderId: "530416464878"
-                    // };
-                    // firebase.initializeApp(config);
-                    var storageRef = firebase.storage().ref();
-                    var database = firebase.database();
-                    var storageRef = firebase.storage().ref('icon/' + iconImage.name);
-                      alert("here! image name: " + iconImage.name);
-                    var metadata = {
-                        contentType: 'image/jpeg'
-                    };
-                    storageRef.put(iconImage, metadata).then(function(snapshot) {
-                        console.log("Uploaded an array!");
-                    });
-                    return true;
-
-            }
-
-          </script>
-
-<!--  /    <script>
-        			 firebase.database().ref('/').once('value').then(async function (snapshot) {
-        			  alldata = Object.entries(snapshot.val().users)
-
-        			  for (var index in alldata) {
-
-                            let i = index;
-                            var email = (alldata[index][1].email).replace(".", ",");
-                            var iconRef = firebase.storage().ref('icon/' + email);
-                            iconRef.getDownloadURL().then(function (url) {
-                              var modal_id = "modal" + i;
-                              var iconID = "icon" + i;
-                               console.log("iconID=", iconID)
-                              var iconElem = document.getElementById(iconID);
-                              iconElem.innerHTML =
-                                "<button class='rounded user-button' data-toggle='modal' data-target='#" +
-                                modal_id + "'>Show icon</button><div id='" +
-                                modal_id + "' class='modal fade' role='dialog'>" +
-                                `<div class="modal-dialog">
-                                                <div class="modal-content">
-                                                  <div class="modal-header">
-                                                    <h4> Image for icon </h4>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                  </div>
-                                                  <div class="modal-body">
-                                                    <img class="auth-img" src="` + url + `"/>
-                                                  </div>
-                                                </div>
-                                              </div>`
-                            }).catch(function (error) {
-                              switch (error.code) {
-                                case 'storage/object-not-found': // File doesn't exist
-                                  // console.log("file doesn't exist");
-                                  break;
-                                case 'storage/unauthorized': // User doesn't have permission to access the object
-                                  console.log("no permission");
-                                  break;
-                                case 'storage/canceled': // User canceled the upload
-                                  console.log("canceled");
-                                  break;
-                                case 'storage/unknown': // Unknown error occurred, inspect the server response
-                                  console.log("unknown error");
-                                  break;
-                              }
-                            });
-                          }
-                          });
-
-
-        	 </script>
-
--->
-
-
-
-
-
-
-
 
         <?php if($user == "student" || $user == "student18" || $user == "counselor"): ?>
 
@@ -456,127 +370,146 @@ if ($user == "student" and $password == $defaultPassword){
             </div>
         </div>
     </div>
+</body>
+</html>
 
-    <!--Javascript Segment-->
-    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
+<script>
+    firebase.database().ref('/users/' + "<?php echo $email?>").once("value").then(async function (snapshot) {
+        let profiledata = snapshot.val();
+        
+        document.getElementById("first_name").value = profiledata.first_name;
+        document.getElementById("last_name").value = profiledata.last_name;
+        document.getElementById("phone").value = profiledata.phone;
+        document.getElementById("password").value = profiledata.password;
 
-    <script>
-        var config = {
-            apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-            authDomain: "yss-project-69ba2.firebaseapp.com",
-            databaseURL: "https://yss-project-69ba2.firebaseio.com",
-            projectId: "yss-project-69ba2",
-            storageBucket: "yss-project-69ba2.appspot.com",
-            messagingSenderId: "530416464878"
-        };
-        firebase.initializeApp(config);
+        if(profiledata.hasOwnProperty("spiritual")) // checks if the database object has the specified data field
+        {
+            document.getElementById("spiritual").value = profiledata.spiritual;
+            document.getElementById("knowledge").value = profiledata.knowledge;
+            document.getElementById("improvement").value = profiledata.improvement;
+            document.getElementById("community").value = profiledata.community;
+            document.getElementById("hopes").value = profiledata.hopes;
+            document.getElementById("activities").value = profiledata.activities;
+            document.getElementById("question").value = profiledata.question;
+            document.getElementById("allergies").value = profiledata.allergies;
+            document.getElementById("meds").value = profiledata.meds;
+            document.getElementById("activity_restrictions").value = profiledata.activity_restrictions;
+            document.getElementById("dietary_restrictions").value = profiledata.dietary_restrictions;
+            document.getElementById("other").value = profiledata.other;
+            document.getElementById("insurance").value = profiledata.insurance;
+            document.getElementById("policy_holder").value = profiledata.policy_holder;
+        }
 
-        firebase.database().ref('/users/' + "<?php echo $email?>").once("value").then(async function (snapshot) {
-            let profiledata = snapshot.val();
-            
-            document.getElementById("first_name").value = profiledata.first_name;
-            document.getElementById("last_name").value = profiledata.last_name;
-            document.getElementById("phone").value = profiledata.phone;
-            document.getElementById("password").value = profiledata.password;
+        if(profiledata.user_type == "parent")
+        {
+            document.getElementById("ec_name1").value = profiledata.ec_name1;
+            document.getElementById("ec_phone1").value = profiledata.ec_phone1;
+            document.getElementById("ec_relationship1").value = profiledata.ec_relationship1;
+            document.getElementById("ec_name2").value = profiledata.ec_name2;
+            document.getElementById("ec_phone2").value = profiledata.ec_phone2;
+            document.getElementById("ec_relationship2").value = profiledata.ec_relationship2;
+        }
+    });
 
-            if(profiledata.hasOwnProperty("spiritual")) // checks if the database object has the specified data field
-            {
-                document.getElementById("spiritual").value = profiledata.spiritual;
-                document.getElementById("knowledge").value = profiledata.knowledge;
-                document.getElementById("improvement").value = profiledata.improvement;
-                document.getElementById("community").value = profiledata.community;
-                document.getElementById("hopes").value = profiledata.hopes;
-                document.getElementById("activities").value = profiledata.activities;
-                document.getElementById("question").value = profiledata.question;
-                document.getElementById("allergies").value = profiledata.allergies;
-                document.getElementById("meds").value = profiledata.meds;
-                document.getElementById("activity_restrictions").value = profiledata.activity_restrictions;
-                document.getElementById("dietary_restrictions").value = profiledata.dietary_restrictions;
-                document.getElementById("other").value = profiledata.other;
-                document.getElementById("insurance").value = profiledata.insurance;
-                document.getElementById("policy_holder").value = profiledata.policy_holder;
-            }
+    document.getElementById("update").addEventListener("click", function () {
+        var database = firebase.database();
 
-            if(profiledata.user_type == "parent")
-            {
-                document.getElementById("ec_name1").value = profiledata.ec_name1;
-                document.getElementById("ec_phone1").value = profiledata.ec_phone1;
-                document.getElementById("ec_relationship1").value = profiledata.ec_relationship1;
-                document.getElementById("ec_name2").value = profiledata.ec_name2;
-                document.getElementById("ec_phone2").value = profiledata.ec_phone2;
-                document.getElementById("ec_relationship2").value = profiledata.ec_relationship2;
-            }
-        });
+        //getting input data
+        var first_name = document.getElementById("first_name").value;
+        var last_name = document.getElementById("last_name").value;
+        var phone = document.getElementById("phone").value;
+        var password = document.getElementById("password").value;
+        var h_password = "<?php echo password_hash('a', PASSWORD_BCRYPT); ?>";
+        
+        if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
+        {
+            var size = document.getElementById("size").value;
+            var spiritual = document.getElementById("spiritual").value;
+            var knowledge = document.getElementById("knowledge").value;
+            var improvement = document.getElementById("improvement").value;
+            var community = document.getElementById("community").value;
+            var hopes = document.getElementById("hopes").value;
+            var activities = document.getElementById("activities").value;
+            var question = document.getElementById("question").value;
+            var allergies = document.getElementById("allergies").value;
+            var meds = document.getElementById("meds").value;
+            var activity_r = document.getElementById("activity_restrictions").value;
+            var dietary_r = document.getElementById("dietary_restrictions").value;
+            var other = document.getElementById("other").value;
+            var insurance = document.getElementById("insurance").value;
+            var policy_holder = document.getElementById("policy_holder").value;
+        }
 
-        document.getElementById("update").addEventListener("click", function () {
-            var database = firebase.database();
+        if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "parent")
+        {
+            var ec_name1 = document.getElementById("ec_name1").value;
+            var ec_phone1 = document.getElementById("ec_phone1").value;
+            var ec_relationship1 = document.getElementById("ec_relationship1").value;
+            var ec_name2 = document.getElementById("ec_name2").value;
+            var ec_phone2 = document.getElementById("ec_phone2").value;
+            var ec_relationship2 = document.getElementById("ec_relationship2").value;
+        }
 
-            //getting input data
-            var first_name = document.getElementById("first_name").value;
-            var last_name = document.getElementById("last_name").value;
-            var phone = document.getElementById("phone").value;
-            var password = document.getElementById("password").value;
-            var h_password = "<?php echo password_hash('a', PASSWORD_BCRYPT); ?>";
-            
-            if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
-            {
-                var size = document.getElementById("size").value;
-                var spiritual = document.getElementById("spiritual").value;
-                var knowledge = document.getElementById("knowledge").value;
-                var improvement = document.getElementById("improvement").value;
-                var community = document.getElementById("community").value;
-                var hopes = document.getElementById("hopes").value;
-                var activities = document.getElementById("activities").value;
-                var question = document.getElementById("question").value;
-                var allergies = document.getElementById("allergies").value;
-                var meds = document.getElementById("meds").value;
-                var activity_r = document.getElementById("activity_restrictions").value;
-                var dietary_r = document.getElementById("dietary_restrictions").value;
-                var other = document.getElementById("other").value;
-                var insurance = document.getElementById("insurance").value;
-                var policy_holder = document.getElementById("policy_holder").value;
-            }
-
-            if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "parent")
-            {
-                var ec_name1 = document.getElementById("ec_name1").value;
-                var ec_phone1 = document.getElementById("ec_phone1").value;
-                var ec_relationship1 = document.getElementById("ec_relationship1").value;
-                var ec_name2 = document.getElementById("ec_name2").value;
-                var ec_phone2 = document.getElementById("ec_phone2").value;
-                var ec_relationship2 = document.getElementById("ec_relationship2").value;
-            }
-
-            var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
-                    first_name: first_name,
-                    last_name: last_name,
-                    phone: phone,
-                    password: password,
-                },
-                function (error) {
-                    if (error) {
-                        alert("didn't go through")
-                    } else {
-                        var postID = newPostRef.key;
-                        if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "counselor" || "<?php echo $_SESSION["queryData"]["user_type"] ?>" == "admin")
-                        {
-                            alert("Your information has been saved successfully.");
-                            window.location.href = "/dashboard.php";
-                        }
-                        console.log("went to firebase");
+        var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
+                first_name: first_name,
+                last_name: last_name,
+                phone: phone,
+                password: password,
+            },
+            function (error) {
+                if (error) {
+                    alert("didn't go through")
+                } else {
+                    var postID = newPostRef.key;
+                    if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "counselor" || "<?php echo $_SESSION["queryData"]["user_type"] ?>" == "admin")
+                    {
+                        alert("Your information has been saved successfully.");
+                        window.location.href = "/dashboard.php";
                     }
-                });
+                    console.log("went to firebase");
+                }
+            });
 
-            if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "parent")
-            {
-                var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
-                    ec_name1: ec_name1,
-                    ec_phone1: ec_phone1,
-                    ec_relationship1: ec_relationship1,
-                    ec_name2: ec_name2,
-                    ec_phone2: ec_phone2,
-                    ec_relationship2: ec_relationship2,
+        if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "parent")
+        {
+            var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
+                ec_name1: ec_name1,
+                ec_phone1: ec_phone1,
+                ec_relationship1: ec_relationship1,
+                ec_name2: ec_name2,
+                ec_phone2: ec_phone2,
+                ec_relationship2: ec_relationship2,
+            },
+            function (error) {
+                if (error) {
+                    alert("didn't go through")
+                } else {
+                    alert("Your information has been saved successfully.");
+                    var postID = newPostRef.key;
+                    console.log("went to firebase");
+                    window.location.href = "/dashboard.php";
+                }
+            });
+        }
+
+        if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
+        {
+            var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
+                    size: size,
+                    spiritual: spiritual,
+                    knowledge: knowledge,
+                    improvement: improvement,
+                    community: community,
+                    hopes: hopes,
+                    activities: activities,
+                    question: question,
+                    allergies: allergies,
+                    meds: meds,
+                    activity_restrictions: activity_r,
+                    dietary_restrictions: dietary_r,
+                    other: other,
+                    insurance: insurance,
+                    policy_holder: policy_holder,
                 },
                 function (error) {
                     if (error) {
@@ -588,40 +521,29 @@ if ($user == "student" and $password == $defaultPassword){
                         window.location.href = "/dashboard.php";
                     }
                 });
-            }
+        }
+    });
 
-            if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
+    // Uploads an image and sets it as the user's profile picture.
+    function validateImgProcess()
+    {
+        var iconUpload = document.getElementById('iconUpload');
+
+        if(iconUpload.files.length != 0)
+        {
+            var emailwcharactersreplaced = "<?php echo $email ?>";
+
+            var iconImage = new File([iconUpload.files[0]], emailwcharactersreplaced);
+        
+            var metadata = {contentType: 'image/jpeg'};
+
+            firebase.storage().ref('icon/' + iconImage.name).put(iconImage, metadata).then(function(snapshot) 
             {
-                var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
-                        size: size,
-                        spiritual: spiritual,
-                        knowledge: knowledge,
-                        improvement: improvement,
-                        community: community,
-                        hopes: hopes,
-                        activities: activities,
-                        question: question,
-                        allergies: allergies,
-                        meds: meds,
-                        activity_restrictions: activity_r,
-                        dietary_restrictions: dietary_r,
-                        other: other,
-                        insurance: insurance,
-                        policy_holder: policy_holder,
-                    },
-                    function (error) {
-                        if (error) {
-                            alert("didn't go through")
-                        } else {
-                            alert("Your information has been saved successfully.");
-                            var postID = newPostRef.key;
-                            console.log("went to firebase");
-                            window.location.href = "/dashboard.php";
-                        }
-                    });
-            }
-        });
-    </script>
-</body>
+                alert("Your profile picture was successfully changed!");
+            });
+        }
+    }
+</script>
 
-</html>
+<!-- This line deletes info in fields if it is placed above the script tags for some reason -->
+<?php include('../../display_profile_pic.php') ?>
