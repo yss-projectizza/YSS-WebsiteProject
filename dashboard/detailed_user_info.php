@@ -239,7 +239,7 @@ if (!isset($_SESSION))
         document.getElementById("user-pic").src = url;
     }).catch(function (error)
     {
-        document.getElementById("user-pic").src = "https://serebii.net/swordshield/pokemon/816.png";
+        document.getElementById("user-pic").src = "/profile_placeholder.jpg";
     });
 
     firebase.database().ref("users/" + key).once("value", function(snapshot)
