@@ -59,7 +59,7 @@ if (!isset($_SESSION))
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" id="counselor-option" onclick="displayUsers('counselor')">Counselors</a>
-                    <a class="dropdown-item" id="student-option" onclick="displayUsers('student')">Students</a>
+                    <a class="dropdown-item" id="student-option" onclick="displayUsers('student')">Youth Participants</a>
                     <a class="dropdown-item" id="parent-option" onclick="displayUsers('parent')">Parents</a>
                 </div>
             </div>
@@ -87,6 +87,11 @@ function displayUsers(user_type)
         let heading_html = "<th>Name</th>";
 
         let users = Object.entries(snapshot.val());
+
+        if(user_type == "student")
+        {
+            heading_html += `<th>Grade Level</th><th>Balance Due</th>`;
+        }
         
         if(user_type == "counselor" || user_type == "student")
         {
@@ -94,7 +99,7 @@ function displayUsers(user_type)
         }
         else
         {
-            heading_html += "<th>Credit</th><th>Image</th>";
+            heading_html += "<th>Balance Due</th><th>Image</th>";
         }
 
         if(user_type == "counselor" || user_type == "parent")
@@ -119,8 +124,19 @@ function displayUsers(user_type)
                 let name = users[i][1].first_name + " " + users[i][1].last_name;
                 let key = users[i][0];
 
-                table_rows += `<td id='name-` + i +`'>${name}</td>
-                            <td id='size-` + i + `'>
+                table_rows += `<td id='name-` + i +`'>
+                                    <button class="rounded user-info-btn" type="button">
+                                        <a style="color:white" href="detailed_user_info.php?key=${key}&type=${users[i][1].user_type}">${name}<a>
+                                    </button>
+                                </td>`;
+
+                if(user_type == "student")
+                {
+                    table_rows += `<td id='grade-` + i +`'>${users[i][1].year}</td>`;
+                    table_rows += `<td id='credit-` + i +`'>$${users[i][1].balance}</td>`;
+                }
+
+                table_rows += `<td id='size-` + i + `'>
                             <div class="dropdown">
                                 <button id="toggle-families-` + i +`"  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">`;
@@ -227,7 +243,12 @@ function displayUsers(user_type)
                     var modal_id = "modal" + i;
 
                     // Fills in cells for parent table
-                    table_rows += `<td>${name}</td><td>${users[i][1].credit_due}</td>
+                    table_rows += `<td id='name-` + i +`'>
+                                    <button class="rounded user-info-btn" type="button">
+                                        <a style="color:white" href="detailed_user_info.php?key=${key}&type=parent">${name}<a>
+                                    </button>
+                                </td>
+                               <td>$${users[i][1].credit_due}</td>
                                <td id = 'authentication-${i}'>
                                     <button class='rounded user-button' onclick="show_authenticaion('${email}', ${i}, '${modal_id}')" 
                                            data-toggle='modal' data-target='#` + modal_id + `'>

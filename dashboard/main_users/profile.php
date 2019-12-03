@@ -126,11 +126,14 @@ if ($user == "student" and $password == $defaultPassword){
             </div>
         </div>
 
-<!-- Personal Info adding picture 11/2/2019 -->
-        <div class="row initial-task-padding"></div>
-          <form method="post" enctype ="multipart/form-data">Photos<b></b>
+        <div>
+        <label>
+            <p style="font-size:30px;padding-top: 10px;">Profile Picture</p>
+        </label>
+        <form method="post" enctype ="multipart/form-data">
               <input id ="iconUpload" type="file" name="icon_file" value="upload" times-label="file" required>
-              <button type="button" class="rounded" onclick="validateImgProcess()">UPLOAD</button>
+              <br> <br>
+              <button type="button" class="rounded" onclick="validateImgProcess()">Upload</button>
             </form>
 
         <?php if($user == "student" || $user == "student18" || $user == "counselor"): ?>
@@ -540,6 +543,8 @@ if ($user == "student" and $password == $defaultPassword){
             firebase.storage().ref('icon/' + iconImage.name).put(iconImage, metadata).then(function(snapshot) 
             {
                 alert("Your profile picture was successfully changed!");
+
+                window.location.href = "/dashboard.php";
             });
         }
     }

@@ -49,10 +49,10 @@ if (!isset($_SESSION))
     <h3>Admin Panel</h3>
 
     <div class="card">
-        <h2>Camp Information</h2>
-        <label><strong>Program Name</strong><br><input id="program-name" type="text"></input></label>
-        <label><strong>Program Price</strong><br><input id="program-price" type="number" step="0.01"></input></label>
-        <button id="submit-camp-info" class="rounded" style="margin:10px" onclick="saveCampInfoChanges()">Submit</button>
+        <h2>Retreat Information</h2>
+        <label><strong>Retreat Name</strong><br><input id="program-name" type="text"></input></label>
+        <label><strong>Retreat Price</strong><br><input id="program-price" type="number" step="0.01"></input></label>
+        <button id="submit-camp-info" class="rounded" onclick="saveCampInfoChanges()">Submit</button>
     </div>
     
     <!-- Buttons to Manage Groups, Assign Counselors, and View All User Info pages -->
@@ -65,16 +65,14 @@ if (!isset($_SESSION))
 
       <div class="card">
         <h2>Schedule</h2>
-        <div id="schedule">
-          <div id="schedule_buttons">
-            <button id="addEvent" class="rounded">Add an event</button>
-            <button id="submit" class="rounded">Submit</button>
-            <br/>
-            <br/>
-          </div>
+          <div id="schedule" overflow="auto">
           <table id="inside-div">
             <tbody id="schedule-table-body"></tbody>
           </table>
+        </div>
+        <div>
+          <button id="addEvent" class="rounded">Add</button>
+          <button id="submit-change-btn" class="rounded">Submit</button>
         </div>
       </div>
   </main>
@@ -83,8 +81,8 @@ if (!isset($_SESSION))
 
 <script>
   var counter = 0;
-  let schedule_buttons = document.getElementById("schedule_buttons");
-  schedule_buttons.style.display = "block";
+  let schedule = document.getElementById("schedule");
+  schedule.style.display = "block";
 
   firebase.database().ref('/schedule/').once('value').then(item => 
   {
@@ -125,7 +123,7 @@ if (!isset($_SESSION))
                 <th>
                   <label>
                     Date ${counter}
-                    <input class="input" type="text" id="dateinput${counter}" value="${firebasedataArray[i][1]["date"]}">
+                    <input class="input" type="date" id="dateinput${counter}" value="${firebasedataArray[i][1]["date"]}">
                     </input>
                   </label>
                 </th>
@@ -142,7 +140,7 @@ if (!isset($_SESSION))
                   <div style="padding:15px" id="group-list-${counter}">${firebasedataArray[i][1]["group"]}</div>
                 </th>
                 <th>
-                  <button id="delete-btn" class="rounded delete-button" onclick="delete_event('${key}')">Delete</button>
+                  <button id="delete-btn" class="rounded delete-btn" onclick="delete_event('${key}')">Delete</button>
                 </th>
               </tr>`;    
 
@@ -206,7 +204,7 @@ if (!isset($_SESSION))
   });
   newdict = {}
 
-  document.getElementById("submit").addEventListener("click", function () 
+  document.getElementById("submit-change-btn").addEventListener("click", function () 
   {
     newdict = {}
     
