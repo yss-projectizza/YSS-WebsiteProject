@@ -89,11 +89,12 @@ $parent_email = $_SESSION["queryData"]["email"];
                     <div class="input-group-prepend">
                     <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="age" id="age">
-                            <option>14</option>
+						    <option>13</option>
+							<option>14</option>
                             <option>15</option>
                             <option>16</option>
                             <option>17</option>
-                            <!-- <option>18</option> -->
+                            <option>18</option>
                         </select>
                     </div>
                 </div>
