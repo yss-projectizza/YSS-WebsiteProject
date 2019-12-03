@@ -2,9 +2,8 @@
 if (!isset($_SESSION))
   session_start();
 ?>
+
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
-
-
 <script>
   // Initialize Firebase
   var config = {

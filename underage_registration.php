@@ -1,6 +1,9 @@
 <?php
 // Initialize the session
-session_start();
+if (!isset($_SESSION))
+{
+    session_start();
+}
 
 $parent_email = $_SESSION["queryData"]["email"];
 
@@ -28,7 +31,22 @@ $parentBal = $_SESSION["queryData"]["credit_due"];
 $parentBal = floatval($parentBal);
 ?>
 
-<!doctype html>
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+  var config = 
+  {
+    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+    authDomain: "yss-project-69ba2.firebaseapp.com",
+    databaseURL: "https://yss-project-69ba2.firebaseio.com",
+    projectId: "yss-project-69ba2",
+    storageBucket: "yss-project-69ba2.appspot.com",
+    messagingSenderId: "530416464878"
+  };
+
+  firebase.initializeApp(config);
+</script>
+
 <html lang="en">
 
 <head>
@@ -41,6 +59,8 @@ $parentBal = floatval($parentBal);
 
 <body>
     <?php include('header_loggedin.php') ?>
+    <?php include('display_profile_pic.php') ?>
+    
     <form id=form1 method="post">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
@@ -219,113 +239,101 @@ $parentBal = floatval($parentBal);
             </div>
         </div>
     </form>
-
-	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
-        <!--<script src="counselor_app.js"></script>-->
-        <script>
-            var config = {
-                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-                authDomain: "yss-project-69ba2.firebaseapp.com",
-                databaseURL: "https://yss-project-69ba2.firebaseio.com",
-                projectId: "yss-project-69ba2",
-                storageBucket: "yss-project-69ba2.appspot.com",
-                messagingSenderId: "530416464878"
-            };
-            firebase.initializeApp(config);
-																	
-            document.getElementById("submitContact").addEventListener("click", functSubmit);
-                function functSubmit(event){
-                    var database = firebase.database();
-                    var fn = document.getElementById("firstname").value;
-                    var ln = document.getElementById("lastname").value;
-                    var studentEmail = document.getElementById("studentEmail").value;
-                    var emailwcharactersreplaced = studentEmail.replace(".",",");
-                    var gender = document.getElementById("gender").value;
-                    var year = document.getElementById("schoolyear").value;
-                    var dob = document.getElementById("studentDOB").value;
-                    var birthYear = dob.slice(0,4);
-                    var defaultPassword = ln + birthYear;
-										var password = defaultPassword;
-										var accountStatus = "Activated";
-										
-                    // var size = document.getElementById("size").value;
-                    var file = document.getElementById("upload").value;
-                    var allergies = document.getElementById("allergies").value;
-                    var meds = document.getElementById("meds").value;
-                    var activities = document.getElementById("activities").value;
-                    var dietary = document.getElementById("dietary").value;
-                    var other = document.getElementById("other").value;
-                    var insurance = document.getElementById("insurance").value;
-                    var policy_holder = document.getElementById("policy_holder").value;
-                    if (fn == ''){
-                        alert("fill in first name");
-                    }
-                    else if (ln == ''){
-                        alert("fill in last name");
-                    }
-                    else if (allergies == ''){
-                        alert("please add any alleriges or type N/A");
-                    }
-                    else if (meds == ''){
-                        alert("please add any medication or type N/A");
-                    }
-                    else 
-                    {    
-                        // Update student's balance and add new student's balance to parent's balance
-                        firebase.database().ref('currentProgram/price').once('value', function(snapshot){
-                            var programPrice = parseFloat(snapshot.val());
-
-
-                        var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
-                            user_type: "student",
-                            accountStatus: accountStatus,
-                            balance: programPrice,
-                            first_name: fn,
-                            last_name: ln,
-                            studentEmail: studentEmail,
-                            gender: gender,
-                            year: year,
-                            dob: dob,
-                            birthYear: birthYear,
-                            password: password,
-                            defaultPassword: defaultPassword,
-                            file: file,
-                            alleriges: allergies,
-                            meds: meds,
-                            activities: activities,
-                            dietary: dietary,
-                            other: other,
-                            insurance: insurance,
-                            policy_holder: policy_holder,
-                            parent_email:"<?php echo $parent_email; ?>",
-                            group_num: "N/A",
-                            cabin_num: "N/A",
-                            bus_num: "N/A",
-                        }, function(error){
-                        if (error) {
-                            alert("Did not go through")
-                        } else {
-                            alert("The form was submitted.");
-                            var postID = newPostRef.key;
-                        }
-                        }
-                        );
-                            
-                            var credit_now = parseFloat("<?php echo $parentBal; ?>");
-                            credit_now += programPrice;
-
-                            var parentEmail = "<?php echo $parent_email; ?>";
-                            var parentEmailKey = parentEmail.replace(".",",");
-                            
-                            firebase.database().ref('/users/' + parentEmailKey).update({credit_due: parseFloat(credit_now)});													
-                        });
-
-                        window.location.href = "dashboard.php";
-                        
-                        // window.location.href = "email_student.php?studentEmail=" + studentEmail + "&reset=true";												
-                    }																														
-                };
-        </script>
 </body>
 </html>
+
+<!--<script src="counselor_app.js"></script>-->
+<script>                                                    
+    document.getElementById("submitContact").addEventListener("click", functSubmit);
+        function functSubmit(event){
+            var database = firebase.database();
+            var fn = document.getElementById("firstname").value;
+            var ln = document.getElementById("lastname").value;
+            var studentEmail = document.getElementById("studentEmail").value;
+            var emailwcharactersreplaced = studentEmail.replace(".",",");
+            var gender = document.getElementById("gender").value;
+            var year = document.getElementById("schoolyear").value;
+            var dob = document.getElementById("studentDOB").value;
+            var birthYear = dob.slice(0,4);
+            var defaultPassword = ln + birthYear;
+                                var password = defaultPassword;
+                                var accountStatus = "Activated";
+                                
+            // var size = document.getElementById("size").value;
+            var file = document.getElementById("upload").value;
+            var allergies = document.getElementById("allergies").value;
+            var meds = document.getElementById("meds").value;
+            var activities = document.getElementById("activities").value;
+            var dietary = document.getElementById("dietary").value;
+            var other = document.getElementById("other").value;
+            var insurance = document.getElementById("insurance").value;
+            var policy_holder = document.getElementById("policy_holder").value;
+            if (fn == ''){
+                alert("fill in first name");
+            }
+            else if (ln == ''){
+                alert("fill in last name");
+            }
+            else if (allergies == ''){
+                alert("please add any alleriges or type N/A");
+            }
+            else if (meds == ''){
+                alert("please add any medication or type N/A");
+            }
+            else 
+            {    
+                // Update student's balance and add new student's balance to parent's balance
+                firebase.database().ref('currentProgram/price').once('value', function(snapshot){
+                    var programPrice = parseFloat(snapshot.val());
+
+
+                var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
+                    user_type: "student",
+                    accountStatus: accountStatus,
+                    balance: programPrice,
+                    first_name: fn,
+                    last_name: ln,
+                    studentEmail: studentEmail,
+                    gender: gender,
+                    year: year,
+                    dob: dob,
+                    birthYear: birthYear,
+                    password: password,
+                    defaultPassword: defaultPassword,
+                    file: file,
+                    alleriges: allergies,
+                    meds: meds,
+                    activities: activities,
+                    dietary: dietary,
+                    other: other,
+                    insurance: insurance,
+                    policy_holder: policy_holder,
+                    parent_email:"<?php echo $parent_email; ?>",
+                    group_num: "N/A",
+                    cabin_num: "N/A",
+                    bus_num: "N/A",
+                }, function(error){
+                if (error) {
+                    alert("Did not go through")
+                } else {
+                    alert("The form was submitted.");
+                    var postID = newPostRef.key;
+                }
+                }
+                );
+                    
+                    var credit_now = parseFloat("<?php echo $parentBal; ?>");
+                    credit_now += programPrice;
+
+                    var parentEmail = "<?php echo $parent_email; ?>";
+                    var parentEmailKey = parentEmail.replace(".",",");
+                    
+                    firebase.database().ref('/users/' + parentEmailKey).update({credit_due: parseFloat(credit_now)});													
+                });
+
+                window.location.href = "dashboard.php";
+                
+                // window.location.href = "email_student.php?studentEmail=" + studentEmail + "&reset=true";												
+            }																														
+        };
+</script>

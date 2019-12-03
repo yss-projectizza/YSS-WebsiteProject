@@ -1,8 +1,9 @@
 <?php
 /* This is the the page for Manage Youth Participate*/
-
-session_start();
-
+if (!isset($_SESSION))
+{
+  session_start();
+}
 $parent_email = $_SESSION["queryData"]["email"];
 
 // This assumes that you have placed the Firebase credentials in the same directory
@@ -28,7 +29,21 @@ $parentBal = $_SESSION["queryData"]["credit_due"];
 $parentBal = floatval($parentBal);
 ?>
 
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+  var config = 
+  {
+    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+    authDomain: "yss-project-69ba2.firebaseapp.com",
+    databaseURL: "https://yss-project-69ba2.firebaseio.com",
+    projectId: "yss-project-69ba2",
+    storageBucket: "yss-project-69ba2.appspot.com",
+    messagingSenderId: "530416464878"
+  };
 
+  firebase.initializeApp(config);
+</script>
 
 <html lang="en">
 
@@ -41,7 +56,9 @@ $parentBal = floatval($parentBal);
 </head>
 
 <body>
-  <?php include('header_loggedin.php') ?>
+    <?php include('header_loggedin.php') ?>
+    <?php include('display_profile_pic.php') ?>
+
   <div class="container">
     <!-- Dashboard Title Registration Header -->
     <h1 align="center" style="font-size:50px;padding-top: 2%;">Manage Youth Participant</h1>
@@ -60,22 +77,8 @@ $parentBal = floatval($parentBal);
 
 </html>
 
-
-<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
 <script>
   let parent_email = decodeURIComponent(window.location.search.split("=")[1])
-
-  var config = {
-    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-    authDomain: "yss-project-69ba2.firebaseapp.com",
-    databaseURL: "https://yss-project-69ba2.firebaseio.com",
-    projectId: "yss-project-69ba2",
-    storageBucket: "yss-project-69ba2.appspot.com",
-    messagingSenderId: "530416464878"
-  };
-
-  firebase.initializeApp(config);
 
   firebase.database().ref('/users').once('value').then(async function (snapshot) {
 
@@ -214,9 +217,5 @@ $parentBal = floatval($parentBal);
 
     document.getElementById("add-youth").appendChild(boxDiv);
   }
-
 </script>
-
-
-
 

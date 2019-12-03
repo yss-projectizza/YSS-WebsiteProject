@@ -17,7 +17,7 @@
         let profile_pic = document.getElementById("profile-pic");
         profile_pic.src = url;
         profile_pic.style.height = "50px";
-        profile_pic.style.width = "50px";  
+        profile_pic.style.width = "50px";
     }).catch(function (error)
     {
         let profile_pic = document.getElementById("profile-pic");

@@ -5,7 +5,22 @@ session_start();
 $parent_email = $_SESSION["queryData"]["email"];
 ?>
 
-<!doctype html>
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+  var config = 
+  {
+    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+    authDomain: "yss-project-69ba2.firebaseapp.com",
+    databaseURL: "https://yss-project-69ba2.firebaseio.com",
+    projectId: "yss-project-69ba2",
+    storageBucket: "yss-project-69ba2.appspot.com",
+    messagingSenderId: "530416464878"
+  };
+
+  firebase.initializeApp(config);
+</script>
+
 <html lang="en">
 
 <head>
@@ -18,6 +33,7 @@ $parent_email = $_SESSION["queryData"]["email"];
 
 <body>
     <?php include('header_loggedin.php') ?>
+    <?php include('display_profile_pic.php') ?>
     <form id=form1 method="post">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
@@ -183,105 +199,92 @@ $parent_email = $_SESSION["queryData"]["email"];
             </div>
         </div>
     </form>
-
-
-	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
-        <!--<script src="counselor_app.js"></script>-->
-        <script>
-            var config = {
-                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-                authDomain: "yss-project-69ba2.firebaseapp.com",
-                databaseURL: "https://yss-project-69ba2.firebaseio.com",
-                projectId: "yss-project-69ba2",
-                storageBucket: "yss-project-69ba2.appspot.com",
-                messagingSenderId: "530416464878"
-            };
-            firebase.initializeApp(config);
-
-            var keyParam = new URLSearchParams(window.location.search).get('key');
-
-            firebase.database().ref('/users/' + keyParam).once("value").then(async function(snapshot) {
-                let profiledata= snapshot.val();
-                console.log(profiledata)
-                document.getElementById("firstname").value = profiledata.first_name;
-                document.getElementById("lastname").value = profiledata.last_name;
-                document.getElementById("gender").value = profiledata.gender;
-                document.getElementById("schoolyear").value = profiledata.year;
-                document.getElementById("age").value = profiledata.age;
-                //document.getElementById("upload").value = profiledata.file;
-                document.getElementById("allergies").value = profiledata.allergies;
-                document.getElementById("meds").value = profiledata.meds;
-                document.getElementById("activities").value = profiledata.activities;
-                document.getElementById("dietary").value = profiledata.dietary;
-                document.getElementById("other").value = profiledata.other;
-                document.getElementById("policy_holder").value = profiledata.policy_holder;
-                document.getElementById("insurance").value = profiledata.insurance;
-            });
-
-            document.getElementById("submitContact").addEventListener("click", functSubmit);
-                function functSubmit(event){
-                    var database = firebase.database();
-                    var fn = document.getElementById("firstname").value;
-                    var ln = document.getElementById("lastname").value;
-                    var gender = document.getElementById("gender").value;
-                    var year = document.getElementById("schoolyear").value;
-                    var age = document.getElementById("age").value;
-                    // var size = document.getElementById("size").value;
-                    //var file = document.getElementById("upload").value;
-                    var allergies = document.getElementById("allergies").value;
-                    var meds = document.getElementById("meds").value;
-                    var activities = document.getElementById("activities").value;
-                    var dietary = document.getElementById("dietary").value;
-                    var other = document.getElementById("other").value;
-                    var insurance = document.getElementById("insurance").value;
-                    var policy_holder = document.getElementById("policy_holder").value;
-                    if (fn == ''){
-                        alert("fill in first name");
-                    }
-                    else if (ln == ''){
-                        alert("fill in last name");
-                    }
-                    else if (allergies == ''){
-                        alert("please add any alleriges or type N/A");
-                    }
-                    else if (meds == ''){
-                        alert("please add any medication or type N/A");
-                    }
-                    else {
-                        let parent_email = "<?php echo $parent_email; ?>";
-                        var newPostRef = firebase.database().ref('/users/'+keyParam).update({
-                            user_type: "student",
-                            first_name: fn,
-                            last_name: ln,
-                            gender: gender,
-                            year: year,
-                            age: age,
-                            // size: size,
-                            //file: file,
-                            alleriges: allergies,
-                            meds: meds,
-                            activities: activities,
-                            dietary: dietary,
-                            other: other,
-                            insurance: insurance,
-                            policy_holder: policy_holder,
-                            parent_email:"<?php echo $parent_email; ?>"
-                        }, function(error){
-                        if (error) {
-                            alert("Did not go through")
-                        } else {
-                            alert("The form was submitted.");
-                            var postID = newPostRef.key;
-                            window.location.replace("dashboard.php")
-                        }
-                        }
-                        );
-                    }
-
-                };
-
-        </script>
-
 </body>
 </html>
+
+
+<!--<script src="counselor_app.js"></script>-->
+<script>
+    var keyParam = new URLSearchParams(window.location.search).get('key');
+
+    firebase.database().ref('/users/' + keyParam).once("value").then(async function(snapshot) {
+        let profiledata= snapshot.val();
+        console.log(profiledata)
+        document.getElementById("firstname").value = profiledata.first_name;
+        document.getElementById("lastname").value = profiledata.last_name;
+        document.getElementById("gender").value = profiledata.gender;
+        document.getElementById("schoolyear").value = profiledata.year;
+        document.getElementById("age").value = profiledata.age;
+        //document.getElementById("upload").value = profiledata.file;
+        document.getElementById("allergies").value = profiledata.allergies;
+        document.getElementById("meds").value = profiledata.meds;
+        document.getElementById("activities").value = profiledata.activities;
+        document.getElementById("dietary").value = profiledata.dietary;
+        document.getElementById("other").value = profiledata.other;
+        document.getElementById("policy_holder").value = profiledata.policy_holder;
+        document.getElementById("insurance").value = profiledata.insurance;
+    });
+
+    document.getElementById("submitContact").addEventListener("click", functSubmit);
+        function functSubmit(event){
+            var database = firebase.database();
+            var fn = document.getElementById("firstname").value;
+            var ln = document.getElementById("lastname").value;
+            var gender = document.getElementById("gender").value;
+            var year = document.getElementById("schoolyear").value;
+            var age = document.getElementById("age").value;
+            // var size = document.getElementById("size").value;
+            //var file = document.getElementById("upload").value;
+            var allergies = document.getElementById("allergies").value;
+            var meds = document.getElementById("meds").value;
+            var activities = document.getElementById("activities").value;
+            var dietary = document.getElementById("dietary").value;
+            var other = document.getElementById("other").value;
+            var insurance = document.getElementById("insurance").value;
+            var policy_holder = document.getElementById("policy_holder").value;
+            if (fn == ''){
+                alert("fill in first name");
+            }
+            else if (ln == ''){
+                alert("fill in last name");
+            }
+            else if (allergies == ''){
+                alert("please add any alleriges or type N/A");
+            }
+            else if (meds == ''){
+                alert("please add any medication or type N/A");
+            }
+            else {
+                let parent_email = "<?php echo $parent_email; ?>";
+                var newPostRef = firebase.database().ref('/users/'+keyParam).update({
+                    user_type: "student",
+                    first_name: fn,
+                    last_name: ln,
+                    gender: gender,
+                    year: year,
+                    age: age,
+                    // size: size,
+                    //file: file,
+                    alleriges: allergies,
+                    meds: meds,
+                    activities: activities,
+                    dietary: dietary,
+                    other: other,
+                    insurance: insurance,
+                    policy_holder: policy_holder,
+                    parent_email:"<?php echo $parent_email; ?>"
+                }, function(error){
+                if (error) {
+                    alert("Did not go through")
+                } else {
+                    alert("The form was submitted.");
+                    var postID = newPostRef.key;
+                    window.location.replace("dashboard.php")
+                }
+                }
+                );
+            }
+
+        };
+
+</script>
