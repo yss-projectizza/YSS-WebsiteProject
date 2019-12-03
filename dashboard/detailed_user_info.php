@@ -210,7 +210,7 @@ if (!isset($_SESSION))
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Shirt Size:</span>
+                    <span class="input-group-text">Sweater Size:</span>
                     <select class="form-control form-control-md" name="size" id="size">
                         <option>Small</option>
                         <option>Medium</option>
@@ -220,6 +220,133 @@ if (!isset($_SESSION))
                     </select>
                 </div>
             </div>
+
+            <br>
+            <h2>Experience</h2>
+            <br>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    How many years of experience do you have working with youth?
+                    <br>
+                    <select class="form-control form-control-md" name="experience" id="experience"
+                        style="width:30%" required>
+                        <option disabled selected value> -- select an option -- </option>
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10+</option>
+                    </select>
+                    <br>
+                    </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    Do you have any siblings or relatives that you think will be attending YSS?
+                    <br>
+                    <select class="form-control form-control-md" name="sibling" id="sibling"
+                        style="width:30%" required>
+                        <option disabled selected value> -- select an option -- </option>
+                        <option>Yes</option>
+                        <option>No</option>
+                        <option>Unsure at this point</option>
+                    </select>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    Have you ever been a counselor before?
+                    <br>
+                    <select class="form-control form-control-md" name="counselor_short"
+                        id="counselor_short" style="width:30%" required>
+                        <option disabled selected value> -- select an option -- </option>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    Prior Counselor Experience
+                    <input type="text" name="exp_desc" id="exp_desc" times-label="describe exp"
+                        class="form-control" required>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    Is there a certain age group you feel comfortable working with?
+                    <br>
+                    <input type="text" name="group_age" id="group_age" times-label="group age"
+                        class="form-control" required>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    What do you hope to get out of this experience?
+                    <br>
+                    <input type="text" name="gain" id="gain" times-label="gain" class="form-control"
+                        required>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    What makes you a good fit for YSS?
+                    <input type="text" name="fit" id="fit" times-label="fit" class="form-control" required>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    Is there anything else you'd like us to know about you? (special accommodations, awards,
+                etc)?
+                <input type="text" value="" name="extra" id="extra" times-label="extra"
+                    class="form-control">
+                <br>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    References
+                    <input type="text" name="references" id="references" times-label="references"
+                        class="form-control" required>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row initial-task-padding">
+                <div class="col">
+                    Have you ever been convicted of a felony (if yes, please explain in the text box below)
+                    <br>
+                    <select class="form-control form-control-md" name="felony1" id="felony1" style="width:30%" required>
+                        <option disabled selected value> -- select an option -- </option>
+                        <option>No</option>
+                        <option>Yes</option>
+                    </select>
+                    <input type="text" name="felony2" id="felony2" times-label="references" class="form-control">
+                    <br>
+                </div>
+            </div>
+
         <?php endif ?>
 
         <div>
@@ -311,6 +438,21 @@ if (!isset($_SESSION))
                 document.getElementById("ec_relationship2").value = parent.ec_relationship2;
             });
         }
+
+        if(user_type == "counselor")
+        {
+            document.getElementById("experience").value = user.experience;
+            document.getElementById("sibling").value = user.sibling;
+            document.getElementById("counselor_short").value = user.counselor_short;
+            document.getElementById("exp_desc").value = user.exp_desc;
+            document.getElementById("group_age").value = user.group_age;
+            document.getElementById("gain").value = user.gain;
+            document.getElementById("fit").value = user.fit;
+            document.getElementById("extra").value = user.extra;
+            document.getElementById("references").value = user.references;
+            document.getElementById("felony1").value = user.felony1;
+            document.getElementById("felony2").value = user.felony2;
+        }
     });
 
     function submitChanges()
@@ -378,6 +520,36 @@ if (!isset($_SESSION))
                     ec_phone2: ec_phone2,
                     ec_relationship2: ec_relationship2
                 });
+            });
+        }
+
+        if(user_type == "counselor")
+        {
+            var experience = document.getElementById("experience").value;
+            var sibling = document.getElementById("sibling").value;
+            var counselor_short = document.getElementById("counselor_short").value;
+            var exp_desc = document.getElementById("exp_desc").value;
+            var group_age = document.getElementById("group_age").value;
+            var gain = document.getElementById("gain").value;
+            var fit = document.getElementById("fit").value;
+            var extra = document.getElementById("extra").value;
+            var references = document.getElementById("references").value;
+            var felony1 = document.getElementById("felony1").value;
+            var felony2 = document.getElementById("felony2").value;
+
+            firebase.database().ref('/users/' + key).update(
+            {
+                experience: experience,
+                sibling: sibling,
+                counselor_short: counselor_short,
+                exp_desc: exp_desc,
+                group_age: group_age,
+                gain: gain,
+                fit: fit,
+                extra: extra,
+                references: references,
+                felony1: felony1,
+                felony2: felony2
             });
         }
 
