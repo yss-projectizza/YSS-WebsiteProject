@@ -53,7 +53,6 @@ if (!isset($_SESSION))
     // Stores family objects in the user's grade level
     var families = Object.entries(snapshot.val());
 
-    alert(families.length);
 
     // Create box div containing tables
     const boxDiv = document.createElement('div');

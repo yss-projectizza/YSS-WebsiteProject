@@ -372,9 +372,11 @@ if ($userType == "parent"){
           firebase.database().ref("/schedule/").once('value').then(data =>
           {
             returndataArray = Object.entries(data.val());
-						
-            var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
-            var schedule_div = document.getElementById("schedule");
+
+						firebase.database().ref('users/' + ('<?php echo $email?>').replace('.',',')).once("value", function(snapshot){
+							let student = snapshot.val();
+							var group_num = student.group_num;
+							var schedule_div = document.getElementById("schedule");
 
       if (returndataArray.length == 0 || group_num == "N/A")
       {
@@ -403,7 +405,7 @@ if ($userType == "parent"){
 					schedule_div.appendChild(newp);
 				}
 			}
-          });
+          });});
         </script>
   </main>
 </body>
