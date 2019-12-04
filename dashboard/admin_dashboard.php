@@ -170,14 +170,14 @@ if (!isset($_SESSION))
   addEventButton.addEventListener("click", function () 
   {
     window.location.href = "#event"+ counter; // jumps to the new event being added
-
-    let row = "";
     
     counter++;
     
     var updiv = document.getElementById("inside-div");
+
+    let row = document.createElement('tr');
     
-    row += `<tr id="event${counter}">
+    let row_contents = `<tr id="event${counter}">
                 <th>
                   <label>
                     Event ${counter}
@@ -215,9 +215,12 @@ if (!isset($_SESSION))
 
               add_family_dropdown_items(counter);
 
-              updiv.innerHTML = updiv.innerHTML + row;
+              row.innerHTML = row_contents;
+
+              updiv.appendChild(row);
 
   });
+  
   newdict = {}
 
   document.getElementById("submit-change-btn").addEventListener("click", function () 

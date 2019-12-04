@@ -243,6 +243,24 @@ function edit_group(key, index, num_groups, group_name, counselors, type)
             }
         }
 
+        firebase.database().ref(type + "/" + key).once("value", function(snapshot)
+        {
+            let group = snapshot.val();
+
+            document.getElementById("new-name-input").value = group.name;
+            document.getElementById("new-max-size-input").value = group.max_size;
+
+            if(type == "families")
+            {
+                document.getElementById("toggle-grade").innerHTML = group.grade_level;
+            }
+
+            if(type == "cabins")
+            {
+                document.getElementById("toggle-gender").innerHTML = group.gender;
+            }
+        });
+
         document.getElementById("counselors-" + index).innerHTML = counselor_dropdown;
         
         // Converts Edit button to Submit button and changes its function to submit changes
