@@ -295,34 +295,37 @@ function displayUsers(user_type)
 
 function delete_student(key, index)
 {
-    firebase.database().ref('users/' + key).once("value", function(snapshot)
+    if(confirm("Are you sure you would like to delete this youth?"))
     {
-        var student = snapshot.val();
-
-        var group_num = student.group_num;
-        var cabin_num = student.cabin_num;
-        var bus_num = student.bus_num;
-
-        if(group_num != "N/A")
+        firebase.database().ref('users/' + key).once("value", function(snapshot)
         {
-            update_group_size(group_num, "families");
-        }
+            var student = snapshot.val();
 
-        if(cabin_num != "N/A")
-        {
-            update_group_size(cabin_num, "cabins");
-        }
+            var group_num = student.group_num;
+            var cabin_num = student.cabin_num;
+            var bus_num = student.bus_num;
 
-        if(bus_num != "N/A")
-        {
-            update_group_size(bus_num, "buses");
-        }
+            if(group_num != "N/A")
+            {
+                update_group_size(group_num, "families");
+            }
 
-        firebase.database().ref('users/' + key).remove();
+            if(cabin_num != "N/A")
+            {
+                update_group_size(cabin_num, "cabins");
+            }
 
-        alert("done");
-        location.reload();
-    });
+            if(bus_num != "N/A")
+            {
+                update_group_size(bus_num, "buses");
+            }
+
+            firebase.database().ref('users/' + key).remove();
+
+            alert("done");
+            location.reload();
+        });
+    }
 }
 
 function update_group_size(group_name, type)
@@ -455,10 +458,7 @@ function group_dropdown(type, index, grade="", gender="", user_type)
             // shows only families in the student's grade level
             if(user_type == "student")
             {
-                if(grade == groups[i][1].grade_level)
-                {
-                    group_names += `<a class="dropdown-item" onclick="update_dropdown_value('${type}','${groups[i][1].name}', ${index})">${groups[i][1].name} </a>`;
-                }
+                group_names += `<a class="dropdown-item" onclick="update_dropdown_value('${type}','${groups[i][1].name}', ${index})">${groups[i][1].name} </a>`;
             }
         }
         
