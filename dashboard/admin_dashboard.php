@@ -115,7 +115,7 @@ if (!isset($_SESSION))
                 <th>
                   <label>
                     Time ${counter}
-                    <input class="input" type="text" id="timeinput${counter}" value="${firebasedataArray[i][1]["time"]}">
+                    <input class="input" type="time" id="timeinput${counter}" value="${firebasedataArray[i][1]["time"]}">
                     </input>
                   </label>
                 </th>
@@ -171,14 +171,14 @@ if (!isset($_SESSION))
                 <th>
                   <label>
                     Time ${counter}
-                    <input class="input" type="text" id="timeinput${counter}">
+                    <input class="input" type="time" id="timeinput${counter}">
                     </input>
                   </label>
                 </th>
                 <th>
                   <label>
                     Date ${counter}
-                    <input class="input" type="text" id="dateinput${counter}">
+                    <input class="input" type="date" id="dateinput${counter}">
                     </input>
                   </label>
                 </th>
