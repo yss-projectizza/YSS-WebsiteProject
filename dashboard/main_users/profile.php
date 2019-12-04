@@ -127,14 +127,15 @@ if ($user == "student" and $password == $defaultPassword){
         </div>
 
         <div>
+
         <label>
             <p style="font-size:30px;padding-top: 10px;">Profile Picture</p>
         </label>
         <form method="post" enctype ="multipart/form-data">
-              <input id ="iconUpload" type="file" name="icon_file" value="upload" times-label="file" required>
-              <br> <br>
-              <button type="button" class="rounded" onclick="validateImgProcess()">Upload</button>
-            </form>
+            <input id ="iconUpload" type="file" name="icon_file" value="upload" times-label="file" required>
+            <br> <br>
+            <button type="button" class="rounded" onclick="validateImgProcess()">Upload</button>
+        </form>
 
         <?php if($user == "student" || $user == "student18" || $user == "counselor"): ?>
 

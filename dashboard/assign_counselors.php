@@ -213,6 +213,8 @@ function submit_changes(key, index)
         update_counselor_group(index, key, "families", counselor.group_num, fam_update);
         update_counselor_group(index, key, "cabins", counselor.cabin_num, cabin_update);
         update_counselor_group(index, key, "buses", counselor.bus_num, bus_update);
+
+        location.reload();
     });
 }
 

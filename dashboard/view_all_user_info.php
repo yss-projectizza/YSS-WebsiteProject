@@ -107,11 +107,7 @@ function displayUsers(user_type)
             heading_html += "<th>Verified</th>";
         }
 
-        // empty cell for edit button
-        if(user_type == "counselor" || user_type == "student")
-        {
-            heading_html += "<th> </th>";
-        }
+        heading_html += "<th> </th>";
 
         let table_rows = "";
 
@@ -126,7 +122,7 @@ function displayUsers(user_type)
 
                 table_rows += `<td id='name-` + i +`'>
                                     <button class="rounded user-info-btn" type="button">
-                                        <a style="color:white" href="detailed_user_info.php?key=${key}&type=${users[i][1].user_type}">${name}<a>
+                                        <a id='name-link-${i}' style="color:white" href="detailed_user_info.php?key=${key}&type=${users[i][1].user_type}">${name}<a>
                                     </button>
                                 </td>`;
 
@@ -204,11 +200,17 @@ function displayUsers(user_type)
 
                 if(user_type == "counselor")
                 {
-                    table_rows += `<td><button class="rounded" id = "submit-` + i + `" onclick = "submit_changes('${key}', '${i}')">Submit</button></td>`;
+                    table_rows += `<td>
+                                        <button class="rounded" id = "submit-` + i + `" onclick = "submit_changes('${key}', '${i}')">Submit</button>
+                                        <button class="rounded delete-btn" id = "delete-` + i + `" onclick = "delete_counselor('${key}', '${i}')">Delete</button>
+                                   </td>`;
                 }
-                else
+                else if(user_type == "student")
                 {
-                    table_rows += `<td><button class="rounded" id = "submit-` + i + `" onclick = "submit_student_changes('${key}', '${i}')">Submit</button></td>`;
+                    table_rows += `<td>
+                                        <button class="rounded" id = "submit-` + i + `" onclick = "submit_student_changes('${key}', '${i}')">Submit</button>
+                                        <button class="rounded delete-btn" id = "delete-` + i + `" onclick = "delete_student('${key}', '${i}')">Delete</button>
+                                    </td>`;
                 }
 
                 table_rows += "</tr>";
@@ -274,6 +276,10 @@ function displayUsers(user_type)
                     table_rows += `onchange="verifyAccount('${key}', ${i}, 'parent-option')"`;
 
                     table_rows += `></input></td>`;
+
+                    table_rows += `<td>
+                                        <button class="rounded delete-btn" id = "delete-` + i + `" onclick = "delete_parent('${key}', '${i}')">Delete</button>
+                                    </td>`;
                     
                     table_rows += "</tr>";
                     
@@ -284,6 +290,52 @@ function displayUsers(user_type)
         
         document.getElementById("heading-row").innerHTML = heading_html;
         document.getElementById("user-table-body").innerHTML = table_rows;
+    });
+}
+
+function delete_student(key, index)
+{
+    firebase.database().ref('users/' + key).once("value", function(snapshot)
+    {
+        var student = snapshot.val();
+
+        var group_num = student.group_num;
+        var cabin_num = student.cabin_num;
+        var bus_num = student.bus_num;
+
+        if(group_num != "N/A")
+        {
+            update_group_size(group_num, "families");
+        }
+
+        if(cabin_num != "N/A")
+        {
+            update_group_size(cabin_num, "cabins");
+        }
+
+        if(bus_num != "N/A")
+        {
+            update_group_size(bus_num, "buses");
+        }
+
+        firebase.database().ref('users/' + key).remove();
+
+        alert("done");
+        location.reload();
+    });
+}
+
+function update_group_size(group_name, type)
+{
+    firebase.database().ref(type).orderByChild('name').equalTo(group_name).once("value", function(snapshot)
+    {
+        let object = Object.entries(snapshot.val());
+
+        let object_key = object[0][0];
+
+        let size = object[0][1].size - 1;
+
+        firebase.database().ref(type + '/' + object_key).update({size: parseInt(size)});
     });
 }
 
@@ -471,8 +523,8 @@ function update_counselor_group(index, key, type, current_group_name, selected_g
                 {
                     let selected_group = Object.entries(snapshot.val());
                     
-                    let updated_old_group_counselor_list = remove_counselor_from_list(document.getElementById("name-"+index).innerHTML, current_group[0][1].counselor);
-                    let updated_new_group_counselor_list = add_counselor_to_list(document.getElementById("name-"+index).innerHTML, selected_group[0][1].counselor);
+                    let updated_old_group_counselor_list = remove_counselor_from_list(document.getElementById("name-link-"+index).innerHTML, current_group[0][1].counselor);
+                    let updated_new_group_counselor_list = add_counselor_to_list(document.getElementById("name-link-"+index).innerHTML, selected_group[0][1].counselor);
 
                     firebase.database().ref(type + "/" + current_group[0][0]).update({'counselor': updated_old_group_counselor_list});
                     firebase.database().ref(type + "/" + selected_group[0][0]).update({'counselor': updated_new_group_counselor_list});
@@ -497,7 +549,7 @@ function update_counselor_group(index, key, type, current_group_name, selected_g
             {
                 let selected_group = Object.entries(snapshot.val());
                 
-                let updated_new_group_counselor_list = add_counselor_to_list(document.getElementById("name-" + index).innerHTML, selected_group[0][1].counselor);
+                let updated_new_group_counselor_list = add_counselor_to_list(document.getElementById("name-link-" + index).innerHTML, selected_group[0][1].counselor);
                 
                 firebase.database().ref(type + "/" + selected_group[0][0]).update({'counselor': updated_new_group_counselor_list});
 
