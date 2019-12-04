@@ -356,22 +356,6 @@ if ($userType == "parent"){
         <h2>Schedule</h2>
       </div>
       <script>
-          if("<?php echo $user_type?>" == "counselor" || "<?php echo $user_type?>" == "parent")
-          {
-            // Initialize Firebase
-            var config =
-            {
-              apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-              authDomain: "yss-project-69ba2.firebaseapp.com",
-              databaseURL: "https://yss-project-69ba2.firebaseio.com",
-              projectId: "yss-project-69ba2",
-              storageBucket: "yss-project-69ba2.appspot.com",
-              messagingSenderId: "530416464878"
-            };
-
-            firebase.initializeApp(config);
-          }
-
           firebase.database().ref("/schedule/").once('value').then(data =>
           {
             returndataArray = Object.entries(data.val());
@@ -379,7 +363,8 @@ if ($userType == "parent"){
             var group_num = "<?php echo $_SESSION['queryData']['group_num']; ?>";
             var schedule_div = document.getElementById("schedule");
 
-			if (returndataArray.length == 0 || group_num == "N/A"){
+      if (returndataArray.length == 0 || group_num == "N/A")
+      {
 				let newp = document.createElement("p");
                 newp.innerHTML = "Your schedule has not yet been assigned."
                 schedule_div.appendChild(newp);
