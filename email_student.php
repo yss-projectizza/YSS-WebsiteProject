@@ -1,7 +1,4 @@
 <?php 
-
-	
-	
 	if(!isset($_SESSION))
     {
         session_start();
@@ -11,18 +8,13 @@
 	require __DIR__.'/vendor/PHPMailer/phpmailer/src/Exception.php';
 	require __DIR__.'/vendor/PHPMailer/phpmailer/src/PHPMailer.php';
 	require __DIR__.'/vendor/PHPMailer/phpmailer/src/SMTP.php';
-
-
-
-
+	
   // This assumes that you have placed the Firebase credentials in the same directory
   // as this PHP file.
   use Kreait\Firebase\Factory;
   use Kreait\Firebase\ServiceAccount;
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
-	
-	
 	
 	/*
 	define('SMTP_HOST','relay-hosting.secureserver.net');
@@ -32,10 +24,7 @@
 	
 	$mail = new PHPMailer(true);
 	
-  
-	
 	$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/yss-project-69ba2-firebase-adminsdk-qpgd1-772443326e.json');
-    
     
 	$firebase = (new Factory)
 			->withServiceAccount($serviceAccount)
@@ -43,15 +32,10 @@
 	$database = $firebase->getDatabase();
 	$reference = $database->getReference('/users')->getValue();
 	
-
-
-		
     if ($_GET["studentEmail"] && $_GET["reset"]=="true"){
 		try {
 			
-			
-			
-			$mail->setFrom('info@youthspiritualsummit.com', 'Youth Spiritual Summit');
+			$mail->setFrom('youthspiritualsummit@gmail.com', 'Youth Spiritual Summit');
 			$mail->addAddress($_GET['studentEmail']);
 	
 			$email = $_GET['studentEmail'];
@@ -91,8 +75,6 @@ Login page: http://www.youthspiritualsummit.com/login.php";
 		} else {
 				echo "failed. No email sent."; 
 		}
-		
-		
 		
 		//<script> window.location.href = "dashboard.php"; </script>
 		echo "<script> window.location.replace('dashboard.php') </script>";
