@@ -51,6 +51,7 @@ if (!isset($_SESSION))
         <h2>Retreat Information</h2>
         <label><strong>Retreat Name</strong><br><input id="program-name" type="text"></input></label>
         <label><strong>Retreat Price</strong><br><input id="program-price" type="number" step="0.01"></input></label>
+        <label><strong>Activate Group Selection</strong><input style="margin-left:10px" id="activate-selection" type="checkbox" onchange="activateGroups()"></input></label>
         <button id="submit-camp-info" class="rounded" onclick="saveCampInfoChanges()">Submit</button>
     </div>
     
@@ -79,6 +80,22 @@ if (!isset($_SESSION))
 </html>
 
 <script>
+  let activate_selection = document.getElementById("activate-selection");
+
+  firebase.database().ref('currentProgram').once("value", function(snapshot)
+  {
+    let program = snapshot.val();
+
+    if(program.activateGroups == "true")
+    {
+      activate_selection.checked = true;
+    }
+    else
+    {
+      activate_selection.checked = false;
+    }
+  });
+
   var counter = 0;
   let schedule = document.getElementById("schedule");
   schedule.style.display = "block";
@@ -226,6 +243,24 @@ function delete_event(id)
   firebase.database().ref('/schedule/' + id).remove();
   alert("deleted successfully");
   location.reload();
+}
+
+function activateGroups()
+{
+    let activate_selection = document.getElementById("activate-selection");
+
+    if(activate_selection.checked)
+    {
+      firebase.database().ref('currentProgram/').update({activateGroups: "true"});
+
+      alert("Youth may now select their groups.");
+    }
+    else
+    {
+      firebase.database().ref('currentProgram/').update({activateGroups: "false"});
+
+      alert("Group selection is now closed.");
+    }
 }
 
 function add_family_dropdown_items(index)

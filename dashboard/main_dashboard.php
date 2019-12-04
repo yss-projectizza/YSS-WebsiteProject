@@ -96,28 +96,41 @@ if ($userType == "parent"){
       <div class="to_do" id="to-do-div">
         <?php if($user_type == "student"):?>
             <script>
-              firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
+              firebase.database().ref('currentProgram').once("value", function(snapshot)
               {
+                let program = snapshot.val();
 
-                let student = Object.entries(snapshot.val());
-                let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>";
-
-                let i = 0;
-
-                while(student[i][1].studentEmail != student_email)
+                if(program.activateGroups == "true")
                 {
-                  i++;
+                  firebase.database().ref('users').orderByChild('user_type').equalTo('student').once("value", function(snapshot)
+                  {
+                    let student = Object.entries(snapshot.val());
+                    let student_email = "<?php echo $_SESSION['queryData']['studentEmail']; ?>";
+
+                    let i = 0;
+
+                    while(student[i][1].studentEmail != student_email)
+                    {
+                      i++;
+                    }
+
+                    let to_do_div = document.getElementById('to-do-div');
+
+                    // display_todo_link("Pay Fees", "https://www.google.com/", (student[i][1].credit_due != "0"), to_do_div);
+
+                    display_todo_link("Select Family", "dashboard/main_users/select_family.php", (student[i][1].group_num != "N/A"), to_do_div);
+
+                    display_todo_link("Select Cabin", "dashboard/main_users/select_cabin.php", (student[i][1].cabin_num != "N/A"), to_do_div);
+
+                    display_todo_link("Select Bus", "dashboard/main_users/select_bus.php", (student[i][1].bus_num != "N/A"), to_do_div);
+                  });
                 }
+                else
+                {
+                  let to_do_div = document.getElementById('to-do-div');
 
-                let to_do_div = document.getElementById('to-do-div');
-
-                // display_todo_link("Pay Fees", "https://www.google.com/", (student[i][1].credit_due != "0"), to_do_div);
-
-                display_todo_link("Select Family", "dashboard/main_users/select_family.php", (student[i][1].group_num != "N/A"), to_do_div);
-
-                display_todo_link("Select Cabin", "dashboard/main_users/select_cabin.php", (student[i][1].cabin_num != "N/A"), to_do_div);
-
-                display_todo_link("Select Bus", "dashboard/main_users/select_bus.php", (student[i][1].bus_num != "N/A"), to_do_div);
+                  to_do_div.innerHTML = "<p style='font-size: 16px'>There is nothing To Do yet!</p>";
+                }
               });
             </script>
         <?php elseif($user_type == "counselor"): ?>
