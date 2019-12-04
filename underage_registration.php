@@ -265,7 +265,7 @@ $parentBal = floatval($parentBal);
                     var year = document.getElementById("schoolyear").value;
                     var dob = document.getElementById("studentDOB").value;
                     var birthYear = dob.slice(0,4);
-                    var defaultPassword = ln + birthYear;
+                    var defaultPassword = ln.toLowerCase() + birthYear;
 										var password = defaultPassword;
 										var accountStatus = "Activated";
 										
