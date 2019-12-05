@@ -63,8 +63,8 @@
 
 					<div class="row initial-task-padding">
 						<div class="col">
-							What local organizations (e.g. masjids) do you attend ? The Youth Spiritual Summit will reach out to these
-							organizations to see if they will support local youth to attend the Summit.?<b style="color: red;">*</b>
+							What local organizations (e.g. masjids) do you attend? The Youth Spiritual Summit will reach out to these
+							organizations to see if they will support local youth to attend the Summit.<b style="color: red;">*</b>
 							<input id="local-masjid" type="text" name="org" times-label="org" class="form-control" required>
 							<br>
 						</div>
@@ -104,7 +104,7 @@
 
 					<!-- Submit -->
 					<div class="row margin-data" style="padding-bottom: 50px;
-               padding-top:10px; margin-bottom:5%;" align="center" ;>
+               padding-top:10px; margin-bottom:15%;" align="center" ;>
 						<button onclick="location.href = '/dashboard.php'" id="back" class="btn-xl rounded" align="center"
 								role="button" style="background-color:#ccced1; margin-right:1%;height:2%;"> Back
 						</button>

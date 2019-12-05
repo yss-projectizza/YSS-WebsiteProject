@@ -84,7 +84,6 @@ if ($user == "student" and $password == $defaultPassword){
 
 <body>
     <?php include('../../header_loggedin.php') ?>
-
     <div class="container profile-box">
 
         <!-- Profile Information -->
@@ -112,7 +111,7 @@ if ($user == "student" and $password == $defaultPassword){
         <div class="row initial-task-padding">
             <div class="col">
                 Phone number<b style="color: red;">*</b>
-                <input id="phone" type="tel" name="phone" times-label="phone" class="form-control" required>
+                <input id="phone" type="tel" name="phone" required pattern = "\d{3}\-\d{3}\-\d{4}" times-label="phone" class="form-control" required>
                 <br>
             </div>
         </div>
@@ -245,7 +244,7 @@ if ($user == "student" and $password == $defaultPassword){
         <?php if($user == "parent" || $user == "student18"): ?>
         <div>
         <label>
-            <p style="font-size:30px;padding-top: 10px;">Emergency Contacts</p>
+            <p style="font-size:30px;padding-top: 10px;">Youth's Emergency Contacts</p>
         </label>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -258,7 +257,7 @@ if ($user == "student" and $password == $defaultPassword){
             <div class="input-group-prepend">
                 <span class="input-group-text">Emergency Contact 1 - Phone:<b style="color: red;">*</b></span>
             </div>
-            <input type="tel" placeholder="Ex: 1234567890" name="ec_phone1" id="ec_phone1" class="form-control"
+            <input type="tel" placeholder="Ex: 123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="ec_phone1" id="ec_phone1" class="form-control"
                 required>
         </div>
 
@@ -281,7 +280,7 @@ if ($user == "student" and $password == $defaultPassword){
             <div class="input-group-prepend">
                 <span class="input-group-text">Emergency Contact 2 - Phone:<b style="color: red;">*</b></span>
             </div>
-            <input type="tel" placeholder="Ex: 1234567890" name="ec_phone2" id="ec_phone2" class="form-control"
+            <input type="tel" placeholder="Ex: 123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="ec_phone2" id="ec_phone2" class="form-control"
                 required>
         </div>
 
@@ -301,13 +300,13 @@ if ($user == "student" and $password == $defaultPassword){
         <div class="container">
             <!-- Health Information -->
         </div>
-        <?php if($user == "student" || $user == "student18"): ?>
+        <?php if($user == "parent"): ?>
         <label>
-            <p style="font-size:30px;padding-top: 10px;">Health Information</p>
+            <p style="font-size:30px;padding-top: 10px;">Youth's Health Information</p>
         </label>
         <div class="row initial-task-padding">
             <div class="col">
-                <p>Please List Any Allergies You Have. If none, type N/A.<b style="color: red;">*</b></p>
+                <p>Please List Any Allergies Your Youth Has. If None, Type N/A.<b style="color: red;">*</b></p>
                 <input type="text" name="allergies" id="allergies" times-label="allergies" class="form-control"
                     required>
             </div>
@@ -315,7 +314,7 @@ if ($user == "student" and $password == $defaultPassword){
 
         <div class="row initial-task-padding">
             <div class="col">
-                <p>Please List Any Medication You Are Currently On. If none, type N/A<b style="color: red;">*</b></p>
+                <p>Please List Any Medication Your Youth Is Currently On. If None, Type N/A<b style="color: red;">*</b></p>
                 <input type="text" name="meds" id="meds" times-label="meds" class="form-control" required>
             </div>
         </div>
@@ -374,6 +373,7 @@ if ($user == "student" and $password == $defaultPassword){
             </div>
         </div>
     </div>
+		</form>
 </body>
 </html>
 
@@ -395,13 +395,6 @@ if ($user == "student" and $password == $defaultPassword){
             document.getElementById("hopes").value = profiledata.hopes;
             document.getElementById("activities").value = profiledata.activities;
             document.getElementById("question").value = profiledata.question;
-            document.getElementById("allergies").value = profiledata.allergies;
-            document.getElementById("meds").value = profiledata.meds;
-            document.getElementById("activity_restrictions").value = profiledata.activity_restrictions;
-            document.getElementById("dietary_restrictions").value = profiledata.dietary_restrictions;
-            document.getElementById("other").value = profiledata.other;
-            document.getElementById("insurance").value = profiledata.insurance;
-            document.getElementById("policy_holder").value = profiledata.policy_holder;
         }
 
         if(profiledata.user_type == "parent")
@@ -435,13 +428,6 @@ if ($user == "student" and $password == $defaultPassword){
             var hopes = document.getElementById("hopes").value;
             var activities = document.getElementById("activities").value;
             var question = document.getElementById("question").value;
-            var allergies = document.getElementById("allergies").value;
-            var meds = document.getElementById("meds").value;
-            var activity_r = document.getElementById("activity_restrictions").value;
-            var dietary_r = document.getElementById("dietary_restrictions").value;
-            var other = document.getElementById("other").value;
-            var insurance = document.getElementById("insurance").value;
-            var policy_holder = document.getElementById("policy_holder").value;
         }
 
         if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "parent")
@@ -453,7 +439,17 @@ if ($user == "student" and $password == $defaultPassword){
             var ec_phone2 = document.getElementById("ec_phone2").value;
             var ec_relationship2 = document.getElementById("ec_relationship2").value;
         }
-
+				if (first_name == ''){
+						alert("Please fill in first name");
+				}
+				else if (last_name == ''){
+						alert("Please fill in last name");
+				}
+				else if(phone == ''){
+						alert("Please fill in phone number");
+				}
+				else 
+				{   
         var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
                 first_name: first_name,
                 last_name: last_name,
@@ -473,6 +469,7 @@ if ($user == "student" and $password == $defaultPassword){
                     console.log("went to firebase");
                 }
             });
+				
 
         if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "parent")
         {
@@ -506,14 +503,7 @@ if ($user == "student" and $password == $defaultPassword){
                     community: community,
                     hopes: hopes,
                     activities: activities,
-                    question: question,
-                    allergies: allergies,
-                    meds: meds,
-                    activity_restrictions: activity_r,
-                    dietary_restrictions: dietary_r,
-                    other: other,
-                    insurance: insurance,
-                    policy_holder: policy_holder,
+                    question: question
                 },
                 function (error) {
                     if (error) {
@@ -526,6 +516,7 @@ if ($user == "student" and $password == $defaultPassword){
                     }
                 });
         }
+				}
     });
 
     // Uploads an image and sets it as the user's profile picture.

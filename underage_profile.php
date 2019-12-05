@@ -94,26 +94,11 @@ $parent_email = $_SESSION["queryData"]["email"];
                             <option>Sophomore</option>
                             <option>Junior</option>
                             <option>Senior</option>
-                            <option>Early College</option>
-                            <option>Home School</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- SHOULD BE AUTOMATICALLY CALCULATED BASED OFF OF DOB -->
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="age" id="age">
-						    <option>13</option>
-							<option>14</option>
-                            <option>15</option>
-                            <option>16</option>
-                            <option>17</option>
-                            <option>18</option>
-                        </select>
-                    </div>
-                </div>
+        
 
                 <!-- STUDENT FILL THIS OUT ONCE THERE'S AN ACCOUNT
                 <div class="input-group mb-3">
