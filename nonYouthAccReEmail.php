@@ -81,5 +81,4 @@ Login page: http://www.youthspiritualsummit.com/login.php";
 		echo "<script> window.location.replace('dashboard.php') </script>";
 		exit;
     }
-		
 ?>
