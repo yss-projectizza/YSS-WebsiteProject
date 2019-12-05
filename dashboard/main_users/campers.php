@@ -379,26 +379,29 @@ function emailAllGroup(id, type, group_name)
 
     if(students.length == 0)
     {
-      alert("You do not have any students to email!");
-    }
-    else if(students.length == 1)
-    {
-      email_list = students[0][1].studentEmail;
+      document.getElementById(id).style.display = "none";
     }
     else
     {
-      for(let i = 0; i < students.length; i++)
+      if(students.length == 1)
       {
-        email_list += students[i][1].studentEmail;
-
-        if (i != (students.length-1))
+        email_list = students[0][1].studentEmail;
+      }
+      else
+      {
+        for(let i = 0; i < students.length; i++)
         {
-          email_list += ", "; //create email list
+          email_list += students[i][1].studentEmail;
+
+          if (i != (students.length-1))
+          {
+            email_list += ", "; //create email list
+          }
         }
       }
-    }
 
-    document.getElementById(id).href = "mailto:?bcc=" + email_list;
+      document.getElementById(id).href = "mailto:?bcc=" + email_list;
+    }
   });
 }
 </script>
