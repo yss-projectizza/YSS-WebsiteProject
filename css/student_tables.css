@@ -81,3 +81,10 @@
     color: black;
     cursor: pointer;
 }
+
+.email-all
+{
+    background-color: orange;
+    color:black;
+    padding:3px;
+}

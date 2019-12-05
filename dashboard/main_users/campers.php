@@ -57,7 +57,8 @@ if (!isset($_SESSION))
       <button class="tablinks" onclick="openCity(event, 'Cabin')">Cabin</button>
     </div>
 
-    <div id="Family" class="tabcontent">
+    <div id="Family" class="tabcontent" style="text-align:center">
+      <a id="email-all-family" class="rounded email-all">Email All</a>
       <script>
         const famTblDiv = document.createElement('div');
         famTblDiv.classList.add('container', 'family-div');
@@ -130,7 +131,7 @@ if (!isset($_SESSION))
 
               if(user_type == "counselor")
               {
-                message.appendChild(document.createTextNode("You do not have any students yet."));
+                message.appendChild(document.createTextNode("You have not been assigned any youth participants yet."));
               }
               else
               {
@@ -196,7 +197,7 @@ if (!isset($_SESSION))
                 const message = document.createElement('p');
                 if(user_type == "counselor")
                 {
-                  message.appendChild(document.createTextNode("You do not have any students yet."));
+                  message.appendChild(document.createTextNode("You have not been assigned any youth participants yet."));
                 }
                 else
                 {
@@ -212,7 +213,7 @@ if (!isset($_SESSION))
 
               if(user_type == "counselor")
               {
-                message.appendChild(document.createTextNode("You do not have any students yet."));
+                message.appendChild(document.createTextNode("You have not been assigned any youth participants yet."));
               }
               else
               {
