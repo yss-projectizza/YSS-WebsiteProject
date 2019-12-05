@@ -285,7 +285,7 @@ $parentBal = floatval($parentBal);
 												alert("Please fill in the youth's email address");
 											}											
 											else if (snapshot.exists()){
-												alert('An account with the entered email address already exists in the system. Please enter a different email address.');
+												alert("An account with the email address: \""+ studentEmail + "\" already exists in the system. Please enter a different email address.");
 												var studentEmailView = document.getElementById("studentEmail");
 												studentEmailView.scrollIntoView();
 												studentEmailView.style.backgroundColor = "#FDFF47";
