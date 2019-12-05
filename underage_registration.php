@@ -107,6 +107,7 @@ $parentBal = floatval($parentBal);
                     <div class="input-group-prepend">
                     <span class="input-group-text">Gender:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="gender" id="gender">
+																<option disabled selected value> -- select an option -- </option>
                                 <option>Female</option>
                                 <option>Male</option>
                         </select>
@@ -132,6 +133,7 @@ $parentBal = floatval($parentBal);
                     <div class="input-group-prepend">
                     <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="schoolyear" id="schoolyear">
+														<option disabled selected value> -- select an option -- </option>
                             <option>Freshman</option>
                             <option>Sophomore</option>
                             <option>Junior</option>
@@ -185,35 +187,35 @@ $parentBal = floatval($parentBal);
             <label><p style = "font-size:30px;padding-top: 10px;">Youth's Health Information</p></label>
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Allergies Your Youth Have. If None, Type N/A.<b style = "color: red;">*</b></p>
+                    <p>Allergies. If none, type N/A.<b style = "color: red;">*</b></p>
                     <textarea id="allergies" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Medication Your Youth Is Currently On. If None, Type N/A<b style = "color: red;">*</b></p>
+                    <p>Medication. If none, type N/A.<b style = "color: red;">*</b></p>
                     <textarea id="meds" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Any Activity Restrictions.</b></p>
+                    <p>Activity Restrictions. If none, type N/A..<b style = "color: red;">*</b></p>
                     <textarea id="activities" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Any Dietary Restrictions.</b></p>
+                    <p>Dietary Restrictions. If none, type N/A..<b style = "color: red;">*</b></p>
                     <textarea id="dietary" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Other Important Information </b></p>
+                    <p>Other Important Information (Optional) </b></p>
                     <textarea id="other" cols="132" rows="2"></textarea>
                 </div>
             </div>
@@ -287,7 +289,7 @@ $parentBal = floatval($parentBal);
 												alert("Please fill in the youth's email address");
 											}											
 											else if (snapshot.exists()){
-												alert("An account with the email address: \""+ studentEmail + "\" already exists in the system. Please enter a different email address.");
+												alert("An account with the email address \""+ studentEmail + "\" has already been registered in the system. If you feel this is an error, please contact us at youthspiritualsummit@gmail.com.");
 												var studentEmailView = document.getElementById("studentEmail");
 												studentEmailView.scrollIntoView();
 												studentEmailView.style.backgroundColor = "#FDFF47";
@@ -298,24 +300,30 @@ $parentBal = floatval($parentBal);
 											else if (ln == ''){
 												alert("Please fill in last name");
                                             }
-                                            else if(document.getElementById("upload").files.length == 0){
+                      else if(document.getElementById("upload").files.length == 0){
 												alert("Please add a student id");
                                             }
-                                            else if(dob == ''){
+                      else if(dob == ''){
 												alert("Please fill in Date of Birth");
-										    }
+										   }
 											else if (allergies == ''){
-													alert("please add any alleriges or type N/A");
+												alert("please add any alleriges or type N/A");
                                             }
 											else if (meds == ''){
-													alert("please add any medication or type N/A");
-                                            }
-                                            else if (insurance == ''){
+												alert("please add any medication or type N/A");
+											}
+											else if (activities == ''){
+												alert("please add any activity restrictions or type N/A");
+                      }
+											else if (dietary == ''){
+												alert("please add any dietary restrictions or type N/A");
+                      }
+                      else if (insurance == ''){
 												alert("Please fill in insurance provider");
                                             }
-                                            else if (policy_holder == ""){
-                                                    alert("Please fill in policy holder");
-                                            }
+											else if (policy_holder == ""){
+												alert("Please fill in policy holder");
+											}
 											else 
 											{    
 													// Update student's balance and add new student's balance to parent's balance

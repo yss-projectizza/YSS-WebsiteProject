@@ -49,22 +49,36 @@ $parent_email = $_SESSION["queryData"]["email"];
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">First Name:</span>
                     </div>
-                    <input type="text" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>
+                    <input disabled=true type="text" name="firstname" id="firstname" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Last Name:</span>
                     </div>
-                    <input type="text" placeholder="Ex: Smith" name="lastname" id="lastname" class="form-control" required>
+                    <input disabled=true type="text" name="lastname" id="lastname" class="form-control" required>
                 </div>
-
+								
+								<div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Youth's Email:</span>
+                    </div>
+                    <input disabled=true type="text" name="youthmail" id="youthmail" class="form-control" required>
+                </div>
+								
+								<div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Youth's Date of Birth:</span>
+                    </div>
+                    <input disabled=true type="date" name="dob" id="dob" class="form-control" required>
+                </div>
+								
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text">Gender:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="gender" id="gender">
+                    <span class="input-group-text">Gender:</span>
+                        <select disabled=true class="form-control form-control-md" name="gender" id="gender">
                                 <option>Female</option>
                                 <option>Male</option>
                         </select>
@@ -88,8 +102,8 @@ $parent_email = $_SESSION["queryData"]["email"];
                 -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="schoolyear" id="schoolyear">
+                    <span class="input-group-text">Upcoming School Year:</span>
+                        <select disabled=true class="form-control form-control-md" name="schoolyear" id="schoolyear">
                             <option>Freshman</option>
                             <option>Sophomore</option>
                             <option>Junior</option>
@@ -126,31 +140,31 @@ $parent_email = $_SESSION["queryData"]["email"];
         <div class="container">
         <!-- Health Information -->
         </div>
-            <label><p style = "font-size:30px;padding-top: 10px;">Health Information</p></label>
+            <label><p style = "font-size:30px;padding-top: 10px;">Youth's Health Information</p></label>
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Allergies You Have. If none, type N/A.<b style = "color: red;">*</b></p>
+                    <p>Please List Any Allergies Your Youth Have. If None, Type N/A.<b style = "color: red;">*</b></p>
                     <textarea id="allergies" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Medication You Are Currently On. If none, type N/A<b style = "color: red;">*</b></p>
+                    <p>Please List Any Medication Your Youth Is Currently On. If None, Type N/A<b style = "color: red;">*</b></p>
                     <textarea id="meds" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Activity Restrictions.</b></p>
+                    <p>Any Activity Restrictions.</b></p>
                     <textarea id="activities" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Dietary Restrictions.</b></p>
+                    <p>Any Dietary Restrictions.</b></p>
                     <textarea id="dietary" cols="132" rows="2"></textarea>
                 </div>
             </div>
@@ -199,7 +213,8 @@ $parent_email = $_SESSION["queryData"]["email"];
         document.getElementById("lastname").value = profiledata.last_name;
         document.getElementById("gender").value = profiledata.gender;
         document.getElementById("schoolyear").value = profiledata.year;
-        document.getElementById("age").value = profiledata.age;
+				document.getElementById("youthmail").value = profiledata.studentEmail;
+				document.getElementById("dob").value = profiledata.dob;
         //document.getElementById("upload").value = profiledata.file;
         document.getElementById("allergies").value = profiledata.allergies;
         document.getElementById("meds").value = profiledata.meds;
@@ -217,7 +232,6 @@ $parent_email = $_SESSION["queryData"]["email"];
             var ln = document.getElementById("lastname").value;
             var gender = document.getElementById("gender").value;
             var year = document.getElementById("schoolyear").value;
-            var age = document.getElementById("age").value;
             // var size = document.getElementById("size").value;
             //var file = document.getElementById("upload").value;
             var allergies = document.getElementById("allergies").value;

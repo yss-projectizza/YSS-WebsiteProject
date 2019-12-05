@@ -142,6 +142,7 @@ if ($user == "student" and $password == $defaultPassword){
             <div class="input-group-prepend">
                 <span class="input-group-text">Shirt Size:<b style="color: red;">*</b></span>
                 <select class="form-control form-control-md" name="size" id="size">
+										<option disabled selected value> -- select an option -- </option>
                     <option>Small</option>
                     <option>Medium</option>
                     <option>Large</option>
@@ -168,6 +169,7 @@ if ($user == "student" and $password == $defaultPassword){
                 <div class="input-group-prepend">
                     <span class="input-group-text">Spirituality (closeness to God)<b style="color: red;">*</b></span>
                     <select class="form-control form-control-md" name="spiritual" id="spiritual">
+												<option disabled selected value> -- select an option -- </option>
                         <option>Very High</option>
                         <option>High</option>
                         <option>Neutral</option>
@@ -181,6 +183,7 @@ if ($user == "student" and $password == $defaultPassword){
                 <div class="input-group-prepend">
                     <span class="input-group-text">Religious Knowledge:<b style="color: red;">*</b></span>
                     <select class="form-control form-control-md" name="knowledge" id="knowledge">
+												<option disabled selected value> -- select an option -- </option>
                         <option>Very High</option>
                         <option>High</option>
                         <option>Neutral</option>
@@ -194,6 +197,7 @@ if ($user == "student" and $password == $defaultPassword){
                 <div class="input-group-prepend">
                     <span class="input-group-text">Commitment to Improving Myself:<b style="color: red;">*</b></span>
                     <select class="form-control form-control-md" name="improvement" id="improvement">
+												<option disabled selected value> -- select an option -- </option>
                         <option>Very High</option>
                         <option>High</option>
                         <option>Neutral</option>
@@ -208,6 +212,7 @@ if ($user == "student" and $password == $defaultPassword){
                     <span class="input-group-text">Commitment to Making My Community Better:<b
                             style="color: red;">*</b></span>
                     <select class="form-control form-control-md" id="community">
+											<option disabled selected value> -- select an option -- </option>
                         <option>Very High</option>
                         <option>High</option>
                         <option>Neutral</option>
@@ -380,10 +385,16 @@ if ($user == "student" and $password == $defaultPassword){
 <script>
     firebase.database().ref('/users/' + "<?php echo $email?>").once("value").then(async function (snapshot) {
         let profiledata = snapshot.val();
-
+        
         document.getElementById("first_name").value = profiledata.first_name;
         document.getElementById("last_name").value = profiledata.last_name;
-        document.getElementById("phone").value = profiledata.phone;
+				alert(profile.hasOwnProperty("phone"));
+				if(profile.hasOwnProperty("phone")){
+					document.getElementById("phone").value = profiledata.phone;
+				}
+				else{
+					document.getElementById("phone").value = "00000000";
+				}
         document.getElementById("password").value = profiledata.password;
 
         if(profiledata.hasOwnProperty("spiritual")) // checks if the database object has the specified data field
@@ -416,8 +427,8 @@ if ($user == "student" and $password == $defaultPassword){
         var last_name = document.getElementById("last_name").value;
         var phone = document.getElementById("phone").value;
         var password = document.getElementById("password").value;
-        var h_password = "<?php echo password_hash('${password}', PASSWORD_DEFAULT); ?>";
-
+        var h_password = "<?php echo password_hash('a', PASSWORD_BCRYPT); ?>";
+        
         if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
         {
             var size = document.getElementById("size").value;
@@ -454,7 +465,7 @@ if ($user == "student" and $password == $defaultPassword){
                 first_name: first_name,
                 last_name: last_name,
                 phone: phone,
-                password: h_password,
+                password: password,
             },
             function (error) {
                 if (error) {
@@ -529,10 +540,10 @@ if ($user == "student" and $password == $defaultPassword){
             var emailwcharactersreplaced = "<?php echo $email ?>";
 
             var iconImage = new File([iconUpload.files[0]], emailwcharactersreplaced);
-
+        
             var metadata = {contentType: 'image/jpeg'};
 
-            firebase.storage().ref('icon/' + iconImage.name).put(iconImage, metadata).then(function(snapshot)
+            firebase.storage().ref('icon/' + iconImage.name).put(iconImage, metadata).then(function(snapshot) 
             {
                 alert("Your profile picture was successfully changed!");
 
