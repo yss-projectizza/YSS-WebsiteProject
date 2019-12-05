@@ -42,11 +42,11 @@
 								style="color: red;">*</b>
 							<br>
 							<form action="/action_page.php">
-								<input type="radio" name="income" value="below $30,000"> Below $30,000 <br>
-								<input type="radio" name="income" value="$30,000 - $39,999"> $30,000 - $39,999 <br>
-								<input type="radio" name="income" value="$40,000 - $49,999"> $40,000 - $49,999 <br>
-								<input type="radio" name="income" value="$50,000 - $59,999"> $50,000 - $59,999 <br>
-								<input type="radio" name="income" value="$60,000 or above"> $60,000 or above <br>
+								<input type="radio" id="inc1" name="income" value="below $30,000"> Below $30,000 <br>
+								<input type="radio" id="inc2" name="income" value="$30,000 - $39,999"> $30,000 - $39,999 <br>
+								<input type="radio" id="inc3" name="income" value="$40,000 - $49,999"> $40,000 - $49,999 <br>
+								<input type="radio" id="inc4" name="income" value="$50,000 - $59,999"> $50,000 - $59,999 <br>
+								<input type="radio" id="inc5" name="income" value="$60,000 or above"> $60,000 or above <br>
 							</form>
 							<br>
 						</div>
@@ -64,7 +64,7 @@
 					<div class="row initial-task-padding">
 						<div class="col">
 							What local organizations (e.g. masjids) do you attend? The Youth Spiritual Summit will reach out to these
-							organizations to see if they will support local youth to attend the Summit.<b style="color: red;">*</b>
+							organizations to see if they will support local youth to attend the Summit. If none, please type N/A.<b style="color: red;">*</b>
 							<input id="local-masjid" type="text" name="org" times-label="org" class="form-control" required>
 							<br>
 						</div>
@@ -93,7 +93,7 @@
 							<br>
 							<div class="ans">
 								<form action="/action_page.php">
-									<input type="radio" name="income" value="below $30,000"> I agree to the statement above <br>
+									<input type="radio" id="agree" name="income" value="below $30,000"> I agree to the statement above <br>
 								</form>
 							</div>
 						</div>
@@ -132,23 +132,50 @@
 		<script>
 			document.getElementById("submit-button").addEventListener("click", item = (event) => {
 				event.preventDefault();
-				
+
 				let amount_in_household = document.getElementById("people-in-household").value;
 				let amount_can_pay = document.getElementById("amount-can-pay").value;
 				let local_masjid = document.getElementById("local-masjid").value;
 				let circumstances_description = document.getElementById("circumstances-description").value;
+        if (amount_in_household == '')
+        {
+          alert("Please fill in the number of people in your household.");
+        }
+        else if (!document.getElementById("inc1").checked && !document.getElementById("inc2").checked && !document.getElementById("inc3").checked && !document.getElementById("inc4").checked && !document.getElementById("inc5").checked)
+        {
+          alert("Please select the total family income option.");
+        }
+        else if (amount_can_pay == '')
+        {
+          alert("Please fill in how much of the fee you can pay.");
+        }
+        else if (local_masjid == '')
+        {
+          alert("Please list an organization or N/A.");
+        }
+        else if (circumstances_description == '')
+        {
+          alert("Please state your circumstances that lead you to need financial aid.");
+        }
+        else if (!document.getElementById("agree").checked)
+        {
+          alert("Please agree to the statement above.");
+        }
+        else{
 				firebase.database().ref('/financial_aid/').push({
 					first_name: "<?php echo $_SESSION["queryData"]["first_name"]; ?>",
 					last_name: "<?php echo $_SESSION["queryData"]["last_name"]; ?>",
 					email: "<?php echo $_SESSION["queryData"]["email"]; ?>",
 					amount_in_household:amount_in_household,
 					amount_can_pay:amount_can_pay,
-					local_masjid,local_masjid,
+					local_masjid:local_masjid,
 					circumstances_description:circumstances_description
+
+
 				});
 				alert("Your financial aid form was submitted successfully.")
-
-
+        window.location.href = "/dashboard.php";
+}
 
 			})
 			</script>
