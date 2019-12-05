@@ -10,7 +10,13 @@ require __DIR__. '/../vendor/autoload.php';
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\ServiceAccount;
 $userType = $_SESSION["queryData"]["user_type"];
-$email = $_SESSION["queryData"]["email"];
+if ($userType != "student"){
+	$email = $_SESSION["queryData"]["email"];
+}
+else{
+	$email = $_SESSION["queryData"]["studentEmail"];
+}	
+
 $emailwithcomma = str_replace(".", ",", $email);
 
 if ($userType == "parent"){
