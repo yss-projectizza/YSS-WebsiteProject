@@ -356,8 +356,7 @@ function emailAll()
       }
       if (i != (users.length-1))
       {
-
-        email_list += "; "; //create email list
+        email_list += ", "; //create email list
       }
     }
   }
@@ -365,7 +364,7 @@ function emailAll()
 //get all user_type email
     // alert(email_list);
 
-    document.getElementById("launch-email").href = "mailto:" + email_list;
+    document.getElementById("launch-email").href = "mailto:?bcc=" + email_list;
 });
   // location.href = '/email_student.php?studentEmail=" + studentEmail + "&reset=true";
 }

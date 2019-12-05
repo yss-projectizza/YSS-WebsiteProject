@@ -52,12 +52,13 @@ if (!isset($_SESSION))
     <?php include('../../display_profile_pic.php') ?>
 
     <div class="tab">
-      <button class="tablinks" onclick="openCity(event, 'Family')">Family</button>
-      <button class="tablinks" onclick="openCity(event, 'Bus')">Bus</button>
-      <button class="tablinks" onclick="openCity(event, 'Cabin')">Cabin</button>
+      <button class="tablinks" onclick="openCity(event, 'Family'); emailAllGroup('email-all-family', 'group_num', '<?php echo $_SESSION['queryData']['group_num']; ?>')">Family</button>
+      <button class="tablinks" onclick="openCity(event, 'Bus'); emailAllGroup('email-all-bus', 'bus_num', '<?php echo $_SESSION['queryData']['bus_num']; ?>')">Bus</button>
+      <button class="tablinks" onclick="openCity(event, 'Cabin'); emailAllGroup('email-all-cabin', 'cabin_num', '<?php echo $_SESSION['queryData']['cabin_num']; ?>')">Cabin</button>
     </div>
 
-    <div id="Family" class="tabcontent">
+    <div id="Family" class="tabcontent" style="text-align:center">
+      <a id="email-all-family" class="rounded email-all">Email All</a>
       <script>
         const famTblDiv = document.createElement('div');
         famTblDiv.classList.add('container', 'family-div');
@@ -130,7 +131,7 @@ if (!isset($_SESSION))
 
               if(user_type == "counselor")
               {
-                message.appendChild(document.createTextNode("You do not have any students yet."));
+                message.appendChild(document.createTextNode("You have not been assigned any youth participants yet."));
               }
               else
               {
@@ -145,7 +146,8 @@ if (!isset($_SESSION))
       </script>
     </div>
 
-    <div id="Bus" class="tabcontent">
+    <div id="Bus" class="tabcontent" style="text-align:center">
+    <a id="email-all-bus" class="rounded email-all">Email All</a>
       <script>
         const busTblDiv = document.createElement('div');
         busTblDiv.classList.add('container', 'bus-div');
@@ -196,7 +198,7 @@ if (!isset($_SESSION))
                 const message = document.createElement('p');
                 if(user_type == "counselor")
                 {
-                  message.appendChild(document.createTextNode("You do not have any students yet."));
+                  message.appendChild(document.createTextNode("You have not been assigned any youth participants yet."));
                 }
                 else
                 {
@@ -212,7 +214,7 @@ if (!isset($_SESSION))
 
               if(user_type == "counselor")
               {
-                message.appendChild(document.createTextNode("You do not have any students yet."));
+                message.appendChild(document.createTextNode("You have not been assigned any youth participants yet."));
               }
               else
               {
@@ -227,7 +229,8 @@ if (!isset($_SESSION))
       </script>
     </div>
 
-    <div id="Cabin" class="tabcontent">
+    <div id="Cabin" class="tabcontent" style="text-align:center">
+    <a id="email-all-cabin" class="rounded email-all">Email All</a>
       <script>
         const cabinTblDiv = document.createElement('div');
         cabinTblDiv.classList.add('container', 'cabin-div');
@@ -353,5 +356,49 @@ function get_user_num(student_data, email, data_type)
     }
 
   return return_val;
+}
+</script>
+
+<script>
+function emailAllGroup(id, type, group_name)
+{
+  firebase.database().ref('users').orderByChild(type).equalTo(group_name).once("value", function(snapshot)
+  {
+    let students = Object.entries(snapshot.val());
+    let email_list = "";
+
+    for(let i = 0; i < students.length; i++)
+    {
+        if(students[i][1].user_type == "counselor")
+        {
+            students.splice(i, 1);
+
+            i--;
+        }
+    }
+
+    if(students.length == 0)
+    {
+      alert("You do not have any students to email!");
+    }
+    else if(students.length == 1)
+    {
+      email_list = students[0][1].studentEmail;
+    }
+    else
+    {
+      for(let i = 0; i < students.length; i++)
+      {
+        email_list += students[i][1].studentEmail;
+
+        if (i != (students.length-1))
+        {
+          email_list += ", "; //create email list
+        }
+      }
+    }
+
+    document.getElementById(id).href = "mailto:?bcc=" + email_list;
+  });
 }
 </script>

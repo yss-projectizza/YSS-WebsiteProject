@@ -60,7 +60,21 @@ $parent_email = $_SESSION["queryData"]["email"];
                     </div>
                     <input disabled=true type="text" name="lastname" id="lastname" class="form-control" required>
                 </div>
-
+								
+								<div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Youth's Email:</span>
+                    </div>
+                    <input disabled=true type="text" name="youthmail" id="youthmail" class="form-control" required>
+                </div>
+								
+								<div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Youth's Date of Birth:</span>
+                    </div>
+                    <input disabled=true type="date" name="dob" id="dob" class="form-control" required>
+                </div>
+								
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Gender:</span>
@@ -143,14 +157,14 @@ $parent_email = $_SESSION["queryData"]["email"];
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Any Activity Restrictions.</b></p>
+                    <p>Any Activity Restrictions.<b style = "color: red;">*</b></p>
                     <textarea id="activities" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Any Dietary Restrictions.</b></p>
+                    <p>Any Dietary Restrictions.<b style = "color: red;">*</b></p>
                     <textarea id="dietary" cols="132" rows="2"></textarea>
                 </div>
             </div>
@@ -162,7 +176,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                 </div>
             </div>
 
-            <div class="input-group mb-3">
+            <div class="input-group mb-3" style="padding-top: 20px">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Insurance Provider:<b style = "color: red;">*</b></span>
                  </div>
@@ -199,6 +213,8 @@ $parent_email = $_SESSION["queryData"]["email"];
         document.getElementById("lastname").value = profiledata.last_name;
         document.getElementById("gender").value = profiledata.gender;
         document.getElementById("schoolyear").value = profiledata.year;
+				document.getElementById("youthmail").value = profiledata.studentEmail;
+				document.getElementById("dob").value = profiledata.dob;
         //document.getElementById("upload").value = profiledata.file;
         document.getElementById("allergies").value = profiledata.allergies;
         document.getElementById("meds").value = profiledata.meds;
@@ -216,7 +232,6 @@ $parent_email = $_SESSION["queryData"]["email"];
             var ln = document.getElementById("lastname").value;
             var gender = document.getElementById("gender").value;
             var year = document.getElementById("schoolyear").value;
-            var age = document.getElementById("age").value;
             // var size = document.getElementById("size").value;
             //var file = document.getElementById("upload").value;
             var allergies = document.getElementById("allergies").value;
@@ -235,8 +250,20 @@ $parent_email = $_SESSION["queryData"]["email"];
             else if (allergies == ''){
                 alert("please add any alleriges or type N/A");
             }
+						else if (activities == ''){
+                alert("please add any activity restrictions or type N/A");
+            }
+						else if (dietary == ''){
+                alert("please add any dietary restrictions or type N/A");
+            }
             else if (meds == ''){
                 alert("please add any medication or type N/A");
+            }
+						else if (insurance == ''){
+                alert("please add an insurance provider");
+            }
+						else if (policy_holder == ''){
+                alert("please state the policy holder");
             }
             else {
                 let parent_email = "<?php echo $parent_email; ?>";
@@ -246,7 +273,6 @@ $parent_email = $_SESSION["queryData"]["email"];
                     last_name: ln,
                     gender: gender,
                     year: year,
-                    age: age,
                     // size: size,
                     //file: file,
                     alleriges: allergies,
