@@ -9,6 +9,7 @@
 	require __DIR__.'/vendor/PHPMailer/phpmailer/src/PHPMailer.php';
 	require __DIR__.'/vendor/PHPMailer/phpmailer/src/SMTP.php';
 	
+	// May be we don't need this block
   // This assumes that you have placed the Firebase credentials in the same directory
   // as this PHP file.
   use Kreait\Firebase\Factory;
