@@ -396,7 +396,7 @@ if ($user == "student" and $password == $defaultPassword){
         
         document.getElementById("first_name").value = profiledata.first_name;
         document.getElementById("last_name").value = profiledata.last_name;
-				alert(profile.hasOwnProperty("phone"));
+				
 				if(profile.hasOwnProperty("phone")){
 					document.getElementById("phone").value = profiledata.phone;
 				}
