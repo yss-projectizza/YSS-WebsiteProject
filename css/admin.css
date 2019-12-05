@@ -137,6 +137,28 @@ td {
   color:black;
 }
 
+.launch-email:link
+{
+  color:black;
+}
+
+.launch-email:visited
+{
+  color:black;
+}
+
+.launch-email:hover
+{
+  color:black;
+  background-color:#8FD5D9;
+
+}
+
+.launch-email
+{
+  background-color:#f5be6c;
+}
+
 #submit-change-btn
 {
   background-color:#B7A5F7;
