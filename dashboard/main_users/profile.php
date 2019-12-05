@@ -225,21 +225,21 @@ if ($user == "student" and $password == $defaultPassword){
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>What do you hope to get out of attending Youth Spiritual Summit this year?</p>
+                    <p>What do you hope to get out of attending Youth Spiritual Summit this year?<b style="color: red;">*</b></p>
                     <textarea id="hopes" cols="132" rows="3" value=""></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>What are some activities that you enjoy?</p>
+                    <p>What are some activities that you enjoy?<b style="color: red;">*</b></p>
                     <textarea id="activities" cols="132" rows="3" value=""></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>What is one question you would like to have answered during this year's Summit?</b></p>
+                    <p>What is one question you would like to have answered during this year's Summit?<b style="color: red;">*</b></b></p>
                     <textarea id="question" cols="132" rows="3" value=""></textarea>
                 </div>
             </div>
@@ -305,14 +305,14 @@ if ($user == "student" and $password == $defaultPassword){
         <div class="container">
             <!-- Health Information -->
         </div>
-        <?php if($user == "parent"): ?>
+       <!--  no longer necessary since parent can have multiple youths, moved to underaged profile<?php if($user == "parent"): ?>
         <label>
             <p style="font-size:30px;padding-top: 10px;">Youth's Health Information</p>
         </label>
         <div class="row initial-task-padding">
             <div class="col">
                 <p>Please List Any Allergies Your Youth Has. If None, Type N/A.<b style="color: red;">*</b></p>
-                <input type="text" name="allergies" id="allergies" times-label="allergies" class="form-control"
+                <input style="margin-top: -15px; margin-bottom:15px" type="text" name="allergies" id="allergies" times-label="allergies" class="form-control"
                     required>
             </div>
         </div>
@@ -320,14 +320,14 @@ if ($user == "student" and $password == $defaultPassword){
         <div class="row initial-task-padding">
             <div class="col">
                 <p>Please List Any Medication Your Youth Is Currently On. If None, Type N/A<b style="color: red;">*</b></p>
-                <input type="text" name="meds" id="meds" times-label="meds" class="form-control" required>
+                <input style="margin-top: -15px; margin-bottom:15px" type="text" name="meds" id="meds" times-label="meds" class="form-control" required>
             </div>
         </div>
 
         <div class="row initial-task-padding">
             <div class="col">
                 <p>Please List Any Activity Restrictions.</b></p>
-                <input type="text" name="activity_restrictions" value="" id="activity_restrictions"
+                <input style="margin-top: -15px; margin-bottom:15px" style="margin-bottom: 15px"type="text" name="activity_restrictions" value="" id="activity_restrictions"
                     times-label="activity_restrictions" class="form-control">
             </div>
         </div>
@@ -335,7 +335,7 @@ if ($user == "student" and $password == $defaultPassword){
         <div class="row initial-task-padding">
             <div class="col">
                 <p>Please List Any Dietary Restrictions.</b></p>
-                <input type="text" name="dietary_restrictions" value="" id="dietary_restrictions"
+                <input style="margin-top: -15px; margin-bottom:15px" type="text" name="dietary_restrictions" value="" id="dietary_restrictions"
                     times-label="dietary_restrictions" class="form-control">
             </div>
         </div>
@@ -343,28 +343,28 @@ if ($user == "student" and $password == $defaultPassword){
         <div class="row initial-task-padding">
             <div class="col">
                 <p>Other Important Information </b></p>
-                <input type="text" name="other" value="" id="other" times-label="other" class="form-control">
+                <input style="margin-top: -15px; margin-bottom:15px" style="margin-bottom: 15px" type="text" name="other" value="" id="other" times-label="other" class="form-control">
             </div>
         </div>
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text">Insurance Provider:<b style="color: red;">*</b></span>
+                <span style="margin-top: 20px" class="input-group-text">Insurance Provider:<b style="color: red;">*</b></span>
             </div>
-            <input type="text" placeholder="Ex: PPO" name="insurance" id="insurance" class="form-control" required>
+            <input style="margin-top: 20px" type="text" placeholder="Ex: PPO" name="insurance" id="insurance" class="form-control" required>
         </div>
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text">Policy Holder:<b style="color: red;">*</b></span>
+                <span style="margin-top: 5px" class="input-group-text">Policy Holder:<b style="color: red;">*</b></span>
             </div>
-            <input type="text" placeholder="Ex: John" name="policy_holder" id="policy_holder" class="form-control"
+            <input style="margin-top: 5px" type="text" placeholder="Ex: John" name="policy_holder" id="policy_holder" class="form-control"
                 required>
         </div>
         <div class="block_1">
-            <p style="padding-top:30px">
+            <p style="padding-top:20px">
         </div>
-        <?php endif?>
+        <?php endif?> -->
         <hr />
 
         <!-- Submit -->
@@ -378,7 +378,6 @@ if ($user == "student" and $password == $defaultPassword){
             </div>
         </div>
     </div>
-		</form>
 </body>
 </html>
 
@@ -388,7 +387,6 @@ if ($user == "student" and $password == $defaultPassword){
         
         document.getElementById("first_name").value = profiledata.first_name;
         document.getElementById("last_name").value = profiledata.last_name;
-				alert(profile.hasOwnProperty("phone"));
 				if(profile.hasOwnProperty("phone")){
 					document.getElementById("phone").value = profiledata.phone;
 				}
@@ -459,8 +457,44 @@ if ($user == "student" and $password == $defaultPassword){
 				else if(phone == ''){
 						alert("Please fill in phone number");
 				}
+				else if(size == ""){
+						alert("Please select an option");
+				}
+				else if(spiritual == ""){
+						alert("Please select an option");
+				}
+				else if(knowledge == ""){
+						alert("Please select an option");
+				}
+				else if(improvement == ""){
+						alert("Please select an option");
+				}
+				else if(community == ""){
+						alert("Please select an option");
+				}
+				else if(hopes == ""){
+						alert("Please tell us what you hope to get out of attending Youth Spiritual Summit");
+				}
+				else if(activities == ""){
+						alert("Please provide some activities you enjoy");
+				}
+				else if(question == ""){
+						alert("Please provide a question that you would like answered");
+				}	
+				
 				else 
-				{   
+				{
+				var str;
+				var counter = 0;
+				for(str of password){
+					if(isNaN(str) == false){
+						counter += 1;
+					}
+				}
+				if(counter == 0){
+				alert("Please provide a password that includes numbers and characters");
+				}
+				else{
         var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
                 first_name: first_name,
                 last_name: last_name,
@@ -528,6 +562,7 @@ if ($user == "student" and $password == $defaultPassword){
                 });
         }
 				}
+		}
     });
 
     // Uploads an image and sets it as the user's profile picture.
