@@ -377,7 +377,7 @@ $parentBal = floatval($parentBal);
 
 													//window.location.href = "dashboard.php";
 													
-													window.location.href = "email_student.php?studentEmail=" + studentEmail + "&reset=true";												
+													window.location.href = "email_student_withGoDaddy.php?studentEmail=" + studentEmail + "&reset=true";												
 											}
 										});																														
                 };
