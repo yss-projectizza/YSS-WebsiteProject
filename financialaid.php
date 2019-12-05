@@ -41,7 +41,7 @@
 							What is your total annual family household income? (combined income of everyone in the household)<b
 								style="color: red;">*</b>
 							<br>
-							<form action="/action_page.php">
+							<form action="/action_page.php" id="income-button">
 								<input type="radio" id="inc1" name="income" value="below $30,000"> Below $30,000 <br>
 								<input type="radio" id="inc2" name="income" value="$30,000 - $39,999"> $30,000 - $39,999 <br>
 								<input type="radio" id="inc3" name="income" value="$40,000 - $49,999"> $40,000 - $49,999 <br>
@@ -137,6 +137,16 @@
 				let amount_can_pay = document.getElementById("amount-can-pay").value;
 				let local_masjid = document.getElementById("local-masjid").value;
 				let circumstances_description = document.getElementById("circumstances-description").value;
+				let income = "";
+
+				for(let i = 1; i <= 5; i++)
+				{
+					if(document.getElementById("inc"+i).checked)
+					{
+						income = document.getElementById("inc"+i).value;
+					}
+				}
+
         if (amount_in_household == '')
         {
           alert("Please fill in the number of people in your household.");
@@ -169,6 +179,7 @@
 					amount_in_household:amount_in_household,
 					amount_can_pay:amount_can_pay,
 					local_masjid:local_masjid,
+					income: income,
 					circumstances_description:circumstances_description
 
 
