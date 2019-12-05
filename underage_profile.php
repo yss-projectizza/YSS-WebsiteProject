@@ -60,7 +60,21 @@ $parent_email = $_SESSION["queryData"]["email"];
                     </div>
                     <input disabled=true type="text" name="lastname" id="lastname" class="form-control" required>
                 </div>
-
+								
+								<div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Youth's Email:</span>
+                    </div>
+                    <input disabled=true type="text" name="youthmail" id="youthmail" class="form-control" required>
+                </div>
+								
+								<div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Youth's Date of Birth:</span>
+                    </div>
+                    <input disabled=true type="date" name="dob" id="dob" class="form-control" required>
+                </div>
+								
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Gender:</span>
@@ -199,6 +213,8 @@ $parent_email = $_SESSION["queryData"]["email"];
         document.getElementById("lastname").value = profiledata.last_name;
         document.getElementById("gender").value = profiledata.gender;
         document.getElementById("schoolyear").value = profiledata.year;
+				document.getElementById("youthmail").value = profiledata.studentEmail;
+				document.getElementById("dob").value = profiledata.dob;
         //document.getElementById("upload").value = profiledata.file;
         document.getElementById("allergies").value = profiledata.allergies;
         document.getElementById("meds").value = profiledata.meds;
@@ -216,7 +232,6 @@ $parent_email = $_SESSION["queryData"]["email"];
             var ln = document.getElementById("lastname").value;
             var gender = document.getElementById("gender").value;
             var year = document.getElementById("schoolyear").value;
-            var age = document.getElementById("age").value;
             // var size = document.getElementById("size").value;
             //var file = document.getElementById("upload").value;
             var allergies = document.getElementById("allergies").value;
