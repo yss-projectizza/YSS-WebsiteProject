@@ -1,5 +1,5 @@
 <?php
-// Updated: 12/04/2019 18:52 
+// Updated: 12/04/2019 19:11 
 	if(!isset($_SESSION))
     {
         session_start();
@@ -62,26 +62,15 @@
 			$mail->Password = '1Mu$limretre@t';
 			$mail->Port = 587;
 			$mail->send();
+			echo "Email has been sent successfully!";
 		}
 		catch (Exception $e)
 		{
-			echo $e->errorMessage();
+			echo "Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
 		}
-		catch (Exception $e)
-		{
-			echo $e->getMessage();
-		}
-		
-		
-		if($mail){
-				echo "Success. Email sent";
-		} else {
-				echo "failed. No email sent."; 
-		}
-		
+
 		//<script> window.location.href = "dashboard.php"; </script>
 		echo "<script> window.location.replace('dashboard.php') </script>";
 		exit;
     }
-		
 ?>
