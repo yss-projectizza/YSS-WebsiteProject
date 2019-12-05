@@ -15,7 +15,7 @@ if ($userType != "student"){
 }
 else{
 	$email = $_SESSION["queryData"]["studentEmail"];
-}	
+}
 
 $emailwithcomma = str_replace(".", ",", $email);
 
@@ -39,7 +39,7 @@ if ($userType == "parent"){
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 
 <script>
-    var config = 
+    var config =
   {
     apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
     authDomain: "yss-project-69ba2.firebaseapp.com",
@@ -57,7 +57,7 @@ if ($userType == "parent"){
 
 <script>
   var email = "<?php echo $email; ?>";
-  
+
 	/*
 	// Not sure what this block does. Might want to delete it.
 	var credit_due = "";
@@ -144,13 +144,13 @@ if ($userType == "parent"){
           Make a Donation
         <?php elseif($user_type == "parent"): ?>
           <input class="check" type="checkbox" disabled="disabled" />
-          Add Participants
+          <a href = "manage_attendees.php?email=<?php echo $email; ?>"> Add Participants </a>
           <br>
           <input class="check" type="checkbox" disabled="disabled" />
           Make Payment
           <br>
           <input class="check" type="checkbox" disabled="disabled" />
-          Activate Participants
+          <a href = "manage_attendees.php?email=<?php echo $email; ?>"> Activate Participants </a>
           <br>
         <?php endif ?>
       </div>
@@ -294,7 +294,7 @@ if ($userType == "parent"){
 				var credit_due = parseFloat("<?php echo $_SESSION['queryData']['credit_due']; ?>");
 				document.getElementById("amount_owed").innerText = "$" + credit_due;
         </script>
-				
+
         <script src="https://www.paypal.com/sdk/js?client-id=Adh5IncLIpsFfbBF32H4FpvUzM87YDJ1wLvGCb_oJvoZ5ej_MCvreSNBV3GGJgfUiyf5zaA5FRHSsluk">
         </script>
         <div id="paypal-button-container"></div>
@@ -400,12 +400,12 @@ if ($userType == "parent"){
 					newp.innerHTML = "Event: " + item[1].event + " Date: " + item[1].date +  " Time: " + item[1].time;
 					schedule_div.appendChild(newp);
 				  }
-				}						
+				}
 			}
 			else
 			{
 				for (item of returndataArray)
-				{				 
+				{
 					let newp = document.createElement("p");
 					newp.innerHTML = "Event: " + item[1].event + " Date: " + item[1].date +  " Time: " + item[1].time;
 					schedule_div.appendChild(newp);
