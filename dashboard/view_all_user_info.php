@@ -356,7 +356,6 @@ function emailAll()
       }
       if (i != (users.length-1))
       {
-
         email_list += ", "; //create email list
       }
     }
