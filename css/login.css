@@ -8,7 +8,9 @@ body {
 form {
   position: absolute;
   width: 40%;
-  left: 55%;
+  margin-left:30%;
+  margin-right:auto;
+  text-align:center;
   top: 12%;
 }
 

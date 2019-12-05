@@ -43,8 +43,8 @@
 	</head>
 
 	<body class="text-center">
-		<form action="authentication.php" method="POST">
-				<div class="box rounded">
+		<form action="authentication.php" method="POST">	
+			<div class="box rounded" style="margin-left:10%">
 					<a title="Go back to Homepage" id="brandToHome" class="navbar-brand"
 					href="http://youthspiritualsummit.weebly.com">
 							<img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png"
