@@ -58,9 +58,9 @@ if (!isset($_SESSION))
                     User Type:
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" id="counselor-option" onclick="displayUsers('counselor')">Counselors</a>
-                    <a class="dropdown-item" id="student-option" onclick="displayUsers('student')">Youth Participants</a>
-                    <a class="dropdown-item" id="parent-option" onclick="displayUsers('parent')">Parents</a>
+                    <a class="dropdown-item" id="counselor-option" onclick="displayUsers('counselor'); emailAll()">Counselors</a>
+                    <a class="dropdown-item" id="student-option" onclick="displayUsers('student'); emailAll()">Youth Participants</a>
+                    <a class="dropdown-item" id="parent-option" onclick="displayUsers('parent'); emailAll()">Parents</a>
                 </div>
             </div>
         </div>
@@ -69,8 +69,7 @@ if (!isset($_SESSION))
             <div class='card rounded' id="table-card" style='margin-top: 20px'>
               <!-- add new button for email -->
                   <div style="margin-top: 10px; text-align:center">
-
-                      <button class="rounded" id = "email" onclick="a()">Email</button>
+                      <a id="launch-email" class="rounded launch-email" style="padding:7px">Email All</a>
                    </div>
 
                 <table class="manage-groups-table">
@@ -312,9 +311,9 @@ function displayUsers(user_type)
 }
 
 //checkc user type
-function a()
+function emailAll()
 {
-  alert(document.getElementById("toggle-group-type").innerHTML);
+//   alert(document.getElementById("toggle-group-type").innerHTML);
 
   let user_type = "";//keep track user type
   switch(document.getElementById("toggle-group-type").innerHTML)
@@ -364,8 +363,9 @@ function a()
   }
 
 //get all user_type email
-        alert(email_list);  
+    // alert(email_list);
 
+    document.getElementById("launch-email").href = "mailto:" + email_list;
 });
   // location.href = '/email_student.php?studentEmail=" + studentEmail + "&reset=true";
 }
