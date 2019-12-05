@@ -383,6 +383,14 @@ if ($user == "student" and $password == $defaultPassword){
 </html>
 
 <script>
+    if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
+    {
+        if("<?php echo $_SESSION["queryData"]["password"] ?>" == "<?php echo $_SESSION["queryData"]["defaultPassword"] ?>")
+        {
+            document.getElementById("back").style.display = "none";
+        }
+    }
+
     firebase.database().ref('/users/' + "<?php echo $email?>").once("value").then(async function (snapshot) {
         let profiledata = snapshot.val();
         
