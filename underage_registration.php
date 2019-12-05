@@ -182,31 +182,31 @@ $parentBal = floatval($parentBal);
         <!-- Health Information -->
         </div>
 				<?php if ($_SESSION["queryData"]["user_type"] == "parent"): ?>
-            <label><p style = "font-size:30px;padding-top: 10px;">Health Information</p></label>
+            <label><p style = "font-size:30px;padding-top: 10px;">Youth's Health Information</p></label>
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Allergies You Have. If none, type N/A.<b style = "color: red;">*</b></p>
+                    <p>Please List Any Allergies Your Youth Have. If None, Type N/A.<b style = "color: red;">*</b></p>
                     <textarea id="allergies" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Medication You Are Currently On. If none, type N/A<b style = "color: red;">*</b></p>
+                    <p>Please List Any Medication Your Youth Is Currently On. If None, Type N/A<b style = "color: red;">*</b></p>
                     <textarea id="meds" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Activity Restrictions.</b></p>
+                    <p>Any Activity Restrictions.</b></p>
                     <textarea id="activities" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Dietary Restrictions.</b></p>
+                    <p>Any Dietary Restrictions.</b></p>
                     <textarea id="dietary" cols="132" rows="2"></textarea>
                 </div>
             </div>
