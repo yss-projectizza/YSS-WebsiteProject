@@ -6,7 +6,7 @@ if (!isset($_SESSION))
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 <script>
     // Initialize Firebase
-  var config = 
+  var config =
   {
     apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
     authDomain: "yss-project-69ba2.firebaseapp.com",
@@ -22,7 +22,7 @@ if (!isset($_SESSION))
 <html lang="en">
   <head>
     <title>All User Information | Youth Spiritual Summit</title>
-      
+
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/admin.css">
@@ -39,10 +39,10 @@ if (!isset($_SESSION))
     </script>
   </head>
 
-  <body style="background-color:rgb(233, 231, 231)"> 
+  <body style="background-color:rgb(233, 231, 231)">
     <?php include('../header_loggedin.php') ?>
     <?php include('../display_profile_pic.php') ?>
-    
+
     <div class="container">
         <h1 style="text-align:center; font-size:50px;padding-top: 2%;">All User Information</h1>
         <br>
@@ -64,9 +64,15 @@ if (!isset($_SESSION))
                 </div>
             </div>
         </div>
-        
+
         <div class="container" id="user-list" style="text-align:center; margin-bottom:13%;display:none">
             <div class='card rounded' id="table-card" style='margin-top: 20px'>
+              <!-- add new button for email -->
+                  <div style="margin-top: 10px; text-align:center">
+
+                      <button class="rounded" id = "email" onclick="a()">Email</button>
+                   </div>
+
                 <table class="manage-groups-table">
                     <tr id="heading-row"></tr>
                     <tbody id="user-table-body"></tbody>
@@ -82,6 +88,16 @@ function displayUsers(user_type)
 {
     document.getElementById("user-list").style.display = 'block';
 
+    switch(user_type)
+    {
+      case "student": document.getElementById("toggle-group-type").innerHTML = "Youth Participants";
+      break;
+      case "counselor": document.getElementById("toggle-group-type").innerHTML = "Counselors";
+      break;
+      case "parent": document.getElementById("toggle-group-type").innerHTML = "Parents";
+    }
+
+
     firebase.database().ref('users').orderByChild('user_type').equalTo(user_type).once("value", function(snapshot)
     {
         let heading_html = "<th>Name</th>";
@@ -92,7 +108,7 @@ function displayUsers(user_type)
         {
             heading_html += `<th>Grade Level</th><th>Balance Due</th>`;
         }
-        
+
         if(user_type == "counselor" || user_type == "student")
         {
             heading_html += "<th>Family</th><th>Cabin</th><th>Bus</th>";
@@ -136,7 +152,7 @@ function displayUsers(user_type)
                             <div class="dropdown">
                                 <button id="toggle-families-` + i +`"  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">`;
-                
+
                 if(users[i][1].group_num != "N/A")
                 {
                     table_rows += users[i][1].group_num;
@@ -145,7 +161,7 @@ function displayUsers(user_type)
                 {
                     table_rows += "Families:";
                 }
-                
+
                 // Creates dropdown of group names
                 table_rows += `</button>
                     <div class="dropdown-menu" id = 'family-dropdown-` + i + `' aria-labelledby="dropdownMenuButton"></div></div></td>
@@ -162,14 +178,14 @@ function displayUsers(user_type)
                 {
                     table_rows += "Cabins:";
                 }
-                    
+
                 table_rows += `</button>
                     <div class="dropdown-menu" id = 'cabin-dropdown-` + i + `' aria-labelledby="dropdownMenuButton"></div></div></td>
                                         <td id='max-size-` + i + `'>
                                         <div class="dropdown">
                     <button id="toggle-buses-` + i + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">`;
-                
+
                     if(users[i][1].bus_num != "N/A")
                 {
                     table_rows += users[i][1].bus_num;
@@ -178,16 +194,16 @@ function displayUsers(user_type)
                 {
                     table_rows += "Buses:";
                 }
-                    
+
                 table_rows += `</button>
                     <div class="dropdown-menu" id = 'bus-dropdown-` + i + `' aria-labelledby="dropdownMenuButton"></div></div></td>`;
 
 
-                
+
                 if(user_type == "counselor")
                 {
                     table_rows += `<td><input type='checkbox' id='verified${i}' `;
-                    
+
                     if(users[i][1].account_verified == "true")
                     {
                         table_rows += ` checked='true' `;
@@ -204,6 +220,8 @@ function displayUsers(user_type)
                                         <button class="rounded" id = "submit-` + i + `" onclick = "submit_changes('${key}', '${i}')">Submit</button>
                                         <button class="rounded delete-btn" id = "delete-` + i + `" onclick = "delete_counselor('${key}', '${i}')">Delete</button>
                                    </td>`;
+
+
                 }
                 else if(user_type == "student")
                 {
@@ -232,8 +250,8 @@ function displayUsers(user_type)
         {
             for(let i = 0; i < users.length; i++)
             {
-                var email = (users[i][1].email).replace(".", ","); // current user's email 
-                
+                var email = (users[i][1].email).replace(".", ","); // current user's email
+
                 // grabs image from storage
                 firebase.storage().ref('dl/' + email).getDownloadURL().then(function (url)
                 {
@@ -252,7 +270,7 @@ function displayUsers(user_type)
                                 </td>
                                <td>$${users[i][1].credit_due}</td>
                                <td id = 'authentication-${i}'>
-                                    <button class='rounded user-button' onclick="show_authenticaion('${email}', ${i}, '${modal_id}')" 
+                                    <button class='rounded user-button' onclick="show_authenticaion('${email}', ${i}, '${modal_id}')"
                                            data-toggle='modal' data-target='#` + modal_id + `'>
                                         Show Authentication
                                     </button>
@@ -272,7 +290,7 @@ function displayUsers(user_type)
                     {
                         table_rows += ` checked='true' `;
                     }
-                    
+
                     table_rows += `onchange="verifyAccount('${key}', ${i}, 'parent-option')"`;
 
                     table_rows += `></input></td>`;
@@ -280,18 +298,78 @@ function displayUsers(user_type)
                     table_rows += `<td>
                                         <button class="rounded delete-btn" id = "delete-` + i + `" onclick = "delete_parent('${key}', '${i}')">Delete</button>
                                     </td>`;
-                    
+
                     table_rows += "</tr>";
-                    
+
                     document.getElementById("user-table-body").innerHTML = table_rows;
                 });
             }
         }
-        
+
         document.getElementById("heading-row").innerHTML = heading_html;
         document.getElementById("user-table-body").innerHTML = table_rows;
     });
 }
+
+//checkc user type
+function a()
+{
+  alert(document.getElementById("toggle-group-type").innerHTML);
+
+  let user_type = "";//keep track user type
+  switch(document.getElementById("toggle-group-type").innerHTML)
+  {
+    case "Youth Participants": user_type = "student";
+    break;
+    case "Counselors": user_type = "counselor";
+    break;
+    case "Parents": user_type = "parent";
+  }
+
+  firebase.database().ref('/users/').orderByChild("user_type").equalTo(user_type).once("value",function(snapshot)
+{
+  let users = Object.entries(snapshot.val());
+  let email_list = "";
+
+  if(users.length == 0)
+  {
+    alert("There are no users to email!");
+  }
+  else if(users.length == 1)
+  {
+    if(user_type == "student")
+    {
+      email_list = users[0][1].studentEmail;
+    }
+    else {
+      email_list = users[0][1].email;
+    }
+  }
+  else {
+    for(let i = 0; i < users.length; i++)
+    {
+      if(user_type == "student")
+      {
+        email_list += users[i][1].studentEmail;
+      }
+      else {
+        email_list += users[i][1].email;
+      }
+      if (i != (users.length-1))
+      {
+
+        email_list += "; "; //create email list
+      }
+    }
+  }
+
+//get all user_type email
+        alert(email_list);  
+
+});
+  // location.href = '/email_student.php?studentEmail=" + studentEmail + "&reset=true";
+}
+
 
 function delete_student(key, index)
 {
@@ -406,7 +484,7 @@ function update_student_group(index, key, type, current_group_name, selected_gro
                 let new_group_size = parseInt(selected_group[0][1].size);
 
                 new_group_size++;
-                
+
                 firebase.database().ref(type + "/" + selected_group[0][0]).update({'size': parseInt(new_group_size)});
 
                 switch(type)
@@ -461,12 +539,12 @@ function group_dropdown(type, index, grade="", gender="", user_type)
                 group_names += `<a class="dropdown-item" onclick="update_dropdown_value('${type}','${groups[i][1].name}', ${index})">${groups[i][1].name} </a>`;
             }
         }
-        
+
         switch(type)
         {
             case 'families': document.getElementById("family-dropdown-" + index).innerHTML = group_names;
                 break;
-            
+
             case 'cabins': document.getElementById("cabin-dropdown-" + index).innerHTML = group_names;
                 break;
 
@@ -482,7 +560,7 @@ function update_dropdown_value(type, name, index)
         {
             case 'families': document.getElementById("toggle-families-" + index).innerHTML = name;
                 break;
-            
+
             case 'cabins': document.getElementById("toggle-cabins-" + index).innerHTML = name;
                 break;
 
@@ -522,7 +600,7 @@ function update_counselor_group(index, key, type, current_group_name, selected_g
                 firebase.database().ref(type).orderByChild("name").equalTo(selected_group_name).once("value", function(snapshot)
                 {
                     let selected_group = Object.entries(snapshot.val());
-                    
+
                     let updated_old_group_counselor_list = remove_counselor_from_list(document.getElementById("name-link-"+index).innerHTML, current_group[0][1].counselor);
                     let updated_new_group_counselor_list = add_counselor_to_list(document.getElementById("name-link-"+index).innerHTML, selected_group[0][1].counselor);
 
@@ -548,9 +626,9 @@ function update_counselor_group(index, key, type, current_group_name, selected_g
             firebase.database().ref(type).orderByChild("name").equalTo(selected_group_name).once("value", function(snapshot)
             {
                 let selected_group = Object.entries(snapshot.val());
-                
+
                 let updated_new_group_counselor_list = add_counselor_to_list(document.getElementById("name-link-" + index).innerHTML, selected_group[0][1].counselor);
-                
+
                 firebase.database().ref(type + "/" + selected_group[0][0]).update({'counselor': updated_new_group_counselor_list});
 
                 switch(type)

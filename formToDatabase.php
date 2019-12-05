@@ -31,7 +31,7 @@
 
         if($redirectpagename == "parentRegistration.php") 
         {
-			    $userInfo["group_num"] = "N/A";
+			    $userInfo["group_num"] = "";
           $userInfo["user_type"] = "parent";
           $userInfo["credit_due"] = "0";
         }
@@ -46,5 +46,6 @@
       $updateFirebase($emailwcomma, $userInfo, $_POST);
       alertRedirect("login.php",
       "Your account has been created successfully. Please log in to view your dashboard.");
+			
     }
 ?>

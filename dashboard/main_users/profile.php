@@ -380,7 +380,7 @@ if ($user == "student" and $password == $defaultPassword){
 <script>
     firebase.database().ref('/users/' + "<?php echo $email?>").once("value").then(async function (snapshot) {
         let profiledata = snapshot.val();
-        
+
         document.getElementById("first_name").value = profiledata.first_name;
         document.getElementById("last_name").value = profiledata.last_name;
         document.getElementById("phone").value = profiledata.phone;
@@ -416,8 +416,8 @@ if ($user == "student" and $password == $defaultPassword){
         var last_name = document.getElementById("last_name").value;
         var phone = document.getElementById("phone").value;
         var password = document.getElementById("password").value;
-        var h_password = "<?php echo password_hash('a', PASSWORD_BCRYPT); ?>";
-        
+        var h_password = "<?php echo password_hash('${password}', PASSWORD_DEFAULT); ?>";
+
         if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
         {
             var size = document.getElementById("size").value;
@@ -454,7 +454,7 @@ if ($user == "student" and $password == $defaultPassword){
                 first_name: first_name,
                 last_name: last_name,
                 phone: phone,
-                password: password,
+                password: h_password,
             },
             function (error) {
                 if (error) {
@@ -529,10 +529,10 @@ if ($user == "student" and $password == $defaultPassword){
             var emailwcharactersreplaced = "<?php echo $email ?>";
 
             var iconImage = new File([iconUpload.files[0]], emailwcharactersreplaced);
-        
+
             var metadata = {contentType: 'image/jpeg'};
 
-            firebase.storage().ref('icon/' + iconImage.name).put(iconImage, metadata).then(function(snapshot) 
+            firebase.storage().ref('icon/' + iconImage.name).put(iconImage, metadata).then(function(snapshot)
             {
                 alert("Your profile picture was successfully changed!");
 
