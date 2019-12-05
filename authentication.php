@@ -1,9 +1,9 @@
 <?php
-    if(!isset($_SESSION))
-    {
-        session_start();
-    }
-    //This will display errors
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
+    //This will display errors 
     ini_set('display_errors', 1);
 require __DIR__.'/vendor/autoload.php';
 $underscoreUsername = $_POST["user"];
