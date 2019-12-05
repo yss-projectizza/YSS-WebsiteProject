@@ -10,31 +10,11 @@
 	require __DIR__.'/vendor/PHPMailer/phpmailer/src/PHPMailer.php';
 	require __DIR__.'/vendor/PHPMailer/phpmailer/src/SMTP.php';
 	
-	// May be we don't need this block
-  // This assumes that you have placed the Firebase credentials in the same directory
-  // as this PHP file.
-  // use Kreait\Firebase\Factory;
-  // use Kreait\Firebase\ServiceAccount;
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
 	
-	/*
-	define('SMTP_HOST','relay-hosting.secureserver.net');
-	define('SMTP_PORT',25);
-	define('SMTP_AUTH',true);
-	*/
-	
 	$mail = new PHPMailer(true);
-	/*
-	$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/yss-project-69ba2-firebase-adminsdk-qpgd1-772443326e.json');
-    
-	$firebase = (new Factory)
-			->withServiceAccount($serviceAccount)
-			->create();
-	$database = $firebase->getDatabase();
-	$reference = $database->getReference('/users')->getValue();
-	*/
-	
+
     if ($_GET["studentEmail"] && $_GET["reset"]=="true"){
 		try {
 			
@@ -69,7 +49,6 @@ Login page: http://www.youthspiritualsummit.com/login.php";
 			echo "Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
 		}
 
-		//<script> window.location.href = "dashboard.php"; </script>
 		echo "<script> window.location.replace('dashboard.php') </script>";
 		exit;
     }

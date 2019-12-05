@@ -289,7 +289,7 @@ $parentBal = floatval($parentBal);
 												alert("Please fill in the youth's email address");
 											}											
 											else if (snapshot.exists()){
-												alert("An account with the email address: \""+ studentEmail + "\" already exists in the system. Please enter a different email address.");
+												alert("An account with the email address \""+ studentEmail + "\" has already been registered in the system. If you feel this is an error, please contact us at youthspiritualsummit@gmail.com.");
 												var studentEmailView = document.getElementById("studentEmail");
 												studentEmailView.scrollIntoView();
 												studentEmailView.style.backgroundColor = "#FDFF47";
