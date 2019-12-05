@@ -144,7 +144,7 @@ $parentBal = floatval($parentBal);
                 <!-- SHOULD BE AUTOMATICALLY CALCULATED BASED OFF OF DOB -->
 <!--                 <div class="input-group mb-3"> -->
 <!--                     <div class="input-group-prepend"> -->
-                    <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
+                    <!-- <span class="input-group-text">Age:<b style = "color: red;">*</b></span> -->
 <!--                         <select class="form-control form-control-md" name="age" id="age"> -->
 <!--                             <option>14</option> -->
 <!--                             <option>15</option> -->
@@ -181,6 +181,7 @@ $parentBal = floatval($parentBal);
         <div class="container">
         <!-- Health Information -->
         </div>
+				<?php if ($_SESSION["queryData"]["user_type"] == "parent"): ?>
             <label><p style = "font-size:30px;padding-top: 10px;">Health Information</p></label>
             <div class="row initial-task-padding">
                 <div class="col">
@@ -230,6 +231,7 @@ $parentBal = floatval($parentBal);
                  </div>
                 <input type="text" placeholder="Ex: John" name="policy_holder" id="policy_holder" class="form-control" required>
             </div>
+						<?php endif ?>
         
         <div class="block_1">
             <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px; margin-bottom: 10%;" align="center">
@@ -295,13 +297,25 @@ $parentBal = floatval($parentBal);
 											}
 											else if (ln == ''){
 												alert("Please fill in last name");
-											}
+                                            }
+                                            else if(document.getElementById("upload").files.length == 0){
+												alert("Please add a student id");
+                                            }
+                                            else if(dob == ''){
+												alert("Please fill in Date of Birth");
+										    }
 											else if (allergies == ''){
 													alert("please add any alleriges or type N/A");
-											}
+                                            }
 											else if (meds == ''){
 													alert("please add any medication or type N/A");
-											}
+                                            }
+                                            else if (insurance == ''){
+												alert("Please fill in insurance provider");
+                                            }
+                                            else if (policy_holder == ""){
+                                                    alert("Please fill in policy holder");
+                                            }
 											else 
 											{    
 													// Update student's balance and add new student's balance to parent's balance
