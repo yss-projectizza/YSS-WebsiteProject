@@ -63,7 +63,10 @@ $parentBal = floatval($parentBal);
     <!-- Dashboard Title Registration Header -->
     <h1 align="center" style="font-size:50px;padding-top: 2%;">Manage Youth Participant</h1>
     <br>
-    <p> This page allows you to add, remove, and edit your Youth Participant information. </p>
+		
+    <p> This page allows you to add, remove, and edit your Youth Participant information. A youth's account is <span style='color: orange;'>"Activated"</span> 
+		by default, meaning this youth will be participating in the program. The youth's balance will be added to your total balance due at payment window. A youth can be removed 
+		from the program by clicking <span style='color: orange;'>"Deactivate"</span>.</p>
     <div class="block_1"></div>
     <hr />
 
