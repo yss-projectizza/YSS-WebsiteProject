@@ -382,17 +382,13 @@ if ($user == "student" and $password == $defaultPassword){
 </html>
 
 <script>
-	if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
-		{
-			if("<?php echo $_SESSION["queryData"]["password"] ?>" == "<?php echo $_SESSION["queryData"]["defaultPassword"] ?>")
-			{
-				document.getElementById("back").style.display = "none";
-			}
-		};
 
     firebase.database().ref('/users/' + "<?php echo $email?>").once("value").then(async function (snapshot) {
         let profiledata = snapshot.val();
-        
+			if(profiledata.defaultPassword != null && profiledata.password == profiledata.defaultPassword)
+			{
+				document.getElementById("back").style.display = "none";
+			}
         document.getElementById("first_name").value = profiledata.first_name;
         document.getElementById("last_name").value = profiledata.last_name;
 		if("phone" in profiledata){
