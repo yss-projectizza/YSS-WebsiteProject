@@ -434,6 +434,8 @@ if ($user == "student" and $password == $defaultPassword){
         var last_name = document.getElementById("last_name").value;
         var phone = document.getElementById("phone").value;
         var password = document.getElementById("password").value;
+
+        //needed to encrypt password but having issues with password_verify in php
         var h_password = "<?php echo password_hash('a', PASSWORD_BCRYPT); ?>";
         
         if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
