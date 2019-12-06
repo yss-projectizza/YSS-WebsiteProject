@@ -29,8 +29,8 @@
 			
 			// $mail->Body = 'Hi '.$studentName.', your Student Account has been created';
 			$mail->Body = "Welcome to Youth Spiritual Summit. An account has been created for you. The login email address for your account is the email address this email is being sent to. Your temporary password is your last name and birth year together, all in lower cases and no spaces. Please use the link below to log in. Once log in, please update your password and personal information immediately. Thank you.\n
-Login page: http://www.youthspiritualsummit.com/login.php\name
-This is an auto-generated email; please do not reply to it. For any question, please email us at youthspiritualsummit@gmail.com";
+Login page: http://www.youthspiritualsummit.com/login.php\n
+This is an auto-generated email; please do not reply to this email. For any question, please email us at youthspiritualsummit@gmail.com";
 			$mail->Headers = 'From: info@youthspiritualsummit.com';
 			//$mail = mail($email,$subject,$message,$headers);
 						
