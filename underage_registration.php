@@ -284,28 +284,34 @@ $parentBal = floatval($parentBal);
                     var policy_holder = document.getElementById("policy_holder").value;
                     
 										// Check if youth's email address already exists in the system
-										firebase.database().ref('/users/' + emailwcharactersreplaced).once('value',function(snapshot) {
+										firebase.database().ref('/users/' + emailwcharactersreplaced).once('value',function(snapshot) {			
 											if (studentEmail == ''){
 												alert("Please fill in the youth's email address");
-											}											
-											else if (snapshot.exists()){
+											}	
+											if (snapshot.exists()){
 												alert("An account with the email address \""+ studentEmail + "\" has already been registered in the system. If you feel this is an error, please contact us at youthspiritualsummit@gmail.com.");
 												var studentEmailView = document.getElementById("studentEmail");
 												studentEmailView.scrollIntoView();
 												studentEmailView.style.backgroundColor = "#FDFF47";
 											}
 											else if (fn == ''){												
-                        alert('Please fill in first name');
+												alert('Please fill in first name');
 											}
 											else if (ln == ''){
 												alert("Please fill in last name");
                                             }
-                      else if(document.getElementById("upload").files.length == 0){
-												alert("Please add a student id");
-                                            }
-                      else if(dob == ''){
+										    else if(dob == ''){
 												alert("Please fill in Date of Birth");
-										   }
+										    }
+										    else if(gender == ""){
+										   	   alert("Please select an option");
+										    }
+										    else if(year == ""){
+										   	   alert("Please select an option");
+											  }
+										    else if(document.getElementById("upload").files.length == 0){
+												alert("Please add a student id");
+										    }
 											else if (allergies == ''){
 												alert("please add any alleriges or type N/A");
                                             }
@@ -314,11 +320,11 @@ $parentBal = floatval($parentBal);
 											}
 											else if (activities == ''){
 												alert("please add any activity restrictions or type N/A");
-                      }
+											}
 											else if (dietary == ''){
 												alert("please add any dietary restrictions or type N/A");
-                      }
-                      else if (insurance == ''){
+											}
+											else if (insurance == ''){
 												alert("Please fill in insurance provider");
                                             }
 											else if (policy_holder == ""){

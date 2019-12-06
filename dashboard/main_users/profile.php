@@ -111,7 +111,7 @@ if ($user == "student" and $password == $defaultPassword){
         <div class="row initial-task-padding">
             <div class="col">
                 Phone number<b style="color: red;">*</b>
-                <input id="phone" type="tel" name="phone" required pattern = "\d{3}\-\d{3}\-\d{4}" times-label="phone" class="form-control" required>
+                <input id="phone" type="tel" name="phone" times-label="phone" class="form-control" required>
                 <br>
             </div>
         </div>
@@ -382,26 +382,26 @@ if ($user == "student" and $password == $defaultPassword){
 </html>
 
 <script>
-    if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
-    {
-        if("<?php echo $_SESSION["queryData"]["password"] ?>" == "<?php echo $_SESSION["queryData"]["defaultPassword"] ?>")
-        {
-            document.getElementById("back").style.display = "none";
-        }
-    }
+	if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
+		{
+			if("<?php echo $_SESSION["queryData"]["password"] ?>" == "<?php echo $_SESSION["queryData"]["defaultpassword"] ?>")
+			{
+				document.getElementById("back").style.display = "none";
+			}
+		}
 
     firebase.database().ref('/users/' + "<?php echo $email?>").once("value").then(async function (snapshot) {
         let profiledata = snapshot.val();
         
         document.getElementById("first_name").value = profiledata.first_name;
         document.getElementById("last_name").value = profiledata.last_name;
-				
-				if(profile.hasOwnProperty("phone")){
-					document.getElementById("phone").value = profiledata.phone;
-				}
-				else{
-					document.getElementById("phone").value = "00000000";
-				}
+		if("phone" in profiledata){
+			document.getElementById("phone").value = profiledata.phone;
+		}
+		else{
+			alert("hello world");
+			document.getElementById("phone").placeholder = "Ex: 123-456-7890";
+		}
         document.getElementById("password").value = profiledata.password;
 
         if(profiledata.hasOwnProperty("spiritual")) // checks if the database object has the specified data field
@@ -496,14 +496,33 @@ if ($user == "student" and $password == $defaultPassword){
 				else 
 				{
 				var str;
+				var num;
+				var counterpw = 0;
+				var counternum = 0;
 				var counter = 0;
 				for(str of password){
 					if(isNaN(str) == false){
-						counter += 1;
+						counterpw += 1;
 					}
 				}
-				if(counter == 0){
+				for(num of phone){
+					if(isNaN(num) == false){
+						counternum += 1;
+					}
+					else if(isNaN(num) == true){
+						if(counter == 3 || counter == 7){
+							if(num == "-"){
+								counternum +=1;
+							}
+						}
+					}
+					counter += 1;
+				}
+				if(counterpw == 0){
 				alert("Please provide a password that includes numbers and characters");
+				}
+				else if(counternum != 12){
+					alert("Please provide a valid phone number following the format 123-456-7890");
 				}
 				else{
         var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
