@@ -108,7 +108,7 @@ function displayGroups(type)
         {
             let key = groups[i][0];
 
-            body_html += `<td id='name-` + i +`'>${groups[i][1].name}</td>
+            body_html += `<td><a id="name-${i}" href="view_students_in_group.php?key=${key}&type=${type}">${groups[i][1].name}</a></td>
                          <td id='size-` + i + `'>${groups[i][1].size}</td>
                          <td id='max-size-` + i + `'>${groups[i][1].max_size}</td>`;
 
@@ -151,6 +151,7 @@ function edit_group(key, index, num_groups, group_name, counselors, type)
     let old_grade = "";
     let old_gender = "";
 
+    document.getElementById("name-" + index).removeAttribute("href");
     document.getElementById("name-" + index).innerHTML = `<input id='new-name-input' style="margin-right:1%"></input>`;
     document.getElementById("max-size-" + index).innerHTML = `<input id='new-max-size-input' type="number" style="margin-right:1%; width:50%"></input>`;
 
