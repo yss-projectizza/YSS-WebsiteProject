@@ -384,7 +384,7 @@ if ($user == "student" and $password == $defaultPassword){
 <script>
 	if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
 		{
-			if("<?php echo $_SESSION["queryData"]["password"] ?>" == "<?php echo $_SESSION["queryData"]["password"] ?>")
+			if("<?php echo $_SESSION["queryData"]["password"] ?>" == "<?php echo $_SESSION["queryData"]["defaultPassword"] ?>")
 			{
 				document.getElementById("back").style.display = "none";
 			}
