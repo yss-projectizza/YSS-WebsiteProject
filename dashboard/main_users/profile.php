@@ -384,11 +384,11 @@ if ($user == "student" and $password == $defaultPassword){
 <script>
 	if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "student")
 		{
-			if("<?php echo $_SESSION["queryData"]["password"] ?>" == "<?php echo $_SESSION["queryData"]["defaultpassword"] ?>")
+			if("<?php echo $_SESSION["queryData"]["password"] ?>" == "<?php echo $_SESSION["queryData"]["password"] ?>")
 			{
 				document.getElementById("back").style.display = "none";
 			}
-		}
+		};
 
     firebase.database().ref('/users/' + "<?php echo $email?>").once("value").then(async function (snapshot) {
         let profiledata = snapshot.val();
@@ -399,7 +399,6 @@ if ($user == "student" and $password == $defaultPassword){
 			document.getElementById("phone").value = profiledata.phone;
 		}
 		else{
-			alert("hello world");
 			document.getElementById("phone").placeholder = "Ex: 123-456-7890";
 		}
         document.getElementById("password").value = profiledata.password;
@@ -459,72 +458,119 @@ if ($user == "student" and $password == $defaultPassword){
             var ec_phone2 = document.getElementById("ec_phone2").value;
             var ec_relationship2 = document.getElementById("ec_relationship2").value;
         }
-				if (first_name == ''){
-						alert("Please fill in first name");
-				}
-				else if (last_name == ''){
-						alert("Please fill in last name");
-				}
-				else if(phone == ''){
-						alert("Please fill in phone number");
-				}
-				else if(size == ""){
-						alert("Please select an option");
-				}
-				else if(spiritual == ""){
-						alert("Please select an option");
-				}
-				else if(knowledge == ""){
-						alert("Please select an option");
-				}
-				else if(improvement == ""){
-						alert("Please select an option");
-				}
-				else if(community == ""){
-						alert("Please select an option");
-				}
-				else if(hopes == ""){
-						alert("Please tell us what you hope to get out of attending Youth Spiritual Summit");
-				}
-				else if(activities == ""){
-						alert("Please provide some activities you enjoy");
-				}
-				else if(question == ""){
-						alert("Please provide a question that you would like answered");
-				}	
-				
-				else 
-				{
-				var str;
-				var num;
-				var counterpw = 0;
-				var counternum = 0;
-				var counter = 0;
-				for(str of password){
-					if(isNaN(str) == false){
-						counterpw += 1;
+		if (first_name == ''){
+				alert("Please fill in first name");
+		}
+		else if (last_name == ''){
+				alert("Please fill in last name");
+		}
+		else if(phone == ''){
+				alert("Please fill in phone number");
+		}
+		else if(size == ""){
+				alert("Please select a shirt size");
+		}
+		else if(spiritual == ""){
+				alert("Please select an option");
+		}
+		else if(knowledge == ""){
+				alert("Please select an option");
+		}
+		else if(improvement == ""){
+				alert("Please select an option");
+		}
+		else if(community == ""){
+				alert("Please select an option");
+		}
+		else if(hopes == ""){
+				alert("Please tell us what you hope to get out of attending Youth Spiritual Summit");
+		}
+		else if(activities == ""){
+				alert("Please provide some activities you enjoy");
+		}
+		else if(question == ""){
+				alert("Please provide a question that you would like answered");
+		}
+		else if(ec_name1 == ""){
+				alert("Please provide a name for the Youth's emergency contact");
+		}	
+		else if(ec_relationship1 == ""){
+				alert("Please provide a relationship to the Youth");
+		}	
+		else if(ec_name2 == ""){
+				alert("Please provide a name for the Youth's emergency contact");
+		}	
+		else if(ec_relationship2 == ""){
+				alert("Please provide a relationship to the Youth");
+		}	
+		else 
+		{
+		var str;
+		var num;
+		var counterpw = 0;
+		var counternum = 0;
+		var counternum2 = 0;
+		var counternum3 = 0;
+		var counter = 0;
+		for(str of password){
+			if(isNaN(str) == false){
+				counterpw += 1;
+			}
+		}
+		for(num of phone){
+			if(isNaN(num) == false){
+				counternum += 1;
+			}
+			else if(isNaN(num) == true){
+				if(counter == 3 || counter == 7){
+					if(num == "-"){
+						counternum +=1;
 					}
 				}
-				for(num of phone){
-					if(isNaN(num) == false){
-						counternum += 1;
+			}
+			counter += 1;
+		}
+		counter = 0;
+		for(num of ec_phone1){
+			if(isNaN(num) == false){
+				counternum2 += 1;
+				}
+			else if(isNaN(num) == true){
+				if(counter == 3 || counter == 7){
+					if(num == "-"){
+						counternum2 +=1;
 					}
-					else if(isNaN(num) == true){
-						if(counter == 3 || counter == 7){
-							if(num == "-"){
-								counternum +=1;
-							}
-						}
+				}
+			}
+			counter += 1;
+		}
+		counter = 0;
+		for(num of ec_phone2){
+			if(isNaN(num) == false){
+				counternum3 += 1;
+				}
+			else if(isNaN(num) == true){
+				if(counter == 3 || counter == 7){
+					if(num == "-"){
+						counternum3 +=1;
 					}
-					counter += 1;
 				}
-				if(counterpw == 0){
-				alert("Please provide a password that includes numbers and characters");
-				}
-				else if(counternum != 12){
-					alert("Please provide a valid phone number following the format 123-456-7890");
-				}
-				else{
+			}
+			counter += 1;
+		}
+		if(counterpw == 0){
+			alert("Please provide a password that includes numbers and characters");
+		}
+		else if(counternum != 12){
+			alert("Please provide a valid phone number following the format 123-456-7890 parent");
+		}
+		else if(counternum2 != 12){
+			alert("Please provide a valid Emergency Contact number following the format 123-456-7890");
+		}
+		else if(counternum3 != 12){
+			alert("Please provide a valid Emergency Contact number following the format 123-456-7890 ec2");
+		}
+		else{
         var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
                 first_name: first_name,
                 last_name: last_name,
