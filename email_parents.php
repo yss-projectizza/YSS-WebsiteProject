@@ -18,7 +18,7 @@
     if ($_GET["email"] && $_GET["reset"]=="true"){
 		try {
 
-			$mail->setFrom('youthspiritualsummit@gmail.com', 'Youth Spiritual Summit');
+			$mail->setFrom('info@youthspiritualsummit.com', 'Youth Spiritual Summit');
 			$mail->addAddress($_GET['email']);
 
 			$email = $_GET['email'];
