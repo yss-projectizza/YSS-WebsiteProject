@@ -463,7 +463,6 @@ if ($user == "student" and $password == $defaultPassword){
 		else if(phone == ''){
 				alert("Please fill in phone number");
 		}
-
 		else if(size == ""){
 				alert("Please select a shirt size");
 		}
@@ -501,6 +500,37 @@ if ($user == "student" and $password == $defaultPassword){
 		else if(ec_relationship2 == ""){
 				alert("Please provide a relationship to the Youth");
 		}	
+		var str = "";
+		var num = "";
+		var counterpw = 0;
+		var counternum = 0;
+		var counternum2 = 0;
+		var counternum3 = 0;
+		var counter = 0;
+		for(str of password){
+			if(isNaN(str) == false){
+				counterpw += 1;
+			}
+		}
+		for(num of phone){
+			if(isNaN(num) == false){
+				counternum += 1;
+			}
+			else if(isNaN(num) == true){
+				if(counter == 3 || counter == 7){
+					if(num == "-"){
+						counternum +=1;
+					}
+				}
+			}
+			counter += 1;
+		}
+		if(counterpw == 0){
+			alert("Please provide a password that includes numbers and characters");
+		}
+		else if(counternum != 12){
+			alert("Please provide a valid phone number following the format 123-456-7890 parent");
+		}
 		else{
         var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
                 first_name: first_name,
