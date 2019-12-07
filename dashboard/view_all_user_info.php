@@ -122,7 +122,8 @@ function displayUsers(user_type)
             heading_html += "<th>Verified</th>";
         }
 
-        heading_html += "<th> </th>";
+        if(user_type == "counselor" || user_type == "student")
+            heading_html += "<th> </th>";
 
         let table_rows = "";
 
@@ -294,10 +295,6 @@ function displayUsers(user_type)
 
                     table_rows += `></input></td>`;
 
-                    table_rows += `<td>
-                                        <button class="rounded delete-btn" id = "delete-` + i + `" onclick = "delete_parent('${key}', '${i}')">Delete</button>
-                                    </td>`;
-
                     table_rows += "</tr>";
 
                     document.getElementById("user-table-body").innerHTML = table_rows;
@@ -369,6 +366,55 @@ function emailAll()
   // location.href = '/email_student.php?studentEmail=" + studentEmail + "&reset=true";
 }
 
+function delete_counselor(key, index)
+{
+    if(confirm("Are you sure you would like to delete this counselor?"))
+    {
+        firebase.database().ref('users/' + key).once("value", function(snapshot)
+        {
+            let counselor = snapshot.val();
+
+            var group_num = counselor.group_num;
+            var cabin_num = counselor.cabin_num;
+            var bus_num = counselor.bus_num;
+            let name = counselor.first_name + " " + counselor.last_name;
+
+            if(group_num != "N/A")
+            {
+                update_group_counselor_list(name, group_num, "families");
+            }
+
+            if(cabin_num != "N/A")
+            {
+                update_group_counselor_list(name, cabin_num, "cabins");
+            }
+
+            if(bus_num != "N/A")
+            {
+                update_group_counselor_list(name, bus_num, "buses");
+            }
+
+            firebase.database().ref('users/' + key).remove();
+
+            alert("The counselor has been deleted.");
+            location.reload();
+        });
+    }
+}
+
+function update_group_counselor_list(name, group_name, type)
+{
+    firebase.database().ref(type).orderByChild('name').equalTo(group_name).once("value", function(snapshot)
+    {
+        let object = Object.entries(snapshot.val());
+
+        let object_key = object[0][0];
+
+        let updated_counselor_list = remove_counselor_from_list(name, object[0][1].counselor);
+
+        firebase.database().ref(type + '/' + object_key).update({counselor: updated_counselor_list});
+    });
+}
 
 function delete_student(key, index)
 {
@@ -382,6 +428,7 @@ function delete_student(key, index)
             var cabin_num = student.cabin_num;
             var bus_num = student.bus_num;
 
+            // Remove student from any groups they are in and update the size.
             if(group_num != "N/A")
             {
                 update_group_size(group_num, "families");
@@ -397,9 +444,10 @@ function delete_student(key, index)
                 update_group_size(bus_num, "buses");
             }
 
+            // delete the student from the database.
             firebase.database().ref('users/' + key).remove();
 
-            alert("done");
+            alert("The student has been deleted.");
             location.reload();
         });
     }

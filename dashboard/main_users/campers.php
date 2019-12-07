@@ -58,7 +58,9 @@ if (!isset($_SESSION))
     </div>
 
     <div id="Family" class="tabcontent" style="text-align:center">
-      <a id="email-all-family" class="rounded email-all">Email All</a>
+      <?php if($user_type == "counselor"): ?>
+        <a id="email-all-family" class="rounded email-all">Email All</a>
+      <?php endif ?>
       <script>
         const famTblDiv = document.createElement('div');
         famTblDiv.classList.add('container', 'family-div');
@@ -147,7 +149,9 @@ if (!isset($_SESSION))
     </div>
 
     <div id="Bus" class="tabcontent" style="text-align:center">
-    <a id="email-all-bus" class="rounded email-all">Email All</a>
+    <?php if($user_type == "counselor"): ?>
+      <a id="email-all-bus" class="rounded email-all">Email All</a>
+    <?php endif ?>
       <script>
         const busTblDiv = document.createElement('div');
         busTblDiv.classList.add('container', 'bus-div');
@@ -230,7 +234,9 @@ if (!isset($_SESSION))
     </div>
 
     <div id="Cabin" class="tabcontent" style="text-align:center">
-    <a id="email-all-cabin" class="rounded email-all">Email All</a>
+    <?php if($user_type == "counselor"): ?>
+      <a id="email-all-cabin" class="rounded email-all">Email All</a>
+    <?php endif ?>
       <script>
         const cabinTblDiv = document.createElement('div');
         cabinTblDiv.classList.add('container', 'cabin-div');
