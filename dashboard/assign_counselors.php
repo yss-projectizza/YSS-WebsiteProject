@@ -250,8 +250,6 @@ function update_counselor_group(index, key, type, current_group_name, selected_g
                         }
                     });
                 });
-
-                alert("Changes were saved successfully!");
             }
         }
         else
@@ -275,8 +273,6 @@ function update_counselor_group(index, key, type, current_group_name, selected_g
                         case "buses": firebase.database().ref('users/' + key).update({'bus_num': selected_group_name});
                     }
                 });
-
-                alert("Changes were saved successfully!");
             }
         }
 }
