@@ -401,6 +401,7 @@ if ($user == "student" and $password == $defaultPassword){
 
         if(profiledata.hasOwnProperty("spiritual")) // checks if the database object has the specified data field
         {
+			document.getElementById("size").value = profiledata.size;
             document.getElementById("spiritual").value = profiledata.spiritual;
             document.getElementById("knowledge").value = profiledata.knowledge;
             document.getElementById("improvement").value = profiledata.improvement;
