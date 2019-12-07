@@ -505,14 +505,14 @@ if ($user == "student" and $password == $defaultPassword){
 		var num = "";
 		var num2 = "";
 		var num3 = "";
-		var counterpw = 0;
+		var pwWithNum = 0;
 		var counternum = 0;
 		var counternum2 = 0;
 		var counternum3 = 0;
 		var counter = 0;
 		for(str of password){
 			if(isNaN(str) == false){
-				counterpw += 1;
+				pwWithNum += 1;
 			}
 		}
 		for(num of phone){
@@ -561,8 +561,11 @@ if ($user == "student" and $password == $defaultPassword){
 				counter += 1;
 			}
 		}
-		if(counterpw == 0){
-			alert("Please provide a password that includes numbers and characters");
+		if(password.length < 8){
+			alert("Please provide at least 8 characters");
+		}
+		else if(pwWithNum < 1){
+			alert("Please provide a password with at least one character and one number");
 		}
 		else if(counternum != 12){
 			alert("Please provide a valid phone number following the format 123-456-7890 parent");
