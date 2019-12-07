@@ -502,6 +502,8 @@ if ($user == "student" and $password == $defaultPassword){
 		}	
 		var str = "";
 		var num = "";
+		var num2 = "";
+		var num3 = "";
 		var counterpw = 0;
 		var counternum = 0;
 		var counternum2 = 0;
@@ -525,11 +527,50 @@ if ($user == "student" and $password == $defaultPassword){
 			}
 			counter += 1;
 		}
+
+		counter = 0;
+		if(ec_phone1 != null){
+			for(num2 of ec_phone1){
+				if(isNaN(num2) == false){
+					counternum2 += 1;
+					}
+				else if(isNaN(num2) == true){
+					if(counter == 3 || counter == 7){
+						if(num2 == "-"){
+							counternum2 +=1;
+						}
+					}
+				}
+				counter += 1;
+			}
+		}
+		counter = 0;
+		if(ec_phone2 != null){
+			for(num3 of ec_phone2){
+				if(isNaN(num3) == false){
+					counternum3 += 1;
+					}
+				else if(isNaN(num3) == true){
+					if(counter == 3 || counter == 7){
+						if(num3 == "-"){
+							counternum3 +=1;
+						}
+					}
+				}
+				counter += 1;
+			}
+		}
 		if(counterpw == 0){
 			alert("Please provide a password that includes numbers and characters");
 		}
 		else if(counternum != 12){
 			alert("Please provide a valid phone number following the format 123-456-7890 parent");
+		}
+		else if(counternum2 != 12 && ec_phone1 != null){
+			alert("Please provide a valid Emergency Contact number following the format 123-456-7890");
+		}
+		else if(counternum3 != 12 && ec_phone2 != null){
+			alert("Please provide a valid Emergency Contact number following the format 123-456-7890 ec2");
 		}
 		else{
         var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
