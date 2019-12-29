@@ -1,0 +1,83 @@
+.name-table
+{
+    text-align: center;
+    width: 100%;
+    height: auto;
+    border: solid 5px #5b77a5;
+    color: black;
+    margin-top: 20px;
+}
+
+.name-table th
+{
+    border: solid 1px black;
+    background-color: #5b77a5;
+    color: white;
+    height: 40px;
+    vertical-align: middle;
+}
+
+.name-table tr
+{
+    border: solid 1px black;
+    height: 30px;
+}
+
+.name-table td
+{
+    width: 50%;
+    border: solid 1px black;
+}
+
+.counselor-info
+{
+    text-align: center;
+    width: 100%;
+    border: solid 5px #5b77a5;
+    color: black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.counselor-info th
+{
+    border: solid 1px white;
+    background-color: #5b77a5;
+    color: white;
+    height: 40px;
+    vertical-align: middle;
+}
+
+.counselor-info tr
+{
+    border: solid 1px black;
+    height: 40px;
+}
+
+.counselor-info td
+{
+    border: solid 1px black;
+    padding: 10px;
+}
+
+.button-div
+{
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.leave-button 
+{
+    background-color:red;
+    color: white;
+}
+  
+.leave-button:hover
+{
+    background-color: orange;
+    color: black;
+    cursor: pointer;
+}

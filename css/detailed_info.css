@@ -1,0 +1,29 @@
+.section-heading
+{
+    text-align: center;
+    margin-top: 3%;
+    color: #5b77a5;
+}
+
+.item
+{
+    width: 150px;
+    text-align: center;
+    display: inline-block;
+    color: white;
+    background-color: #85C1E9;
+    padding: 3px;
+    margin-right: 20px;
+}
+
+.column-div
+{
+    display: inline-block;
+    width: 50%;
+}
+
+.heading-underline
+{
+    width: 100%;
+    margin-top: 0px;
+}

@@ -64,8 +64,15 @@ if (!isset($_SESSION))
   <?php include('header_loggedin.php') ?>
   <main class="main">
     <h3>Admin Panel</h3>
+    
+    <!-- Button that links to Manage Groups page -->
+    <div class="card">
+      <button class="rounded" style="margin-bottom: 10px" type="button" onclick="window.location.href='/dashboard/manage_groups.php'"> Manage Groups </button>
+      <button class="rounded" type="button" onclick="window.location.href='/dashboard/assign_counselors.php'"> Assign Counselors </button>
+    </div>
+
     <div class="main-cards">
-      <div class="card">
+      <div class="card" style="overflow: scroll; height:50%">
         <div class="dropdown">
           <button id="toggle-sort" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -116,10 +123,13 @@ if (!isset($_SESSION))
                 buildUserDiv(alldata[i], i);
               }
 
-              function verifyCheck(verified, id) {
+              function verifyCheck(verified, id, key) {
+                // alert(key);
                 if (verified) {
                   document.getElementById(id).checked = true;
+                  firebase.database().ref('users/' + key).update({'account_verified': "true"});
                 } else {
+                  firebase.database().ref('users/' + key).update({'account_verified': "false"});
                   document.getElementById(id).checked = false;
                 }
               }
@@ -127,14 +137,14 @@ if (!isset($_SESSION))
               function buildUserDiv(item, index) {
                 const boxDiv = document.createElement('tr');
                 const boxID = item[1].first_name + "verified";
-                boxDiv.id = "alldataindiv"
+                boxDiv.id = "alldataindiv";
 
 
 
-                var group = item[1].group_num
-                var cabin = item[1].cabin_num
-                var bus = item[1].bus_num
-                var credit = item[1].credit_due
+                var group = item[1].group_num;
+                var cabin = item[1].cabin_num;
+                var bus = item[1].bus_num;
+                var credit = item[1].credit_due;
 
 
 
@@ -162,7 +172,7 @@ if (!isset($_SESSION))
                     color = "#76F2BC"
                     break;
                 }
-
+			
 
 
             boxDiv.innerHTML =
@@ -196,8 +206,11 @@ if (!isset($_SESSION))
 
 
                 document.getElementById("data").appendChild(boxDiv);
-                if (item[1].account_verified)
-                  verifyCheck(item[1].account_verified);
+                if(item[1].hasOwnProperty("account_verified"))
+                {  
+                  // alert("a");
+                  verifyCheck(item[1].account_verified, "verified", item[0]);
+                }
 
 
 
@@ -255,14 +268,10 @@ if (!isset($_SESSION))
         <h2>Schedule</h2>
         <div id="schedule">
           <div id="schedule_buttons">
-            <button id="addEvent" class="rounded">
-              Add an event
-            </button>
-            <button id="submit" class="rounded">
-              Submit
-            </button>
-            <br />
-            <br />
+            <button id="addEvent" class="rounded">Add an event</button>
+            <button id="submit" class="rounded">Submit</button>
+            <br/>
+            <br/>
           </div>
           <table id="inside-div">
           </table>
@@ -316,18 +325,44 @@ if (!isset($_SESSION))
                 input.id = "dateinput" + counter;
                 input.value = firebasedataArray[i][1]["date"];
                 th3.appendChild(label);
-                th3.appendChild(input);
+                th3.appendChild(input);	
+
+			//	<div class="card" style="overflow: scroll; height:50%">
+     //   <div class="dropdown">
+   //       <button id="toggle-sort" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+     //       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     //       Sort By:
+     //     </button>
+    //      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    //        <a class="dropdown-item" onclick="sortData('group_num')">Group</a>
+     //       <a class="dropdown-item" onclick="sortData('cabin_num')">Cabin</a>
+     //       <a class="dropdown-item" onclick="sortData('bus_num')">Bus</a>
+     //       <a class="dropdown-item" onclick="sortData('first_name')">First Name</a>
+     //       <a class="dropdown-item" onclick="sortData('last_name')">Last Name</a>
+    //        <a class="dropdown-item" onclick="sortData('gender')">Gender</a>
+     //       <a class="dropdown-item" onclick="sortData('user_type')">User Type</a>
+    //        <a class="dropdown-item" onclick="sortData('credit_due')">Credit Due</a>
+  //        </div>
+ //       </div> 
+
+ // <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  //                  <a class="dropdown-item" id="family-option" onclick="displayGroups('families')">Families</a> 
 
                 var th4 = document.createElement("th");
-                var label = document.createElement("label");
-                var input = document.createElement("input");
-                input.classList.add('input');
-                label.innerHTML = "Group(s)";
-                input.type = "text";
-                input.id = "groupinput" + counter;
-                input.value = firebasedataArray[i][1]["group"];
-                th4.appendChild(label);
-                th4.appendChild(input);
+                th4.id = "group-list-" + counter;
+                th4.innerHTML = `<div class="dropdown">
+                <button id="toggle-group-` + counter + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Group(s)</button>
+						<div class="dropdown-menu" id = 'group-dropdown-` + counter + `' aria-labelledby="dropdownMenuButton"></div></div></td>
+                                    <td id='max-size-` + counter + `'>`;
+					
+
+                var th5 = document.createElement("th");
+                var currentGroups = document.createElement("label");
+                currentGroups.id = "groupinput" + counter;
+                currentGroups.innerHTML= firebasedataArray[i][1]["group"];
+                th5.appendChild(currentGroups);
+                
 
                 function delete_event(id) {
                   firebase.database().ref('/schedule/' + id).remove();
@@ -347,6 +382,7 @@ if (!isset($_SESSION))
                 eventDiv.appendChild(th2);
                 eventDiv.appendChild(th3);
                 eventDiv.appendChild(th4);
+                eventDiv.appendChild(th5);
                 delete_th.appendChild(deletebutton);
                 eventDiv.appendChild(delete_th);
 
@@ -388,19 +424,25 @@ if (!isset($_SESSION))
               th3.appendChild(label);
               th3.appendChild(input);
 
-              var th4 = document.createElement("th");
-              var label = document.createElement("label");
-              var input = document.createElement("input");
-              label.innerHTML = "Group(s)";
-              input.type = "text";
-              input.id = "groupinput" + counter;
-              th4.appendChild(label);
-              th4.appendChild(input);
+			  var th4 = document.createElement("th");
+              th4.id = "group-list-" + counter;
+              th4.innerHTML = `<div class="dropdown">
+              <button id="toggle-group-` + counter + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Group(s)</button>
+						<div class="dropdown-menu" id = 'group-dropdown-` + counter + `' aria-labelledby="dropdownMenuButton"></div></div></td>
+                                    <td id='max-size-` + counter + `'>`;
+
+              var th5 = document.createElement("th");
+              var currentGroups = document.createElement("label");
+              currentGroups.id = "groupinput" + counter;
+              currentGroups.innerHTML= "None";
+              th5.appendChild(currentGroups);
 
               eventDiv.appendChild(th1);
               eventDiv.appendChild(th2);
               eventDiv.appendChild(th3);
               eventDiv.appendChild(th4);
+              eventDiv.appendChild(th5);
               updiv.appendChild(eventDiv);
 
             });

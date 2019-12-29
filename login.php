@@ -4,7 +4,7 @@
 			session_start(); 
 	} 
 
-	if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
+	if((isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 		header("Location: dashboard.php");
 		exit;
 
@@ -90,7 +90,7 @@
 								ref.once("value").then(function(snapshot){
 									if (snapshot.child(comma_email).exists()){
 										alert("A link to reset your password has been sent to (" + email +").");
-										window.location.href = "send_link.php?email=" + email + "&reset=true";
+										window.location.href = "send_link2.php?email=" + email + "&reset=true";
 									}
 									else {
 										alert('The email: (' + email + ') does not exist in the system. Please create an account.');

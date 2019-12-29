@@ -3,10 +3,58 @@
     {
         session_start();
     }
-  $emailwcomma = $_SESSION["queryData"]["email"];
-  $email= str_replace(".",",",$emailwcomma);
+
+// This assumes that you have placed the Firebase credentials in the same directory
+// as this PHP file.
+require __DIR__. '/../../vendor/autoload.php';
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
+
   $user=$_SESSION["queryData"]["user_type"];
+  
+  if($user == "parent")
+  {
+    $emailwcomma = $_SESSION["queryData"]["email"];
+  }
+  else if($user == "student")
+  {
+    $emailwcomma = $_SESSION["queryData"]["studentEmail"];
+	$defaultPassword = $_SESSION["queryData"]["defaultPassword"];
+	$password = $_SESSION["queryData"]["password"];
+  }
+  
+  $email= str_replace(".",",",$emailwcomma);
+  
 ?>
+
+<!-- This block checks if student's password is still the default password. If yes, display a pop up
+message to prompt the student to change password. 
+ -->
+<?php
+if ($user == "student" and $password == $defaultPassword){
+	//echo "<script type='text/javascript'>alert('$email');</script>";
+	$username = str_replace(".", ",", $email);
+	$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/../../yss-project-69ba2-firebase-adminsdk-qpgd1-772443326e.json');
+	$firebase = (new Factory)
+		->withServiceAccount($serviceAccount)
+		->create();
+	$database = $firebase->getDatabase();
+	$reference = $database->getReference('/users')->getValue();
+	
+	if (array_key_exists($username,$reference)){
+		$_SESSION["queryData"] = $reference[$username];
+	}
+	$defaultPassword = $_SESSION["queryData"]["defaultPassword"];
+	$password = $_SESSION["queryData"]["password"];
+}
+
+// Check student's password again after updating data. If student's password is still default password,
+// redirect student to profile page.
+if ($user == "student" and $password == $defaultPassword){	
+	echo "<script type='text/javascript'>alert('Your password is still the default password. Please update your password.');</script>";		
+}
+?> 
+
 <html lang="en">
 
 <head>
@@ -64,7 +112,7 @@
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text">Clothing Size:<b style="color: red;">*</b></span>
+                <span class="input-group-text">Shirt Size:<b style="color: red;">*</b></span>
                 <select class="form-control form-control-md" name="size" id="size">
                     <option>Small</option>
                     <option>Medium</option>
@@ -116,7 +164,7 @@
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Actively Improving Myself:<b style="color: red;">*</b></span>
+                    <span class="input-group-text">Commitment to Improving Myself:<b style="color: red;">*</b></span>
                     <select class="form-control form-control-md" name="improvement" id="improvement">
                         <option>Very High</option>
                         <option>High</option>
@@ -129,7 +177,7 @@
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Actively Involved In Making My Community Better:<b
+                    <span class="input-group-text">Commitment to Making My Community Better:<b
                             style="color: red;">*</b></span>
                     <select class="form-control form-control-md" id="community">
                         <option>Very High</option>
@@ -298,7 +346,6 @@
         </div>
     </div>
 
-
     <!--Javascript Segment-->
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
@@ -321,38 +368,43 @@
             document.getElementById("last_name").value = profiledata.last_name;
             document.getElementById("phone").value = profiledata.phone;
             document.getElementById("password").value = profiledata.password;
-            document.getElementById("spiritual").value = profiledata.spiritual;
-            document.getElementById("knowledge").value = profiledata.knowledge;
-            document.getElementById("improvement").value = profiledata.improvement;
-            document.getElementById("community").value = profiledata.community;
-            document.getElementById("hopes").value = profiledata.hopes;
-            document.getElementById("activities").value = profiledata.activities;
-            document.getElementById("question").value = profiledata.question;
-            document.getElementById("ec_name1").value = profiledata.ec_name1;
-            document.getElementById("ec_phone1").value = profiledata.ec_phone1;
-            document.getElementById("ec_relationship1").value = profiledata.ec_relationship1;
-            document.getElementById("ec_name2").value = profiledata.ec_name2;
-            document.getElementById("ec_phone2").value = profiledata.ec_phone2;
-            document.getElementById("ec_relationship2").value = profiledata.ec_relationship2;
-            document.getElementById("allergies").value = profiledata.allergies;
-            document.getElementById("meds").value = profiledata.meds;
-            document.getElementById("activity_restrictions").value = profiledata.activity_restrictions;
-            document.getElementById("dietary_restrictions").value = profiledata.dietary_restrictions;
-            document.getElementById("other").value = profiledata.other;
-            document.getElementById("insurance").value = profiledata.insurance;
-            document.getElementById("policy_holder").value = profiledata.policy_holder;
 
+            if(profiledata.hasOwnProperty("spiritual")) // checks if the database object has the specified data field
+            {
+                document.getElementById("spiritual").value = profiledata.spiritual;
+                document.getElementById("knowledge").value = profiledata.knowledge;
+                document.getElementById("improvement").value = profiledata.improvement;
+                document.getElementById("community").value = profiledata.community;
+                document.getElementById("hopes").value = profiledata.hopes;
+                document.getElementById("activities").value = profiledata.activities;
+                document.getElementById("question").value = profiledata.question;
+                document.getElementById("allergies").value = profiledata.allergies;
+                document.getElementById("meds").value = profiledata.meds;
+                document.getElementById("activity_restrictions").value = profiledata.activity_restrictions;
+                document.getElementById("dietary_restrictions").value = profiledata.dietary_restrictions;
+                document.getElementById("other").value = profiledata.other;
+                document.getElementById("insurance").value = profiledata.insurance;
+                document.getElementById("policy_holder").value = profiledata.policy_holder;
+            }
+
+            if(profiledata.user_type == "parent")
+            {
+                document.getElementById("ec_name1").value = profiledata.ec_name1;
+                document.getElementById("ec_phone1").value = profiledata.ec_phone1;
+                document.getElementById("ec_relationship1").value = profiledata.ec_relationship1;
+                document.getElementById("ec_name2").value = profiledata.ec_name2;
+                document.getElementById("ec_phone2").value = profiledata.ec_phone2;
+                document.getElementById("ec_relationship2").value = profiledata.ec_relationship2;
+            }
         });
 
         document.getElementById("update").addEventListener("click", function () {
             var database = firebase.database();
+
             //getting input data
             var first_name = document.getElementById("first_name").value;
             var last_name = document.getElementById("last_name").value;
             var phone = document.getElementById("phone").value;
-            // var email = document.getElementById("email").value; //COMMENTED THIS BECAUSE EMAIL KEY IS UNCHANGEABLE
-            // var email = email.replace(".",",");
-            // var oldemail = "<?php echo $email;?>";
             var password = document.getElementById("password").value;
             var size = document.getElementById("size").value;
             var spiritual = document.getElementById("spiritual").value;
@@ -362,12 +414,17 @@
             var hopes = document.getElementById("hopes").value;
             var activities = document.getElementById("activities").value;
             var question = document.getElementById("question").value;
-            var ec_name1 = document.getElementById("ec_name1").value;
-            var ec_phone1 = document.getElementById("ec_phone1").value;
-            var ec_relationship1 = document.getElementById("ec_relationship1").value;
-            var ec_name2 = document.getElementById("ec_name2").value;
-            var ec_phone2 = document.getElementById("ec_phone2").value;
-            var ec_relationship2 = document.getElementById("ec_relationship2").value;
+
+            if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "parent")
+            {
+                var ec_name1 = document.getElementById("ec_name1").value;
+                var ec_phone1 = document.getElementById("ec_phone1").value;
+                var ec_relationship1 = document.getElementById("ec_relationship1").value;
+                var ec_name2 = document.getElementById("ec_name2").value;
+                var ec_phone2 = document.getElementById("ec_phone2").value;
+                var ec_relationship2 = document.getElementById("ec_relationship2").value;
+            }
+
             var allergies = document.getElementById("allergies").value;
             var meds = document.getElementById("meds").value;
             var activity_r = document.getElementById("activity_restrictions").value;
@@ -376,7 +433,7 @@
             var insurance = document.getElementById("insurance").value;
             var policy_holder = document.getElementById("policy_holder").value;
 
-            var newPostRef = firebase.database().ref('/users/' + /*oldemail*/ "<?php echo $email?>").update({
+            var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
                     first_name: first_name,
                     last_name: last_name,
                     phone: phone,
@@ -389,13 +446,7 @@
                     hopes: hopes,
                     activities: activities,
                     question: question,
-                    ec_name1: ec_name1,
-                    ec_phone1: ec_phone1,
-                    ec_relationship1: ec_relationship1,
-                    ec_name2: ec_name2,
-                    ec_phone2: ec_phone2,
-                    ec_relationship2: ec_relationship2,
-                    alleriges: allergies,
+                    allergies: allergies,
                     meds: meds,
                     activity_restrictions: activity_r,
                     dietary_restrictions: dietary_r,
@@ -410,9 +461,30 @@
                         alert("Your information has been saved successfully.")
                         var postID = newPostRef.key;
                         console.log("went to firebase");
-                        // Data saved successfully!
+						window.location.href = "/dashboard.php";
                     }
                 });
+
+            if("<?php echo $_SESSION["queryData"]["user_type"] ?>" == "parent")
+            {
+                var newPostRef = firebase.database().ref('/users/' + "<?php echo $email?>").update({
+                    ec_name1: ec_name1,
+                    ec_phone1: ec_phone1,
+                    ec_relationship1: ec_relationship1,
+                    ec_name2: ec_name2,
+                    ec_phone2: ec_phone2,
+                    ec_relationship2: ec_relationship2,
+                },
+                function (error) {
+                    if (error) {
+                        alert("didn't go through")
+                    } else {
+                        alert("Your information has been saved successfully.")
+                        var postID = newPostRef.key;
+                        console.log("went to firebase");
+                    }
+                });
+            }
         });
     </script>
 </body>
