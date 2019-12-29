@@ -5,7 +5,22 @@ session_start();
 $parent_email = $_SESSION["queryData"]["email"];
 ?>
 
-<!doctype html>
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+  var config = 
+  {
+    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+    authDomain: "yss-project-69ba2.firebaseapp.com",
+    databaseURL: "https://yss-project-69ba2.firebaseio.com",
+    projectId: "yss-project-69ba2",
+    storageBucket: "yss-project-69ba2.appspot.com",
+    messagingSenderId: "530416464878"
+  };
+
+  firebase.initializeApp(config);
+</script>
+
 <html lang="en">
 
 <head>
@@ -18,6 +33,7 @@ $parent_email = $_SESSION["queryData"]["email"];
 
 <body>
     <?php include('header_loggedin.php') ?>
+    <?php include('display_profile_pic.php') ?>
     <form id=form1 method="post">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
@@ -33,22 +49,36 @@ $parent_email = $_SESSION["queryData"]["email"];
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">First Name:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">First Name:</span>
                     </div>
-                    <input type="text" placeholder="Ex: John" name="firstname" id="firstname" class="form-control" required>
+                    <input disabled=true type="text" name="firstname" id="firstname" class="form-control" required>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Last Name:<b style = "color: red;">*</b></span>
+                        <span class="input-group-text">Last Name:</span>
                     </div>
-                    <input type="text" placeholder="Ex: Smith" name="lastname" id="lastname" class="form-control" required>
+                    <input disabled=true type="text" name="lastname" id="lastname" class="form-control" required>
                 </div>
-
+								
+								<div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Youth's Email:</span>
+                    </div>
+                    <input disabled=true type="text" name="youthmail" id="youthmail" class="form-control" required>
+                </div>
+								
+								<div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Youth's Date of Birth:</span>
+                    </div>
+                    <input disabled=true type="date" name="dob" id="dob" class="form-control" required>
+                </div>
+								
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text">Gender:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="gender" id="gender">
+                    <span class="input-group-text">Gender:</span>
+                        <select disabled=true class="form-control form-control-md" name="gender" id="gender">
                                 <option>Female</option>
                                 <option>Male</option>
                         </select>
@@ -72,31 +102,17 @@ $parent_email = $_SESSION["queryData"]["email"];
                 -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="schoolyear" id="schoolyear">
+                    <span class="input-group-text">Upcoming School Year:</span>
+                        <select disabled=true class="form-control form-control-md" name="schoolyear" id="schoolyear">
                             <option>Freshman</option>
                             <option>Sophomore</option>
                             <option>Junior</option>
                             <option>Senior</option>
-                            <option>Early College</option>
-                            <option>Home School</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- SHOULD BE AUTOMATICALLY CALCULATED BASED OFF OF DOB -->
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="age" id="age">
-                            <option>14</option>
-                            <option>15</option>
-                            <option>16</option>
-                            <option>17</option>
-                            <!-- <option>18</option> -->
-                        </select>
-                    </div>
-                </div>
+        
 
                 <!-- STUDENT FILL THIS OUT ONCE THERE'S AN ACCOUNT
                 <div class="input-group mb-3">
@@ -124,31 +140,31 @@ $parent_email = $_SESSION["queryData"]["email"];
         <div class="container">
         <!-- Health Information -->
         </div>
-            <label><p style = "font-size:30px;padding-top: 10px;">Health Information</p></label>
+            <label><p style = "font-size:30px;padding-top: 10px;">Youth's Health Information</p></label>
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Allergies You Have. If none, type N/A.<b style = "color: red;">*</b></p>
+                    <p>Please List Any Allergies Your Youth Have. If None, Type N/A.<b style = "color: red;">*</b></p>
                     <textarea id="allergies" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Medication You Are Currently On. If none, type N/A<b style = "color: red;">*</b></p>
+                    <p>Please List Any Medication Your Youth Is Currently On. If None, Type N/A<b style = "color: red;">*</b></p>
                     <textarea id="meds" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Activity Restrictions.</b></p>
+                    <p>Any Activity Restrictions.<b style = "color: red;">*</b></p>
                     <textarea id="activities" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Dietary Restrictions.</b></p>
+                    <p>Any Dietary Restrictions.<b style = "color: red;">*</b></p>
                     <textarea id="dietary" cols="132" rows="2"></textarea>
                 </div>
             </div>
@@ -160,7 +176,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                 </div>
             </div>
 
-            <div class="input-group mb-3">
+            <div class="input-group mb-3" style="padding-top: 20px">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Insurance Provider:<b style = "color: red;">*</b></span>
                  </div>
@@ -182,105 +198,103 @@ $parent_email = $_SESSION["queryData"]["email"];
             </div>
         </div>
     </form>
-
-
-	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
-        <!--<script src="counselor_app.js"></script>-->
-        <script>
-            var config = {
-                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-                authDomain: "yss-project-69ba2.firebaseapp.com",
-                databaseURL: "https://yss-project-69ba2.firebaseio.com",
-                projectId: "yss-project-69ba2",
-                storageBucket: "yss-project-69ba2.appspot.com",
-                messagingSenderId: "530416464878"
-            };
-            firebase.initializeApp(config);
-
-            var keyParam = new URLSearchParams(window.location.search).get('key');
-
-            firebase.database().ref('/users/' + keyParam).once("value").then(async function(snapshot) {
-                let profiledata= snapshot.val();
-                console.log(profiledata)
-                document.getElementById("firstname").value = profiledata.first_name;
-                document.getElementById("lastname").value = profiledata.last_name;
-                document.getElementById("gender").value = profiledata.gender;
-                document.getElementById("schoolyear").value = profiledata.year;
-                document.getElementById("age").value = profiledata.age;
-                //document.getElementById("upload").value = profiledata.file;
-                document.getElementById("allergies").value = profiledata.allergies;
-                document.getElementById("meds").value = profiledata.meds;
-                document.getElementById("activities").value = profiledata.activities;
-                document.getElementById("dietary").value = profiledata.dietary;
-                document.getElementById("other").value = profiledata.other;
-                document.getElementById("policy_holder").value = profiledata.policy_holder;
-                document.getElementById("insurance").value = profiledata.insurance;
-            });
-
-            document.getElementById("submitContact").addEventListener("click", functSubmit);
-                function functSubmit(event){
-                    var database = firebase.database();
-                    var fn = document.getElementById("firstname").value;
-                    var ln = document.getElementById("lastname").value;
-                    var gender = document.getElementById("gender").value;
-                    var year = document.getElementById("schoolyear").value;
-                    var age = document.getElementById("age").value;
-                    // var size = document.getElementById("size").value;
-                    //var file = document.getElementById("upload").value;
-                    var allergies = document.getElementById("allergies").value;
-                    var meds = document.getElementById("meds").value;
-                    var activities = document.getElementById("activities").value;
-                    var dietary = document.getElementById("dietary").value;
-                    var other = document.getElementById("other").value;
-                    var insurance = document.getElementById("insurance").value;
-                    var policy_holder = document.getElementById("policy_holder").value;
-                    if (fn == ''){
-                        alert("fill in first name");
-                    }
-                    else if (ln == ''){
-                        alert("fill in last name");
-                    }
-                    else if (allergies == ''){
-                        alert("please add any alleriges or type N/A");
-                    }
-                    else if (meds == ''){
-                        alert("please add any medication or type N/A");
-                    }
-                    else {
-                        let parent_email = "<?php echo $parent_email; ?>";
-                        var newPostRef = firebase.database().ref('/users/'+keyParam).update({
-                            user_type: "student",
-                            first_name: fn,
-                            last_name: ln,
-                            gender: gender,
-                            year: year,
-                            age: age,
-                            // size: size,
-                            //file: file,
-                            alleriges: allergies,
-                            meds: meds,
-                            activities: activities,
-                            dietary: dietary,
-                            other: other,
-                            insurance: insurance,
-                            policy_holder: policy_holder,
-                            parent_email:"<?php echo $parent_email; ?>"
-                        }, function(error){
-                        if (error) {
-                            alert("Did not go through")
-                        } else {
-                            alert("The form was submitted.");
-                            var postID = newPostRef.key;
-                            window.location.replace("dashboard.php")
-                        }
-                        }
-                        );
-                    }
-
-                };
-
-        </script>
-
 </body>
 </html>
+
+
+<!--<script src="counselor_app.js"></script>-->
+<script>
+    var keyParam = new URLSearchParams(window.location.search).get('key');
+
+    firebase.database().ref('/users/' + keyParam).once("value").then(async function(snapshot) {
+        let profiledata= snapshot.val();
+        console.log(profiledata)
+        document.getElementById("firstname").value = profiledata.first_name;
+        document.getElementById("lastname").value = profiledata.last_name;
+        document.getElementById("gender").value = profiledata.gender;
+        document.getElementById("schoolyear").value = profiledata.year;
+				document.getElementById("youthmail").value = profiledata.studentEmail;
+				document.getElementById("dob").value = profiledata.dob;
+        //document.getElementById("upload").value = profiledata.file;
+        document.getElementById("allergies").value = profiledata.allergies;
+        document.getElementById("meds").value = profiledata.meds;
+        document.getElementById("activities").value = profiledata.activities;
+        document.getElementById("dietary").value = profiledata.dietary;
+        document.getElementById("other").value = profiledata.other;
+        document.getElementById("policy_holder").value = profiledata.policy_holder;
+        document.getElementById("insurance").value = profiledata.insurance;
+    });
+
+    document.getElementById("submitContact").addEventListener("click", functSubmit);
+        function functSubmit(event){
+            var database = firebase.database();
+            var fn = document.getElementById("firstname").value;
+            var ln = document.getElementById("lastname").value;
+            var gender = document.getElementById("gender").value;
+            var year = document.getElementById("schoolyear").value;
+            // var size = document.getElementById("size").value;
+            //var file = document.getElementById("upload").value;
+            var allergies = document.getElementById("allergies").value;
+            var meds = document.getElementById("meds").value;
+            var activities = document.getElementById("activities").value;
+            var dietary = document.getElementById("dietary").value;
+            var other = document.getElementById("other").value;
+            var insurance = document.getElementById("insurance").value;
+            var policy_holder = document.getElementById("policy_holder").value;
+            if (fn == ''){
+                alert("fill in first name");
+            }
+            else if (ln == ''){
+                alert("fill in last name");
+            }
+            else if (allergies == ''){
+                alert("please add any alleriges or type N/A");
+            }
+						else if (activities == ''){
+                alert("please add any activity restrictions or type N/A");
+            }
+						else if (dietary == ''){
+                alert("please add any dietary restrictions or type N/A");
+            }
+            else if (meds == ''){
+                alert("please add any medication or type N/A");
+            }
+						else if (insurance == ''){
+                alert("please add an insurance provider");
+            }
+						else if (policy_holder == ''){
+                alert("please state the policy holder");
+            }
+            else {
+                let parent_email = "<?php echo $parent_email; ?>";
+                var newPostRef = firebase.database().ref('/users/'+keyParam).update({
+                    user_type: "student",
+                    first_name: fn,
+                    last_name: ln,
+                    gender: gender,
+                    year: year,
+                    // size: size,
+                    //file: file,
+                    alleriges: allergies,
+                    meds: meds,
+                    activities: activities,
+                    dietary: dietary,
+                    other: other,
+                    insurance: insurance,
+                    policy_holder: policy_holder,
+                    parent_email:"<?php echo $parent_email; ?>"
+                }, function(error){
+                if (error) {
+                    alert("Did not go through")
+                } else {
+                    alert("The form was submitted.");
+                    var postID = newPostRef.key;
+                    window.location.replace("dashboard.php")
+                }
+                }
+                );
+            }
+
+        };
+
+</script>

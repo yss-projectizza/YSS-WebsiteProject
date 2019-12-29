@@ -4,6 +4,22 @@
 <!doctype html>
 <html lang="en">
 
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+    authDomain: "yss-project-69ba2.firebaseapp.com",
+    databaseURL: "https://yss-project-69ba2.firebaseio.com",
+    projectId: "yss-project-69ba2",
+    storageBucket: "yss-project-69ba2.appspot.com",
+    messagingSenderId: "530416464878"
+  };
+  firebase.initializeApp(config);
+</script>
+
 	<head>
 		<title>Youth Spiritual Summit</title>
 		<meta charset="utf-8">
@@ -16,6 +32,7 @@
 
 	<body>
 		<?php include('header_loggedin.php') ?>
+		<?php include('display_profile_pic.php') ?>
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 			<div class="container" style="background: white; margin-top: 20px;">
 				<!-- Financial Aid Header -->
@@ -40,12 +57,12 @@
 							What is your total annual family household income? (combined income of everyone in the household)<b
 								style="color: red;">*</b>
 							<br>
-							<form action="/action_page.php">
-								<input type="radio" name="income" value="below $30,000"> Below $30,000 <br>
-								<input type="radio" name="income" value="$30,000 - $39,999"> $30,000 - $39,999 <br>
-								<input type="radio" name="income" value="$40,000 - $49,999"> $40,000 - $49,999 <br>
-								<input type="radio" name="income" value="$50,000 - $59,999"> $50,000 - $59,999 <br>
-								<input type="radio" name="income" value="$60,000 or above"> $60,000 or above <br>
+							<form action="/action_page.php" id="income-button">
+								<input type="radio" id="inc1" name="income" value="below $30,000"> Below $30,000 <br>
+								<input type="radio" id="inc2" name="income" value="$30,000 - $39,999"> $30,000 - $39,999 <br>
+								<input type="radio" id="inc3" name="income" value="$40,000 - $49,999"> $40,000 - $49,999 <br>
+								<input type="radio" id="inc4" name="income" value="$50,000 - $59,999"> $50,000 - $59,999 <br>
+								<input type="radio" id="inc5" name="income" value="$60,000 or above"> $60,000 or above <br>
 							</form>
 							<br>
 						</div>
@@ -62,8 +79,8 @@
 
 					<div class="row initial-task-padding">
 						<div class="col">
-							What local organizations (e.g. masjids) do you attend ? The Youth Spiritual Summit will reach out to these
-							organizations to see if they will support local youth to attend the Summit.?<b style="color: red;">*</b>
+							What local organizations (e.g. masjids) do you attend? The Youth Spiritual Summit will reach out to these
+							organizations to see if they will support local youth to attend the Summit. If none, please type N/A.<b style="color: red;">*</b>
 							<input id="local-masjid" type="text" name="org" times-label="org" class="form-control" required>
 							<br>
 						</div>
@@ -92,7 +109,7 @@
 							<br>
 							<div class="ans">
 								<form action="/action_page.php">
-									<input type="radio" name="income" value="below $30,000"> I agree to the statement above <br>
+									<input type="radio" id="agree" name="income" value="below $30,000"> I agree to the statement above <br>
 								</form>
 							</div>
 						</div>
@@ -103,7 +120,7 @@
 
 					<!-- Submit -->
 					<div class="row margin-data" style="padding-bottom: 50px;
-               padding-top:10px; margin-bottom:5%;" align="center" ;>
+               padding-top:10px; margin-bottom:15%;" align="center" ;>
 						<button onclick="location.href = '/dashboard.php'" id="back" class="btn-xl rounded" align="center"
 								role="button" style="background-color:#ccced1; margin-right:1%;height:2%;"> Back
 						</button>
@@ -112,42 +129,64 @@
 				</div>
 		</form>
 
-		<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
-
-
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-    authDomain: "yss-project-69ba2.firebaseapp.com",
-    databaseURL: "https://yss-project-69ba2.firebaseio.com",
-    projectId: "yss-project-69ba2",
-    storageBucket: "yss-project-69ba2.appspot.com",
-    messagingSenderId: "530416464878"
-  };
-  firebase.initializeApp(config);
-</script>
-
 		<script>
 			document.getElementById("submit-button").addEventListener("click", item = (event) => {
 				event.preventDefault();
-				
+
 				let amount_in_household = document.getElementById("people-in-household").value;
 				let amount_can_pay = document.getElementById("amount-can-pay").value;
 				let local_masjid = document.getElementById("local-masjid").value;
 				let circumstances_description = document.getElementById("circumstances-description").value;
+				let income = "";
+
+				for(let i = 1; i <= 5; i++)
+				{
+					if(document.getElementById("inc"+i).checked)
+					{
+						income = document.getElementById("inc"+i).value;
+					}
+				}
+
+        if (amount_in_household == '')
+        {
+          alert("Please fill in the number of people in your household.");
+        }
+        else if (!document.getElementById("inc1").checked && !document.getElementById("inc2").checked && !document.getElementById("inc3").checked && !document.getElementById("inc4").checked && !document.getElementById("inc5").checked)
+        {
+          alert("Please select the total family income option.");
+        }
+        else if (amount_can_pay == '')
+        {
+          alert("Please fill in how much of the fee you can pay.");
+        }
+        else if (local_masjid == '')
+        {
+          alert("Please list an organization or N/A.");
+        }
+        else if (circumstances_description == '')
+        {
+          alert("Please state your circumstances that lead you to need financial aid.");
+        }
+        else if (!document.getElementById("agree").checked)
+        {
+          alert("Please agree to the statement above.");
+        }
+        else{
 				firebase.database().ref('/financial_aid/').push({
 					first_name: "<?php echo $_SESSION["queryData"]["first_name"]; ?>",
 					last_name: "<?php echo $_SESSION["queryData"]["last_name"]; ?>",
 					email: "<?php echo $_SESSION["queryData"]["email"]; ?>",
 					amount_in_household:amount_in_household,
 					amount_can_pay:amount_can_pay,
-					local_masjid,local_masjid,
+					local_masjid:local_masjid,
+					income: income,
 					circumstances_description:circumstances_description
+
+
 				});
 				alert("Your financial aid form was submitted successfully.")
-
-
+        window.location.href = "/dashboard.php";
+}
 
 			})
 			</script>

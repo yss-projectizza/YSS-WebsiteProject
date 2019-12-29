@@ -4,7 +4,7 @@
 			session_start(); 
 	} 
 
-	if(  (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
+	if((isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])){
 		header("Location: dashboard.php");
 		exit;
 
@@ -30,7 +30,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 		<!-- Original Authors: Mark Otto, Jacob Thornton, and Bootstrap contributors -->
 		<title>Sign in | Youth Spiritual Summit</title>
 		<link rel="stylesheet" href="/css/main.css">
@@ -43,8 +43,8 @@
 	</head>
 
 	<body class="text-center">
-		<form action="authentication.php" method="POST">
-				<div class="box rounded">
+		<form action="authentication.php" method="POST">	
+			<div class="box rounded" style="margin-left:10%">
 					<a title="Go back to Homepage" id="brandToHome" class="navbar-brand"
 					href="http://youthspiritualsummit.weebly.com">
 							<img src="https://youthspiritualsummit.weebly.com/uploads/1/1/0/7/110732989/published/yss-logo-white_2.png"
@@ -90,7 +90,7 @@
 								ref.once("value").then(function(snapshot){
 									if (snapshot.child(comma_email).exists()){
 										alert("A link to reset your password has been sent to (" + email +").");
-										window.location.href = "send_link.php?email=" + email + "&reset=true";
+										window.location.href = "send_link2.php?email=" + email + "&reset=true";
 									}
 									else {
 										alert('The email: (' + email + ') does not exist in the system. Please create an account.');

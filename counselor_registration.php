@@ -355,7 +355,7 @@ session_start();
         </div>
         </div>
         <!-- Submit -->
-        <div class="row margin-data" style="padding-bottom: 50px;padding-top: 10px;" align="center">
+        <div class="row margin-data" style="padding-bottom: 80px;padding-top: 10px;" align="center">
             <div class="col">
                 <input type="submit" class="btn-xl rounded" align="center" value="Submit">
             </div>

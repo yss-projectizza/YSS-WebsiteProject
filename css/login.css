@@ -7,9 +7,9 @@ body {
 }
 form {
   position: absolute;
-  width: 40%;
-  left: 55%;
-  top: 12%;
+  width: 80%;
+  top: 5%;
+  right: 10%;
 }
 
 img {
@@ -18,7 +18,7 @@ img {
 
 .box {
  background-color: white;
- opacity: 0.85;
+ opacity: 1.0;
 }
 
 #brandToHome:hover {

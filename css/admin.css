@@ -52,3 +52,146 @@ td {
 .dropdown-item {
   cursor: pointer;
 }
+
+/* manage_groups.php style sheets */
+.manage-groups-table
+{
+  table-layout: fixed;
+  width:100%;
+  text-align:left;
+  border-collapse: separate;
+  border-radius: 10px;
+  margin:10px;
+}
+
+.manage-groups-table th, td
+{
+  padding:10px;
+}
+
+.manage-groups-table th
+{
+  font-size: 130%;
+}
+
+.name-cell
+{
+  padding-top:1%;
+  padding-bottom:1%;
+  text-align:center;
+  width:80%;
+  background-color:#5b77a5;
+  color:white;
+}
+
+#manage-btn-div
+{
+  display:none;
+  text-align:center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#add-group-btn
+{
+  background-color: rgb(161, 238, 171);
+}
+
+#add-group-btn:hover
+{
+  background-color: rgb(31, 201, 127);
+  color:white;
+}
+
+#addEvent
+{
+  background-color: rgb(161, 238, 171);
+}
+
+#addEvent:hover
+{
+  background-color: rgb(31, 201, 127);
+  color:white;
+}
+
+.delete-btn
+{
+  background-color:red;
+  color:white;
+}
+
+.delete-btn:hover
+{
+  background-color:rgb(160, 0, 0);
+}
+
+.edit-btn
+{
+  background-color:gold;
+  color:black;
+}
+
+.edit-btn:hover
+{
+  background-color:#8FD5D9;
+  color:black;
+}
+
+.launch-email:link
+{
+  color:black;
+}
+
+.launch-email:visited
+{
+  color:black;
+}
+
+.launch-email:hover
+{
+  color:black;
+  background-color:#8FD5D9;
+
+}
+
+.launch-email
+{
+  background-color:#f5be6c;
+}
+
+#submit-change-btn
+{
+  background-color:#B7A5F7;
+  color:black;
+}
+
+#submit-change-btn:hover
+{
+  background-color:#8FD5D9;
+  color:black;
+}
+
+#submit-camp-info
+{
+  background-color:#B7A5F7;
+  color:black;
+}
+
+#submit-camp-info:hover
+{
+  background-color:#8FD5D9;
+  color:black;
+}
+
+.user-info-btn
+{
+  width:100%; 
+  height:40px;
+  background-color:#5b77a5;
+  color:white;
+}
+
+.user-info-btn:hover
+{
+  color:black;
+}

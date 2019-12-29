@@ -1,11 +1,52 @@
 <?php
 // Initialize the session
-session_start();
+if (!isset($_SESSION))
+{
+    session_start();
+}
 
 $parent_email = $_SESSION["queryData"]["email"];
+
+// Updating parent's account balance
+// This assumes that you have placed the Firebase credentials in the same directory
+// as this PHP file.
+require __DIR__. '/vendor/autoload.php';
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
+
+// Refreshing session's database to make sure parent's balance is correct
+$username = str_replace(".", ",", $parent_email);
+$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/yss-project-69ba2-firebase-adminsdk-qpgd1-772443326e.json');
+$firebase = (new Factory)
+	->withServiceAccount($serviceAccount)
+	->create();
+$database = $firebase->getDatabase();
+$reference = $database->getReference('/users')->getValue();
+
+if (array_key_exists($username, $reference)){
+	$_SESSION["queryData"] = $reference[$username];
+}
+
+$parentBal = $_SESSION["queryData"]["credit_due"];
+$parentBal = floatval($parentBal);
 ?>
 
-<!doctype html>
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+  var config = 
+  {
+    apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
+    authDomain: "yss-project-69ba2.firebaseapp.com",
+    databaseURL: "https://yss-project-69ba2.firebaseio.com",
+    projectId: "yss-project-69ba2",
+    storageBucket: "yss-project-69ba2.appspot.com",
+    messagingSenderId: "530416464878"
+  };
+
+  firebase.initializeApp(config);
+</script>
+
 <html lang="en">
 
 <head>
@@ -18,6 +59,8 @@ $parent_email = $_SESSION["queryData"]["email"];
 
 <body>
     <?php include('header_loggedin.php') ?>
+    <?php include('display_profile_pic.php') ?>
+    
     <form id=form1 method="post">
         <div class="container" style = "background: white; margin-top: 20px;">
         <!-- Camp Registration Header -->
@@ -44,11 +87,27 @@ $parent_email = $_SESSION["queryData"]["email"];
                     </div>
                     <input type="text" placeholder="Ex: Smith" name="lastname" id="lastname" class="form-control" required>
                 </div>
-
+                
+                <!--Sky: This block adds student's date of birth question-->
+                <div class="input-group mb-3">
+                	<div class="input-group-prepend">
+                		<span class="input-group-text">Date of Birth:<b style="color: red;">*</b></span>
+                	</div>
+                		<input type="date" name="studentDOB" id="studentDOB" class="form-control" required>
+                </div>
+                
+                <div class="input-group mb-3">
+                	<div class="input-group-preend">
+                		<span class="input-group-text">Youth's Email:<b style = "color: red;"></b></span>
+                	</div>
+                	<input type="text" placeholder="Ex: abc@gmail.com" name="studentEmail" id="studentEmail" class="form-control" required>
+                </div>
+                
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Gender:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="gender" id="gender">
+																<option disabled selected value> -- select an option -- </option>
                                 <option>Female</option>
                                 <option>Male</option>
                         </select>
@@ -74,29 +133,29 @@ $parent_email = $_SESSION["queryData"]["email"];
                     <div class="input-group-prepend">
                     <span class="input-group-text">Upcoming School Year:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="schoolyear" id="schoolyear">
+														<option disabled selected value> -- select an option -- </option>
                             <option>Freshman</option>
                             <option>Sophomore</option>
                             <option>Junior</option>
                             <option>Senior</option>
-                            <option>Early College</option>
-                            <option>Home School</option>
                         </select>
                     </div>
                 </div>
 
+
                 <!-- SHOULD BE AUTOMATICALLY CALCULATED BASED OFF OF DOB -->
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Age:<b style = "color: red;">*</b></span>
-                        <select class="form-control form-control-md" name="age" id="age">
-                            <option>14</option>
-                            <option>15</option>
-                            <option>16</option>
-                            <option>17</option>
+<!--                 <div class="input-group mb-3"> -->
+<!--                     <div class="input-group-prepend"> -->
+                    <!-- <span class="input-group-text">Age:<b style = "color: red;">*</b></span> -->
+<!--                         <select class="form-control form-control-md" name="age" id="age"> -->
+<!--                             <option>14</option> -->
+<!--                             <option>15</option> -->
+<!--                             <option>16</option> -->
+<!--                             <option>17</option> -->
                             <!-- <option>18</option> -->
-                        </select>
-                    </div>
-                </div>
+<!--                         </select> -->
+<!--                     </div> -->
+<!--                 </div> -->
 
                 <!-- STUDENT FILL THIS OUT ONCE THERE'S AN ACCOUNT
                 <div class="input-group mb-3">
@@ -124,38 +183,39 @@ $parent_email = $_SESSION["queryData"]["email"];
         <div class="container">
         <!-- Health Information -->
         </div>
-            <label><p style = "font-size:30px;padding-top: 10px;">Health Information</p></label>
+				<?php if ($_SESSION["queryData"]["user_type"] == "parent"): ?>
+            <label><p style = "font-size:30px;padding-top: 10px;">Youth's Health Information</p></label>
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Allergies You Have. If none, type N/A.<b style = "color: red;">*</b></p>
+                    <p>Allergies. If none, type N/A.<b style = "color: red;">*</b></p>
                     <textarea id="allergies" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Medication You Are Currently On. If none, type N/A<b style = "color: red;">*</b></p>
+                    <p>Medication. If none, type N/A.<b style = "color: red;">*</b></p>
                     <textarea id="meds" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Activity Restrictions.</b></p>
+                    <p>Activity Restrictions. If none, type N/A..<b style = "color: red;">*</b></p>
                     <textarea id="activities" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Please List Any Dietary Restrictions.</b></p>
+                    <p>Dietary Restrictions. If none, type N/A..<b style = "color: red;">*</b></p>
                     <textarea id="dietary" cols="132" rows="2"></textarea>
                 </div>
             </div>
 
             <div class="row initial-task-padding">
                 <div class="col">
-                    <p>Other Important Information </b></p>
+                    <p>Other Important Information (Optional) </b></p>
                     <textarea id="other" cols="132" rows="2"></textarea>
                 </div>
             </div>
@@ -173,6 +233,7 @@ $parent_email = $_SESSION["queryData"]["email"];
                  </div>
                 <input type="text" placeholder="Ex: John" name="policy_holder" id="policy_holder" class="form-control" required>
             </div>
+						<?php endif ?>
         
         <div class="block_1">
             <div class="row margin-data" style = "padding-bottom: 50px;padding-top: 10px; margin-bottom: 10%;" align="center">
@@ -182,7 +243,6 @@ $parent_email = $_SESSION["queryData"]["email"];
             </div>
         </div>
     </form>
-
 
 	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>
@@ -197,15 +257,22 @@ $parent_email = $_SESSION["queryData"]["email"];
                 messagingSenderId: "530416464878"
             };
             firebase.initializeApp(config);
-
+																	
             document.getElementById("submitContact").addEventListener("click", functSubmit);
                 function functSubmit(event){
                     var database = firebase.database();
                     var fn = document.getElementById("firstname").value;
                     var ln = document.getElementById("lastname").value;
+                    var studentEmail = document.getElementById("studentEmail").value;
+                    var emailwcharactersreplaced = studentEmail.replace(".",",");
                     var gender = document.getElementById("gender").value;
                     var year = document.getElementById("schoolyear").value;
-                    var age = document.getElementById("age").value;
+                    var dob = document.getElementById("studentDOB").value;
+                    var birthYear = dob.slice(0,4);
+                    var defaultPassword = ln.toLowerCase() + birthYear;
+										var password = defaultPassword;
+										var accountStatus = "Activated";
+										
                     // var size = document.getElementById("size").value;
                     var file = document.getElementById("upload").value;
                     var allergies = document.getElementById("allergies").value;
@@ -215,54 +282,111 @@ $parent_email = $_SESSION["queryData"]["email"];
                     var other = document.getElementById("other").value;
                     var insurance = document.getElementById("insurance").value;
                     var policy_holder = document.getElementById("policy_holder").value;
-                    if (fn == ''){
-                        alert("fill in first name");
-                    }
-                    else if (ln == ''){
-                        alert("fill in last name");
-                    }
-                    else if (allergies == ''){
-                        alert("please add any alleriges or type N/A");
-                    }
-                    else if (meds == ''){
-                        alert("please add any medication or type N/A");
-                    }
-                    else {
-                        let parent_email = "<?php echo $parent_email; ?>";
-                        var newPostRef = firebase.database().ref('/users/').push({
-                            user_type: "student",
-                            first_name: fn,
-                            last_name: ln,
-                            gender: gender,
-                            year: year,
-                            age: age,
-                            file: file,
-                            alleriges: allergies,
-                            meds: meds,
-                            activities: activities,
-                            dietary: dietary,
-                            other: other,
-                            insurance: insurance,
-                            policy_holder: policy_holder,
-                            parent_email:"<?php echo $parent_email; ?>",
-                            group_num: "N/A",
-                            cabin_num: "N/A",
-                            bus_num: "N/A",
-                        }, function(error){
-                        if (error) {
-                            alert("Did not go through")
-                        } else {
-                            alert("The form was submitted.");
-                            var postID = newPostRef.key;
-                            window.location.replace("dashboard.php")
-                        }
-                        }
-                        );
-                    }
+                    
+										// Check if youth's email address already exists in the system
+										firebase.database().ref('/users/' + emailwcharactersreplaced).once('value',function(snapshot) {			
+											if (studentEmail == ''){
+												alert("Please fill in the youth's email address");
+											}	
+											if (snapshot.exists()){
+												alert("An account with the email address \""+ studentEmail + "\" has already been registered in the system. If you feel this is an error, please contact us at youthspiritualsummit@gmail.com.");
+												var studentEmailView = document.getElementById("studentEmail");
+												studentEmailView.scrollIntoView();
+												studentEmailView.style.backgroundColor = "#FDFF47";
+											}
+											else if (fn == ''){												
+												alert('Please fill in first name');
+											}
+											else if (ln == ''){
+												alert("Please fill in last name");
+                                            }
+										    else if(dob == ''){
+												alert("Please fill in Date of Birth");
+										    }
+										    else if(gender == ""){
+										   	   alert("Please select an option");
+										    }
+										    else if(year == ""){
+										   	   alert("Please select an option");
+											  }
+										    else if(document.getElementById("upload").files.length == 0){
+												alert("Please add a student id");
+										    }
+											else if (allergies == ''){
+												alert("please add any alleriges or type N/A");
+                                            }
+											else if (meds == ''){
+												alert("please add any medication or type N/A");
+											}
+											else if (activities == ''){
+												alert("please add any activity restrictions or type N/A");
+											}
+											else if (dietary == ''){
+												alert("please add any dietary restrictions or type N/A");
+											}
+											else if (insurance == ''){
+												alert("Please fill in insurance provider");
+                                            }
+											else if (policy_holder == ""){
+												alert("Please fill in policy holder");
+											}
+											else 
+											{    
+													// Update student's balance and add new student's balance to parent's balance
+													firebase.database().ref('currentProgram/price').once('value', function(snapshot){
+															var programPrice = parseFloat(snapshot.val());
 
+
+													var newPostRef = firebase.database().ref('/users/' + emailwcharactersreplaced).set({
+															user_type: "student",
+															accountStatus: accountStatus,
+															balance: programPrice,
+															first_name: fn,
+															last_name: ln,
+															studentEmail: studentEmail,
+															gender: gender,
+															year: year,
+															dob: dob,
+															birthYear: birthYear,
+															password: password,
+															defaultPassword: defaultPassword,
+															file: file,
+															alleriges: allergies,
+															meds: meds,
+															activities: activities,
+															dietary: dietary,
+															other: other,
+															insurance: insurance,
+															policy_holder: policy_holder,
+															parent_email:"<?php echo $parent_email; ?>",
+															group_num: "N/A",
+															cabin_num: "N/A",
+															bus_num: "N/A",
+													}, function(error){
+													if (error) {
+															alert("Did not go through")
+													} else {
+															alert("The form was submitted.");
+															var postID = newPostRef.key;
+													}
+													}
+													);
+															
+															var credit_now = parseFloat("<?php echo $parentBal; ?>");
+															credit_now += programPrice;
+
+															var parentEmail = "<?php echo $parent_email; ?>";
+															var parentEmailKey = parentEmail.replace(".",",");
+															
+															firebase.database().ref('/users/' + parentEmailKey).update({credit_due: parseFloat(credit_now)});													
+													});
+
+													//window.location.href = "dashboard.php";
+													
+													window.location.href = "email_student_withGoDaddy.php?studentEmail=" + studentEmail + "&reset=true";												
+											}
+										});																														
                 };
-
         </script>
-
 </body>
 </html>

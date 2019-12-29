@@ -234,7 +234,7 @@ Javascript Segment
                 var storageRef = firebase.storage().ref();
                 var database = firebase.database();
                 var storageRef = firebase.storage().ref('dl/' + dlImage.name);
-                //alert("here! image name: " + dlImage.name);
+                
                 var metadata = {
                     contentType: 'image/jpeg'
                 };
@@ -244,90 +244,6 @@ Javascript Segment
                 return true;
             }
         }
-                  /*
-        function submitForm(){
-            var config = {
-                apiKey: "AIzaSyDJrK2EexTLW7UAirbRAByoHN5ZJ-uE35s",
-                authDomain: "yss-project-69ba2.firebaseapp.com",
-                databaseURL: "https://yss-project-69ba2.firebaseio.com",
-                projectId: "yss-project-69ba2",
-                storageBucket: "yss-project-69ba2.appspot.com",
-                messagingSenderId: "530416464878"
-            };
-            firebase.initializeApp(config);
-            var storageRef = firebase.storage().ref();
-            var database = firebase.database();
-            //name and password
-            var fName = document.getElementById("fnameInput").value;
-            var lName = document.getElementById("lnameInput").value;
-            var password = document.getElementById("password").value;
-            var password2 = document.getElementById("password2").value;
-            //contact info
-            var phoneNum = document.getElementById("phoneInput").value;
-            //Residence info
-            var address = document.getElementById("addressInput").value;
-            var city = document.getElementById("cityInput").value;
-            var zipCode = document.getElementById("zipcodeInput").value;
-            //Emergency Contact 1
-            var ec_name1 = document.getElementById("ec_name1").value;
-            var ec_phone1 = document.getElementById("ec_phone1").value;
-            var ec_relationship1 = document.getElementById("ec_relationship1").value;
-            var ec_name2 = document.getElementById("ec_name2").value;
-            var ec_phone2 = document.getElementById("ec_phone2").value;
-            var ec_relationship2 = document.getElementById("ec_relationship2").value;
-
-
-            if ( password != password2 ){
-                    alert("Retyped password must match password");
-            } else{
-
-                //upload dl image to storage
-                var storageRef = firebase.storage().ref('dl/' + dlImage.name);
-                alert("here! image name: " + dlImage.name);
-                var metadata = {
-                    contentType: 'image/jpeg'
-                };
-                storageRef.put(dlImage, metadata).then(function(snapshot) {
-                    console.log("Uploaded an array!");
-                });
-                //upload user data to database
-                var newPostRef = firebase.database().ref('/users/' +  emailwcharactersreplaced).set({
-                    dob: dob,
-                    email: email,
-                    user_type: "parent",
-                    first_name: fName,
-                    last_name: lName,
-                    password: password,
-                    phone: phoneNum,
-                    address: address,
-                    city: city,
-                    zipcode: zipCode,
-                    ec_name1: ec_name1,
-                    ec_phone1: ec_phone1,
-                    ec_relationship1: ec_relationship1,
-                    ec_name2: ec_name2,
-                    ec_phone2: ec_phone2,
-                    ec_relationship2: ec_relationship2,
-                    total_credit_due: total_credit_due,
-                    credit_due:0,
-                    attendees:[]
-                },
-
-                    function(error){
-                    if(error) {
-                        alert("didn't go through")
-                    }
-                    else {
-                        var postID = newPostRef.key;
-                        window.location.replace("login.php");
-                        console.log("went to firebase");
-                    }
-                });
-
-            }
-            return false;
-        }
-                      */
     </script>
   </body>
 </html>

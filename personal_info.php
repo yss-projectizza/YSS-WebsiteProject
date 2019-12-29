@@ -72,7 +72,7 @@ session_start();
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text">Actively Improving Myself:<b style = "color: red;">*</b></span>
+                    <span class="input-group-text">Commitment to Improving Myself:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" name="improvement" id="improvement">
                             <option>Very High</option>
                             <option>High</option>
@@ -85,7 +85,7 @@ session_start();
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                    <span class="input-group-text">Actively Involved In Making My Community Better:<b style = "color: red;">*</b></span>
+                    <span class="input-group-text">Commitment to Making My Community Better:<b style = "color: red;">*</b></span>
                         <select class="form-control form-control-md" id="community">
                             <option>Very High</option>
                             <option>High</option>
